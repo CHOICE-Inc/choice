@@ -23,11 +23,11 @@ Link to software that is required to install the app (e.g. node).
 
 - [Node.js](https://nodejs.org/en/)
 - [AngularJS](https://angularjs.org/)
-- [PostgreSQL]
+- [PostgreSQL] (https://www.postgresql.org/)
 - [Express](http://expressjs.com/)
 - [Angular Material](https://material.angularjs.org/latest/)
 - [Angular-xeditable](https://vitalets.github.io/angular-xeditable/)
-- [SweetAlert2]
+- [SweetAlert2] (https://limonte.github.io/sweetalert2/)
 
 
 ### Installing
