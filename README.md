@@ -1,10 +1,17 @@
-# Name of Project
+# Goal Tracker CI
 
-One Paragraph of project description goes here. Link to the live version of the app if it's hosted on Heroku.
+Goal Tracker CI is a full-stack web application that will allow the staff at Choice’s three locations to track the personal and professional goals of the participants in their day program services, while also providing data on goal completion over a set period of time. At the basic staff level, users will be able to enter morning and afternoon goal completion, view previous days’ entries, and mark a participant absent. Case managers will also be able to create and edit personalized goals for participants and review summary data for three month and six month periods in order to write reports. Location administrators will be able to manage staff, including add and delete staff accounts; manage participants, including adding and removing participants and assigning case managers; and managing job site information.
+
 
 ## Built With
 
-List technologies and frameworks here
+- SEAN Stack: PostgreSQL, Express, AngularJS, Node.js
+- Angular Material for styling
+- Angular-xeditable for in-line editing
+- Passport for user authentication
+- SweetAlert2 for user notifications and modals
+- Google Font and Font Awesome for text and icon styling
+- Trello for project management
 
 ## Getting Started
 
@@ -15,7 +22,12 @@ These instructions will get you a copy of the project up and running on your loc
 Link to software that is required to install the app (e.g. node).
 
 - [Node.js](https://nodejs.org/en/)
-- List other prerequisites here
+- [AngularJS](https://angularjs.org/)
+- [PostgreSQL]
+- [Express](http://expressjs.com/)
+- [Angular Material](https://material.angularjs.org/latest/)
+- [Angular-xeditable](https://vitalets.github.io/angular-xeditable/)
+- [SweetAlert2]
 
 
 ### Installing
@@ -57,7 +69,7 @@ Add additional notes about how to deploy this on a live system
 
 ## Authors
 
-* Name of author(s)
+* Amanda Kirchner, Chase Whitney, Nicole Martin, Ted Cross
 
 
 ## Acknowledgments
