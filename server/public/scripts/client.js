@@ -22,7 +22,7 @@ myApp.config(function($routeProvider, $locationProvider) {
         }
       }
     }).when('/goal', {
-      templateUrl: '/views/templates/goal.html',
+      templateUrl: '/views/templates/criteria.html',
       controller: 'CriteriaController as cc',
       resolve: {
         getuser : function(UserService){
@@ -30,7 +30,7 @@ myApp.config(function($routeProvider, $locationProvider) {
         }
       }
     }).when('/tracker', {
-      templateUrl: '/views/templates/tracker.html',
+      templateUrl: '/views/templates/tracking.html',
       controller: 'TrackingController as tc',
       resolve: {
         getuser : function(UserService){
@@ -39,7 +39,7 @@ myApp.config(function($routeProvider, $locationProvider) {
       }
     }).when('/staff', {
       templateUrl: '/views/templates/staff.html',
-      controller: 'StaffController as sc',
+      controller: 'StaffController as stc',
       resolve: {
         getuser : function(UserService){
           return UserService.getuser();
