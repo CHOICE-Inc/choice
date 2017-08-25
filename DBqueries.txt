@@ -3,8 +3,16 @@ create database choice_db;
 
 --make sure your on the choice_db database before creating tables
 
+--login authenticated and roles of the user
+CREATE TABLE "users" (
+  "id" serial primary key,
+  "username" varchar(80) not null UNIQUE,
+  "password" varchar(240) not null,
+	"staff_id" integer not null references staff(id),
+	"role" integer not null
+);
 
---create tables with foreign keys
+--create tables with foreign keys (for linking tables)
 
 --Staff of the employees. Also if exists validated registration.
 create table "staff"(
@@ -12,16 +20,6 @@ create table "staff"(
 	name varchar(50) not null,
 	location varchar(20) not null,
 	email varchar(50) not null
-);
-
---login authenticated and roles of the user
-create table "login"(
-	id serial primary key,
-	staff_id integer not null references staff(id),
-	username varchar(20) not null,
-	password varchar(50) not null,
-	role integer not null
-
 );
 
 --name of clients assigned to a staff member
