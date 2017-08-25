@@ -34,6 +34,10 @@ app.use(passport.session());
 // Routes
 app.use('/register', registerRouter);
 app.use('/user', userRouter);
+app.use('/goal', goalCriteriaRouter);
+app.use('/tracker', goalTrackingRouter);
+app.use('/staff', staffRouter);
+app.use('/jobsites', jobSitesRouter);
 
 // Catch all bucket, must be last!
 app.use('/', indexRouter);
