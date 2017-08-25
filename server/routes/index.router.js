@@ -7,7 +7,7 @@ var path = require('path');
 router.post('/',
     passport.authenticate('local', { // local strategy - userStrategy.js
         // request stays within node/express and is routed as a new request
-        successRedirect: '/summary'   // goes to routes/user.js
+        successRedirect: '/user'   // goes to routes/user.js
     })
 );
 
