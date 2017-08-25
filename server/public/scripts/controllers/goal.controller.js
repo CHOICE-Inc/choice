@@ -1,4 +1,4 @@
-myApp.controller('CriteriaController', function(UserService) {
+myApp.controller('GoalController', function(UserService) {
   console.log('UserController created');
   var vm = this;
   vm.userService = UserService;
