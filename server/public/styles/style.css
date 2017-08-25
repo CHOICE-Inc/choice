@@ -6,6 +6,10 @@ body, html {
 }
 
 a {
+  color: lightBlue;
+}
+
+.loginScreen a {
   color: #F3E3FF;
 }
 
@@ -17,16 +21,16 @@ a {
 
 .loginBox {
   color: white;
-  padding-left: 50px;
-  padding-top: 50px;
 }
 
 .choiceLogo {
   width: 100px;
+  height: 100px;
 }
 
 .title {
   font-size: 3.0em;
+  font-family: serif;
   color: #333;
   padding-left: 20px;
   text-align: center;
@@ -36,7 +40,9 @@ a {
   margin: 5px;
 }
 
-
+.nav-toolbar {
+  color: #fff;
+}
 
 
 /* BASE STYLING FROM THE PROJECT TEMPLATE */
