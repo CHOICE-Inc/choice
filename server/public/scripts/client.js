@@ -13,24 +13,48 @@ myApp.config(function($routeProvider, $locationProvider) {
       templateUrl: '/views/templates/register.html',
       controller: 'LoginController as lc'
     })
-    .when('/user', {
-      templateUrl: '/views/templates/user.html',
-      controller: 'UserController as uc',
+    .when('/summary', {
+      templateUrl: '/views/templates/summary.html',
+      controller: 'SummaryController as sc',
+      resolve: {
+        getuser : function(UserService){
+          return UserService.getuser();
+        }
+      }
+    }).when('/goal', {
+      templateUrl: '/views/templates/goal.html',
+      controller: 'CriteriaController as cc',
+      resolve: {
+        getuser : function(UserService){
+          return UserService.getuser();
+        }
+      }
+    }).when('/tracker', {
+      templateUrl: '/views/templates/tracker.html',
+      controller: 'TrackingController as tc',
+      resolve: {
+        getuser : function(UserService){
+          return UserService.getuser();
+        }
+      }
+    }).when('/staff', {
+      templateUrl: '/views/templates/staff.html',
+      controller: 'StaffController as sc',
+      resolve: {
+        getuser : function(UserService){
+          return UserService.getuser();
+        }
+      }
+    }).when('/jobSites', {
+      templateUrl: '/views/templates/jobSites.html',
+      controller: 'JobSitesController as jc',
       resolve: {
         getuser : function(UserService){
           return UserService.getuser();
         }
       }
     })
-    .when('/info', {
-      templateUrl: '/views/templates/info.html',
-      controller: 'InfoController',
-      resolve: {
-        getuser : function(UserService){
-          return UserService.getuser();
-        }
-      }
-    })
+
     .otherwise({
       redirectTo: 'home'
     });
