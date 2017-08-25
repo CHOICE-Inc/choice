@@ -10,7 +10,7 @@ var indexRouter = require('./routes/index.router');
 var userRouter = require('./routes/user.router');
 var registerRouter = require('./routes/register.router');
 var goalCriteriaRouter = require('./routes/criteria.router');
-var goalTrackingRouter = require('./routes/goalTracking.router');
+var goalTrackingRouter = require('./routes/tracking.router');
 var jobSitesRouter = require('./routes/jobSites.router');
 var staffRouter = require('./routes/staff.router');
 var summaryRouter = require('./routes/summary.router');
@@ -38,6 +38,7 @@ app.use('/goal', goalCriteriaRouter);
 app.use('/tracker', goalTrackingRouter);
 app.use('/staff', staffRouter);
 app.use('/jobsites', jobSitesRouter);
+app.use('/summary', summaryRouter);
 
 // Catch all bucket, must be last!
 app.use('/', indexRouter);
