@@ -37,7 +37,7 @@ router.get('/getGoals/:id', function(req, res) {
       next(err);
     }
     //join goal, client, staff, job, job_site to find all goal date
-    client.query("select client.client_name, staff.name as CaseManager, goal.implementation_date, goal.objective, goal.service_outcome as goalname, job_site.business_name from goal join client on goal.client_id = client.id join staff on staff.id = client.staff_id join job on job.goal_id = goal.id join job_site on job_site.id = job.jobsite_id where client.id = " + req.params.id + ";",
+    client.query("select client.client_name, staff.staff_name as CaseManager, goal.implementation_date, goal.objective, goal.service_outcome as goalname, job_site.business_name from goal join client on goal.client_id = client.id join staff on staff.id = client.staff_id join job on job.goal_id = goal.id join job_site on job_site.id = job.jobsite_id where client.id = " + req.params.id,
         function (err, result) {
           client.end();
           done();
