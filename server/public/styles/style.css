@@ -1,3 +1,4 @@
+/* OVERALL STYLING */
 body, html {
   margin: 0;
   padding: 0;
@@ -5,13 +6,61 @@ body, html {
   font-size: 14px;
 }
 
+a {
+  color: lightBlue;
+}
+
+/* INSERT YOUR STYLING HERE */
+
+
+
+
+
+
+/* LOGIN SCREEN & NAVBAR STYLING */
+.loginScreen a {
+  color: #F3E3FF;
+}
+
+.loginScreen {
+  background-image: url("https://images.unsplash.com/photo-1490272951680-512033991007?dpr=2&auto=format&fit=crop&w=1199&h=799&q=80&cs=tinysrgb&crop=");
+  background-size: cover;
+  height: 700px;
+}
+
+.loginBox {
+  color: white;
+}
+
+.choiceLogo {
+  width: 100px;
+  height: 100px;
+}
+
+.title {
+  font-size: 3.0em;
+  font-family: serif;
+  color: #333;
+  padding-left: 20px;
+  text-align: center;
+}
+
+.loginForm input {
+  margin: 5px;
+}
+
+.nav-toolbar {
+  color: #fff;
+}
+
+/* BASE STYLING FROM THE PROJECT TEMPLATE */
 .instructions .container h1 {
   font-size: 32px;
   font-weight: 600;
 }
 
 .instructions {
-  background-color: #333333;
+  background-color: #fff;
   color: #DDDDDD;
   padding: 15px;
 }
