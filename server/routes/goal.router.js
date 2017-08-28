@@ -25,6 +25,7 @@ router.post('/', function(req, res){
       var modifications = req.body.modifications;
       var equipment = req.body.equipment;
       var when_notes = req.body.when_notes;
+      var plan_steps = req.body.plan_steps;
 
       //BUILD DB QUERY STRING & DATA VALUE ARRAY
       var dbQueryString = 'INSERT INTO goal (client_id, jobsite_id, implementation_date, review_dates, completion_date, ' +

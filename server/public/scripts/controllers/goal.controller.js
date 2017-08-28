@@ -56,6 +56,13 @@ vm.saveCriteria = function(implementation_date, review_dates, completion_date,
     goal.when_notes = when_notes;
     goal.plan_steps = plan_steps;
     console.log("goal: ", goal);
+
+    $http.post('/goal', goal).then(function(response) {
+      console.log('sending goal data to db: ');
+      if (response) {
+        console.log('server sent something back: ', response);
+      }
+    });
 };
 
 // GET SINGLE CRITERIA FROM THE DB BASED ON GOAL_ID
