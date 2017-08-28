@@ -66,7 +66,7 @@ CREATE TABLE "goal" (
 	"jobsite_id" integer not null references job_site(id),
 	"implementation_date" date not null,
 	"review_dates" varchar(50) null,
-	"completion_date" varchar(20) not null,
+	"completion_date" date null,
 	"service_outcome" varchar(100) not null,
 	"objective" varchar(500) not null,
 	"behavior_technique" varchar(500) not null,

@@ -4,7 +4,7 @@ var router = express.Router();
 /* -------------- POST ROUTES ---------------------- */
 
 // ADD NEW GOAL TO DATABASE
-route.post('/', function(req, res){
+router.post('/', function(req, res){
   console.log('In post route for goal criteria: ', req.body);
 
   pool.connect(function(errConnectingToDatabase, db, done){
@@ -54,8 +54,8 @@ route.post('/', function(req, res){
 /* -------------- GET ROUTES ---------------------- */
 
 // RETIEVE CLIENT NAMES AND IDs fROM DB TO POPULATE PULLDOWN MENU / AUTOCOMPLETE
-route.get('/clients', function(req, res){
-  console.log('In get route for client names. ');
+router.get('/clients', function(req, res){
+  console.log('In get route for client names.');
 
   pool.connect(function(errConnectingToDatabase, db, done){
     if(errConnectingToDatabase) {
@@ -82,7 +82,7 @@ route.get('/clients', function(req, res){
 
 
 // RETIEVE JOB SITES AND IDs fROM DB TO POPULATE PULLDOWN MENU / AUTOCOMPLETE
-route.get('/jobsites', function(req, res){
+router.get('/jobsites', function(req, res){
   console.log('In get route for job sites: ');
 
   pool.connect(function(errConnectingToDatabase, db, done){
@@ -111,7 +111,7 @@ route.get('/jobsites', function(req, res){
 
 // GET ROUTE TO RETRIVE GOAL CRITERIA DATA FROM DB
 // NEED GOAL ID TO ACCESS CORRECT GOAL
-route.get('/:id', function(req, res){
+router.get('/:id', function(req, res){
   console.log('In get route for client\'s goal criteria: ', req.params.id);
 
   pool.connect(function(errConnectingToDatabase, db, done){
@@ -142,7 +142,7 @@ route.get('/:id', function(req, res){
 
 // UPDATE ROUTE AFTER USER EDIT
 // NEED GOAL ID TO ACCESS CORRECT GOAL
-route.put('/:id', function(req, res){
+router.put('/:id', function(req, res){
   console.log('In put route for client\'s goal to disable goal: ', req.params.id);
   console.log('Going to put this updated data: ', req.body);
 
@@ -198,7 +198,7 @@ route.put('/:id', function(req, res){
 
 // UPDATE ROUTE TO DISABLE GOAL IN DB (INSTEAD OF DELETING THE GOAL, NEED RECORD-KEEPING)
 // NEED GOAL ID TO ACCESS CORRECT GOAL
-route.put('/:id', function(req, res){
+router.put('/:id', function(req, res){
   console.log('In put route for client\'s goal to disable goal: ', req.params.id);
 
   pool.connect(function(errConnectingToDatabase, db, done){
