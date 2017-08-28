@@ -73,7 +73,8 @@ CREATE TABLE "goal" (
 	"behavior_technique" varchar(500) not null,
 	"modifications" varchar(500) not null,
 	"equipment" varchar(150) not null,
-	"when_notes" varchar(500) not null
+	"when_notes" varchar(500) not null,
+	"goal_status" boolean DEFAULT TRUE
 );
 
 
