@@ -17,7 +17,7 @@ var router = express.Router();
   when_notes: when_notes
 }; */
 
-
+/*
 // POST ROUTE TO ADD NEW GOAL TO DB
 route.post('/', function(req, res){
   console.log('In post route for goal criteria: ', req.body);
@@ -184,7 +184,7 @@ route.get('/:id', function(req, res){
 }); // end of route
 
 
-
+*/
 
 
 

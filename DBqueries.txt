@@ -69,7 +69,7 @@ CREATE TABLE "goal" (
 	"completion_date" varchar(20) not null,
 	"service_outcome" varchar(100) not null,
 	"objective" varchar(500) not null,
-	"implemented_by" integer not null references staff(id),
+	"implemented_by" varchar(500) not null,
 	"behavior_technique" varchar(500) not null,
 	"modifications" varchar(500) not null,
 	"equipment" varchar(150) not null,
