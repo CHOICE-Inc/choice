@@ -1,11 +1,47 @@
-<div class="navbar">
-  <div class="container">
-    <ul>
-      <li><a href="#/user">User Home</a></li>
-      <li><a href="#/goal">Manage Goals</a></li>
-      <li><a href="#/tracking">Goal Tracker</a></li>
-      <li><a href="#/staff">Manage Staff</a></li>
-      <li><a href="#/jobSites">Manage Jobsites</a></li>
-    </ul>
-  </div>
+<div ng-controller="NavController as nc" ng-cloak>
+  <md-toolbar class="nav-toolbar">
+    <div layout="row">
+        <md-menu-bar>
+
+          <md-menu>
+            <md-button ng-click="$mdMenu.open()">
+              <a href="#/summary">User Home</a>
+            </md-button>
+          </md-menu>
+
+            <md-menu>
+              <md-button ng-click="$mdMenu.open()"> Manage goals </md-button>
+
+              <md-menu-content>
+                <md-menu-item>
+                  <md-button> <a href="#/goal">Create New Goal</a></md-button>
+                </md-menu-item>
+
+                <md-menu-item>
+                  <md-menu>
+                    <md-button ng-click="$mdMenu.open()">Edit Existing Goal</md-button>
+                    <md-menu-content>
+                      <md-menu-item class="md-indent"><md-button ng-click="nc.userService.openGoal('Goal 1', $event)"><a href="#/goal">Goal 1</a></md-button></md-menu-item>
+                      <md-menu-item class="md-indent"><md-button ng-click="nc.userService.openGoal('Goal 2', $event)"><a href="#/goal">Goal 2</a></md-button></md-menu-item>
+                      <md-menu-item class="md-indent"><md-button ng-click="nc.userService.openGoal('Goal 3', $event)"><a href="#/goal">Goal 3</a></md-button></md-menu-item>
+                    </md-menu-content>
+                  </md-menu>
+                </md-menu-item>
+              </md-menu-content>
+
+            </md-menu>
+            <md-button ng-click="$mdMenu.open()">
+              <a href="#/tracking">Goal Tracker</a>
+            </md-button>
+            <md-button ng-click="$mdMenu.open()">
+              <a href="#/staff">Manage Staff</a>
+            </md-button>
+            <md-button ng-click="$mdMenu.open()">
+              <a href="#/jobSites">Manage Jobsites</a>
+            </md-button>
+          </md-menu>
+
+        </md-menu-bar>
+    </div>
+  </md-toolbar>
 </div>

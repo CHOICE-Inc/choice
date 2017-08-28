@@ -1,4 +1,4 @@
-myApp.factory('UserService', function($http, $location){
+myApp.factory('UserService', function($http, $location, $mdDialog){
   console.log('UserService Loaded');
 
   var userObject = {};
@@ -30,6 +30,34 @@ myApp.factory('UserService', function($http, $location){
         console.log('UserService -- logout -- logged out');
         $location.path("/home");
       });
+    },
+
+    //OPEN MENU FUNCTIONALITY NEEDED FOR NAV BAR
+    openMenu : function($mdMenu, ev) {
+      originatorEv = ev;
+      $mdMenu.open(ev);
+    },
+
+    //Open Goal in Goal.html for editing
+    openGoal : function(goal, $event) {
+      console.log("Going to open ", goal, " for editing.");
+    },
+
+    //Show "Recipe Saved" Notification
+    showSaveNotification : function(ev, type){
+      var alert = $mdDialog.alert()
+            .parent(angular.element(document.querySelector('#popupContainer')))
+            .clickOutsideToClose(false)
+            .title(type + ' saved!')
+            .textContent('You have saved some data.')
+            .ok('Got it!')
+            .targetEvent(ev);
+
+      $mdDialog.show(alert).then(function(){
+          $location.path('/summary');
+        });
     }
-  };
-});
+
+
+  }; //end of return
+}); //end of factory
