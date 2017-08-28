@@ -66,7 +66,7 @@ router.get('/clients', function(req, res){
       //BUILD DB QUERY STRING
 
       // MAKE DB QUERY
-      db.query('SELECT (id, name) FROM client', function(errMakingQuery, result){
+      db.query('SELECT id, name FROM client', function(errMakingQuery, result){
         done();
         if(errMakingQuery){
           console.log('There was an error making INSERT query: ', errMakingQuery);
@@ -94,7 +94,7 @@ router.get('/jobsites', function(req, res){
       //BUILD DB QUERY STRING
 
       // MAKE DB QUERY
-      db.query('SELECT (id, business_name) FROM job_site', function(errMakingQuery, result){
+      db.query('SELECT id, business_name FROM job_site', function(errMakingQuery, result){
         done();
         if(errMakingQuery){
           console.log('There was an error making INSERT query: ', errMakingQuery);
