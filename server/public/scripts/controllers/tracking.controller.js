@@ -3,7 +3,7 @@ myApp.controller('TrackingController', function(UserService, $http) {
   var vm = this;
   vm.userService = UserService;
   vm.userObject = UserService.userObject;
-
+//ted stuff
 getClients();
 
 function getClients(){
@@ -11,5 +11,6 @@ function getClients(){
     console.log(response.data);
   });
 }
+//end ted stuff
 
 });
