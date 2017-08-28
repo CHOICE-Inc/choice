@@ -24,29 +24,29 @@
     <div layout="column" flex="50">
       <md-input-container>
             <label>CLIENT NAME:</label>
-            <input ng-model="user.company">
+            <input ng-model="gc.clientName">
           </md-input-container>
           <md-input-container>
             <label>CHOICE Representative:</label>
-            <input ng-model="user.company">
+            <input ng-model="gc.caseManager">
           </md-input-container>
           <md-input-container>
             <label>Job Site:</label>
-            <input ng-model="user.company">
+            <input ng-model="gc.jobSite">
           </md-input-container>
     </div>
     <div layout="column" flex="50">
       <md-input-container>
         <label>IMPLEMENTATION DATE:</label>
-        <input ng-model="user.company">
+        <input ng-model="gc.implementation_date">
       </md-input-container>
       <md-input-container>
         <label>REVIEW DATE:</label>
-        <input ng-model="user.company">
+        <input ng-model="gc.review_dates">
       </md-input-container>
       <md-input-container>
         <label>COMPLETION DATE:</label>
-        <input ng-model="user.company">
+        <input ng-model="gc.completion_date">
       </md-input-container>
     </div>
   </div> <!-- End of Row for Client Info/Dates Box -->
@@ -56,7 +56,7 @@
     <div layout="column" flex>
       <md-input-container class="md-block">
         <label>SERVICE OUTCOME:</label>
-        <textarea form="goalForm" rows="3" md-maxlength="500" ng-model="user.company"></textarea>
+        <textarea form="goalForm" rows="3" md-maxlength="500" ng-model="gc.service_outcome"></textarea>
       </md-input-container>
     </div>
   </div> <!-- end of Row for Service Outcome -->
@@ -66,7 +66,7 @@
     <div layout="column" flex>
       <md-input-container>
         <label>OBJECTIVE:</label>
-        <textarea form="goalForm" rows="10" md-maxlength="500" ng-model="user.company"></textarea>
+        <textarea form="goalForm" rows="10" md-maxlength="500" ng-model="gc.objective"></textarea>
       </md-input-container>
     </div>
   </div> <!-- End of Row for Objective -->
@@ -81,11 +81,11 @@
     <div layout="column" flex>
       <md-input-container>
         <label>Where will the plan be run:</label>
-        <textarea form="goalForm" rows="5" md-maxlength="500" ng-model="user.company"></textarea>
+        <textarea form="goalForm" rows="5" md-maxlength="500" ng-model="gc.jobSite_details"></textarea>
       </md-input-container>
       <md-input-container>
         <label>When will the plan be run:</label>
-        <textarea form="goalForm" rows="5" md-maxlength="500" ng-model="user.company"></textarea>
+        <textarea form="goalForm" rows="5" md-maxlength="500" ng-model="gc.when_notes"></textarea>
       </md-input-container>
     </div>
   </div> <!-- End of Row for Method - Where/When -->
@@ -102,7 +102,7 @@
     <div layout="column" flex>
       <md-input-container>
         <label>What equipment and materials will be needed:</label>
-        <textarea  form="goalForm" rows="5" md-maxlength="500" ng-model="user.company"></textarea>
+        <textarea  form="goalForm" rows="5" md-maxlength="500" ng-model="gc.equipment"></textarea>
       </md-input-container>
     </div>
   </div><!-- End of Row for Method - Equipment and materials used -->
@@ -112,7 +112,7 @@
     <div layout="column" flex>
       <md-input-container>
         <label>What behavior techniques will be used, consistent with communication mode and learning style:</label>
-        <textarea form="goalForm" rows="5" md-maxlength="500" ng-model="user.company"></textarea>
+        <textarea form="goalForm" rows="5" md-maxlength="500" ng-model="gc.behavior_technique"></textarea>
       </md-input-container>
     </div>
   </div><!-- End of Row for Method - behavior techniques -->
@@ -122,7 +122,7 @@
     <div layout="column" flex>
       <md-input-container>
         <label>Changes or modifications necessary to the physical and social environments:</label>
-        <textarea form="goalForm" rows="5" md-maxlength="500" ng-model="user.company"></textarea>
+        <textarea form="goalForm" rows="5" md-maxlength="500" ng-model="gc.modification"></textarea>
       </md-input-container>
     </div>
   </div><!-- End of Row for Method - changes to environments -->
@@ -136,7 +136,7 @@
   <div layout="row">
     <div layout="column" flex>
       <md-input-container>
-        <textarea form="goalForm" rows="5" md-maxlength="500" ng-model="user.company" placeholder="1. This is step one 2. Step 2 3. Step 3"></textarea>
+        <textarea form="goalForm" rows="5" md-maxlength="500" ng-model="gc.plan_steps" placeholder="1. This is step one 2. Step 2 3. Step 3"></textarea>
 
       </md-input-container>
     </div>
