@@ -56,7 +56,7 @@ router.post('/', function(req, res){
 
 // RETIEVE CLIENT NAMES AND IDs fROM DB TO POPULATE PULLDOWN MENU / AUTOCOMPLETE
 router.get('/clients', function(req, res){
-  console.log('In get route for client names. ');
+  console.log('In get route for client names.');
 
   pool.connect(function(errConnectingToDatabase, db, done){
     if(errConnectingToDatabase) {
@@ -66,7 +66,7 @@ router.get('/clients', function(req, res){
       //BUILD DB QUERY STRING
 
       // MAKE DB QUERY
-      db.query('SELECT id, name FROM client', function(errMakingQuery, result){
+      db.query('SELECT (id, name) FROM client', function(errMakingQuery, result){
         done();
         if(errMakingQuery){
           console.log('There was an error making INSERT query: ', errMakingQuery);
@@ -94,7 +94,7 @@ router.get('/jobsites', function(req, res){
       //BUILD DB QUERY STRING
 
       // MAKE DB QUERY
-      db.query('SELECT id, business_name FROM job_site', function(errMakingQuery, result){
+      db.query('SELECT (id, business_name) FROM job_site', function(errMakingQuery, result){
         done();
         if(errMakingQuery){
           console.log('There was an error making INSERT query: ', errMakingQuery);
@@ -137,6 +137,7 @@ router.get('/:id', function(req, res){
     } //end of DB connect if-else
   }); //end of pool.connect
 }); // end of route
+
 
 /* -------------- PUT ROUTES ---------------------- */
 
@@ -223,6 +224,7 @@ router.put('/:id', function(req, res){
     } //end of DB connect if-else
   }); //end of pool.connect
 }); // end of route
+
 
 
 module.exports = router;
