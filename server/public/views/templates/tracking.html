@@ -7,3 +7,56 @@
 //The right side may also show the singleGoalSummary.html (w/ summary data table) for a goal-->
 
 GOAL TRACKING PAGE
+<div style="margin-left:auto;margin-right:auto" layout="column" flex="90" class="container">
+
+
+  <div layout="row">
+    <div style="background-color:skyblue;min-height:1000px;border-right:2px solid black" layout="column" flex="20">
+      <div style="font-size:24px;text-align:center">
+        Client List
+      </div>
+
+      <md-input-container>
+        <label>Filter</label>
+        <md-select placeholder="Show All" ng-model="option">
+
+          <md-option ng-repeat="filter in tc.filters" ng-value="filter">
+            {{filter}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+      <button type="button" name="button" ng-click="tc.filterClients(option)">Filter</button>
+
+
+
+
+      <div>
+        <ul>
+          <li ng-repeat="client in tc.clientList" ng-click="tc.showClientGoals(client)"><p>{{client.client_name}}</p></li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="background-color:skyblue;min-height:1000px" layout="column" flex="80">
+
+      <p>Client Name: {{tc.clientToView.client_name}}</p>
+      <p>Case Manager: {{tc.clientToView.staff_name}}</p>
+
+      <div style="width:90%;background-color:yellow;margin-left:auto,margin-right:auto">
+        <div style="background-color:orange;text-align:center;font-size:32px">
+          GOAL TITLE
+        </div>
+        <div style="text-align:right;background-color:gray;" layout-align="end">
+          <md-button type="button" name="button">Goal Criteria</md-button>
+          <md-button type="button" name="button">Goal History</md-button>
+        </div>
+      </div>
+
+
+
+
+
+
+    </div>
+  </div>
+</div>
