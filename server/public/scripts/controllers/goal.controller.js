@@ -1,4 +1,4 @@
-myApp.controller('GoalController', function(UserService, $http) {
+myApp.controller('GoalController', function(UserService) {
   console.log('UserController created');
   var vm = this;
   vm.userService = UserService;
@@ -73,6 +73,7 @@ vm.saveCriteria = function(implementation_date, review_dates, completion_date,
     goal.plan_steps = plan_steps;
     console.log("goal: ", goal);
 };
+
 // GET SINGLE CRITERIA FROM THE DB BASED ON GOAL_ID
 
 
