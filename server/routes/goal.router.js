@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
+var pool = require('../modules/pool.js');
 
 /* -------------- POST ROUTES ---------------------- */
 
 // ADD NEW GOAL TO DATABASE
-route.post('/', function(req, res){
+router.post('/', function(req, res){
   console.log('In post route for goal criteria: ', req.body);
 
   pool.connect(function(errConnectingToDatabase, db, done){
@@ -54,7 +55,7 @@ route.post('/', function(req, res){
 /* -------------- GET ROUTES ---------------------- */
 
 // RETIEVE CLIENT NAMES AND IDs fROM DB TO POPULATE PULLDOWN MENU / AUTOCOMPLETE
-route.get('/clients', function(req, res){
+router.get('/clients', function(req, res){
   console.log('In get route for client names. ');
 
   pool.connect(function(errConnectingToDatabase, db, done){
@@ -65,7 +66,7 @@ route.get('/clients', function(req, res){
       //BUILD DB QUERY STRING
 
       // MAKE DB QUERY
-      db.query('SELECT (id, name) FROM client', function(errMakingQuery, result){
+      db.query('SELECT id, name FROM client', function(errMakingQuery, result){
         done();
         if(errMakingQuery){
           console.log('There was an error making INSERT query: ', errMakingQuery);
@@ -82,7 +83,7 @@ route.get('/clients', function(req, res){
 
 
 // RETIEVE JOB SITES AND IDs fROM DB TO POPULATE PULLDOWN MENU / AUTOCOMPLETE
-route.get('/jobsites', function(req, res){
+router.get('/jobsites', function(req, res){
   console.log('In get route for job sites: ');
 
   pool.connect(function(errConnectingToDatabase, db, done){
@@ -93,7 +94,7 @@ route.get('/jobsites', function(req, res){
       //BUILD DB QUERY STRING
 
       // MAKE DB QUERY
-      db.query('SELECT (id, business_name) FROM job_site', function(errMakingQuery, result){
+      db.query('SELECT id, business_name FROM job_site', function(errMakingQuery, result){
         done();
         if(errMakingQuery){
           console.log('There was an error making INSERT query: ', errMakingQuery);
@@ -111,7 +112,7 @@ route.get('/jobsites', function(req, res){
 
 // GET ROUTE TO RETRIVE GOAL CRITERIA DATA FROM DB
 // NEED GOAL ID TO ACCESS CORRECT GOAL
-route.get('/:id', function(req, res){
+router.get('/:id', function(req, res){
   console.log('In get route for client\'s goal criteria: ', req.params.id);
 
   pool.connect(function(errConnectingToDatabase, db, done){
@@ -137,12 +138,11 @@ route.get('/:id', function(req, res){
   }); //end of pool.connect
 }); // end of route
 
-
 /* -------------- PUT ROUTES ---------------------- */
 
 // UPDATE ROUTE AFTER USER EDIT
 // NEED GOAL ID TO ACCESS CORRECT GOAL
-route.put('/:id', function(req, res){
+router.put('/:id', function(req, res){
   console.log('In put route for client\'s goal to disable goal: ', req.params.id);
   console.log('Going to put this updated data: ', req.body);
 
@@ -198,7 +198,7 @@ route.put('/:id', function(req, res){
 
 // UPDATE ROUTE TO DISABLE GOAL IN DB (INSTEAD OF DELETING THE GOAL, NEED RECORD-KEEPING)
 // NEED GOAL ID TO ACCESS CORRECT GOAL
-route.put('/:id', function(req, res){
+router.put('/:id', function(req, res){
   console.log('In put route for client\'s goal to disable goal: ', req.params.id);
 
   pool.connect(function(errConnectingToDatabase, db, done){
@@ -223,7 +223,6 @@ route.put('/:id', function(req, res){
     } //end of DB connect if-else
   }); //end of pool.connect
 }); // end of route
-
 
 
 module.exports = router;

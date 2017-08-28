@@ -12,7 +12,8 @@
     </div>
     <div layout="column" layout-align="center center" flex="40">
       <div layout="row">
-      <md-button type="button" name="saveBtn">Save</md-button>
+      <md-button type="button" name="saveBtn" ng-click="gc.saveCriteria(gc.implementation_date, gc.review_dates, gc.completion_date,
+        gc.service_outcome, gc.objective, gc.behavior_technique, gc.modifications, gc.equipment, gc.when_notes, gc.plan_steps)">Save</md-button>
       <md-button type="button" name="editBtn">Edit</md-button>
       <md-button type="button" name="disableBtn">Disable</md-button>
       </div>
@@ -24,7 +25,9 @@
     <div layout="column" flex="50">
       <md-input-container>
             <label>CLIENT NAME:</label>
-            <input ng-model="gc.clientName">
+            <md-select ng-model="gc.clientName">
+              <md-option ng-repeat="clientName in gc.clientData" value="{{clientName.name}}" ng-click="gc.assignClientID(clientName.id)">{{clientName.name}}</md-option>
+            </md-select>
           </md-input-container>
           <md-input-container>
             <label>CHOICE Representative:</label>
@@ -32,13 +35,15 @@
           </md-input-container>
           <md-input-container>
             <label>Job Site:</label>
-            <input ng-model="gc.jobSite">
+            <md-select ng-model="gc.jobSite">
+              <md-option ng-repeat="jobsite in gc.jobSiteData" value="{{jobsite.business_name}}" ng-click="gc.assignJobsiteId(jobsite.id)">{{jobsite.business_name}}</md-option>
+            </md-select>
           </md-input-container>
     </div>
     <div layout="column" flex="50">
       <md-input-container>
         <label>IMPLEMENTATION DATE:</label>
-        <input ng-model="gc.implementation_date">
+        <md-datepicker ng-model="gc.implementation_date" md-placeholder="Enter Date"></md-datepicker>
       </md-input-container>
       <md-input-container>
         <label>REVIEW DATE:</label>
@@ -46,7 +51,7 @@
       </md-input-container>
       <md-input-container>
         <label>COMPLETION DATE:</label>
-        <input ng-model="gc.completion_date">
+        <md-datepicker ng-model="gc.completion_date" md-placeholder="Enter Date"></md-datepicker>
       </md-input-container>
     </div>
   </div> <!-- End of Row for Client Info/Dates Box -->
@@ -122,7 +127,7 @@
     <div layout="column" flex>
       <md-input-container>
         <label>Changes or modifications necessary to the physical and social environments:</label>
-        <textarea form="goalForm" rows="5" md-maxlength="500" ng-model="gc.modification"></textarea>
+        <textarea form="goalForm" rows="5" md-maxlength="500" ng-model="gc.modifications"></textarea>
       </md-input-container>
     </div>
   </div><!-- End of Row for Method - changes to environments -->
