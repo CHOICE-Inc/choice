@@ -40,11 +40,10 @@ vm.assignJobsiteId = function (id){
 };
 
 // POST NEW CRITERIA TO THE DB
-
-// RETRIVE GOAL CRITERIA DATA FROM DOM
 vm.saveCriteria = function(implementation_date, review_dates, completion_date,
   service_outcome, objective, behavior_technique, modifications, equipment,
   when_notes, plan_steps) {
+    // RETRIVE GOAL CRITERIA DATA FROM DOM
     goal.implementation_date = implementation_date;
     goal.review_dates = review_dates;
     goal.completion_date = completion_date;
