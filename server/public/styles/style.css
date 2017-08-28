@@ -1,3 +1,4 @@
+/* OVERALL STYLING */
 body, html {
   margin: 0;
   padding: 0;
@@ -9,6 +10,14 @@ a {
   color: lightBlue;
 }
 
+/* INSERT YOUR STYLING HERE */
+
+
+
+
+
+
+/* LOGIN SCREEN & NAVBAR STYLING */
 .loginScreen a {
   color: #F3E3FF;
 }
@@ -43,7 +52,6 @@ a {
 .nav-toolbar {
   color: #fff;
 }
-
 
 /* BASE STYLING FROM THE PROJECT TEMPLATE */
 .instructions .container h1 {
