@@ -55,9 +55,9 @@ router.get('/getClients', function(req, res) {
   });
 });
 
-router.get('/getGoals', function(req, res) {
+router.get('/getGoals/:id', function(req, res) {
   console.log('in server getting dem goals');
-  console.log('all goals from this id ', req.body.id);
+  console.log('all goals from this id ', req.params.id);
 
   pool.connect(function(err, client, done) {
     if(err) {
@@ -65,7 +65,7 @@ router.get('/getGoals', function(req, res) {
       next(err);
     }
     //join goal, client, staff, job, job_site to find all goal date
-    client.query("select client.name, staff.name as CaseManager, goal.implementation_date, goal.objective, goal.service_outcome as goalname, job_site.business_name from goal join client on goal.client_id = client.id join staff on staff.id = client.staff_id join job on job.goal_id = goal.id join job_site on job_site.id = job.jobsite_id where client.id = " + req.body.id + ";",
+    client.query("select client.name, staff.name as CaseManager, goal.implementation_date, goal.objective, goal.service_outcome as goalname, job_site.business_name from goal join client on goal.client_id = client.id join staff on staff.id = client.staff_id join job on job.goal_id = goal.id join job_site on job_site.id = job.jobsite_id where client.id = " + req.params.id + ";",
         function (err, result) {
           client.end();
           client.done();
