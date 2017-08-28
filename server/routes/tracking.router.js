@@ -80,7 +80,32 @@ router.get('/getGoals/:id', function(req, res) {
   });
 });
 
+router.post('/newGoalTrack', function(req, res) {
+  console.log('in server making a new goal tracker');
+  console.log('goal id is ', req.body.id);
+  var goal_id = req.body.id;
 
+  pool.connect(function(err, client, done) {
+    if(err) {
+      console.log("Error connecting: ", err);
+      next(err);
+    }
+    //join goal, client, staff, job, job_site to find all goal date
+    client.query("insert into 'goal_tracking'(goal_id, date_tracked, am_or_pm, complete_or_not, notes, additional_notes) values(1, '', '', '', '', '');",
+    [goal_id],
+        function (err, result) {
+          client.end();
+          done();
+          if(err) {
+            console.log("Error inserting data: ", err);
+            next(err);
+          } else {
+            console.log('RESULT ROWS', result.rows);
+            res.send(result.rows);
+          }
+    });
+  });
+});
 
 
 module.exports = router;
