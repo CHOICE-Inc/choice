@@ -17,8 +17,18 @@ GOAL TRACKING PAGE
       </div>
 
       <md-input-container>
-        <label>Filter</label>
-        <md-select placeholder="Show All" ng-model="option">
+        <label>Case Manager</label>
+        <md-select placeholder="All Case Managers" ng-model="option">
+
+          <md-option ng-repeat="filter in tc.filters" ng-value="filter">
+            {{filter}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+
+      <md-input-container>
+        <label>Job Location</label>
+        <md-select placeholder="All Locations" ng-model="option">
 
           <md-option ng-repeat="filter in tc.filters" ng-value="filter">
             {{filter}}
