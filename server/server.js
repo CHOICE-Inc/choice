@@ -9,8 +9,8 @@ var sessionConfig = require('./modules/session.config');
 var indexRouter = require('./routes/index.router');
 var userRouter = require('./routes/user.router');
 var registerRouter = require('./routes/register.router');
-var goalCriteriaRouter = require('./routes/criteria.router');
-var goalTrackingRouter = require('./routes/goalTracking.router');
+var goalRouter = require('./routes/goal.router');
+var trackingRouter = require('./routes/tracking.router');
 var jobSitesRouter = require('./routes/jobSites.router');
 var staffRouter = require('./routes/staff.router');
 var summaryRouter = require('./routes/summary.router');
@@ -34,6 +34,11 @@ app.use(passport.session());
 // Routes
 app.use('/register', registerRouter);
 app.use('/user', userRouter);
+app.use('/goal', goalRouter);
+app.use('/tracking', trackingRouter);
+app.use('/staff', staffRouter);
+app.use('/jobsites', jobSitesRouter);
+app.use('/summary', summaryRouter);
 
 // Catch all bucket, must be last!
 app.use('/', indexRouter);

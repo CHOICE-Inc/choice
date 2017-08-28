@@ -1,0 +1,112 @@
+//------ PLACE DATABASE QUERY STRINGS OR FUNCTIONS HERE (postgreSQL) ------//
+
+1) ----- Make sure create the DATABASE 'choice_db' before creating tables -----
+-- Then you'll create tables with some foreign keys (for linking tables)
+
+create database choice_db;
+
+
+2) ----- Create STAFF table. -----
+--Staff table of the employees. Needed for user validation on registration.
+
+CREATE TABLE "staff"(
+	"id" serial primary key,
+	"name" varchar(50) not null,
+	"location" varchar(20) not null,
+	"email" varchar(50) not null
+);
+
+
+3) ----- Create initial "ADMIN" in STAFF table. -----
+
+INSERT INTO "staff" ("name", "location", "email")
+VALUES ('Admin', 'Eden Prairie', 'admin@choiceinc.org');
+
+
+4) ----- Create "USER" table for user registration and authentication. -----
+--login authenticated and roles of the user
+
+CREATE TABLE "users" (
+  "id" serial primary key,
+  "username" varchar(80) not null UNIQUE,
+  "password" varchar(240) not null,
+	"staff_id" integer,
+	"role" integer null
+);
+
+
+5) ----- Create "CLIENT" table. -----
+--name of clients assigned to a staff member
+
+CREATE TABLE "client" (
+	"id" serial primary key,
+	"staff_id" integer not null references staff(id),
+	"name" varchar(50) not null
+);
+
+
+6) ----- Create "JOB_SITE" table. -----
+--locations of jobs located and descriptions
+
+CREATE TABLE "job_site" (
+	"id" serial primary key,
+	"business_name" varchar(20) not null,
+	"address" varchar(50) null,
+	"phone" varchar(20) null,
+	"contact" varchar(30) null
+);
+
+
+7) ----- Create "GOAL" table. -----
+--goals assigned to a client and assigned to a case manager
+
+CREATE TABLE "goal" (
+	"id" serial primary key,
+	"client_id" integer not null references client(id),
+	"jobsite_id" integer not null references job_site(id),
+	"implementation_date" date not null,
+	"review_dates" varchar(50) null,
+	"completion_date" varchar(20) not null,
+	"service_outcome" varchar(100) not null,
+	"objective" varchar(500) not null,
+	"implemented_by" integer not null references staff(id),
+	"behavior_technique" varchar(500) not null,
+	"modifications" varchar(500) not null,
+	"equipment" varchar(150) not null,
+	"when_notes" varchar(500) not null
+);
+
+
+8) ----- Create "JOB" junction table. -----
+--junction table assigning a goal with many job-sites
+
+CREATE TABLE "job" (
+	"id" serial primary key,
+	"jobsite_id" integer not null references job_site(id),
+	"goal_id" integer not null references goal(id)
+);
+
+
+9) ----- Create "STEPS_PLAN" table. -----
+--ordered list of how to plan step by step
+
+CREATE TABLE "steps_plan"(
+	"id" serial primary key,
+	"goal_id" integer not null references goal(id),
+	"index" integer not null,
+	"description" varchar(500) not null
+);
+
+
+10) ----- Create "GOAL" table. -----
+--submitted goals, tracking completion data
+
+CREATE TABLE "goal_tracking" (
+	"id" serial primary key,
+	"goal_id" integer not null references goal(id),
+	"date_tracked" date not null,
+	"am_or_pm" varchar(2) not null,
+	"complete_or_not" varchar(20) not null,
+	"notes" varchar(300) not null,
+	"additional_notes" varchar(300) not null
+);
