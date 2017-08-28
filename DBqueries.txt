@@ -69,11 +69,12 @@ CREATE TABLE "goal" (
 	"completion_date" varchar(20) not null,
 	"service_outcome" varchar(100) not null,
 	"objective" varchar(500) not null,
-	"implemented_by" integer not null references staff(id),
 	"behavior_technique" varchar(500) not null,
 	"modifications" varchar(500) not null,
 	"equipment" varchar(150) not null,
-	"when_notes" varchar(500) not null
+	"when_notes" varchar(500) not null,
+	"plan_steps" varchar(1000) not null,
+	"goal_status" boolean DEFAULT TRUE
 );
 
 
@@ -87,18 +88,7 @@ CREATE TABLE "job" (
 );
 
 
-9) ----- Create "STEPS_PLAN" table. -----
---ordered list of how to plan step by step
-
-CREATE TABLE "steps_plan"(
-	"id" serial primary key,
-	"goal_id" integer not null references goal(id),
-	"index" integer not null,
-	"description" varchar(500) not null
-);
-
-
-10) ----- Create "GOAL" table. -----
+9) ----- Create "GOAL" table. -----
 --submitted goals, tracking completion data
 
 CREATE TABLE "goal_tracking" (
