@@ -71,7 +71,13 @@ vm.saveCriteria = function(implementation_date, review_dates, completion_date,
 
 
 // "DELETE" CRITERIA BY CHANGING GOAL_STATUS TO FALSE & DISABLING IT
+  vm.disableCriteria = function(id) {
+    console.log('Goal criteria id to disable: ', id);
 
+    $http.put('/goal/disable/' + id, data).then(function(response){
+      console.log('Disable criteria response: ', response);
+    });
+  }; //end of disable function
 
 
 

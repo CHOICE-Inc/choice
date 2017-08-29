@@ -200,7 +200,7 @@ router.put('/:id', function(req, res){
 
 // UPDATE ROUTE TO DISABLE GOAL IN DB (INSTEAD OF DELETING THE GOAL, NEED RECORD-KEEPING)
 // NEED GOAL ID TO ACCESS CORRECT GOAL
-router.put('/:id', function(req, res){
+router.put('/disable/:id', function(req, res){
   console.log('In put route for client\'s goal to disable goal: ', req.params.id);
 
   pool.connect(function(errConnectingToDatabase, db, done){
