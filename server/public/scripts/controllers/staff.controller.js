@@ -1,4 +1,4 @@
-myApp.controller('StaffController', function(UserService) {
+myApp.controller('StaffController', function(UserService, $http) {
   console.log('UserController created');
   var vm = this;
   vm.userService = UserService;
@@ -11,6 +11,7 @@ myApp.controller('StaffController', function(UserService) {
   function getStaff(){
     $http.get('/staff/getStaff').then(function(response) {
       console.log(response.data);
+      vm.staffArray = response.data;
     });
   }
 });

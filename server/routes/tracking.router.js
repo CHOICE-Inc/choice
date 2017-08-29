@@ -14,7 +14,6 @@ router.get('/getClients', function(req, res) {
     //join client, staff, and users to filter all cleints from user login
     client.query("select client.id as clientid, client.client_name, staff.id as staffid, staff.staff_name, job_site.id as jobsite_id, job_site.business_name from goal join client on goal.client_id = client.id join job on goal.id = job.goal_id join job_site on job.jobsite_id = job_site.id join staff on staff.id = client.staff_id join users on users.staff_id = staff.id where users.id = " + req.user.id + ";",
         function (err, result) {
-        
           done();
           if(err) {
             console.log("Error inserting data: ", err);
@@ -27,7 +26,7 @@ router.get('/getClients', function(req, res) {
   });
 });
 
-router.get('/getGoals/:id', function(req, res) {
+router.get('/getGoals/:id', function(req, res) { //and latest goal_tracking submission
   console.log('in server getting dem goals');
   console.log('all goals from this id ', req.params.id);
 
@@ -37,9 +36,8 @@ router.get('/getGoals/:id', function(req, res) {
       next(err);
     }
     //join goal, client, staff, job, job_site to find all goal date
-    client.query("select client.client_name, staff.staff_name as CaseManager, goal.implementation_date, goal.objective, goal.service_outcome as goalname, job_site.business_name from goal join client on goal.client_id = client.id join staff on staff.id = client.staff_id join job on job.goal_id = goal.id join job_site on job_site.id = job.jobsite_id where client.id = " + req.params.id,
+    client.query("select goal.id, client.client_name, staff.staff_name, goal.implementation_date, goal.objective, goal.service_outcome as goalname, job_site.business_name, goal_tracking.am_or_pm, goal_tracking.date_tracked from goal join client on goal.client_id = client.id join staff on staff.id = client.staff_id join job on job.goal_id = goal.id join job_site on job_site.id = job.jobsite_id left join goal_tracking on goal.id = goal_tracking.goal_id where client.id = " + req.user.id + " order by date_tracked desc;",
         function (err, result) {
-
           done();
           if(err) {
             console.log("Error inserting data: ", err);
@@ -52,6 +50,8 @@ router.get('/getGoals/:id', function(req, res) {
   });
 });
 
+
+
 router.post('/newGoalTrack', function(req, res) {
   console.log('in server making a new goal tracker');
   console.log('goal id is ', req.body.id);
@@ -63,10 +63,9 @@ router.post('/newGoalTrack', function(req, res) {
       next(err);
     }
     //join goal, client, staff, job, job_site to find all goal date
-    client.query("insert into 'goal_tracking'(goal_id, date_tracked, am_or_pm, complete_or_not, notes, additional_notes) values(1, '', '', '', '', '');",
+    client.query("insert into 'goal_tracking'(goal_id, date_tracked, am_or_pm, complete_or_not, notes, additional_notes) values($1, $2, $3, $4, $5, $6);",
     [goal_id],
         function (err, result) {
-          client.end();
           done();
           if(err) {
             console.log("Error inserting data: ", err);
