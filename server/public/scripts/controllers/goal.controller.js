@@ -6,6 +6,7 @@ myApp.controller('GoalController', function(UserService, $http) {
 
   vm.clientData = [];
   vm.jobSiteData = [];
+  vm.casemanagerData = [];
   var goal = {};
 
 // GET REQUEST TO RETIEVE CLIENT NAMES AND IDs fROM DB TO POPULATE PULLDOWN MENU / AUTOCOMPLETE
@@ -23,9 +24,24 @@ vm.assignClientID = function (id){
   goal.client_id = id;
 };
 
+// GET REQUEST TO RETIEVE CASE MANAGER NAMES AND IDs fROM DB TO POPULATE PULLDOWN MENU / AUTOCOMPLETE
+// Route: /goal/casemanager
+
+function getCaseManagers() {
+  $http.get('/goal/casemanager').then(function(response) {
+    console.log("case managers response: ", response.data);
+    vm.casemanagerData = response.data;
+  });
+}
+getCaseManagers();
+//CONVERT CLIENT NAME TO STAFF ID
+vm.assignCMID = function (id) {
+  console.log("assignClient id: ", id);
+  goal.casemanager_id = id;
+};
+
 // GET REQUEST TO RETIEVE JOB SITE NAMES AND IDs fROM DB TO POPULATE PULLDOWN MENU / AUTOCOMPLETE
 // Route: /goal/jobsites
-
 function getJobSites() {
   $http.get('/goal/jobsites').then(function(response) {
     console.log("Job Site response:", response.data);
