@@ -36,7 +36,7 @@ router.get('/getGoals/:id', function(req, res) { //and latest goal_tracking subm
       next(err);
     }
     //join goal, client, staff, job, job_site to find all goal date
-    client.query("select goal.id, client.client_name, staff.staff_name, goal.implementation_date, goal.objective, goal.service_outcome as goalname, job_site.business_name, goal_tracking.am_or_pm, goal_tracking.date_tracked from goal join client on goal.client_id = client.id join staff on staff.id = client.staff_id join job on job.goal_id = goal.id join job_site on job_site.id = job.jobsite_id left join goal_tracking on goal.id = goal_tracking.goal_id where client.id = " + req.user.id + " order by date_tracked desc;",
+    client.query("select goal.id, client.client_name, staff.staff_name, goal.implementation_date, goal.objective, goal.service_outcome as goalname, job_site.business_name, goal_tracking.am_or_pm, goal_tracking.date_tracked from goal join client on goal.client_id = client.id join staff on staff.id = client.staff_id join job on job.goal_id = goal.id join job_site on job_site.id = job.jobsite_id left join goal_tracking on goal.id = goal_tracking.goal_id where client.id = " + req.params.id + " order by date_tracked desc;",
         function (err, result) {
           done();
           if(err) {
