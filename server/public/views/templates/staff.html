@@ -7,17 +7,17 @@
 
 <table>
   <thead>
-    <td>Name</td>
-    <td>Job Title</td>
-    <td>Email</td>
-    <td>Manage Staff</td>
+    <th>Name</th>
+    <th>Job Title</th>
+    <th>Email</th>
+    <th>Manage Staff</th>
   </thead>
   <tbody>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+    <tr ng-repeat="staffMember in sc.staffArray">
+      <td>{{staffMember.staff_name}}</td>
+      <td>{{staffMember.role}}</td>
+      <td>{{staffMember.email}}</td>
+      <td><input type="submit" name="" value="Update"> <input type="submit" name="" value="Deactive"></td>
     </tr>
   </tbody>
 </table>

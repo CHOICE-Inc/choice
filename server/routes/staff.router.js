@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var pool = require('../modules/pool.js');
 
-router.get('/getClients', function(req, res) {
+router.get('/getStaff', function(req, res) {
   console.log('in server getting dem staff');
 
   pool.connect(function(err, client, done, next) {
@@ -11,7 +11,7 @@ router.get('/getClients', function(req, res) {
       next(err);
     }
     //join client, staff, and users to filter all cleints from user login
-    client.query("select * from staff",
+    client.query("select * from staff join users on users.staff_id = staff.id",
         function (err, result) {
           client.end();
           done();
