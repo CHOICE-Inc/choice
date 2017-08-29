@@ -63,7 +63,7 @@ router.post('/newGoalTrack', function(req, res) {
       next(err);
     }
     //join goal, client, staff, job, job_site to find all goal date
-    client.query("insert into 'goal_tracking'(goal_id, date_tracked, am_or_pm, complete_or_not, notes, additional_notes) values($1, $2, $3, $4, $5, $6);",
+    client.query("insert into 'goal_tracking'(goal_id, date_tracked, am_or_pm, complete_or_not, notes) values($1, $2, $3, $4, $5);",
     [goal_id],
         function (err, result) {
           done();

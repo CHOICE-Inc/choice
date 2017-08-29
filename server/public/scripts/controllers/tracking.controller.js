@@ -40,7 +40,7 @@ getClients();
 
 
 function getClients(){
-  $http.get('/tracking/getClients').then(function(response) {
+  $http.get('/tracking/getCgit lients').then(function(response) {
     console.log(response.data);
     vm.dataList = response.data;
     buildLists(vm.dataList);
