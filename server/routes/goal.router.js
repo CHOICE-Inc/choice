@@ -64,10 +64,37 @@ router.get('/clients', function(req, res){
       console.log('There was an error connecting to database: ', errConnectingToDatabase);
       res.sendStatus(500);
     } else {
-      //BUILD DB QUERY STRING
-
       // MAKE DB QUERY
       db.query('SELECT id, name FROM client', function(errMakingQuery, result){
+        done();
+        if(errMakingQuery){
+          console.log('There was an error making INSERT query: ', errMakingQuery);
+          res.sendStatus(500);
+        } else {
+          console.log('Retrieved client data from DB: ', result);
+          res.send(result.rows);
+        }
+      }); //end of db.query
+
+    } //end of DB connect if-else
+  }); //end of pool.connect
+}); // end of route
+
+// RETIEVE CASE MANAGER NAMES AND IDs fROM DB TO POPULATE PULLDOWN MENU / AUTOCOMPLETE
+router.get('/casemanager', function(req, res){
+  console.log('In get route for client names. ');
+
+  var getCaseManagersQuery = 'SELECT "staff"."id", "staff"."name", "users"."role" FROM "staff" ' +
+                 'JOIN "users" ON "staff"."id" = "users"."staff_id" WHERE "users"."role" = 2;';
+                 console.log("Getting all Case Managers: ", getCaseManagersQuery);
+
+  pool.connect(function(errConnectingToDatabase, db, done){
+    if(errConnectingToDatabase) {
+      console.log('There was an error connecting to database: ', errConnectingToDatabase);
+      res.sendStatus(500);
+    } else {
+      // MAKE DB QUERY
+      db.query(getCaseManagersQuery, function(errMakingQuery, result){
         done();
         if(errMakingQuery){
           console.log('There was an error making INSERT query: ', errMakingQuery);
@@ -92,8 +119,6 @@ router.get('/jobsites', function(req, res){
       console.log('There was an error connecting to database: ', errConnectingToDatabase);
       res.sendStatus(500);
     } else {
-      //BUILD DB QUERY STRING
-
       // MAKE DB QUERY
       db.query('SELECT id, business_name FROM job_site', function(errMakingQuery, result){
         done();
@@ -121,8 +146,6 @@ router.get('/:id', function(req, res){
       console.log('There was an error connecting to database: ', errConnectingToDatabase);
       res.sendStatus(500);
     } else {
-      //BUILD DB QUERY STRING
-
       // MAKE DB QUERY
       db.query('SELECT * FROM goal WHERE id=$1', [req.params.id], function(errMakingQuery, result){
         done();

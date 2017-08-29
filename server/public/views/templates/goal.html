@@ -31,7 +31,9 @@
           </md-input-container>
           <md-input-container>
             <label>CHOICE Representative:</label>
-            <input ng-model="gc.caseManager">
+            <md-select ng-model="gc.casemanagerName">
+              <md-option ng-repeat="casemanagerName in gc.casemanagerData" value="{{casemanagerName.name}}" ng-click="gc.assignCMID(casemanagerName.id)">{{casemanagerName.name}}</md-option>
+            </md-select>
           </md-input-container>
           <md-input-container>
             <label>Job Site:</label>
