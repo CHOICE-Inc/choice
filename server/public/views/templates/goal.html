@@ -1,6 +1,5 @@
 <div ng-include="'views/partials/nav.html'"></div>
-<!-- GOAL CRITERA PAGE - Create, view, and edit goal criteria guidelines -->
-
+<!-- CREATE NEW GOAL CRITERA PAGE -->
 
 <div class="container goals" layout="column" flex>
   <md-content>
@@ -14,8 +13,6 @@
             <div layout="row">
               <md-button type="button" name="saveBtn" ng-click="gc.saveCriteria(gc.implementation_date, gc.review_dates, gc.completion_date,
               gc.service_outcome, gc.objective, gc.behavior_technique, gc.modifications, gc.equipment, gc.when_notes, gc.plan_steps)">Save</md-button>
-              <md-button type="button" name="editBtn">Edit</md-button>
-              <md-button type="button" name="disableBtn" ng-click="gc.disableCriteria(gc.goal_ID)">Disable</md-button>
             </div>
           </div>
         </div>

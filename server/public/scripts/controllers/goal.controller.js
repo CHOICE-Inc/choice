@@ -65,9 +65,10 @@ vm.saveCriteria = function(implementation_date, review_dates, completion_date,
 };
 
 // GET SINGLE CRITERIA FROM THE DB BASED ON GOAL_ID
+//** Move this into a service for access from other pages
 
 
-// UPDATE SINGEL CRITERIA IN DB USING GOAL_ID
+// UPDATE SINGLE CRITERIA IN DB USING GOAL_ID
 
 
 // "DELETE" CRITERIA BY CHANGING GOAL_STATUS TO FALSE & DISABLING IT

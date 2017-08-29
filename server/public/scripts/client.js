@@ -21,7 +21,8 @@ myApp.config(function($routeProvider, $locationProvider) {
           return UserService.getuser();
         }
       }
-    }).when('/goal', {
+    })
+    .when('/goal', {
       templateUrl: '/views/templates/goal.html',
       controller: 'GoalController as gc',
       resolve: {
@@ -29,7 +30,17 @@ myApp.config(function($routeProvider, $locationProvider) {
           return UserService.getuser();
         }
       }
-    }).when('/tracking', {
+    })
+    .when('/editGoal', {
+      templateUrl: '/views/templates/editGoal.html',
+      controller: 'GoalController as gc',
+      resolve: {
+        getuser : function(UserService){
+          return UserService.getuser();
+        }
+      }
+    })
+    .when('/tracking', {
       templateUrl: '/views/templates/tracking.html',
       controller: 'TrackingController as tc',
       resolve: {
@@ -37,7 +48,8 @@ myApp.config(function($routeProvider, $locationProvider) {
           return UserService.getuser();
         }
       }
-    }).when('/staff', {
+    })
+    .when('/staff', {
       templateUrl: '/views/templates/staff.html',
       controller: 'StaffController as sc',
       resolve: {
@@ -45,7 +57,8 @@ myApp.config(function($routeProvider, $locationProvider) {
           return UserService.getuser();
         }
       }
-    }).when('/jobSites', {
+    })
+    .when('/jobSites', {
       templateUrl: '/views/templates/jobSites.html',
       controller: 'JobSitesController as jc',
       resolve: {
