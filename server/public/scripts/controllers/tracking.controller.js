@@ -9,9 +9,10 @@ myApp.controller('TrackingController', function(UserService, $http) {
   vm.caseManagers = [];
   vm.clientGoals = [];
   vm.clientToView = {};
+  vm.trackingData = {};
   vm.filters = ['Show All', 'Location', 'Case Manager', 'Option 3', 'Option 4', 'Option 5'];
 
-// builds list of clients to display on goal tracking page
+  // builds list of clients to display on goal tracking page
   buildLists = function(data){
     console.log('in buildClientList with:', data);
     var names = [];
@@ -34,41 +35,71 @@ myApp.controller('TrackingController', function(UserService, $http) {
   };
 
 
-//ted stuff
-getClients();
+  //ted stuff
+  getClients();
 
 
+  // gets list of clients
+  function getClients(){
+    $http.get('/tracking/getClients').then(function(response) {
+      console.log(response.data);
+      vm.dataList = response.data;
+      buildLists(vm.dataList);
+      console.log('vm.clientList:',vm.clientList);
+      console.log('vm.locationList:',vm.locationList);
+      console.log('vm.caseManagers:',vm.caseManagers);
 
-function getClients(){
-  $http.get('/tracking/getClients').then(function(response) {
-    console.log(response.data);
-    vm.dataList = response.data;
-    buildLists(vm.dataList);
-console.log('vm.clientList:',vm.clientList);
-console.log('vm.locationList:',vm.locationList);
-console.log('vm.caseManagers:',vm.caseManagers);
+    });
 
-  });
+  }
+  //end ted stuff
 
-}
-//end ted stuff
-
-vm.showClientGoals = function(client){
-  console.log('in showClientGoals with client:', client);
-  vm.clientToView = client;
-  $http.get('/tracking/getGoals/' + client.clientid).then(function(response) {
-    console.log('getGoals response:',response.data);
-    vm.clientGoals = response.data;
-  });
-};
-
-vm.filterClients = function(option){
-    console.log('in filterClients with:', option);
-
-};
+  // gets client goals
+  vm.showClientGoals = function(client){
+    console.log('in showClientGoals with client:', client);
+    vm.clientToView = client;
+    $http.get('/tracking/getGoals/' + client.clientid).then(function(response) {
+      console.log('getGoals response:',response.data);
+      vm.clientGoals = response.data;
+    });
+  };
 
 
+  vm.filterClients = function(data){
+    var tempList = angular.copy(data);
 
+    console.log('in filterClients with data:', data);
+    console.log('in filterClients with CM:', vm.filterCm);
+    console.log('in filterClients with JS:', vm.filterJs);
+
+    if(vm.caseManagers.includes(vm.filterCm)){
+      for(var i = 0; i < tempList.length; i++){
+        if(tempList[i].staff_name != vm.filterCm){
+          tempList.splice(i,1);
+          i--;
+        }
+      }
+    }
+    if(vm.locationList.includes(vm.filterJs)){
+      for(var p = 0; p < tempList.length; p++){
+        if(tempList[p].business_name != vm.filterJs){
+          tempList.splice(p,1);
+          p--;
+        }
+      }
+    }
+    console.log('tempList is:',tempList);
+    console.log('data is:', data);
+    var names = [];
+    vm.clientList = [];
+    for(var x = 0; x < tempList.length; x++){
+      if(!names.includes(tempList[x].client_name)){
+        vm.clientList.push(tempList[x]);
+        names.push(tempList[x].client_name);
+      }
+    }
+
+  };
 
 
 });
