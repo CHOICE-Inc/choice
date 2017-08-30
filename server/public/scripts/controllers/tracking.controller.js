@@ -115,11 +115,12 @@ console.log('vm.caseManagers:',vm.caseManagers);
       time: amOrPm,
       completion: completion,
       notes: notes,
-      date: new Date().toString(),
+      date: new Date(),
     };
     console.log('sending goalData:', goalData);
     $http.post('/tracking/trackGoal/', goalData).then(function(response){
       console.log('Received response from trackGoal POST:', response);
+      vm.showClientGoals(vm.clientToView);
     });
   };
 
