@@ -10,7 +10,9 @@ myApp.controller('TrackingController', function(UserService, $http) {
   vm.clientGoals = [];
   vm.clientToView = {};
   vm.trackingData = {};
+  vm.today = new Date();
   vm.filters = ['Show All', 'Location', 'Case Manager', 'Option 3', 'Option 4', 'Option 5'];
+
 
   // builds list of clients to display on goal tracking page
   buildLists = function(data){
@@ -64,7 +66,7 @@ myApp.controller('TrackingController', function(UserService, $http) {
     });
   };
 
-
+  // filters client list based on filter options
   vm.filterClients = function(data){
     var tempList = angular.copy(data);
 
@@ -98,8 +100,34 @@ myApp.controller('TrackingController', function(UserService, $http) {
         names.push(tempList[x].client_name);
       }
     }
+  }; // end filterClients
 
+
+  // submits goal tracking data
+  vm.trackGoal = function(goalId, amOrPm, completion){
+    //need date
+    console.log('in trackGoal');
+    var goalData = {
+      id: goalId,
+      time: amOrPm,
+      completion: completion,
+      date: new Date().toString(),
+    };
+    console.log('sending goalData:', goalData);
+    $http.post('/tracking/trackGoal/', goalData).then(function(response){
+      console.log('Received response from trackGoal POST:', response);
+    });
   };
+
+  vm.toGoalCriteria = function(id){
+    console.log('in toGoalCriteria with id:', id);
+  };
+
+  vm.toGoalHistory = function(id){
+    console.log('in toGoalHistory with id:', id);
+  };
+
+
 
 
 });
