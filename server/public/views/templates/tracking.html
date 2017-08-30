@@ -5,9 +5,11 @@
 //This page will display the participants on the left side of the page
 //The right side of the page will load each goal using the singleGoal.html partial file
 //The right side may also show the singleGoalSummary.html (w/ summary data table) for a goal-->
+<div id="footer" style="background-color:transparent;position: fixed;bottom: 0;width: 100%;height:60px;pointer-events:none">
 
+</div>
 GOAL TRACKING PAGE
-<div style="margin-left:auto;margin-right:auto" layout="column" flex="90" class="container">
+<div style="margin-left:auto;margin-right:auto" layout="column" flex="90" class="container" id="toastTest">
 
 
   <div layout="row">
@@ -52,9 +54,9 @@ GOAL TRACKING PAGE
         <div layout="row">
           <div flex="50">GOAL LOCATION: {{goal.business_name}}</div>
 
-          <div flex="50" style="text-align:right;background-color:gray;" layout-align="end">
-            <md-button style="display:inline-block" type="button" name="button" ng-click="tc.toGoalCriteria(goal.id)">Goal Criteria</md-button>
-            <md-button style="display:inline-block" type="button" name="button" ng-click="tc.toGoalHistory(goal.id)">Goal History</md-button>
+          <div flex="50" style="text-align:right;">
+            <md-button class="md-raised md-primary" style="display:inline-block" type="button" name="button" ng-click="tc.toGoalCriteria(goal.id)">Goal Criteria</md-button>
+            <md-button class="md-raised md-primary" style="display:inline-block" type="button" name="button" ng-click="tc.toGoalHistory(goal.id)">Goal History</md-button>
           </div>
 
 
