@@ -1,4 +1,4 @@
-myApp.controller('TrackingController', function(UserService, $http) {
+myApp.controller('TrackingController', function(UserService, $http, $mdToast) {
   console.log('UserController created');
   var vm = this;
   vm.userService = UserService;
@@ -115,10 +115,19 @@ myApp.controller('TrackingController', function(UserService, $http) {
       date: new Date(),
     };
     console.log('sending goalData:', goalData);
-    $http.post('/tracking/trackGoal/', goalData).then(function(response){
-      console.log('Received response from trackGoal POST:', response);
-      vm.showClientGoals(vm.clientToView);
-    });
+    vm.showToast("Goal data submitted.", "footer");
+    if(goalData.time == undefined || goalData.completion == undefined){
+      console.log('error: fill in data');
+    } else {
+      $http.post('/tracking/trackGoal/', goalData).then(function(response){
+        console.log('Received response from trackGoal POST:', response);
+        vm.showClientGoals(vm.clientToView);
+
+      });
+    }
+
+
+
   };
 
   vm.toGoalCriteria = function(id){
@@ -129,6 +138,18 @@ myApp.controller('TrackingController', function(UserService, $http) {
     console.log('in toGoalHistory with id:', id);
   };
 
+vm.showToast = function(message, parentId){
+    var el = angular.element(document.getElementById(parentId));
+
+    var toast = $mdToast.simple()
+    .content(message)
+    .highlightAction(true)
+    .hideDelay(1500)
+    .position('bottom left')
+    .parent(el);
+
+    $mdToast.show(toast);
+  };
 
 
 
