@@ -78,17 +78,7 @@ CREATE TABLE "goal" (
 );
 
 
-8) ----- Create "JOB" junction table. -----
---junction table assigning a goal with many job-sites
-
-CREATE TABLE "job" (
-	"id" serial primary key,
-	"jobsite_id" integer not null references job_site(id),
-	"goal_id" integer not null references goal(id)
-);
-
-
-9) ----- Create "GOAL" table. -----
+8) ----- Create "GOAL" table. -----
 --submitted goals, tracking completion data
 
 CREATE TABLE "goal_tracking" (

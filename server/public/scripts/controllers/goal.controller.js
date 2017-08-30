@@ -7,6 +7,7 @@ myApp.controller('GoalController', function($http, UserService) {
   vm.clientData = [];
   vm.jobSiteData = [];
   vm.casemanagerData = [];
+  vm.allGoalData = [];
   var goal = {};
 
   // GET REQUEST TO RETIEVE CLIENT NAMES AND IDs fROM DB TO POPULATE PULLDOWN MENU / AUTOCOMPLETE
@@ -24,7 +25,7 @@ myApp.controller('GoalController', function($http, UserService) {
     goal.client_id = id;
   };
 
-  // GET REQUEST TO RETIEVE CASE MANAGER NAMES AND IDs fROM DB TO POPULATE PULLDOWN MENU / AUTOCOMPLETE
+  // GET REQUEST TO RETIEVE CASE MANAGER NAMES AND IDs fROM DB TO POPULATE PULLDOWN MENU
   // Route: /goal/casemanager
 /*
   function getCaseManagers() {
@@ -40,7 +41,8 @@ myApp.controller('GoalController', function($http, UserService) {
     goal.casemanager_id = id;
   };
 */
-  // GET REQUEST TO RETIEVE JOB SITE NAMES AND IDs fROM DB TO POPULATE PULLDOWN MENU / AUTOCOMPLETE
+
+  // GET REQUEST TO RETIEVE JOB SITE NAMES AND IDs fROM DB TO POPULATE PULLDOWN MENU
   // Route: /goal/jobsites
   function getJobSites() {
     $http.get('/goal/jobsites').then(function(response) {
@@ -81,7 +83,18 @@ myApp.controller('GoalController', function($http, UserService) {
       });
     };
 
-    // GET SINGLE CRITERIA FROM THE DB BASED ON GOAL_ID
+    //GET * ALL * CRITERIA DATA FOR A SPECIFIC USER FROM THE DB
+    //Will be called by other functions to do logic upon that data
+    function getAllGoals(client_id){
+      //GET request to get all the goals available for the client_id
+      $http.get('/goal/allCriteria/' + client_id).then(function(response){
+        console.log('Get all criteria for: ', client_id, 'Gives response: ', response.data);
+        //Assign that data to vm.allGoalData
+        vm.allGoalData = response.data;
+      });
+    }
+
+    // GET * SINGLE * CRITERIA FROM THE DB BASED ON GOAL_ID
     //** Move this into a service for access from other pages
 
 
@@ -97,6 +110,7 @@ myApp.controller('GoalController', function($http, UserService) {
       });
     }; //end of disable function
 
+
     // FUNCTIONALITY FOR AUTOCOMPLETE CLIENT NAME SEARCH
     vm.querySearch = function(query) {
       vm.clients = loadAll();
@@ -106,7 +120,6 @@ myApp.controller('GoalController', function($http, UserService) {
       // ? and : act as if-else statement: if query is true, results = filtered text, else results = vm.clients
       return results;
     };
-
     // Build 'client' list of key/value pairs
     function loadAll() {
       getClients();
@@ -118,7 +131,6 @@ myApp.controller('GoalController', function($http, UserService) {
         return client;
       });
     }
-
   //Create filter function for a query string
   function createFilterFor (query) {
     var lowercaseQuery = angular.lowercase(query);
@@ -127,5 +139,19 @@ myApp.controller('GoalController', function($http, UserService) {
       return (item.value.indexOf(lowercaseQuery) === 0);
     };
   }
+
+//WHEN USER CLICKS A CLIENT'S NAME, AUTOPOPULATE PULLDOWN MENU FOR AVAILABLE GOALS
+ vm.getClientGoals = function(client_id) {
+   console.log('Client ID to retrieve goals for: ', client_id);
+
+   //GET request to get all the goals available for the client_id
+   getAllGoals(client_id);
+   console.log('Goals for that client include: ', vm.allGoalData);
+   //Display the goal "names" for each one in the pulldown menu
+
+ };
+
+
+
 
 }); //end of controller
