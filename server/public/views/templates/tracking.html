@@ -45,16 +45,16 @@ GOAL TRACKING PAGE
       <p>Client Name: {{tc.clientToView.client_name}}</p>
       <p>Case Manager: {{tc.clientToView.staff_name}}</p>
 
-      <div style="width:90%;background-color:yellow;margin-left:auto,margin-right:auto">
+      <div ng-repeat="goal in tc.clientGoals" style="width:90%;background-color:yellow;margin-left:auto,margin-right:auto">
         <div style="background-color:orange;text-align:center;font-size:32px">
-          GOAL TITLE
+          ((GOAL TITLE))
         </div>
         <div layout="row">
-          <div flex="50">GOAL LOCATION</div>
+          <div flex="50">GOAL LOCATION: {{goal.business_name}}</div>
 
           <div flex="50" style="text-align:right;background-color:gray;" layout-align="end">
-            <md-button style="display:inline-block" type="button" name="button">Goal Criteria</md-button>
-            <md-button style="display:inline-block" type="button" name="button">Goal History</md-button>
+            <md-button style="display:inline-block" type="button" name="button" ng-click="tc.toGoalCriteria(goal.id)">Goal Criteria</md-button>
+            <md-button style="display:inline-block" type="button" name="button" ng-click="tc.toGoalHistory(goal.id)">Goal History</md-button>
           </div>
 
 
@@ -62,24 +62,24 @@ GOAL TRACKING PAGE
 
         <div>
           <p>
-            GOAL NOTES
+            ((GOAL NOTES))
           </p>
         </div>
         <div>
-          DATE:
+          DATE: {{tc.today | date}}
         </div>
         <div layout="row">
           <div>
 
 
-            <md-radio-group layout="column" style="color:black" ng-model="tc.trackingData.time">
+            <md-radio-group layout="column" style="color:black" ng-model="tc.amOrPm">
               <span>Time</span>
               <md-radio-button value="am" class="md-primary">AM</md-radio-button>
               <md-radio-button value="pm" class="md-primary">PM</md-radio-button>
             </md-radio-group>
           </div>
           <div>
-            <md-radio-group layout="row" style="color:black" ng-model="tc.trackingData.completion">
+            <md-radio-group layout="row" style="color:black" ng-model="tc.completion">
               <md-radio-button value="complete" class="md-primary">Complete</md-radio-button>
               <md-radio-button value="incomplete" class="md-primary">Incomplete</md-radio-button>
               <md-radio-button value="absent" class="md-primary">Absent</md-radio-button>
@@ -88,9 +88,12 @@ GOAL TRACKING PAGE
           </div>
         </div>
         <div>
-          NOTES: <input type="text" name="" ng-model="tc.trackingData.notes"><button type="button" name="button" ng-click="">Submit</button>
+          NOTES: <input type="text" name="" ng-model="tc.trackingData.notes">
+          <button type="button" name="button" ng-click="tc.trackGoal(goal.id, tc.amOrPm, tc.completion)">Submit</button>
         </div>
-
+<div>
+  Last updated: {{goal.am_or_pm}} of {{goal.date_tracked | date}}
+</div>
 
 
       </div>
