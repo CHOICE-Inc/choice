@@ -98,39 +98,34 @@ myApp.controller('GoalController', function($http, UserService) {
     }; //end of disable function
 
     // FUNCTIONALITY FOR AUTOCOMPLETE CLIENT NAME SEARCH
-    vm.clients = loadAll();
-    //vm.querySearch = querySearch;
-    vm.querySearch = function(query){
+    vm.querySearch = function(query) {
+      vm.clients = loadAll();
       console.log('Looking for: ', query);
+      var results = query ? vm.clients.filter ( createFilterFor (query) ) : vm.clients,
+        deferred;
+      // ? and : act as if-else statement: if query is true, results = filtered text, else results = vm.clients
+      return results;
     };
 
-    /*function querySearch (query) {
-      var results = query ? vm.clients.filter( createFilterFor(query) ) : vm.clients;
-      return results;
-    }*/
-
-    /* Build `clients` list of key/value pairs */
+    // Build 'client' list of key/value pairs
     function loadAll() {
-      console.log('Data to use for search: ', vm.clientData);
-      //For loop to move through array of client objects
-        //Pull out name and push into new array as an object w/ value: name.toLowerCase and display: name
-      //Return new array
+      getClients();
+      var clients = vm.clientData;
+      console.log('Client data: ', vm.clientData);
 
-    /*  return vm.clientData.name.map( function (name) {
-        return {
-          value: name.toLowerCase(),
-          display: name
-        };
-      });*/
+      return clients.map( function (client) {
+        client.value = client.name.toLowerCase();
+        return client;
+      });
     }
 
-    /* Create filter function for a query string */
-    function createFilterFor(query) {
-      var lowercaseQuery = angular.lowercase(query);
+  //Create filter function for a query string
+  function createFilterFor (query) {
+    var lowercaseQuery = angular.lowercase(query);
 
-      return function filterFn(name) {
-        return (name.value.indexOf(lowercaseQuery) === 0);
-      };
-    }
+    return function filterFn(item) {
+      return (item.value.indexOf(lowercaseQuery) === 0);
+    };
+  }
 
 }); //end of controller

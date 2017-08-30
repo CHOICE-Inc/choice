@@ -5,29 +5,36 @@
 <div class="container" ng-controller="GoalController as gc" >
   <!-- Top Bar: Select client name, select goal w/ Edit and Disable buttons -->
   <div class="clientSelection">
+    <form ng-submit="$even.preventDefault()">
+
+
     <!-- Autocomplete input to select client name-->
-    <md-autocomplete
-           md-items="item in gc.querySearch(gc.searchText)"
-           md-item-text="item.display"
-           md-min-length="0"
-           placeholder="Please enter client's name.">
-         <md-item-template>
-           <span md-highlight-text="gc.searchText" md-highlight-flags="^i">{{item.display}}</span>
-         </md-item-template>
-         <md-not-found>
-           No client matching "{{gc.searchText}}" was found.
-         </md-not-found>
-       </md-autocomplete>
+    <p>Enter client's name</p>
+    <form name="autocompleteForm">
+    <md-autocomplete required
+      md-input-name="gc.autocomplete"
+      md-selected-item="gc.selectedItem"
+      md-search-text="gc.searchText"
+      md-items="item in gc.querySearch(gc.searchText)"
+      md-item-text="item.display">
+      <md-item-template>
+        <span md-highlight-text="gc.searchText">{{item.name}}</span>
+      </md-item-template>
+      <div ng-messages="autocompleteForm.autocomplete.$error">
+        <div ng-message="required">This field is required</div>
+      </div>
+    </md-autocomplete>
+  </form>
 
-    <!-- Select name populates pulldown menu w/ client's goals, select goal to pouplate goal.html w/ data -->
+  <!-- Select name populates pulldown menu w/ client's goals, select goal to pouplate goal.html w/ data -->
 
+  </form>
+  <!-- Edit & Disable buttons -->
+  <md-button type="button" name="editBtn">Edit</md-button>
+  <md-button type="button" name="disableBtn" ng-click="gc.disableCriteria(gc.goal_id)">Disable</md-button>
+</div>
 
-    <!-- Edit & Disable buttons -->
-    <md-button type="button" name="editBtn">Edit</md-button>
-    <md-button type="button" name="disableBtn" ng-click="gc.disableCriteria(gc.goal_id)">Disable</md-button>
-  </div>
-
-  <!-- Bottom Portion: Load goal.html and populate w/ selected criteria's data -->
-  <div ng-include="'views/templates/goal.html'"></div>
+<!-- Bottom Portion: Load goal.html and populate w/ selected criteria's data -->
+<div ng-include="'views/templates/goal.html'"></div>
 
 </div>
