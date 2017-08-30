@@ -42,16 +42,19 @@ myApp.controller('TrackingController', function(UserService, $http, $mdToast) {
 
 
   // gets list of clients
-  function getClients(){
-    $http.get('/tracking/getClients').then(function(response) {
-      console.log(response.data);
-      vm.dataList = response.data;
-      buildLists(vm.dataList);
-      console.log('vm.clientList:',vm.clientList);
-      console.log('vm.locationList:',vm.locationList);
-      console.log('vm.caseManagers:',vm.caseManagers);
+
+
+function getClients(){
+  $http.get('/tracking/getClients').then(function(response) {
+    console.log(response.data);
+    vm.dataList = response.data;
+    buildLists(vm.dataList);
+console.log('vm.clientList:',vm.clientList);
+console.log('vm.locationList:',vm.locationList);
+console.log('vm.caseManagers:',vm.caseManagers);
 
     });
+
 
   }
   //end ted stuff

@@ -52,10 +52,15 @@ router.get('/getGoals/:id', function(req, res) { //and latest goal_tracking subm
 
 
 
-router.post('/newGoalTrack', function(req, res) {
-  console.log('in server making a new goal tracker');
+router.post('/trackGoal', function(req, res) {
+  console.log('in server making a new goal tracker', req.body);
   console.log('goal id is ', req.body.id);
+
   var goal_id = req.body.id;
+  var date_tracked = req.body.date;
+
+  //date_tracked = date_tracked.format();
+
 
   pool.connect(function(err, client, done, next) {
     if(err) {
@@ -63,8 +68,8 @@ router.post('/newGoalTrack', function(req, res) {
       next(err);
     }
     //join goal, client, staff, job, job_site to find all goal date
-    client.query("insert into 'goal_tracking'(goal_id, date_tracked, am_or_pm, complete_or_not, notes, additional_notes) values($1, $2, $3, $4, $5, $6);",
-    [goal_id],
+    client.query("insert into goal_tracking(goal_id, am_or_pm, complete_or_not, notes, date_tracked) values($1, $2, $3, $4, $5);",
+    [req.body.id, req.body.time, req.body.completion, req.body.notes, req.body.date],
         function (err, result) {
           done();
           if(err) {
