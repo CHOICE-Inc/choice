@@ -72,14 +72,14 @@ GOAL TRACKING PAGE
           <div>
 
 
-            <md-radio-group layout="column" style="color:black" ng-model="tc.amOrPm">
+            <md-radio-group layout="column" style="color:black" ng-model="goal.amOrPm">
               <span>Time</span>
               <md-radio-button value="am" class="md-primary">AM</md-radio-button>
               <md-radio-button value="pm" class="md-primary">PM</md-radio-button>
             </md-radio-group>
           </div>
           <div>
-            <md-radio-group layout="row" style="color:black" ng-model="tc.completion">
+            <md-radio-group layout="row" style="color:black" ng-model="goal.completion">
               <md-radio-button value="complete" class="md-primary">Complete</md-radio-button>
               <md-radio-button value="incomplete" class="md-primary">Incomplete</md-radio-button>
               <md-radio-button value="absent" class="md-primary">Absent</md-radio-button>
@@ -88,8 +88,8 @@ GOAL TRACKING PAGE
           </div>
         </div>
         <div>
-          NOTES: <input type="text" name="" ng-model="tc.trackingData.notes">
-          <button type="button" name="button" ng-click="tc.trackGoal(goal.id, tc.amOrPm, tc.completion)">Submit</button>
+          NOTES: <input type="text" name="" ng-model="goal.notes">
+          <button type="button" name="button" ng-click="tc.trackGoal(goal.id, goal.amOrPm, goal.completion, goal.notes)">Submit</button>
         </div>
 <div>
   Last updated: {{goal.am_or_pm}} of {{goal.date_tracked | date}}

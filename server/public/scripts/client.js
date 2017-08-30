@@ -29,7 +29,16 @@ myApp.config(function($routeProvider, $locationProvider) {
           return UserService.getuser();
         }
       }
-    }).when('/tracking', {
+    }).when('/editGoal', {
+      templateUrl: '/views/templates/editGoal.html',
+      controller: 'GoalController as gc',
+      resolve: {
+        getuser : function(UserService){
+          return UserService.getuser();
+        }
+      }
+    })
+    .when('/tracking', {
       templateUrl: '/views/templates/tracking.html',
       controller: 'TrackingController as tc',
       resolve: {

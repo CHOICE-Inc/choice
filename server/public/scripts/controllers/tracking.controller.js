@@ -104,13 +104,14 @@ myApp.controller('TrackingController', function(UserService, $http) {
 
 
   // submits goal tracking data
-  vm.trackGoal = function(goalId, amOrPm, completion){
+  vm.trackGoal = function(goalId, amOrPm, completion, notes){
     //need date
     console.log('in trackGoal');
     var goalData = {
       id: goalId,
       time: amOrPm,
       completion: completion,
+      notes: notes,
       date: new Date().toString(),
     };
     console.log('sending goalData:', goalData);
