@@ -52,7 +52,7 @@ router.get('/getGoals/:id', function(req, res) { //and latest goal_tracking subm
 
 
 
-router.post('/newGoalTrack', function(req, res) {
+router.post('/trackGoal', function(req, res) {
   console.log('in server making a new goal tracker');
   console.log('goal id is ', req.body.id);
   var goal_id = req.body.id;

@@ -16,26 +16,19 @@ GOAL TRACKING PAGE
         Client List
       </div>
 
-      <md-input-container>
-        <label>Case Manager</label>
-        <md-select placeholder="All Case Managers" ng-model="option">
+      <md-select ng-model="tc.filterCm" placeholder="Case Manager" class="md-no-underline">
+        <md-option value="all">All</md-option>
+        <md-option ng-repeat="cm in tc.caseManagers" ng-value="cm">{{cm}}</md-option>
+      </md-select>
 
-          <md-option ng-repeat="filter in tc.filters" ng-value="filter">
-            {{filter}}
-          </md-option>
-        </md-select>
-      </md-input-container>
+      <md-select ng-model="tc.filterJs" placeholder="Job Site" class="md-no-underline">
+        <md-option value="all">All</md-option>
+        <md-option ng-repeat="loc in tc.locationList" ng-value="loc">{{loc}}</md-option>
+      </md-select>
 
-      <md-input-container>
-        <label>Job Location</label>
-        <md-select placeholder="All Locations" ng-model="option">
 
-          <md-option ng-repeat="filter in tc.filters" ng-value="filter">
-            {{filter}}
-          </md-option>
-        </md-select>
-      </md-input-container>
-      <button type="button" name="button" ng-click="tc.filterClients(option)">Filter</button>
+
+      <button type="button" name="button" ng-click="tc.filterClients(tc.dataList)">Filter</button>
 
 
 
@@ -56,17 +49,50 @@ GOAL TRACKING PAGE
         <div style="background-color:orange;text-align:center;font-size:32px">
           GOAL TITLE
         </div>
-        <div style="text-align:right;background-color:gray;" layout-align="end">
-          <md-button type="button" name="button">Goal Criteria</md-button>
-          <md-button type="button" name="button">Goal History</md-button>
+        <div layout="row">
+          <div flex="50">GOAL LOCATION</div>
+
+          <div flex="50" style="text-align:right;background-color:gray;" layout-align="end">
+            <md-button style="display:inline-block" type="button" name="button">Goal Criteria</md-button>
+            <md-button style="display:inline-block" type="button" name="button">Goal History</md-button>
+          </div>
+
+
         </div>
+
+        <div>
+          <p>
+            GOAL NOTES
+          </p>
+        </div>
+        <div>
+          DATE:
+        </div>
+        <div layout="row">
+          <div>
+
+
+            <md-radio-group layout="column" style="color:black" ng-model="tc.trackingData.time">
+              <span>Time</span>
+              <md-radio-button value="am" class="md-primary">AM</md-radio-button>
+              <md-radio-button value="pm" class="md-primary">PM</md-radio-button>
+            </md-radio-group>
+          </div>
+          <div>
+            <md-radio-group layout="row" style="color:black" ng-model="tc.trackingData.completion">
+              <md-radio-button value="complete" class="md-primary">Complete</md-radio-button>
+              <md-radio-button value="incomplete" class="md-primary">Incomplete</md-radio-button>
+              <md-radio-button value="absent" class="md-primary">Absent</md-radio-button>
+              <md-radio-button value="na" class="md-primary">NA</md-radio-button>
+            </md-radio-group>
+          </div>
+        </div>
+        <div>
+          NOTES: <input type="text" name="" ng-model="tc.trackingData.notes"><button type="button" name="button" ng-click="">Submit</button>
+        </div>
+
+
+
       </div>
-
-
-
-
-
-
     </div>
   </div>
-</div>
