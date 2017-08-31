@@ -71,6 +71,29 @@ vm.assignJobsiteId = function (id){
   goal.jobsite_id = id;
 };
 
+// GET SINGLE CRITERIA FROM THE DB BASED ON GOAL_ID
+// May need to do a join on the server side to grab client name and jobname
+vm.getGoalCriteria = function(goal_id, client_id) {
+  var oneGoalData = {client_id: client_id};
+  console.log("oneGoalData is: ", oneGoalData);
+  console.log("using client_id: ", client_id, "looking at goal: ", goal_id);
+
+var config = {params: {
+                      goal_id: goal_id,
+                      client_id: client_id
+              }};
+  $http.get("/goal/singlecriteria", config).then(function(response) {
+    console.log("Get one goal from DB: ", response.data);
+    vm.clientName = 'Balrog';
+    vm.goalData = response.data;
+  });
+};
+vm.getOneGoal = function(id) {
+  console.log("Get One Goal: ", id);
+  goal.oneGoal_id = id;
+};
+
+
 // POST NEW CRITERIA TO THE DB
 
 // RETRIVE GOAL CRITERIA DATA FROM DOM
@@ -96,8 +119,6 @@ vm.saveCriteria = function(implementation_date, review_dates, completion_date,
       }
     });
 };
-// GET SINGLE CRITERIA FROM THE DB BASED ON GOAL_ID
-
 
 // UPDATE SINGEL CRITERIA IN DB USING GOAL_ID
 

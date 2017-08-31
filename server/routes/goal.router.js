@@ -137,9 +137,16 @@ router.get('/jobsites', function(req, res){
 
 
 // GET ROUTE TO RETRIVE GOAL CRITERIA DATA FROM DB
-// NEED GOAL ID TO ACCESS CORRECT GOAL
-router.get('/:id', function(req, res){
-  console.log('In get route for client\'s goal criteria: ', req.params.id);
+// NEED GOAL ID TO ACCESS ONE (CORRECT/THIS) GOAL
+router.get('/singlecriteria', function(req, res){
+  console.log('In get route for client\'s goal criteria: ', req.query);
+  console.log('on server, client_id = ', req.query.client_id, 'on server, goal_id = ', req.query.goal_id);
+  var getGoal = ' SELECT * FROM "goal" JOIN "client" ON "goal"."client_id" = "client"."id" ' +
+  ' JOIN "job_site" ON "job_site"."id" = "goal"."jobsite_id" WHERE "client_id" = $1 AND "goal"."id" = $2; ';
+
+  var clientID = parseInt(req.query.client_id);
+  var goalID = parseInt(req.query.goal_id);
+  console.log('on server after parseInt, client_id = ', clientID, 'on server, goal_id = ', goalID);
 
   pool.connect(function(errConnectingToDatabase, db, done){
     if(errConnectingToDatabase) {
@@ -147,7 +154,7 @@ router.get('/:id', function(req, res){
       res.sendStatus(500);
     } else {
       // MAKE DB QUERY
-      db.query('SELECT * FROM goal WHERE id=$1', [req.params.id], function(errMakingQuery, result){
+      db.query(getGoal, [clientID, goalID], function(errMakingQuery, result){
         done();
         if(errMakingQuery){
           console.log('There was an error making INSERT query: ', errMakingQuery);
@@ -222,7 +229,7 @@ router.put('/:id', function(req, res){
 
 // UPDATE ROUTE TO DISABLE GOAL IN DB (INSTEAD OF DELETING THE GOAL, NEED RECORD-KEEPING)
 // NEED GOAL ID TO ACCESS CORRECT GOAL
-router.put('/:id', function(req, res){
+router.put('/disable/:id', function(req, res){
   console.log('In put route for client\'s goal to disable goal: ', req.params.id);
 
   pool.connect(function(errConnectingToDatabase, db, done){
