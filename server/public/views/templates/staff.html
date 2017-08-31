@@ -17,7 +17,7 @@
       <td>{{staffMember.staff_name}}</td>
       <td>{{staffMember.role}}</td>
       <td>{{staffMember.email}}</td>
-      <td><input type="submit" name="" value="Update"> <input type="submit" name="" ng-click="sc.toggleEmployee(staffMember.employed)" value="{{staffMember.toggle}}"></td>
+      <td><input type="submit" name="" value="Update"> <input type="submit" name="" ng-click="sc.updateEmployee(staffMember.employed, staffMember.staff_id)" value="{{staffMember.status}}"></td>
     </tr>
   </tbody>
 </table>

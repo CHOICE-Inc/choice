@@ -9,26 +9,27 @@ myApp.controller('StaffController', function(UserService, $http) {
   getStaff();
 
   function getStaff(){
+    console.log('refresh Staff members');
     $http.get('/staff/getStaff').then(function(response) {
       console.log(response.data);
 
       for(i=0;i<response.data.length; i++){
         if(response.data[i].employed === true){
-          response.data[i].toggle = 'Deactivate';
+          response.data[i].status = 'Deactivate';
         }
         else if (response.data[i].employed === false){
-          response.data[i].toggle = 'Activate';
+          response.data[i].status = 'Activate';
         }
       }
-
       vm.staffArray = response.data;
-
-
     });
   }
 
-  vm.toggleEmployee = function(toggle){
-    console.log('changed from', toggle);
-
-  }
+  vm.updateEmployee = function(boolean, id){
+    console.log('changed from', boolean, 'for staff id', id);
+    $http.put('/staff/updateStaff/' + id + '/' + boolean).then(function(response){
+      console.log(response.data);
+      getStaff();
+    });
+  };
 });
