@@ -21,7 +21,7 @@ router.post('/', function(req, res){
       var completion_date = req.body.completion_date;
       var service_outcome = req.body.service_outcome;
       var objective = req.body.objective;
-      var behavior_technique = req.body.behavior_technique;
+      var behavior_techniques = req.body.behavior_techniques;
       var modifications = req.body.modifications;
       var equipment = req.body.equipment;
       var when_notes = req.body.when_notes;
@@ -29,12 +29,12 @@ router.post('/', function(req, res){
 
       //BUILD DB QUERY STRING & DATA VALUE ARRAY
       var dbQueryString = 'INSERT INTO goal (client_id, jobsite_id, implementation_date, review_dates, completion_date, ' +
-      'service_outcome, objective, behavior_technique, modifications, equipment, when_notes, plan_steps)' +
+      'service_outcome, objective, behavior_techniques, modifications, equipment, when_notes, plan_steps)' +
       'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)';
       console.log('For goal post, using DB query string: ', dbQueryString);
 
       var goalValuesArray = [client_id, jobsite_id, implementation_date, review_dates, completion_date,
-      service_outcome, objective, behavior_technique, modifications, equipment, when_notes, plan_steps];
+      service_outcome, objective, behavior_techniques, modifications, equipment, when_notes, plan_steps];
       console.log('Going to push these values to the DB: ', goalValuesArray);
 
       // MAKE DB QUERY
@@ -193,7 +193,7 @@ router.put('/:id', function(req, res){
       var completion_date = req.body.completion_date;
       var service_outcome = req.body.service_outcome;
       var objective = req.body.objective;
-      var behavior_technique = req.body.behavior_technique;
+      var behavior_techniques = req.body.behavior_techniques;
       var modifications = req.body.modifications;
       var equipment = req.body.equipment;
       var when_notes = req.body.when_notes;
@@ -202,12 +202,12 @@ router.put('/:id', function(req, res){
       //BUILD DB QUERY STRING & DATA VALUE ARRAY
       var dbQueryString = 'UPDATE goal SET client_id=$1, jobsite_id=$2, implementation_date=$3, ' +
       'review_dates=$4, completion_date=$5, service_outcome=$6, objective=$7, ' +
-      'behavior_technique=$8, modifications=$9, equipment=$10, when_notes=$11, plan_steps=$12 WHERE id=$13';
+      'behavior_techniques=$8, modifications=$9, equipment=$10, when_notes=$11, plan_steps=$12 WHERE id=$13';
 
       console.log('For goal update, using DB query string: ', dbQueryString);
 
       var goalValuesArray = [client_id, jobsite_id, implementation_date, review_dates, completion_date,
-      service_outcome, objective, behavior_technique, modifications, equipment, when_notes, plan_steps, goal_ID];
+      service_outcome, objective, behavior_techniques, modifications, equipment, when_notes, plan_steps, goal_ID];
 
       console.log('Going to update the DB with these values: ', goalValuesArray);
       // MAKE DB QUERY

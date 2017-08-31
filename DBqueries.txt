@@ -69,12 +69,13 @@ CREATE TABLE "goal" (
 	"completion_date" varchar(20) not null,
 	"service_outcome" varchar(100) not null,
 	"objective" varchar(500) not null,
-	"behavior_technique" varchar(500) not null,
+	"behavior_techniques" varchar(500) not null,
 	"modifications" varchar(500) not null,
 	"equipment" varchar(150) not null,
 	"when_notes" varchar(500) not null,
 	"plan_steps" varchar(1000) not null,
-	"goal_status" boolean DEFAULT TRUE
+	"goal_status" boolean DEFAULT TRUE,
+	"jobSites_details" varchar(500) not null
 );
 
 

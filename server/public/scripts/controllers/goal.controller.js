@@ -9,21 +9,6 @@ myApp.controller('GoalController', function(UserService, $http) {
   vm.casemanagerData = [];
   var goal = {};
 
-  //DATA OBJECT TO SEND TO SERVER-SIDE
-  // var goal = {
-  //   client_id: client_id,
-  //   jobsite_id: jobsite_id,
-  //   implementation_date: implementation_date,
-  //   review_dates: review_dates,
-  //   completion_date: completion_date,
-  //   service_outcome: service_outcome,
-  //   objective: objective,
-  //   behavior_technique: behavior_technique,
-  //   modifications: modifications,
-  //   equipment: equipment,
-  //   when_notes: when_notes,
-  //   plan_steps: plan_steps
-  // };
 
 // GET REQUEST TO RETIEVE CLIENT NAMES AND IDs fROM DB TO POPULATE PULLDOWN MENU / AUTOCOMPLETE
 // Route: /goal/clients
@@ -84,8 +69,8 @@ var config = {params: {
               }};
   $http.get("/goal/singlecriteria", config).then(function(response) {
     console.log("Get one goal from DB: ", response.data);
-    vm.clientName = 'Balrog';
-    vm.goalData = response.data;
+    var goalData = response.data[0];
+    assignData(goalData);
   });
 };
 vm.getOneGoal = function(id) {
@@ -93,19 +78,36 @@ vm.getOneGoal = function(id) {
   goal.oneGoal_id = id;
 };
 
+//ASSIGNING GOAL DATA TO THE DOM
+function assignData(dataObject) {
+  vm.clientName = dataObject.name;
+  console.log("response data name is: ", dataObject.name );
+  vm.jobSite = dataObject.business_name;
+  vm.implementation_date = dataObject.implementation_date;
+  vm.review_dates = dataObject.review_dates;
+  vm.completion_date = dataObject.completion_date;
+  vm.service_outcome = dataObject.service_outcome;
+  vm.objective = dataObject.objective;
+  vm.jobsite_details = dataObject.jobsite_details;
+  vm.when_notes = dataObject.when_notes;
+  vm.equipment = dataObject.equipment;
+  vm.behavior_techniques = dataObject.behavior_techniques;
+  vm.modifications = dataObject.modifications;
+  vm.plan_steps = dataObject.plan_steps;
+}
 
 // POST NEW CRITERIA TO THE DB
 
 // RETRIVE GOAL CRITERIA DATA FROM DOM
 vm.saveCriteria = function(implementation_date, review_dates, completion_date,
-  service_outcome, objective, behavior_technique, modifications, equipment,
+  service_outcome, objective, behavior_techniques, modifications, equipment,
   when_notes, plan_steps) {
     goal.implementation_date = implementation_date;
     goal.review_dates = review_dates;
     goal.completion_date = completion_date;
     goal.service_outcome = service_outcome;
     goal.objective = objective;
-    goal.behavior_technique = behavior_technique;
+    goal.behavior_techniques = behavior_techniques;
     goal.modifications = modifications;
     goal.equipment = equipment;
     goal.when_notes = when_notes;
