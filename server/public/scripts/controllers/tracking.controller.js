@@ -12,7 +12,7 @@ myApp.controller('TrackingController', function(UserService, $http, $mdToast) {
   vm.trackingData = {};
   vm.today = new Date();
   vm.filters = ['Show All', 'Location', 'Case Manager', 'Option 3', 'Option 4', 'Option 5'];
-
+vm.hidden=false;
 
   // builds list of clients to display on goal tracking page
   buildLists = function(data){
@@ -44,14 +44,14 @@ myApp.controller('TrackingController', function(UserService, $http, $mdToast) {
   // gets list of clients
 
 
-function getClients(){
-  $http.get('/tracking/getClients').then(function(response) {
-    console.log(response.data);
-    vm.dataList = response.data;
-    buildLists(vm.dataList);
-console.log('vm.clientList:',vm.clientList);
-console.log('vm.locationList:',vm.locationList);
-console.log('vm.caseManagers:',vm.caseManagers);
+  function getClients(){
+    $http.get('/tracking/getClients').then(function(response) {
+      console.log(response.data);
+      vm.dataList = response.data;
+      buildLists(vm.dataList);
+      console.log('vm.clientList:',vm.clientList);
+      console.log('vm.locationList:',vm.locationList);
+      console.log('vm.caseManagers:',vm.caseManagers);
 
     });
 
@@ -118,30 +118,46 @@ console.log('vm.caseManagers:',vm.caseManagers);
       date: new Date(),
     };
     console.log('sending goalData:', goalData);
-    vm.showToast("Goal data submitted.", "footer");
-    if(goalData.time == undefined || goalData.completion == undefined){
-      console.log('error: fill in data');
+
+    if(goalData.time == undefined){
+      console.log('error: fill in time');
+      swal(
+        'Oops...',
+        'Please select AM or PM.',
+        'error'
+      );
+    } else if(goalData.completion == undefined){
+      console.log('error: fill in completion');
+      swal(
+        'Oops...',
+        'Please select completion status.',
+        'error'
+      );
     } else {
       $http.post('/tracking/trackGoal/', goalData).then(function(response){
         console.log('Received response from trackGoal POST:', response);
         vm.showClientGoals(vm.clientToView);
-
+        vm.showToast("Goal data submitted.", "footer");
       });
     }
-
-
-
   };
 
-  vm.toGoalCriteria = function(id){
-    console.log('in toGoalCriteria with id:', id);
+  vm.toGoalCriteria = function(goal){
+    console.log('in toGoalCriteria with goal:', goal);
   };
 
-  vm.toGoalHistory = function(id){
-    console.log('in toGoalHistory with id:', id);
+  vm.toGoalHistory = function(goal){
+    console.log('in toGoalHistory with goal:', goal);
+    console.log('goal hidden is:', goal.hidden);
+    if(goal.hidden == undefined){
+      console.log('goal is undefined');
+      goal.hidden = true;
+    } else {
+    goal.hidden = !goal.hidden;
+    }
   };
 
-vm.showToast = function(message, parentId){
+  vm.showToast = function(message, parentId){
     var el = angular.element(document.getElementById(parentId));
 
     var toast = $mdToast.simple()
@@ -154,6 +170,48 @@ vm.showToast = function(message, parentId){
     $mdToast.show(toast);
   };
 
+  vm.filterHistory = function(id){
+    console.log('in filterHistory with id:', id);
+    console.log('in filterHistory with startDate:', vm.historyStart);
+    console.log('in filterHistory with endDate:', vm.historyEnd);
+
+    if(vm.historyStart == undefined){
+      console.log('error: fill in start date');
+      swal(
+        'Oops...',
+        'Please enter a start date.',
+        'error'
+      );
+    } else if(vm.historyEnd == undefined){
+      console.log('error: fill in end date');
+      swal(
+        'Oops...',
+        'Please enter an end date.',
+        'error'
+      );
+    } else {
+      // $http.post('/tracking/trackGoal/', goalData).then(function(response){
+      //   console.log('Received response from trackGoal POST:', response);
+      //   vm.showClientGoals(vm.clientToView);
+      //   vm.showToast("Goal data submitted.", "footer");
+      // });
+    }
+
+  };
+
+  vm.test = function(){
+    console.log('in test');
+    var c = new Date();
+    var d = (c.getMonth()+1) + '/' + c.getDate() + '/' + c.getFullYear();
+    console.log('d is:', d);
+    console.log('d is type:', typeof d);
+  };
+
+  vm.convertDate = function(date){
+    console.log('in convertDate with date:', date);
+    var d = (date.getMonth()+1) + '/' + date.getDate() + '/' + date.getFullYear();
+    console.log('d is:', d);
+  };
 
 
 });
