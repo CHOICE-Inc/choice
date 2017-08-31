@@ -13,7 +13,7 @@ router.get('/getStaff', function(req, res) {
     //join client, staff, and users to filter all cleints from user login
     client.query("select * from staff join users on users.staff_id = staff.id",
         function (err, result) {
-          client.end();
+          //client.end();
           done();
           if(err) {
             console.log("Error inserting data: ", err);
@@ -21,6 +21,41 @@ router.get('/getStaff', function(req, res) {
           } else {
             console.log('RESULT ROWS', result.rows);
             res.send(result.rows);
+          }
+        });
+  });
+});
+
+router.put('/updateStaff/:id/:boolean', function(req, res){
+  console.log('staff id', req.params.id);
+  console.log('boolean', req.params.boolean);
+
+  var changeStatus;
+  if(req.params.boolean){
+    changeStatus = false;
+  } else if(req.params.boolean === false){
+    changeStatus = true;
+  }
+
+  console.log('changed to', changeStatus);
+
+  pool.connect(function(err, client, done, next) {
+    if(err) {
+      console.log("Error connecting: ", err);
+      //next(err);
+    }
+    //update employment status of employee
+    client.query("UPDATE staff SET employed = " + changeStatus + " WHERE id = " + req.params.id + ";",
+        function (err, result) {
+          //client.end();
+          done();
+          if(err) {
+            console.log("Error inserting data: ", err);
+            res.sendStatus(420);
+            //next(err);
+          } else {
+            //console.log('RESULT ROWS', result.rows);
+            res.sendStatus(202);
           }
         });
   });
