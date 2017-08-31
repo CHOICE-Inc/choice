@@ -35,8 +35,8 @@ router.get('/getGoals/:id', function(req, res) { //and latest goal_tracking subm
       console.log("Error connecting: ", err);
       //next(err);
     }
-    //join goal, client, staff, job, job_site to find all goal date
-    client.query("WITH get_goals AS (SELECT goal_id, max(date_tracked) as dt FROM goal_tracking GROUP BY goal_id) select goal.id as goalid, client.client_name, staff.staff_name, goal.implementation_date, goal.objective, goal.service_outcome as goalname, job_site.business_name, get_goals.dt as max_goal_date from goal join client on goal.client_id = client.id join staff on staff.id = client.staff_id join job_site on job_site.id = goal.jobsite_id left join get_goals on goal.id = get_goals.goal_id WHERE client_id = " + req.params.id + ";",
+    //make two CTE'S that will find last submitted for specific am or pm submission tied to each goal
+    client.query("WITH get_date_tracked_am AS (SELECT goal_id, am_or_pm as am, max(date_tracked) as dt FROM goal_tracking where am_or_pm ilike 'am' GROUP BY goal_id, am_or_pm), get_date_tracked_pm AS (select goal_id, am_or_pm as pm, max(date_tracked) as dt from goal_tracking where am_or_pm ilike 'pm' group by goal_id, am_or_pm)select goal.id as goalid, client.client_name, staff.staff_name, goal.implementation_date, goal.objective, goal.service_outcome as goalname, job_site.business_name, get_date_tracked_am.am, get_date_tracked_am.dt as max_goal_date_am, get_date_tracked_pm.pm, get_date_tracked_pm.dt as max_goal_date_pm from goal join client on goal.client_id = client.id join staff on staff.id = client.staff_id join job_site on job_site.id = goal.jobsite_id left join get_date_tracked_am on goal.id = get_date_tracked_am.goal_id left join get_date_tracked_pm on goal.id = get_date_tracked_pm.goal_id WHERE client_id = " + req.params.id + ";",
         function (err, result) {
           done();
           if(err) {
