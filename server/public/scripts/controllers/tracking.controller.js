@@ -199,12 +199,21 @@ vm.hidden=false;
 
   };
 
+  vm.getLastUpdate = function(goal){
+    console.log('in getLastUpdate with:', goal);
+    if(goal.max_goal_date_am > goal.max_goal_date_pm){
+      return goal.max_goal_date_am;
+    } else {
+      return goal.max_goal_date_pm;
+    }
+  };
+
   vm.test = function(){
     console.log('in test');
-    var c = new Date();
-    var d = (c.getMonth()+1) + '/' + c.getDate() + '/' + c.getFullYear();
-    console.log('d is:', d);
-    console.log('d is type:', typeof d);
+    var x = 3;
+    console.log('am is:' ,vm.clientGoals[0].max_goal_date_am);
+    console.log('pm is:' ,vm.clientGoals[0].max_goal_date_pm);
+    console.log(vm.clientGoals[0].max_goal_date_pm < vm.clientGoals[0].max_goal_date_am);
   };
 
   vm.convertDate = function(date){

@@ -96,10 +96,10 @@ GOAL TRACKING PAGE
         </div>
         <div>
           NOTES: <input type="text" name="" ng-model="goal.notes">
-          <button type="button" name="button" ng-click="tc.trackGoal(goal.goalid, goal.amOrPm, goal.completion, goal.notes)">Submit</button>
+          <md-button type="button" name="button" class="md-raised md-primary" ng-click="tc.trackGoal(goal.goalid, goal.amOrPm, goal.completion, goal.notes)">Submit</md-button>
         </div>
 <div>
-  Last updated: {{goal.am_or_pm}} of {{goal.date_tracked | date}}
+  Last updated: {{tc.getLastUpdate(goal) | date}}
 </div>
 
 </div><!-- end tracking div -->
