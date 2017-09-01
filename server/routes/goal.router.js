@@ -24,6 +24,7 @@ router.post('/', function(req, res){
       var behavior_techniques = req.body.behavior_techniques;
       var modifications = req.body.modifications;
       var equipment = req.body.equipment;
+      var jobsite_details = req.body.jobsite_details;
       var when_notes = req.body.when_notes;
       var plan_steps = req.body.plan_steps;
       var goal_name = req.body.goal_name;
@@ -31,12 +32,12 @@ router.post('/', function(req, res){
 
       //BUILD DB QUERY STRING & DATA VALUE ARRAY
       var dbQueryString = 'INSERT INTO goal (client_id, jobsite_id, implementation_date, review_dates, completion_date, ' +
-      'service_outcome, objective, behavior_techniques, modifications, equipment, when_notes, plan_steps, ' +
-      'goal_name, goal_summary) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)';
+      'service_outcome, objective, behavior_techniques, modifications, equipment, jobsite_details, when_notes, plan_steps, ' +
+      'goal_name, goal_summary) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)';
       console.log('For goal post, using DB query string: ', dbQueryString);
 
-      var goalValuesArray = [client_id, jobsite_id, implementation_date, review_dates, completion_date,
-      service_outcome, objective, behavior_techniques, modifications, equipment, when_notes, plan_steps, goal_name, goal_summary];
+      var goalValuesArray = [client_id, jobsite_id, implementation_date, review_dates, completion_date, service_outcome,
+            objective, behavior_techniques, modifications, equipment, jobsite_details, when_notes, plan_steps, goal_name, goal_summary];
       console.log('Going to push these values to the DB: ', goalValuesArray);
 
       // MAKE DB QUERY
