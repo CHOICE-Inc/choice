@@ -7,10 +7,11 @@ myApp.factory('UserService', function($http, $location, $mdDialog){
     userObject : userObject,
 
     getuser : function(){
-      console.log('UserService -- getuser');
+      console.log('UserService -- getuser', userObject);
       $http.get('/user').then(function(response) {
           if(response.data.username) {
               // user has a curret session on the server
+              console.log(response.data);
               userObject.userName = response.data.username;
               console.log('UserService -- getuser -- User Data: ', userObject.userName);
           } else {
