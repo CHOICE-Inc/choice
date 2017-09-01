@@ -24,6 +24,7 @@ router.post('/', function(req, res){
       var behavior_techniques = req.body.behavior_techniques;
       var modifications = req.body.modifications;
       var equipment = req.body.equipment;
+      var jobsite_details = req.body.jobsite_details;
       var when_notes = req.body.when_notes;
       var plan_steps = req.body.plan_steps;
       var goal_name = req.body.goal_name;
@@ -31,12 +32,12 @@ router.post('/', function(req, res){
 
       //BUILD DB QUERY STRING & DATA VALUE ARRAY
       var dbQueryString = 'INSERT INTO goal (client_id, jobsite_id, implementation_date, review_dates, completion_date, ' +
-      'service_outcome, objective, behavior_techniques, modifications, equipment, when_notes, plan_steps, ' +
-      'goal_name, goal_summary) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)';
+      'service_outcome, objective, behavior_techniques, modifications, equipment, jobsite_details, when_notes, plan_steps, ' +
+      'goal_name, goal_summary) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)';
       console.log('For goal post, using DB query string: ', dbQueryString);
 
-      var goalValuesArray = [client_id, jobsite_id, implementation_date, review_dates, completion_date,
-      service_outcome, objective, behavior_techniques, modifications, equipment, when_notes, plan_steps, goal_name, goal_summary];
+      var goalValuesArray = [client_id, jobsite_id, implementation_date, review_dates, completion_date, service_outcome,
+            objective, behavior_techniques, modifications, equipment, jobsite_details, when_notes, plan_steps, goal_name, goal_summary];
       console.log('Going to push these values to the DB: ', goalValuesArray);
 
       // MAKE DB QUERY
@@ -67,7 +68,7 @@ router.get('/clients', function(req, res){
       res.sendStatus(500);
     } else {
       // MAKE DB QUERY
-      db.query('SELECT id, name FROM client', function(errMakingQuery, result){
+      db.query('SELECT id, client_name FROM client', function(errMakingQuery, result){
         done();
         if(errMakingQuery){
           console.log('There was an error making INSERT query: ', errMakingQuery);
@@ -86,8 +87,7 @@ router.get('/clients', function(req, res){
 router.get('/casemanager', function(req, res){
   console.log('In get route for client names. ');
 
-  var getCaseManagersQuery = 'SELECT "staff"."id", "staff"."staff_name", "users"."role" FROM "staff" ' +
-                 'JOIN "users" ON "staff"."id" = "users"."staff_id" WHERE "users"."role" = 2;';
+  var getCaseManagersQuery = 'SELECT * FROM "staff" WHERE "role" = 2;';
                  console.log("Getting all Case Managers: ", getCaseManagersQuery);
 
   pool.connect(function(errConnectingToDatabase, db, done){

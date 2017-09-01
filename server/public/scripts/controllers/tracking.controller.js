@@ -77,7 +77,6 @@ myApp.controller('TrackingController', function(UserService, $http, $mdToast) {
       // console.log('vm.clientList:',vm.clientList);
       // console.log('vm.locationList:',vm.locationList);
       // console.log('vm.caseManagers:',vm.caseManagers);
-
     });
 
 
@@ -203,7 +202,6 @@ myApp.controller('TrackingController', function(UserService, $http, $mdToast) {
     // console.log('in toGoalHistory with goal:', goal);
     // console.log('goal hidden is:', goal.hidden);
     if(goal.hidden == undefined){
-      console.log('goal is undefined');
       goal.hidden = true;
       vm.getGoalHistory(goal);
     } else if(goal.hidden == false){
@@ -233,6 +231,7 @@ myApp.controller('TrackingController', function(UserService, $http, $mdToast) {
     // console.log('in filterHistory with startDate:', vm.historyStart);
     // console.log('in filterHistory with endDate:', vm.historyEnd);
 
+goal.shownHistory = angular.copy(goal.history);
     if(goal.historyStart == undefined){
       console.log('error: fill in start date');
       swal(
@@ -272,8 +271,9 @@ myApp.controller('TrackingController', function(UserService, $http, $mdToast) {
           newHistory.push(goal.history[i]);
         }
       }
-      goal.history = newHistory;
-      console.log('new goal.history is:', goal.history);
+      console.log('newHistory:', newHistory);
+      goal.shownHistory = newHistory;
+      console.log('new goal.shownHistory is:', goal.shownHistory);
     }
 
   };
@@ -288,9 +288,10 @@ myApp.controller('TrackingController', function(UserService, $http, $mdToast) {
 
   vm.getGoalHistory = function(goal){
     console.log('in getGoalHistory');
-    $http.get('/tracking/getGoalHistory/' + goal.goal_id).then(function(response) {
+    $http.get('/tracking/getGoalHistory/' + goal.goalid).then(function(response) {
       console.log('getGoalHistory response:',response.data);
       goal.history = response.data;
+      goal.shownHistory = response.data;
       console.log('goal.history is:', goal.history);
 
     });
