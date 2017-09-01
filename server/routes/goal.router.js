@@ -67,7 +67,7 @@ router.get('/clients', function(req, res){
       res.sendStatus(500);
     } else {
       // MAKE DB QUERY
-      db.query('SELECT id, name FROM client', function(errMakingQuery, result){
+      db.query('SELECT id, client_name FROM client', function(errMakingQuery, result){
         done();
         if(errMakingQuery){
           console.log('There was an error making INSERT query: ', errMakingQuery);
