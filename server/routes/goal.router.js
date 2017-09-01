@@ -67,7 +67,7 @@ router.get('/clients', function(req, res){
       res.sendStatus(500);
     } else {
       // MAKE DB QUERY
-      db.query('SELECT id, name FROM client', function(errMakingQuery, result){
+      db.query('SELECT id, client_name FROM client', function(errMakingQuery, result){
         done();
         if(errMakingQuery){
           console.log('There was an error making INSERT query: ', errMakingQuery);
@@ -86,8 +86,7 @@ router.get('/clients', function(req, res){
 router.get('/casemanager', function(req, res){
   console.log('In get route for client names. ');
 
-  var getCaseManagersQuery = 'SELECT "staff"."id", "staff"."staff_name", "users"."role" FROM "staff" ' +
-                 'JOIN "users" ON "staff"."id" = "users"."staff_id" WHERE "users"."role" = 2;';
+  var getCaseManagersQuery = 'SELECT * FROM "staff" WHERE "role" = 2;';
                  console.log("Getting all Case Managers: ", getCaseManagersQuery);
 
   pool.connect(function(errConnectingToDatabase, db, done){
