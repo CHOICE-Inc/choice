@@ -203,7 +203,6 @@ myApp.controller('TrackingController', function(UserService, $http, $mdToast) {
     // console.log('in toGoalHistory with goal:', goal);
     // console.log('goal hidden is:', goal.hidden);
     if(goal.hidden == undefined){
-      console.log('goal is undefined');
       goal.hidden = true;
       vm.getGoalHistory(goal);
     } else if(goal.hidden == false){
@@ -288,7 +287,7 @@ myApp.controller('TrackingController', function(UserService, $http, $mdToast) {
 
   vm.getGoalHistory = function(goal){
     console.log('in getGoalHistory');
-    $http.get('/tracking/getGoalHistory/' + goal.goal_id).then(function(response) {
+    $http.get('/tracking/getGoalHistory/' + goal.goalid).then(function(response) {
       console.log('getGoalHistory response:',response.data);
       goal.history = response.data;
       console.log('goal.history is:', goal.history);
