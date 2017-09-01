@@ -11,7 +11,7 @@ create database choice_db;
 
 CREATE TABLE "staff"(
 	"id" serial primary key,
-	"name" varchar(50) not null,
+	"staff_name" varchar(50) not null,
 	"location" varchar(20) not null,
 	"email" varchar(50) not null
 );
@@ -41,7 +41,7 @@ CREATE TABLE "users" (
 CREATE TABLE "client" (
 	"id" serial primary key,
 	"staff_id" integer not null references staff(id),
-	"name" varchar(50) not null
+	"client_name" varchar(50) not null
 );
 
 
