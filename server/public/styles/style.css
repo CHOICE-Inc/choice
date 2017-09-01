@@ -1,5 +1,5 @@
 .goals div {
-  border: 1px solid blue;
+  /*border: 1px solid blue;*/
 }
 
 textarea {
@@ -17,7 +17,10 @@ body, html {
 }
 
 a {
-  color: lightBlue;
+  color: #61FFB8;
+}
+a:hover {
+  color: darkGrey;
 }
 
 /* INSERT YOUR STYLING HERE */
