@@ -85,9 +85,8 @@ router.get('/clients', function(req, res){
 // RETIEVE CASE MANAGER NAMES AND IDs fROM DB TO POPULATE PULLDOWN MENU / AUTOCOMPLETE
 router.get('/casemanager', function(req, res){
   console.log('In get route for client names. ');
-
-  var getCaseManagersQuery = 'SELECT "staff"."id", "staff"."staff_name","staff"."role" FROM "staff" WHERE "users"."role" = 2;';
-                 console.log("Getting all Case Managers: ", getCaseManagersQuery);
+  var getCaseManagersQuery = 'SELECT * FROM "staff" WHERE "role" = 2;';
+     console.log("Getting all Case Managers: ", getCaseManagersQuery);
 
   pool.connect(function(errConnectingToDatabase, db, done){
     if(errConnectingToDatabase) {
