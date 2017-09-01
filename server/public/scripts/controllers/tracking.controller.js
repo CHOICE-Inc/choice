@@ -232,6 +232,7 @@ myApp.controller('TrackingController', function(UserService, $http, $mdToast) {
     // console.log('in filterHistory with startDate:', vm.historyStart);
     // console.log('in filterHistory with endDate:', vm.historyEnd);
 
+goal.shownHistory = angular.copy(goal.history);
     if(goal.historyStart == undefined){
       console.log('error: fill in start date');
       swal(
@@ -271,8 +272,9 @@ myApp.controller('TrackingController', function(UserService, $http, $mdToast) {
           newHistory.push(goal.history[i]);
         }
       }
-      goal.history = newHistory;
-      console.log('new goal.history is:', goal.history);
+      console.log('newHistory:', newHistory);
+      goal.shownHistory = newHistory;
+      console.log('new goal.shownHistory is:', goal.shownHistory);
     }
 
   };
@@ -290,6 +292,7 @@ myApp.controller('TrackingController', function(UserService, $http, $mdToast) {
     $http.get('/tracking/getGoalHistory/' + goal.goalid).then(function(response) {
       console.log('getGoalHistory response:',response.data);
       goal.history = response.data;
+      goal.shownHistory = response.data;
       console.log('goal.history is:', goal.history);
 
     });

@@ -133,7 +133,7 @@ GOAL TRACKING PAGE
     <th style="width:40%;">Notes</th>
     <th style="width:40%;">Buttons</th>
   </tr>
-  <tr ng-repeat="gh in goal.history">
+  <tr ng-repeat="gh in goal.shownHistory">
     <td>{{gh.date_tracked | date}}</td>
     <td>{{gh.am_or_pm}}</td>
     <td>IN</td>
