@@ -11,9 +11,10 @@ create database choice_db;
 
 CREATE TABLE "staff"(
 	"id" serial primary key,
-	"name" varchar(50) not null,
+	"staff_name" varchar(50) not null,
 	"location" varchar(20) not null,
-	"email" varchar(50) not null
+	"email" varchar(50) not null,
+  "employed" boolean DEFAULT true
 );
 
 
@@ -41,7 +42,7 @@ CREATE TABLE "users" (
 CREATE TABLE "client" (
 	"id" serial primary key,
 	"staff_id" integer not null references staff(id),
-	"name" varchar(50) not null
+	"client_name" varchar(50) not null
 );
 
 
@@ -64,34 +65,24 @@ CREATE TABLE "goal" (
 	"id" serial primary key,
 	"client_id" integer not null references client(id),
 	"jobsite_id" integer not null references job_site(id),
-	"goal_name" varchar(250) not null,
-	"goal_summary" varchar(500) not null,
 	"implementation_date" date not null,
 	"review_dates" varchar(50) null,
 	"completion_date" date null,
-	"service_outcome" varchar(500) not null,
+	"service_outcome" varchar(100) not null,
 	"objective" varchar(500) not null,
-	"behavior_techniques" varchar(1000) not null,
+	"behavior_technique" varchar(500) not null,
 	"modifications" varchar(500) not null,
-	"equipment" varchar(500) not null,
-	"jobsites_details" varchar(500) not null
+	"equipment" varchar(150) not null,
 	"when_notes" varchar(500) not null,
 	"plan_steps" varchar(1000) not null,
-	"goal_status" boolean DEFAULT TRUE,
+	"goal_status" boolean DEFAULT TRUE
 );
 
 
-8) ----- Create "JOB" junction table. -----
---junction table assigning a goal with many job-sites
-
-CREATE TABLE "job" (
-	"id" serial primary key,
-	"jobsite_id" integer not null references job_site(id),
-	"goal_id" integer not null references goal(id)
-);
+8) DELETE TABLE JOB
 
 
-9) ----- Create "GOAL" table. -----
+9) ----- Create "GOAL TRACKING" table. -----
 --submitted goals, tracking completion data
 
 CREATE TABLE "goal_tracking" (
@@ -100,6 +91,5 @@ CREATE TABLE "goal_tracking" (
 	"date_tracked" date not null,
 	"am_or_pm" varchar(2) not null,
 	"complete_or_not" varchar(20) not null,
-	"notes" varchar(300) not null,
-	"additional_notes" varchar(300) not null
+	"notes" varchar(300) not null
 );
