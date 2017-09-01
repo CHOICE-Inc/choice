@@ -137,12 +137,44 @@ router.get('/jobsites', function(req, res){
   }); //end of pool.connect
 }); // end of route
 
+// GET ROUTE TO RETRIVE * ALL THE GOAL CRITERIA * IN THE DB FOR THE SPECIFIED USER
+router.get('/allCriteria/:id', function(req, res){
+  console.log('In get route for client\'s goal criteria: ', req.params.id);
+
+  pool.connect(function(errConnectingToDatabase, db, done){
+    if(errConnectingToDatabase) {
+      console.log('There was an error connecting to database: ', errConnectingToDatabase);
+      res.sendStatus(500);
+    } else {
+      // BUILD DB QUERY STRING
+      var dbQueryString = 'SELECT goal.id as goalid, * FROM "goal" ' +
+      'JOIN "client" ON "goal"."client_id" = "client"."id" ' +
+      'JOIN "job_site" ON "job_site"."id" = "goal"."jobsite_id"' +
+      'WHERE "client_id" = $1 ';
+
+      // MAKE DB QUERY
+      db.query(dbQueryString, [req.params.id], function(errMakingQuery, result){
+        done();
+        if(errMakingQuery){
+          console.log('There was an error making INSERT query: ', errMakingQuery);
+          res.sendStatus(500);
+        } else {
+          console.log('Retrieved criteria data from DB: ', result);
+          res.send(result.rows);
+        }
+      }); //end of db.query
+
+    } //end of DB connect if-else
+  }); //end of pool.connect
+}); // end of route
+
 
 // GET ROUTE TO RETRIVE GOAL CRITERIA DATA FROM DB
 // NEED GOAL ID TO ACCESS ONE (CORRECT/THIS) GOAL
 router.get('/singlecriteria', function(req, res){
   console.log('In get route for client\'s goal criteria: ', req.query);
   console.log('on server, client_id = ', req.query.client_id, 'on server, goal_id = ', req.query.goal_id);
+
   var getGoal = ' SELECT * FROM "goal" JOIN "client" ON "goal"."client_id" = "client"."id" ' +
   ' JOIN "job_site" ON "job_site"."id" = "goal"."jobsite_id" WHERE "client_id" = $1 AND "goal"."id" = $2; ';
 
@@ -162,7 +194,7 @@ router.get('/singlecriteria', function(req, res){
           console.log('There was an error making INSERT query: ', errMakingQuery);
           res.sendStatus(500);
         } else {
-          console.log('Retrieved criteria data from DB: ', result);
+          console.log('Retrieved criteria data from DB: ', result.rows);
           res.send(result.rows);
         }
       }); //end of db.query

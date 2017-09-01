@@ -35,7 +35,7 @@
       <md-input-container>
         <label>Select goal to view:</label>
         <md-select ng-model="gc.goalSelection">
-          <md-option ng-repeat="goal in gc.allGoalData" value="{{goal.objective}}">{{goal.objective}}</md-option>
+          <md-option ng-repeat="goal in gc.allGoalData" value="{{goal.objective}}" ng-click="gc.getGoalCriteria(goal.goalid, goal.client_id)">{{goal.objective}}</md-option>
         </md-select>
       </md-input-container>
     </div>

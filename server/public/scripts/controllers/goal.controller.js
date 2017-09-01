@@ -7,6 +7,7 @@ myApp.controller('GoalController', function(UserService, $http) {
   vm.clientData = [];
   vm.jobSiteData = [];
   vm.casemanagerData = [];
+  vm.allGoalData = [];
   var goal = {};
 
 
@@ -75,6 +76,7 @@ vm.assignJobsiteId = function (id){
         console.log('Get all criteria for: ', client_id, 'Gives response: ', response.data);
         //Assign that data to vm.allGoalData
         vm.allGoalData = response.data;
+        console.log('assigning response data to all allGoalData: ', vm.allGoalData);
       });
     }
 
@@ -95,6 +97,7 @@ var config = {params: {
     assignData(goalData);
   });
 };
+
 vm.getOneGoal = function(id) {
   console.log("Get One Goal: ", id);
   goal.oneGoal_id = id;
