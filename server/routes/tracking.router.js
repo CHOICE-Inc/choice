@@ -85,7 +85,29 @@ router.post('/trackGoal', function(req, res) {
 
 
 //Chase Router
+router.get('/getGoalHistory/:id', function(req, res) {
+  console.log('in server getting goal history');
+  console.log('with goal id', req.params.id);
 
+  pool.connect(function(err, client, done, next) {
+    if(err) {
+      console.log("Error connecting: ", err);
+      //next(err);
+    }
+    //get goal history by goal id
+    client.query("select * from goal_tracking where goal_id = 1 order by date_tracked;",
+        function (err, result) {
+          done();
+          if(err) {
+            console.log("Error inserting data: ", err);
+            //next(err);
+          } else {
+            console.log('RESULT ROWS', result.rows);
+            res.send(result.rows);
+          }
+        });
+  });
+});
 //End Chase Router
 
 module.exports = router;
