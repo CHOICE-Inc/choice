@@ -86,8 +86,7 @@ router.get('/clients', function(req, res){
 router.get('/casemanager', function(req, res){
   console.log('In get route for client names. ');
 
-  var getCaseManagersQuery = 'SELECT "staff"."id", "staff"."staff_name", "users"."role" FROM "staff" ' +
-                 'JOIN "users" ON "staff"."id" = "users"."staff_id" WHERE "users"."role" = 2;';
+  var getCaseManagersQuery = 'SELECT "staff"."id", "staff"."staff_name","staff"."role" FROM "staff" WHERE "users"."role" = 2;';
                  console.log("Getting all Case Managers: ", getCaseManagersQuery);
 
   pool.connect(function(errConnectingToDatabase, db, done){
