@@ -77,7 +77,6 @@ myApp.controller('TrackingController', function(UserService, $http, $mdToast) {
       // console.log('vm.clientList:',vm.clientList);
       // console.log('vm.locationList:',vm.locationList);
       // console.log('vm.caseManagers:',vm.caseManagers);
-
     });
 
 
