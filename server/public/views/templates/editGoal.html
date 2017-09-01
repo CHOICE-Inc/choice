@@ -12,10 +12,10 @@
           md-selected-item="gc.selectedItem"
           md-search-text="gc.searchText"
           md-items="item in gc.querySearch(gc.searchText)"
-          md-item-text="item.name"
+          md-item-text="item.client_name"
           placeholder="Enter client's name">
           <md-item-template>
-            <span md-highlight-text="gc.searchText">{{item.name}}</span>
+            <span md-highlight-text="gc.searchText">{{item.client_name}}</span>
           </md-item-template>
           <md-not-found>
             No names matching "{{gc.searchText}}" were found.
