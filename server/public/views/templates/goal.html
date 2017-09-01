@@ -13,10 +13,10 @@
     <div layout="column" layout-align="center center" flex="40">
       <div layout="row">
       <md-button type="button" name="saveBtn" ng-click="gc.saveCriteria(gc.implementation_date, gc.review_dates, gc.completion_date,
-        gc.service_outcome, gc.objective, gc.behavior_technique, gc.modifications, gc.equipment, gc.when_notes, gc.plan_steps,
+        gc.service_outcome, gc.objective, gc.behavior_techniques, gc.modifications, gc.equipment, gc.jobsite_details, gc.when_notes, gc.plan_steps,
         gc.goal_name, gc.goal_summary)">Save</md-button>
-      <md-button type="button" name="editBtn" ng-click="gc.getGoalCriteria(4, 3)">Edit</md-button>
-      <md-button type="button" name="disableBtn">Disable</md-button>
+      <!-- <md-button type="button" name="editBtn" ng-click="gc.getGoalCriteria(2, 2)">Edit</md-button>
+      <md-button type="button" name="disableBtn">Disable</md-button> -->
       </div>
     </div>
   </div>
@@ -104,7 +104,7 @@
     <div layout="column" flex>
       <md-input-container>
         <label>Where will the plan be run:</label>
-        <textarea form="goalForm" rows="5" md-maxlength="500" ng-model="gc.jobSite_details"></textarea>
+        <textarea form="goalForm" rows="5" md-maxlength="500" ng-model="gc.jobsite_details"></textarea>
       </md-input-container>
       <md-input-container>
         <label>When will the plan be run:</label>
@@ -135,7 +135,7 @@
     <div layout="column" flex>
       <md-input-container>
         <label>What behavior techniques will be used, consistent with communication mode and learning style:</label>
-        <textarea form="goalForm" rows="5" md-maxlength="500" ng-model="gc.behavior_technique"></textarea>
+        <textarea form="goalForm" rows="5" md-maxlength="500" ng-model="gc.behavior_techniques"></textarea>
       </md-input-container>
     </div>
   </div><!-- End of Row for Method - behavior techniques -->

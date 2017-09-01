@@ -56,6 +56,28 @@ vm.assignJobsiteId = function (id){
   goal.jobsite_id = id;
 };
 
+//WHEN USER CLICKS A CLIENT'S NAME, AUTOPOPULATE PULLDOWN MENU FOR AVAILABLE GOALS
+ vm.getClientGoals = function(client_id) {
+   console.log('Client ID to retrieve goals for: ', client_id);
+
+   //GET request to get all the goals available for the client_id
+   getAllGoals(client_id);
+   console.log('Goals for that client include: ', vm.allGoalData);
+   //Display the goal "names" for each one in the pulldown menu
+
+ };
+
+//GET * ALL * CRITERIA DATA FOR A SPECIFIC USER FROM THE DB
+    //Will be called by other functions to do logic upon that data
+    function getAllGoals(client_id){
+      //GET request to get all the goals available for the client_id
+      $http.get('/goal/allCriteria/' + client_id).then(function(response){
+        console.log('Get all criteria for: ', client_id, 'Gives response: ', response.data);
+        //Assign that data to vm.allGoalData
+        vm.allGoalData = response.data;
+      });
+    }
+
 // GET SINGLE CRITERIA FROM THE DB BASED ON GOAL_ID
 // May need to do a join on the server side to grab client name and jobname
 vm.getGoalCriteria = function(goal_id, client_id) {
@@ -102,7 +124,7 @@ function assignData(dataObject) {
 
 // RETRIVE GOAL CRITERIA DATA FROM DOM
 vm.saveCriteria = function(implementation_date, review_dates, completion_date,
-  service_outcome, objective, behavior_techniques, modifications, equipment,
+  service_outcome, objective, behavior_techniques, modifications, equipment, jobsite_details,
   when_notes, plan_steps,goal_name, goal_summary) {
     goal.implementation_date = implementation_date;
     goal.review_dates = review_dates;
@@ -112,6 +134,7 @@ vm.saveCriteria = function(implementation_date, review_dates, completion_date,
     goal.behavior_techniques = behavior_techniques;
     goal.modifications = modifications;
     goal.equipment = equipment;
+    goal.jobsite_details = jobsite_details;
     goal.when_notes = when_notes;
     goal.plan_steps = plan_steps;
     goal.goal_name = goal_name;
@@ -131,7 +154,43 @@ vm.saveCriteria = function(implementation_date, review_dates, completion_date,
 
 // "DELETE" CRITERIA BY CHANGING GOAL_STATUS TO FALSE & DISABLING IT
 
+vm.disableCriteria = function(id) {
+      console.log('Goal criteria id to disable: ', id);
 
+      $http.put('/goal/disable/' + id, data).then(function(response){
+        console.log('Disable criteria response: ', response);
+      });
+    }; //end of disable function
+
+
+    // FUNCTIONALITY FOR AUTOCOMPLETE CLIENT NAME SEARCH
+    vm.querySearch = function(query) {
+      vm.clients = loadAll();
+      console.log('Looking for: ', query);
+      var results = query ? vm.clients.filter ( createFilterFor (query) ) : vm.clients,
+        deferred;
+      // ? and : act as if-else statement: if query is true, results = filtered text, else results = vm.clients
+      return results;
+    };
+    // Build 'client' list of key/value pairs
+    function loadAll() {
+      getClients();
+      var clients = vm.clientData;
+      console.log('Client data: ', vm.clientData);
+
+      return clients.map( function (client) {
+        client.value = client.name.toLowerCase();
+        return client;
+      });
+    }
+  //Create filter function for a query string
+  function createFilterFor (query) {
+    var lowercaseQuery = angular.lowercase(query);
+
+    return function filterFn(item) {
+      return (item.value.indexOf(lowercaseQuery) === 0);
+    };
+  }
 
 
 
