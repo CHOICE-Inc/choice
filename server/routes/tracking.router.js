@@ -12,7 +12,10 @@ router.get('/getClients', function(req, res) {
       //next(err);
     }
     //join client, staff, and users to filter all cleints from user login
-    client.query("select client.id as clientid, client.client_name, staff.id as staffid, staff.staff_name, job_site.id as jobsite_id, job_site.business_name from goal join client on goal.client_id = client.id join job_site on goal.jobsite_id = job_site.id join staff on staff.id = client.staff_id join users on users.staff_id = staff.id where users.id = " + req.user.id + ";",
+    client.query("select client.id as clientid, client.client_name, staff.id as staffid, staff.staff_name, " +
+    "job_site.id as jobsite_id, job_site.business_name from client join goal on goal.client_id = client.id " +
+    "join job_site on goal.jobsite_id = job_site.id join staff on client.staff_id = staff.id " +
+    "join users on users.staff_id = users.staff_id where users.id = " + req.user.id + ";",
         function (err, result) {
           done();
           if(err) {
