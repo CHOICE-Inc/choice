@@ -67,11 +67,12 @@ CREATE TABLE "goal" (
 	"implementation_date" date not null,
 	"review_dates" varchar(50) null,
 	"completion_date" date null,
-	"service_outcome" varchar(100) not null,
+	"service_outcome" varchar(500) not null,
 	"objective" varchar(500) not null,
-	"behavior_technique" varchar(500) not null,
+	"behavior_techniques" varchar(1000) not null,
 	"modifications" varchar(500) not null,
-	"equipment" varchar(150) not null,
+	"equipment" varchar(500) not null,
+  "jobsite_details" varchar(500) not null,
 	"when_notes" varchar(500) not null,
 	"plan_steps" varchar(1000) not null,
 	"goal_status" boolean DEFAULT TRUE
@@ -97,6 +98,5 @@ CREATE TABLE "goal_tracking" (
 	"date_tracked" date not null,
 	"am_or_pm" varchar(2) not null,
 	"complete_or_not" varchar(20) not null,
-	"notes" varchar(300) not null,
-	"additional_notes" varchar(300) not null
+	"notes" varchar(300) not null
 );
