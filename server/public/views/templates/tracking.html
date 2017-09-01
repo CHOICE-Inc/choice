@@ -50,7 +50,7 @@ GOAL TRACKING PAGE
 
       <div ng-repeat="goal in tc.clientGoals" style="width:90%;background-color:yellow;margin-left:auto,margin-right:auto">
         <div style="background-color:orange;text-align:center;font-size:32px">
-          ((GOAL TITLE))
+          {{goal.goalname}}
         </div>
         <div layout="row">
           <div flex="50">GOAL LOCATION: {{goal.business_name}}</div>
@@ -66,7 +66,7 @@ GOAL TRACKING PAGE
 <div ng-hide="goal.hidden == true">
         <div>
           <p>
-            ((GOAL NOTES))
+            GOAL NOTES: {{goal.goalnotes}}
           </p>
         </div>
 
@@ -134,7 +134,7 @@ GOAL TRACKING PAGE
     <th style="width:40%;">Notes</th>
     <th style="width:40%;">Buttons</th>
   </tr>
-  <tr ng-repeat="gh in goal.history">
+  <tr ng-repeat="gh in goal.shownHistory">
     <td>{{gh.date_tracked | date}}</td>
     <td>{{gh.am_or_pm}}</td>
     <td>IN</td>
