@@ -1,9 +1,102 @@
-<div ng-include="'/views/partials/nav.html'"></div>
 <!-- GOAL TRACKING PAGE - Page will let users log completion of goals -->
 
 <!--
 //This page will display the participants on the left side of the page
 //The right side of the page will load each goal using the singleGoal.html partial file
 //The right side may also show the singleGoalSummary.html (w/ summary data table) for a goal-->
+<div id="footer" style="background-color:transparent;position: fixed;bottom: 0;width: 100%;height:60px;pointer-events:none">
 
+</div>
 GOAL TRACKING PAGE
+<div style="margin-left:auto;margin-right:auto" layout="column" flex="90" class="container" id="toastTest">
+
+
+  <div layout="row">
+    <div style="background-color:skyblue;min-height:1000px;border-right:2px solid black" layout="column" flex="20">
+      <div style="font-size:24px;text-align:center">
+        Client List
+      </div>
+
+      <md-select ng-model="tc.filterCm" placeholder="Case Manager" class="md-no-underline">
+        <md-option value="all">All</md-option>
+        <md-option ng-repeat="cm in tc.caseManagers" ng-value="cm">{{cm}}</md-option>
+      </md-select>
+
+      <md-select ng-model="tc.filterJs" placeholder="Job Site" class="md-no-underline">
+        <md-option value="all">All</md-option>
+        <md-option ng-repeat="loc in tc.locationList" ng-value="loc">{{loc}}</md-option>
+      </md-select>
+
+
+
+      <button type="button" name="button" ng-click="tc.filterClients(tc.dataList)">Filter</button>
+
+
+
+
+      <div>
+        <ul>
+          <li ng-repeat="client in tc.clientList" ng-click="tc.showClientGoals(client)"><p>{{client.client_name}}</p></li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="background-color:skyblue;min-height:1000px" layout="column" flex="80">
+
+      <p>Client Name: {{tc.clientToView.client_name}}</p>
+      <p>Case Manager: {{tc.clientToView.staff_name}}</p>
+
+      <div ng-repeat="goal in tc.clientGoals" style="width:90%;background-color:yellow;margin-left:auto,margin-right:auto">
+        <div style="background-color:orange;text-align:center;font-size:32px">
+          ((GOAL TITLE))
+        </div>
+        <div layout="row">
+          <div flex="50">GOAL LOCATION: {{goal.business_name}}</div>
+
+          <div flex="50" style="text-align:right;">
+            <md-button class="md-raised md-primary" style="display:inline-block" type="button" name="button" ng-click="tc.toGoalCriteria(goal.id)">Goal Criteria</md-button>
+            <md-button class="md-raised md-primary" style="display:inline-block" type="button" name="button" ng-click="tc.toGoalHistory(goal.id)">Goal History</md-button>
+          </div>
+
+
+        </div>
+
+        <div>
+          <p>
+            ((GOAL NOTES))
+          </p>
+        </div>
+        <div>
+          DATE: {{tc.today | date}}
+        </div>
+        <div layout="row">
+          <div>
+
+
+            <md-radio-group layout="column" style="color:black" ng-model="goal.amOrPm">
+              <span>Time</span>
+              <md-radio-button value="am" class="md-primary">AM</md-radio-button>
+              <md-radio-button value="pm" class="md-primary">PM</md-radio-button>
+            </md-radio-group>
+          </div>
+          <div>
+            <md-radio-group layout="row" style="color:black" ng-model="goal.completion">
+              <md-radio-button value="complete" class="md-primary">Complete</md-radio-button>
+              <md-radio-button value="incomplete" class="md-primary">Incomplete</md-radio-button>
+              <md-radio-button value="absent" class="md-primary">Absent</md-radio-button>
+              <md-radio-button value="na" class="md-primary">NA</md-radio-button>
+            </md-radio-group>
+          </div>
+        </div>
+        <div>
+          NOTES: <input type="text" name="" ng-model="goal.notes">
+          <button type="button" name="button" ng-click="tc.trackGoal(goal.id, goal.amOrPm, goal.completion, goal.notes)">Submit</button>
+        </div>
+<div>
+  Last updated: {{goal.am_or_pm}} of {{goal.date_tracked | date}}
+</div>
+
+
+      </div>
+    </div>
+  </div>
