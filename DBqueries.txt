@@ -90,6 +90,8 @@ CREATE TABLE "goal" (
 	"id" serial primary key,
 	"client_id" integer not null references client(id),
 	"jobsite_id" integer not null references job_site(id),
+	"goal_name" varchar(250) not null,
+	"goal_summary" varchar(500) not null,
 	"implementation_date" date not null,
 	"review_dates" varchar(50) null,
 	"completion_date" date null,
@@ -133,6 +135,11 @@ insert into "goal" (client_id, jobsite_id, implementation_date, review_dates, co
 behavior_technique, modifications, equipment, jobsite_details, when_notes, plan_steps, goal_status)
 values(2, 1, '08/07/2017', '09/09/17 and 04/05/18', '05/09/17', 'Be one with nature', 'talk to birds', 'be weird and by yourself talk to many animals', 'be less weird', 'wizard staff', 'Rohan and the Forest Moon of Endor',
 'For the next year', '1. Find Gandalf 2. Talk to animals 3. Destroy inanimate objects', true);
+
+insert into "goal" (client_id, jobsite_id, goal_name, goal_summary, implementation_date, review_dates, completion_date, service_outcome, objective,
+behavior_technique, modifications, equipment, jobsite_details, when_notes, plan_steps, goal_status)
+values(3, 3, 'Help Sauriman', 'Lie convincingly to our enemies', '08/07/2017', '09/09/17 and 04/05/18', '05/09/17', 'Be a good liar', 'Destroy Rohan and the good', 'be weird and to yourself', 'be better liar', 'Moldy robe', 'Rohan and the Black Tower',
+'For the next year', '1. Find Sauriman 2. Lie to the King 3. Destroy Rohan', true);
 
 ---- Add some sample goal tracking data ---
 
