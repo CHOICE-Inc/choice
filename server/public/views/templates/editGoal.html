@@ -1,29 +1,29 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <!-- EDIT GOAL CRITERA PAGE - View and edit goal criteria guidelines -->
 
-
+<!-- Top Bar: Select client name, select goal w/ Edit and Disable buttons -->
 <div class="container" ng-controller="GoalController as gc" >
-  <!-- Top Bar: Select client name, select goal w/ Edit and Disable buttons -->
+
   <div class="clientSelection" layout="row">
     <div class="nameSelect" layout="column" flex="40">
       <!-- Autocomplete input to select client name-->
       <form name="autocompleteForm">
         <md-autocomplete required
-          md-input-name="gc.autocomplete"
-          md-selected-item="gc.selectedItem"
-          md-search-text="gc.searchText"
-          md-items="item in gc.querySearch(gc.searchText)"
-          md-item-text="item.name"
-          placeholder="Enter client's name">
-          <md-item-template>
-            <span md-highlight-text="gc.searchText">{{item.name}}</span>
-          </md-item-template>
-          <md-not-found>
-            No names matching "{{gc.searchText}}" were found.
-          </md-not-found>
-          <div ng-messages="autocompleteForm.autocomplete.$error">
-            <div ng-message="required">This field is required</div>
-          </div>
+        md-input-name="gc.autocomplete"
+        md-selected-item="gc.selectedItem"
+        md-search-text="gc.searchText"
+        md-items="item in gc.querySearch(gc.searchText)"
+        md-item-text="item.name"
+        placeholder="Enter client's name">
+        <md-item-template>
+          <span md-highlight-text="gc.searchText">{{item.name}}</span>
+        </md-item-template>
+        <md-not-found>
+          No names matching "{{gc.searchText}}" were found.
+        </md-not-found>
+        <div ng-messages="autocompleteForm.autocomplete.$error">
+          <div ng-message="required">This field is required</div>
+        </div>
         </md-autocomplete>
         <md-button class="md-raised" ng-click="gc.getClientGoals(gc.selectedItem.id)">Select</md-button>
       </form>
@@ -42,15 +42,15 @@
     <div layout="column" flex="15">
       <!-- Edit & Disable buttons -->
       <md-button class="md-raised md-primary" name="editBtn">Edit Criteria</md-button>
-
     </div>
+    
     <div layout="column" flex="15">
       <md-button class="md-raised md-warn" name="disableBtn" ng-click="gc.disableCriteria(gc.goal_id)">Disable Criteria</md-button>
     </div>
 
-</div>
+  </div> <!-- End of top bar w/ find client and edit buttons -->
 
-<!-- Bottom Portion: Load goal.html and populate w/ selected criteria's data -->
-<div ng-include="'views/templates/goal.html'"></div>
+  <!-- Bottom Portion: Load goal.html and populate w/ selected criteria's data -->
+  <div ng-include="'views/templates/goal.html'"></div>
 
-</div>
+</div> <!-- End of page container -->

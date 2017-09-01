@@ -148,7 +148,6 @@ myApp.controller('GoalController', function($http, UserService) {
    getAllGoals(client_id);
    console.log('Goals for that client include: ', vm.allGoalData);
    //Display the goal "names" for each one in the pulldown menu
-
  };
 
 

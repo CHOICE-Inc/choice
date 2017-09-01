@@ -11,7 +11,7 @@
           </div>
           <div layout="column" layout-align="center center" flex="40">
             <div layout="row">
-              <md-button type="button" name="saveBtn" ng-click="gc.saveCriteria(gc.implementation_date, gc.review_dates, gc.completion_date,
+              <md-button class="md-raised md-primary" type="button" name="saveBtn" ng-click="gc.saveCriteria(gc.implementation_date, gc.review_dates, gc.completion_date,
               gc.service_outcome, gc.objective, gc.behavior_technique, gc.modifications, gc.equipment, gc.when_notes, gc.plan_steps)">Save</md-button>
             </div>
           </div>
@@ -45,7 +45,7 @@
               <md-datepicker ng-model="gc.implementation_date" md-placeholder="Enter Date"></md-datepicker>
             </md-input-container>
             <md-input-container>
-              <label>REVIEW DATE:</label>
+              <label>REVIEW DATES:</label>
               <input ng-model="gc.review_dates">
             </md-input-container>
             <md-input-container>
