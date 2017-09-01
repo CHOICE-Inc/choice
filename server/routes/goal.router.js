@@ -21,20 +21,23 @@ router.post('/', function(req, res){
       var completion_date = req.body.completion_date;
       var service_outcome = req.body.service_outcome;
       var objective = req.body.objective;
-      var behavior_technique = req.body.behavior_technique;
+      var behavior_techniques = req.body.behavior_techniques;
       var modifications = req.body.modifications;
       var equipment = req.body.equipment;
+      var jobsite_details = req.body.jobsite_details;
       var when_notes = req.body.when_notes;
       var plan_steps = req.body.plan_steps;
+      var goal_name = req.body.goal_name;
+      var goal_summary = req.body.goal_summary;
 
       //BUILD DB QUERY STRING & DATA VALUE ARRAY
       var dbQueryString = 'INSERT INTO goal (client_id, jobsite_id, implementation_date, review_dates, completion_date, ' +
-      'service_outcome, objective, behavior_technique, modifications, equipment, when_notes, plan_steps)' +
-      'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)';
+      'service_outcome, objective, behavior_techniques, modifications, equipment, jobsite_details, when_notes, plan_steps, ' +
+      'goal_name, goal_summary) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)';
       console.log('For goal post, using DB query string: ', dbQueryString);
 
-      var goalValuesArray = [client_id, jobsite_id, implementation_date, review_dates, completion_date,
-      service_outcome, objective, behavior_technique, modifications, equipment, when_notes, plan_steps];
+      var goalValuesArray = [client_id, jobsite_id, implementation_date, review_dates, completion_date, service_outcome,
+            objective, behavior_techniques, modifications, equipment, jobsite_details, when_notes, plan_steps, goal_name, goal_summary];
       console.log('Going to push these values to the DB: ', goalValuesArray);
 
       // MAKE DB QUERY
@@ -65,7 +68,7 @@ router.get('/clients', function(req, res){
       res.sendStatus(500);
     } else {
       // MAKE DB QUERY
-      db.query('SELECT id, name FROM client', function(errMakingQuery, result){
+      db.query('SELECT id, client_name FROM client', function(errMakingQuery, result){
         done();
         if(errMakingQuery){
           console.log('There was an error making INSERT query: ', errMakingQuery);
@@ -84,8 +87,7 @@ router.get('/clients', function(req, res){
 router.get('/casemanager', function(req, res){
   console.log('In get route for client names. ');
 
-  var getCaseManagersQuery = 'SELECT "staff"."id", "staff"."name", "users"."role" FROM "staff" ' +
-                 'JOIN "users" ON "staff"."id" = "users"."staff_id" WHERE "users"."role" = 2;';
+  var getCaseManagersQuery = 'SELECT * FROM "staff" WHERE "role" = 2;';
                  console.log("Getting all Case Managers: ", getCaseManagersQuery);
 
   pool.connect(function(errConnectingToDatabase, db, done){
@@ -135,10 +137,8 @@ router.get('/jobsites', function(req, res){
   }); //end of pool.connect
 }); // end of route
 
-
-// GET ROUTE TO RETRIVE GOAL CRITERIA DATA FROM DB
-// NEED GOAL ID TO ACCESS CORRECT GOAL
-router.get('/:id', function(req, res){
+// GET ROUTE TO RETRIVE * ALL THE GOAL CRITERIA * IN THE DB FOR THE SPECIFIED USER
+router.get('/allCriteria/:id', function(req, res){
   console.log('In get route for client\'s goal criteria: ', req.params.id);
 
   pool.connect(function(errConnectingToDatabase, db, done){
@@ -146,14 +146,55 @@ router.get('/:id', function(req, res){
       console.log('There was an error connecting to database: ', errConnectingToDatabase);
       res.sendStatus(500);
     } else {
+      // BUILD DB QUERY STRING
+      var dbQueryString = 'SELECT goal.id as goalid, * FROM "goal" ' +
+      'JOIN "client" ON "goal"."client_id" = "client"."id" ' +
+      'JOIN "job_site" ON "job_site"."id" = "goal"."jobsite_id"' +
+      'WHERE "client_id" = $1 ';
+
       // MAKE DB QUERY
-      db.query('SELECT * FROM goal WHERE id=$1', [req.params.id], function(errMakingQuery, result){
+      db.query(dbQueryString, [req.params.id], function(errMakingQuery, result){
         done();
         if(errMakingQuery){
           console.log('There was an error making INSERT query: ', errMakingQuery);
           res.sendStatus(500);
         } else {
           console.log('Retrieved criteria data from DB: ', result);
+          res.send(result.rows);
+        }
+      }); //end of db.query
+
+    } //end of DB connect if-else
+  }); //end of pool.connect
+}); // end of route
+
+
+// GET ROUTE TO RETRIVE GOAL CRITERIA DATA FROM DB
+// NEED GOAL ID TO ACCESS ONE (CORRECT/THIS) GOAL
+router.get('/singlecriteria', function(req, res){
+  console.log('In get route for client\'s goal criteria: ', req.query);
+  console.log('on server, client_id = ', req.query.client_id, 'on server, goal_id = ', req.query.goal_id);
+
+  var getGoal = ' SELECT * FROM "goal" JOIN "client" ON "goal"."client_id" = "client"."id" ' +
+  ' JOIN "job_site" ON "job_site"."id" = "goal"."jobsite_id" WHERE "client_id" = $1 AND "goal"."id" = $2; ';
+
+  var clientID = parseInt(req.query.client_id);
+  var goalID = parseInt(req.query.goal_id);
+  console.log('on server after parseInt, client_id = ', clientID, 'on server, goal_id = ', goalID);
+
+  pool.connect(function(errConnectingToDatabase, db, done){
+    if(errConnectingToDatabase) {
+      console.log('There was an error connecting to database: ', errConnectingToDatabase);
+      res.sendStatus(500);
+    } else {
+      // MAKE DB QUERY
+      db.query(getGoal, [clientID, goalID], function(errMakingQuery, result){
+        done();
+        if(errMakingQuery){
+          console.log('There was an error making INSERT query: ', errMakingQuery);
+          res.sendStatus(500);
+        } else {
+          console.log('Retrieved criteria data from DB: ', result.rows);
           res.send(result.rows);
         }
       }); //end of db.query
@@ -186,21 +227,23 @@ router.put('/:id', function(req, res){
       var completion_date = req.body.completion_date;
       var service_outcome = req.body.service_outcome;
       var objective = req.body.objective;
-      var behavior_technique = req.body.behavior_technique;
+      var behavior_techniques = req.body.behavior_techniques;
       var modifications = req.body.modifications;
       var equipment = req.body.equipment;
       var when_notes = req.body.when_notes;
       var plan_steps = req.body.plan_steps;
+      var goal_name = req.body.goal_name;
+      var goal_summary = req.body.goal_summary;
 
       //BUILD DB QUERY STRING & DATA VALUE ARRAY
       var dbQueryString = 'UPDATE goal SET client_id=$1, jobsite_id=$2, implementation_date=$3, ' +
       'review_dates=$4, completion_date=$5, service_outcome=$6, objective=$7, ' +
-      'behavior_technique=$8, modifications=$9, equipment=$10, when_notes=$11, plan_steps=$12 WHERE id=$13';
+      'behavior_techniques=$8, modifications=$9, equipment=$10, when_notes=$11, plan_steps=$12, goal_name=$13, goal_summary=$14 WHERE id=$15';
 
       console.log('For goal update, using DB query string: ', dbQueryString);
 
       var goalValuesArray = [client_id, jobsite_id, implementation_date, review_dates, completion_date,
-      service_outcome, objective, behavior_technique, modifications, equipment, when_notes, plan_steps, goal_ID];
+      service_outcome, objective, behavior_techniques, modifications, equipment, when_notes, plan_steps, goal_name, goal_summary, goal_ID];
 
       console.log('Going to update the DB with these values: ', goalValuesArray);
       // MAKE DB QUERY
@@ -222,7 +265,7 @@ router.put('/:id', function(req, res){
 
 // UPDATE ROUTE TO DISABLE GOAL IN DB (INSTEAD OF DELETING THE GOAL, NEED RECORD-KEEPING)
 // NEED GOAL ID TO ACCESS CORRECT GOAL
-router.put('/:id', function(req, res){
+router.put('/disable/:id', function(req, res){
   console.log('In put route for client\'s goal to disable goal: ', req.params.id);
 
   pool.connect(function(errConnectingToDatabase, db, done){

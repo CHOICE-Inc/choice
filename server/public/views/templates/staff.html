@@ -1,7 +1,6 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <!-- MANAGE STAFF PAGE - This page will allow the admin to add/disable staff and edit their listings -->
 
-
 <h1>Choice Employees</h1>
 <p>{{sc.message}}</p>
 
@@ -15,7 +14,7 @@
   <tbody>
     <tr ng-repeat="staffMember in sc.staffArray">
       <td>{{staffMember.staff_name}}</td>
-      <td>{{staffMember.role}}</td>
+      <td>{{staffMember.roleString}}</td>
       <td>{{staffMember.email}}</td>
       <td><input type="submit" name="" value="Update"> <input type="submit" name="" ng-click="sc.updateEmployee(staffMember.employed, staffMember.staff_id)" value="{{staffMember.status}}"></td>
     </tr>

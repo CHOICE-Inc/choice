@@ -22,7 +22,7 @@ myApp.config(function($routeProvider, $locationProvider) {
         }
       }
     }).when('/goal', {
-      templateUrl: '/views/templates/goal.html',
+      templateUrl: '/views/templates/addGoal.html',
       controller: 'GoalController as gc',
       resolve: {
         getuser : function(UserService){

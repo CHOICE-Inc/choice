@@ -1,51 +1,66 @@
-//------ PLACE DATABASE QUERY STRINGS OR FUNCTIONS HERE (postgreSQL) ------//
-
-1) ----- Make sure create the DATABASE 'choice_db' before creating tables -----
--- Then you'll create tables with some foreign keys (for linking tables)
+----- 1. Create New Database -----
 
 create database choice_db;
 
 
-2) ----- Create STAFF table. -----
---Staff table of the employees. Needed for user validation on registration.
+----- 2. Create STAFF table. -----
+-- Staff table of the employees. Needed for user validation on registration.
 
 CREATE TABLE "staff"(
 	"id" serial primary key,
-	"name" varchar(50) not null,
+	"staff_name" varchar(50) not null,
 	"location" varchar(20) not null,
-	"email" varchar(50) not null
+	"email" varchar(50) not null,
+	"role" integer DEFAULT 0,
+  "employed" boolean DEFAULT true
 );
 
 
-3) ----- Create initial "ADMIN" in STAFF table. -----
+----- 3. Create initial "ADMIN" in STAFF table. -----
 
-INSERT INTO "staff" ("name", "location", "email")
+INSERT INTO "staff" ("staff_name", "location", "email")
 VALUES ('Admin', 'Eden Prairie', 'admin@choiceinc.org');
 
+INSERT INTO "staff" ("staff_name", "location", "email")
+VALUES ('Gandalf', 'Eden Prairie', 'gandalf@choiceinc.org');
 
-4) ----- Create "USER" table for user registration and authentication. -----
---login authenticated and roles of the user
+INSERT INTO "staff" ("staff_name", "location", "email")
+VALUES ('Saruman', 'Eden Prairie', 'saruman@choiceinc.org');
+
+
+----- 4. Create "USER" table for user registration and authentication. -----
+-- login authentication and roles of the user
 
 CREATE TABLE "users" (
   "id" serial primary key,
   "username" varchar(80) not null UNIQUE,
   "password" varchar(240) not null,
-	"staff_id" integer,
-	"role" integer null
+  "staff_id" integer references staff(id),
+  "user_role" integer references staff(id)
 );
 
 
-5) ----- Create "CLIENT" table. -----
+----- 5. Create "CLIENT" table. -----
 --name of clients assigned to a staff member
 
 CREATE TABLE "client" (
 	"id" serial primary key,
 	"staff_id" integer not null references staff(id),
-	"name" varchar(50) not null
+	"client_name" varchar(50) not null
 );
 
+--- Create sample clients ------
+insert into "client" (staff_id, client_name)
+values (2, 'Frodo');
 
-6) ----- Create "JOB_SITE" table. -----
+insert into "client" (staff_id, client_name)
+values (2, 'Radagast the Brown');
+
+insert into "client" (staff_id, client_name)
+values (3, 'Wormtongue');
+
+
+----- 6. Create "JOB_SITE" table. -----
 --locations of jobs located and descriptions
 
 CREATE TABLE "job_site" (
@@ -53,17 +68,30 @@ CREATE TABLE "job_site" (
 	"business_name" varchar(20) not null,
 	"address" varchar(50) null,
 	"phone" varchar(20) null,
-	"contact" varchar(30) null
+	"contact" varchar(30) null,
+	"jobsite_status" boolean DEFAULT true
 );
 
+---- Create sample job sites ----
+insert into job_site (business_name, address, phone, contact, jobsite_status)
+values ('Middle Earth', 'West of the Grey Havens', 'unlisted', 'Gandalf the White', true);
 
-7) ----- Create "GOAL" table. -----
+insert into job_site (business_name, address, phone, contact, jobsite_status)
+values ('Modor', 'Beyond the dead swaps', 'no phone', 'Sauron the Evil', true);
+
+insert into job_site (business_name, address, phone, contact, jobsite_status)
+values ('Rohan', 'The Riddermark', '555-1234', 'Eowyn the True', false);
+
+
+----- 7. Create "GOAL" table. -----
 --goals assigned to a client and assigned to a case manager
 
 CREATE TABLE "goal" (
 	"id" serial primary key,
 	"client_id" integer not null references client(id),
 	"jobsite_id" integer not null references job_site(id),
+	"goal_name" varchar(250) not null,
+	"goal_summary" varchar(500) not null,
 	"implementation_date" date not null,
 	"review_dates" varchar(50) null,
 	"completion_date" date null,
@@ -79,17 +107,7 @@ CREATE TABLE "goal" (
 );
 
 
-8) ----- Create "JOB" junction table. -----
---junction table assigning a goal with many job-sites
-
-CREATE TABLE "job" (
-	"id" serial primary key,
-	"jobsite_id" integer not null references job_site(id),
-	"goal_id" integer not null references goal(id)
-);
-
-
-9) ----- Create "GOAL" table. -----
+----- 8. Create "GOAL TRACKING" table. -----
 --submitted goals, tracking completion data
 
 CREATE TABLE "goal_tracking" (
@@ -100,3 +118,33 @@ CREATE TABLE "goal_tracking" (
 	"complete_or_not" varchar(20) not null,
 	"notes" varchar(300) not null
 );
+
+----- add a few sample goals -----
+
+insert into "goal" (client_id, jobsite_id, goal_name, goal_summary, implementation_date, review_dates, completion_date, service_outcome,
+objective, behavior_technique, modifications, equipment, jobsite_details, when_notes, plan_steps, goal_status)
+values(1, 2, 'Destroy Ring', 'Take ring to Modor and destroy it', '08/07/2017', '09/09/17 and 04/05/18', '05/09/17', 'Save Middle Earth.',
+'Destroy the One Ring and save Sam', 'Be gallant and destroy evil', 'Make hobbits more brave', 'Elven cloak, the Ring',
+'Middle Earth, Modor, and Dead Swamps', 'high noon every day', '1. Find Sam 2. Ride eagle. 3. Do Magic', true);
+
+insert into "goal" (client_id, jobsite_id, goal_name, goal_summary, implementation_date, review_dates, completion_date, service_outcome, objective,
+behavior_technique, modifications, equipment, jobsite_details, when_notes, plan_steps, goal_status)
+values(1, 1, 'Live life', 'Life normal life after destorying ring', '08/07/2017', '09/09/17 and 04/05/18', '05/09/17', 'Be happy', 'Live a normal life', 'Live like a hobbit', 'Do not talk about travels', 'ink and quill', 'Hobbiton and Bowtruckle', 'For the next few years', '1. Talk with Sam 2. Get married 3. Write about my adventures', true);
+
+insert into "goal" (client_id, jobsite_id, goal_name, goal_summary, implementation_date, review_dates, completion_date, service_outcome, objective,
+behavior_technique, modifications, equipment, jobsite_details, when_notes, plan_steps, goal_status)
+values(2, 1, 'Help Gandalf', 'Fight with other wizards to destroy evil', '08/07/2017', '09/09/17 and 04/05/18', '05/09/17', 'Be one with nature', 'talk to birds', 'be weird and by yourself talk to many animals', 'be less weird', 'wizard staff', 'Rohan and the Forest Moon of Endor',
+'For the next year', '1. Find Gandalf 2. Talk to animals 3. Destroy inanimate objects', true);
+
+insert into "goal" (client_id, jobsite_id, goal_name, goal_summary, implementation_date, review_dates, completion_date, service_outcome, objective,
+behavior_technique, modifications, equipment, jobsite_details, when_notes, plan_steps, goal_status)
+values(3, 3, 'Help Sauriman', 'Lie convincingly to our enemies', '08/07/2017', '09/09/17 and 04/05/18', '05/09/17', 'Be a good liar', 'Destroy Rohan and the good', 'be weird and to yourself', 'be better liar', 'Moldy robe', 'Rohan and the Black Tower',
+'For the next year', '1. Find Sauriman 2. Lie to the King 3. Destroy Rohan', true);
+
+---- Add some sample goal tracking data ---
+
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+values(1, '08/28/17', 'am', 'not complete', 'the ring is not destroyed yet');
+
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+values(1, '08/28/17', 'pm', 'not complete', 'the ring is not destroyed yet');

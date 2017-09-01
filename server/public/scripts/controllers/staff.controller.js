@@ -13,7 +13,7 @@ myApp.controller('StaffController', function(UserService, $http) {
     $http.get('/staff/getStaff').then(function(response) {
       console.log(response.data);
 
-      for(i=0;i<response.data.length; i++){
+      for(i=0;i<response.data.length; i++){ //add a new object property based on the status for each employee
         if(response.data[i].employed === true){
           response.data[i].status = 'Deactivate';
         }
@@ -21,7 +21,22 @@ myApp.controller('StaffController', function(UserService, $http) {
           response.data[i].status = 'Activate';
         }
       }
+
+      for(i=0;i<response.data.length;i++){//display role String based on role integer
+        if(response.data[i].role == 1){
+          response.data[i].roleString = "Administrator";
+        } else if(response.data[i].role == 2){
+          response.data[i].roleString = "Case Manager";
+        } else if(response.data[i].role == 3){
+          response.data[i].roleString = "Staff";
+        } else {
+          response.data[i].role = 0;
+          response.data[i].roleString = "Not assigned yet.";
+        }
+      }
       vm.staffArray = response.data;
+
+
     });
   }
 
