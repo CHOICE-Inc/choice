@@ -14,8 +14,7 @@
       <md-button type="button" name="saveBtn" ng-click="gc.saveCriteria(gc.implementation_date, gc.review_dates, gc.completion_date,
         gc.service_outcome, gc.objective, gc.behavior_techniques, gc.modifications, gc.equipment, gc.jobsite_details, gc.when_notes, gc.plan_steps,
         gc.goal_name, gc.goal_summary)">Save</md-button>
-      <!-- <md-button type="button" name="editBtn" ng-click="gc.getGoalCriteria(2, 2)">Edit</md-button>
-      <md-button type="button" name="disableBtn">Disable</md-button> -->
+
       </div>
     </div>
   </div>
@@ -26,13 +25,13 @@
       <md-input-container>
             <label>CLIENT NAME:</label>
             <md-select ng-model="gc.clientName">
-              <md-option ng-repeat="clientName in gc.clientData" value="{{clientName.name}}" ng-click="gc.assignClientID(clientName.id)">{{clientName.name}}</md-option>
+              <md-option ng-repeat="clientName in gc.clientData" value="{{clientName.client_name}}" ng-click="gc.assignClientID(clientName.id)">{{clientName.client_name}}</md-option>
             </md-select>
           </md-input-container>
           <md-input-container>
             <label>CHOICE Representative:</label>
             <md-select ng-model="gc.casemanagerName">
-              <md-option ng-repeat="casemanagerName in gc.casemanagerData" value="{{casemanagerName.name}}" ng-click="gc.assignCMID(casemanagerName.id)">{{casemanagerName.name}}</md-option>
+              <md-option ng-repeat="casemanagerName in gc.casemanagerData" value="{{casemanagerName.staff_name}}" ng-click="gc.assignCMID(casemanagerName.id)">{{casemanagerName.staff_name}}</md-option>
             </md-select>
           </md-input-container>
           <md-input-container>
