@@ -105,8 +105,8 @@ vm.getOneGoal = function(id) {
 
 //ASSIGNING GOAL DATA TO THE DOM
 function assignData(dataObject) {
-  vm.clientName = dataObject.name;
-  console.log("response data name is: ", dataObject.name );
+  vm.clientName = dataObject.client_name;
+  console.log("response data name is: ", dataObject.client_name);
   vm.jobSite = dataObject.business_name;
   vm.implementation_date = dataObject.implementation_date;
   vm.review_dates = dataObject.review_dates;
@@ -182,7 +182,7 @@ vm.disableCriteria = function(id) {
       console.log('Client data: ', vm.clientData);
 
       return clients.map( function (client) {
-        client.value = client.name.toLowerCase();
+        client.value = client.client_name.toLowerCase();
         return client;
       });
     }
