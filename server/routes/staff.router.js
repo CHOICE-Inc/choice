@@ -29,11 +29,11 @@ router.get('/getStaff', function(req, res) {
 router.put('/updateStaff/:id/:boolean', function(req, res){
   console.log('staff id', req.params.id);
   console.log('boolean', req.params.boolean);
-
+  //console.log('blah ', req.params, req.params.boolean == 'false', req.params.boolean === false);
   var changeStatus;
-  if(req.params.boolean){
+  if(req.params.boolean === 'true'){
     changeStatus = false;
-  } else if(req.params.boolean === false){
+  } else if(req.params.boolean === 'false'){
     changeStatus = true;
   }
 
@@ -45,7 +45,8 @@ router.put('/updateStaff/:id/:boolean', function(req, res){
       //next(err);
     }
     //update employment status of employee
-    client.query("UPDATE staff SET employed = " + changeStatus + " WHERE id = " + req.params.id + ";",
+    client.query("UPDATE staff SET employed = $1 WHERE id = $2;",
+      [changeStatus, req.params.id],
         function (err, result) {
           //client.end();
           done();
