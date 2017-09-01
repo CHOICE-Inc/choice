@@ -13,7 +13,8 @@
     <div layout="column" layout-align="center center" flex="40">
       <div layout="row">
       <md-button type="button" name="saveBtn" ng-click="gc.saveCriteria(gc.implementation_date, gc.review_dates, gc.completion_date,
-        gc.service_outcome, gc.objective, gc.behavior_technique, gc.modifications, gc.equipment, gc.when_notes, gc.plan_steps)">Save</md-button>
+        gc.service_outcome, gc.objective, gc.behavior_technique, gc.modifications, gc.equipment, gc.when_notes, gc.plan_steps,
+        gc.goal_name, gc.goal_summary)">Save</md-button>
       <md-button type="button" name="editBtn" ng-click="gc.getGoalCriteria(4, 3)">Edit</md-button>
       <md-button type="button" name="disableBtn">Disable</md-button>
       </div>
@@ -41,6 +42,10 @@
               <md-option ng-repeat="jobsite in gc.jobSiteData" value="{{jobsite.business_name}}" ng-click="gc.assignJobsiteId(jobsite.id)">{{jobsite.business_name}}</md-option>
             </md-select>
           </md-input-container>
+          <md-input-container>
+            <label>Goal Name:</label>
+            <input type="text" ng-model="gc.goal_name">
+          </md-input-container>
     </div>
     <div layout="column" flex="50">
       <md-input-container>
@@ -57,6 +62,17 @@
       </md-input-container>
     </div>
   </div> <!-- End of Row for Client Info/Dates Box -->
+
+<!--Row for Goal Summary for use on the tracking page-->
+  <div layout="row">
+    <div layout="column" flex>
+      <md-input-container class="md-block">
+        <label>GOAL SUMMARY:</label>
+        <textarea form="goalForm" rows="3" md-maxlength="500" ng-model="gc.goal_summary" placeholder="Enter brief summary of goal for use on goal tracking page."></textarea>
+      </md-input-container>
+    </div>
+
+  </div>
 
   <!-- Row for Service Outcome -->
   <div layout="row" flex>

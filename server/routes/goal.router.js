@@ -26,15 +26,17 @@ router.post('/', function(req, res){
       var equipment = req.body.equipment;
       var when_notes = req.body.when_notes;
       var plan_steps = req.body.plan_steps;
+      var goal_name = req.body.goal_name;
+      var goal_summary = req.body.goal_summary;
 
       //BUILD DB QUERY STRING & DATA VALUE ARRAY
       var dbQueryString = 'INSERT INTO goal (client_id, jobsite_id, implementation_date, review_dates, completion_date, ' +
-      'service_outcome, objective, behavior_techniques, modifications, equipment, when_notes, plan_steps)' +
-      'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)';
+      'service_outcome, objective, behavior_techniques, modifications, equipment, when_notes, plan_steps, ' +
+      'goal_name, goal_summary) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)';
       console.log('For goal post, using DB query string: ', dbQueryString);
 
       var goalValuesArray = [client_id, jobsite_id, implementation_date, review_dates, completion_date,
-      service_outcome, objective, behavior_techniques, modifications, equipment, when_notes, plan_steps];
+      service_outcome, objective, behavior_techniques, modifications, equipment, when_notes, plan_steps, goal_name, goal_summary];
       console.log('Going to push these values to the DB: ', goalValuesArray);
 
       // MAKE DB QUERY
@@ -198,16 +200,18 @@ router.put('/:id', function(req, res){
       var equipment = req.body.equipment;
       var when_notes = req.body.when_notes;
       var plan_steps = req.body.plan_steps;
+      var goal_name = req.body.goal_name;
+      var goal_summary = req.body.goal_summary;
 
       //BUILD DB QUERY STRING & DATA VALUE ARRAY
       var dbQueryString = 'UPDATE goal SET client_id=$1, jobsite_id=$2, implementation_date=$3, ' +
       'review_dates=$4, completion_date=$5, service_outcome=$6, objective=$7, ' +
-      'behavior_techniques=$8, modifications=$9, equipment=$10, when_notes=$11, plan_steps=$12 WHERE id=$13';
+      'behavior_techniques=$8, modifications=$9, equipment=$10, when_notes=$11, plan_steps=$12, goal_name=$13, goal_summary=$14 WHERE id=$15';
 
       console.log('For goal update, using DB query string: ', dbQueryString);
 
       var goalValuesArray = [client_id, jobsite_id, implementation_date, review_dates, completion_date,
-      service_outcome, objective, behavior_techniques, modifications, equipment, when_notes, plan_steps, goal_ID];
+      service_outcome, objective, behavior_techniques, modifications, equipment, when_notes, plan_steps, goal_name, goal_summary, goal_ID];
 
       console.log('Going to update the DB with these values: ', goalValuesArray);
       // MAKE DB QUERY

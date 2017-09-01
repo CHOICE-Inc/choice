@@ -94,6 +94,8 @@ function assignData(dataObject) {
   vm.behavior_techniques = dataObject.behavior_techniques;
   vm.modifications = dataObject.modifications;
   vm.plan_steps = dataObject.plan_steps;
+  vm.goal_name = dataObject.goal_name;
+  vm.goal_summary = dataObject.goal_summary;
 }
 
 // POST NEW CRITERIA TO THE DB
@@ -101,7 +103,7 @@ function assignData(dataObject) {
 // RETRIVE GOAL CRITERIA DATA FROM DOM
 vm.saveCriteria = function(implementation_date, review_dates, completion_date,
   service_outcome, objective, behavior_techniques, modifications, equipment,
-  when_notes, plan_steps) {
+  when_notes, plan_steps,goal_name, goal_summary) {
     goal.implementation_date = implementation_date;
     goal.review_dates = review_dates;
     goal.completion_date = completion_date;
@@ -112,6 +114,8 @@ vm.saveCriteria = function(implementation_date, review_dates, completion_date,
     goal.equipment = equipment;
     goal.when_notes = when_notes;
     goal.plan_steps = plan_steps;
+    goal.goal_name = goal_name;
+    goal.goal_summary = goal_summary;
     console.log("goal: ", goal);
 
     $http.post('/goal', goal).then(function(response) {
