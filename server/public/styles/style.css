@@ -17,14 +17,13 @@ body, html {
 }
 
 a {
-  color: #61FFB8;
+  color: #e8f5e9;
 }
 a:hover {
-  color: darkGrey;
+  color: #98ee99;
 }
 
 /* INSERT YOUR STYLING HERE */
-
 
 
 
@@ -63,10 +62,19 @@ a:hover {
 }
 
 .nav-toolbar {
-  color: #fff;
+  color: #e8f5e9;
 }
 
-/* BASE STYLING FROM THE PROJECT TEMPLATE */
+.pulldownOption {
+  color: black;
+}
+
+.pulldownOption:hover {
+  color: #006db3;
+}
+
+
+/* ---- BASE STYLING FROM THE PROJECT TEMPLATE ---- */
 .instructions .container h1 {
   font-size: 32px;
   font-weight: 600;
