@@ -34,113 +34,137 @@
   <!-- RIGHT SIDE OF PAGE - LIST OF PARTICIPANTS -->
   <div id="rightColumn" layout="column" flex="80">
 
-    <p class="label">Participant Name: <span id="clientName"> {{tc.clientToView.client_name}}</span></p>
-    <p class="label">Case Manager: <span id="cmName"> {{tc.clientToView.staff_name}}</span></p>
+    <!-- Header Info: Participant's Name & Case Manager -->
+    <div layout="row" flex="none">
+      <p class="label">Participant Name: <span id="clientName"> {{tc.clientToView.client_name}}</span></p>
+    </div>
+    <div layout="row" flex="none">
+      <p class="label">Case Manager: <span id="cmName"> {{tc.clientToView.staff_name}}</span></p>
+    </div>
 
-    <!-- TEMPLATE FOR A GOAL & ITS TRACKING INPUTS -->
-    <div class="goalBox" ng-repeat="goal in tc.clientGoals">
-      <div layout="row" flex>
-        <p class="goalName">{{goal.goalname}}</p>
-      </div>
+    <div class="goalContainer">
 
-      <div layout="row" flex>
-        <div layout="column" flex="50">
-          <p class="label">GOAL LOCATION: <span class="locationName"> {{goal.business_name}}</span></p>
-        </div>
+      <!-- TEMPLATE FOR A GOAL & ITS TRACKING INPUTS -->
+      <div class="goalBox" layout="row" ng-repeat="goal in tc.clientGoals" flex>
+        <div layout="column" flex>
 
-        <div layout="column" flex="50">
-          <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-            <md-button ng-hide="goal.hidden == true" class="md-raised md-primary" ng-click="tc.toGoalCriteria(goal)">Goal Criteria</md-button>
-            <md-button ng-hide="goal.hidden == true" class="md-raised md-warn" ng-click="tc.toGoalHistory(goal)">Goal History</md-button>
-            <md-button ng-show="goal.hidden == true" class="md-raised md-primary" ng-click="tc.toGoalHistory(goal)">Back to Tracking</md-button>
-          </section>
-        </div>
-      </div>
+          <!-- Row for Goal Name -->
+          <div layout="row" layout-align="center center" flex="none">
+            <p class="goalName">{{goal.goalname}}</p>
+          </div>
 
-      <div layout="row" ng-hide="goal.hidden == true" flex>
-        <div>
-          <p class="label"> GOAL NOTES: <span class="goalNotes"> {{goal.goalnotes}}</span></p>
-        </div>
+          <!-- Row for Goal Location and Navigation Buttons -->
+          <div layout="row" flex="none">
+            <div layout="column" flex="50">
+              <p class="label">GOAL LOCATION: <span class="locationName"> {{goal.business_name}}</span></p>
+            </div>
 
-        <div>
-          <p class="label">DATE: <span class="date"> {{tc.today | date}}</span></p>
-        </div>
-        <div layout="row">
+            <div layout="column" flex="50">
+              <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+                <md-button ng-hide="goal.hidden == true" class="md-raised md-primary" ng-click="tc.toGoalCriteria(goal)">Goal Criteria</md-button>
+                <md-button ng-hide="goal.hidden == true" class="md-raised md-warn" ng-click="tc.toGoalHistory(goal)">Goal History</md-button>
+                <md-button ng-show="goal.hidden == true" class="md-raised md-primary" ng-click="tc.toGoalHistory(goal)">Back to Tracking</md-button>
+              </section>
+            </div>
+          </div>
+
+          <!-- Row for Goal Notes & Date -->
+          <div layout="row" ng-hide="goal.hidden == true" flex>
+            <div layout="column" flex="50">
+              <p class="label"> GOAL NOTES: <span class="goalNotes"> {{goal.goalnotes}}</span></p>
+            </div>
+
+            <div layout="column" flex="50">
+              <p class="label">DATE: <span class="date"> {{tc.today | date}}</span></p>
+            </div>
+          </div>
+
+          <!-- Row for AM/PM Check-in -->
+          <div class="checkIn" layout="row" flex="none">
+            <div layout="column" flex="30">
+              <md-radio-group layout="row" ng-model="goal.amOrPm">
+                <span>Time</span>
+                <md-radio-button value="am" class="md-primary">AM</md-radio-button>
+                <md-radio-button value="pm" class="md-primary">PM</md-radio-button>
+              </md-radio-group>
+            </div>
+            <div>
+              <md-radio-group layout="row" ng-model="goal.completion">
+                <md-radio-button value="complete" class="md-primary">Complete</md-radio-button>
+                <md-radio-button value="incomplete" class="md-primary">Incomplete</md-radio-button>
+                <md-radio-button value="absent" class="md-primary">Absent</md-radio-button>
+                <md-radio-button value="na" class="md-primary">NA</md-radio-button>
+              </md-radio-group>
+            </div>
+          </div>
+
+          <!-- Row for Initials and Notes -->
+          <div layout="row" flex>
+            <div layout="column" flex="35">
+              <label class="label">Initials:</label><input type="text" ng-model="tc.initials">
+            </div>
+
+            <div layout="column" flex="45">
+              <label class="label">Notes: </label>
+              <input type="text" ng-model="goal.notes">
+            </div>
+
+            <div layout="column" flex>
+              <md-button class="md-raised md-accent" ng-click="tc.trackGoal(goal)">Submit</md-button>
+            </div>
+          </div>
+
+          <!-- Row for Last Updated notification -->
+          <div layout="row" flex>
+            <p class="label">Last updated: <span class="lastUpdateDate">{{goal.lastUpdate | date}}</span> </p>
+            <p ng-show="goal.amDone == true">Today's AM update is complete</p>
+            <p ng-show="goal.pmDone ==  true">Today's PM update is complete</p>
+          </div>
+
+        </div><!-- end tracking div -->
+
+        <!-- GOAL HISTORY DIV-->
+        <div layout="row" ng-show="goal.hidden == true">
+          <div layout="row">
+            Dates between:
+            <div flex-gt-xs>
+              <md-datepicker ng-model="goal.historyStart" md-placeholder="Enter date" md-open-on-focus></md-datepicker>
+            </div>
+            <span> and </span>
+            <div flex-gt-xs>
+              <md-datepicker ng-model="goal.historyEnd" md-placeholder="Enter date" md-open-on-focus></md-datepicker>
+            </div>
+            <md-button type="button" name="button" class="md-raised md-primary" ng-click="tc.filterHistory(goal)">Filter</md-button>
+          </div>
+
+          <!-- Goal History Table-->
           <div>
+            <p class="title">GOAL HISTORY TABLE</p>
+            <table>
+              <tr class="header">
+                <th style="width:20%;">Date</th>
+                <th style="width:10%;">Time</th>
+                <th style="width:10%;">Initials</th>
+                <th style="width:20%;">Completion</th>
+                <th style="width:40%;">Notes</th>
+                <th style="width:40%;">Buttons</th>
+              </tr>
+              <tr ng-repeat="gh in goal.shownHistory">
+                <td>{{gh.date_tracked | date}}</td>
+                <td>{{gh.am_or_pm}}</td>
+                <td>IN</td>
+                <td>{{gh.complete_or_not}}</td>
+                <td>{{gh.notes}}</td>
+                <td><button type="button" name="button">Edit</button>
+                  <button type="button" name="button">Delete</button>
+                </td>
+              </tr>
+            </table>
 
+          </div><!--end history div -->
 
-            <md-radio-group layout="column" style="color:black" ng-model="goal.amOrPm">
-              <span>Time</span>
-              <md-radio-button value="am" class="md-primary">AM</md-radio-button>
-              <md-radio-button value="pm" class="md-primary">PM</md-radio-button>
-            </md-radio-group>
-          </div>
-          <div>
-            <md-radio-group layout="row" style="color:black" ng-model="goal.completion">
-              <md-radio-button value="complete" class="md-primary">Complete</md-radio-button>
-              <md-radio-button value="incomplete" class="md-primary">Incomplete</md-radio-button>
-              <md-radio-button value="absent" class="md-primary">Absent</md-radio-button>
-              <md-radio-button value="na" class="md-primary">NA</md-radio-button>
-            </md-radio-group>
-          </div>
-
-        </div>
-        <label>Initials</label><input type="text" name="" ng-model="tc.initials">
-        <div>
-          <p class="label">NOTES: </p>
-          <input type="text" ng-model="goal.notes">
-          <md-button class="md-raised md-primary" ng-click="tc.trackGoal(goal)">Submit</md-button>
-        </div>
-        <div>
-          <p class="label">Last updated: <span class="lastUpdateDate">{{goal.lastUpdate | date}}</span> </p>
-          <p ng-show="goal.amDone == true">Today's AM update is complete</p>
-          <p ng-show="goal.pmDone ==  true">Today's PM update is complete</p>
-        </div>
-
-      </div><!-- end tracking div -->
-
-
-
-      <!-- GOAL HISTORY DIV-->
-      <div ng-show="goal.hidden == true">
-        <div layout="row">
-          Dates between:
-          <div flex-gt-xs>
-            <md-datepicker ng-model="goal.historyStart" md-placeholder="Enter date" md-open-on-focus></md-datepicker>
-          </div>
-          <span> and </span>
-          <div flex-gt-xs>
-            <md-datepicker ng-model="goal.historyEnd" md-placeholder="Enter date" md-open-on-focus></md-datepicker>
-          </div>
-          <md-button type="button" name="button" class="md-raised md-primary" ng-click="tc.filterHistory(goal)">Filter</md-button>
-        </div>
-
-        <!-- Goal History Table-->
-        <div>
-          <p class="title">GOAL HISTORY TABLE</p>
-          <table>
-            <tr class="header">
-              <th style="width:20%;">Date</th>
-              <th style="width:10%;">Time</th>
-              <th style="width:10%;">Initials</th>
-              <th style="width:20%;">Completion</th>
-              <th style="width:40%;">Notes</th>
-              <th style="width:40%;">Buttons</th>
-            </tr>
-            <tr ng-repeat="gh in goal.shownHistory">
-              <td>{{gh.date_tracked | date}}</td>
-              <td>{{gh.am_or_pm}}</td>
-              <td>IN</td>
-              <td>{{gh.complete_or_not}}</td>
-              <td>{{gh.notes}}</td>
-              <td><button type="button" name="button">Edit</button>
-                <button type="button" name="button">Delete</button>
-              </td>
-            </tr>
-          </table>
-        </div>
-
-      </div><!--end history div -->
-    </div> <!-- end goal div -->
+        </div> <!-- end of column div inside goalBox div -->
+      </div> <!-- end goal box -->
+    </div> <!-- end of goal container -->
   </div> <!-- end of right side column-->
-</div>
+</div> <!-- end of page container -->
