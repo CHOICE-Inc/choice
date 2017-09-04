@@ -1,5 +1,5 @@
 div {
-  border: 1px solid blue;
+  /*border: 1px solid blue;*/
 }
 
 /* OVERALL STYLING */
@@ -22,6 +22,7 @@ textarea {
   height: 100%;
 }
 
+
 /* GOAL TRACKING STYLING */
 #leftColumn {
   padding: 10px;
@@ -34,13 +35,74 @@ textarea {
 
 .goalBox {
   width: 100%;
-  background-color: #80d6ff;
-  border: 1px solid #0d47a1;
-  margin-left:auto;
-  margin-right:auto;
+  background-color: #e6ffff;
+  border-bottom: 1px solid #0d47a1;
+  margin: auto;
+  padding: 5px;
 }
 
+.goalNameBox {
+  background-color: #004ba0;
+  color: #fff;
+  border: 1px solid #0d47a1;
+}
 
+.goalName {
+  font-size: 1.5em;
+}
+
+.label {
+  font-weight: bold;
+  color: #004ba0;
+}
+
+#clientName, #cmName {
+  font-weight: normal;
+  font-size: 1.8em;
+  color: #000;
+}
+
+.locationName, .goalNotes, .date {
+  font-weight: normal;
+  font-size: 1.5em;
+  color: #000;
+}
+
+.amPmButtons {
+  padding-left: 5px;
+}
+
+.amComplete, .pmComplete {
+  font-size: 1.2em;
+}
+
+.initialsInput {
+  border: 1px solid #0d47a1;
+  background-color: white;
+}
+
+/* HISTORY TABLE CONDITIONAL STYLING */
+.goalHistoryTable {
+  text-align: center;
+}
+
+.rowDefault {
+  background-color: #002171;
+  color: #fff;
+  border-bottom: 1px solid #000;
+}
+
+.rowComplete {
+  background-color: #00600f;
+  color: #fff;
+  border-bottom: 1px solid #000;
+}
+
+.rowIncomplete {
+  background-color: #ab000d;
+  color: #fff;
+  border-bottom: 1px solid #000;
+}
 
 /* LOGIN SCREEN & NAVBAR STYLING */
 .loginScreen a {
