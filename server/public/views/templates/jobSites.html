@@ -2,3 +2,23 @@
 <!-- Job sites page - From this page, the admin can add / delete Job sites and edit existing info -->
 
 MANAGE JOB SITES PAGE
+
+<h1>Mangae Job Sites</h1>
+
+<table>
+  <thead>
+    <th>Jobsite Name</th>
+    <th>Address</th>
+    <th>Phone Number</th>
+    <th>Contact Name</th>
+  </thead>
+  <tbody>
+    <tr ng-repeat="jobSites in jc.manageJobSiteData">
+      <td>{{jobSites.business_name}}</td>
+      <td>{{jobSites.address}}</td>
+      <td>{{jobSites.phone}}</td>
+      <td>{{jobSites.contact}}</td>
+      <!-- <td><input type="submit" value="Update"> <input type="submit" name="" ng-click="sc.updateEmployee(staffMember.employed, staffMember.staff_id)" value="{{staffMember.status}}"></td> -->
+    </tr>
+  </tbody>
+</table>
