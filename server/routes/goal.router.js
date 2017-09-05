@@ -137,10 +137,6 @@ router.get('/jobsites', function(req, res){
   }); //end of pool.connect
 }); // end of route
 
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 // GET ROUTE TO RETRIVE * ALL THE GOAL CRITERIA * IN THE DB FOR THE SPECIFIED USER
 router.get('/allCriteria/:id', function(req, res){
   console.log('In get route for client\'s goal criteria: ', req.params.id);
@@ -151,11 +147,9 @@ router.get('/allCriteria/:id', function(req, res){
       res.sendStatus(500);
     } else {
       // BUILD DB QUERY STRING
-<<<<<<< HEAD
-      var dbQueryString = 'SELECT * FROM "goal" ' +
-=======
+
       var dbQueryString = 'SELECT goal.id as goalid, * FROM "goal" ' +
->>>>>>> master
+
       'JOIN "client" ON "goal"."client_id" = "client"."id" ' +
       'JOIN "job_site" ON "job_site"."id" = "goal"."jobsite_id"' +
       'WHERE "client_id" = $1 ';
@@ -176,18 +170,6 @@ router.get('/allCriteria/:id', function(req, res){
   }); //end of pool.connect
 }); // end of route
 
-<<<<<<< HEAD
-// GET ROUTE TO * RETRIVE A SINGLE SPECIFIC GOAL * CRITERIA FOR THE GIVEN USER IN THE DB
-// NEED GOAL_ID TO ACCESS CORRECT GOAL ALONG WITH CLIENT_ID
-
-
-
-
-
-
-
-
-=======
 
 // GET ROUTE TO RETRIVE GOAL CRITERIA DATA FROM DB
 // NEED GOAL ID TO ACCESS ONE (CORRECT/THIS) GOAL
@@ -221,8 +203,7 @@ router.get('/singlecriteria', function(req, res){
 
     } //end of DB connect if-else
   }); //end of pool.connect
-}); // end of route
->>>>>>> master
+}); // end of router
 
 /* -------------- PUT ROUTES ---------------------- */
 
