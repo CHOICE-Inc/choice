@@ -161,29 +161,15 @@ myApp.controller('GoalController', function(UserService, GoalService, $http, $lo
       });
     };
 
-    function getIDforJobsiteName (jobsite_name){
-      console.log('going to get id for jobsite_name: ', jobsite_name);
-      //convert jobsite_name to jobsite_id
-      $http.get('/jobSites/getID/' + jobsite_name).then(function(response){
-        console.log('sending jobsite name to db: ', jobsite_name, ' to get jobsiteID');
-        if (response) {
-          console.log('server sent something back abt jobsiteID: ', response);
-        }
-      });
-    }
-
     // UPDATE SINGLE CRITERIA IN DB USING GOAL_ID
-    vm.updateCriteria = function(client_id, jobsite_name, implementation_date, review_dates, completion_date,
+    vm.updateCriteria = function(client_id, jobsite_id, implementation_date, review_dates, completion_date,
       service_outcome, objective, behavior_techniques, modifications, equipment, jobsite_details,
       when_notes, plan_steps,goal_name, goal_summary, goal_id) {
         console.log('Updating goal w/ id of: ', goal_id);
 
-        //Exhange jobsite_name for jobsite_id
-        getIDforJobsiteName (jobsite_name);
-
         // RETRIVE GOAL CRITERIA DATA FROM DOM
         goal.client_id = client_id;
-        //goal.jobsite_id = jobsite_id;
+        goal.jobsite_id = jobsite_id;
         goal.implementation_date = implementation_date;
         goal.review_dates = review_dates;
         goal.completion_date = completion_date;

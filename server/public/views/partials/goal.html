@@ -39,7 +39,7 @@
           <md-input-container>
             <label>Job Site:</label>
             <md-select ng-model="gc.jobSite">
-              <md-option ng-repeat="jobsite in gc.jobSiteData" value="{{jobsite.business_name}}" ng-click="gc.assignJobsiteId(jobsite.id)">{{jobsite.business_name}}</md-option>
+              <md-option ng-repeat="jobsite in gc.jobSiteData" value="{{jobsite.id}}" ng-click="gc.assignJobsiteId(jobsite.id)">{{jobsite.business_name}}</md-option>
             </md-select>
           </md-input-container>
           <md-input-container>
