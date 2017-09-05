@@ -1,7 +1,24 @@
 var myApp = angular.module('myApp', ['ngMaterial', 'ngMessages', 'ngRoute', 'xeditable']);
 
-/// Routes ///
-myApp.config(function($routeProvider, $locationProvider) {
+
+myApp.config(function($routeProvider, $locationProvider, $mdThemingProvider) {
+/// ANGULAR MATERIAL THEME ///
+  $mdThemingProvider.theme('default')
+    .primaryPalette('light-blue', {
+      'default' : '600',
+      'hue-1' : '700',
+      'hue-2' : '900'
+    })
+    .accentPalette('purple', {
+      'default': '600'
+    })
+    .warnPalette('green')
+    .backgroundPalette('grey', {
+      'default' : '100',
+      'hue-1' : '500'
+    });
+
+/// ROUTES ///
   $locationProvider.hashPrefix('');
   console.log('myApp -- config');
   $routeProvider
