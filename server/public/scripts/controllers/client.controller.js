@@ -4,6 +4,9 @@ myApp.controller('ClientController', function(UserService, $http) {
   vm.userService = UserService;
   vm.userObject = UserService.userObject;
   vm.editStatus = false;
+  vm.clientToAdd = {};
+  vm.clientToEdit = {};
+  vm.staffArray=[];
 
   vm.message = "hello mate";
   vm.locationArray = ['Eden Prairie', 'Maple Grove', 'Minnetonka'];
@@ -107,6 +110,18 @@ myApp.controller('ClientController', function(UserService, $http) {
     return filteredStaffArray;
   };
 
+
+  // filters staff list in client adding to only list staff per location entered
+  vm.getStaffListForAdd = function(){
+    var filteredStaffArray = [];
+    for(var i = 0; i < vm.staffArray.length; i++){
+      if(vm.staffArray[i].location == vm.clientToAdd.location){
+        filteredStaffArray.push(vm.staffArray[i]);
+      }
+    }
+    return filteredStaffArray;
+  };
+
   // updates client information
   vm.updateClient = function(client){
     console.log('in updateClient with:', client);
@@ -118,28 +133,13 @@ myApp.controller('ClientController', function(UserService, $http) {
     });
   };
 
+vm.addNewClient = function(){
+  console.log('in addNewClient');
+  $http.post('/client/addClient/', vm.clientToAdd).then(function(response){
+    console.log('received response from addNewClient POST');
+    getClients();
+  });
+
+};
 
 });
-// router.get('/getAllStaff', function(req, res) {
-//   console.log('in server getting dem staff');
-//
-//   pool.connect(function(err, client, done, next) {
-//     if(err) {
-//       console.log("Error connecting: ", err);
-//       next(err);
-//     }
-//     //join client, staff, and users to filter all cleints from user login
-//     client.query("select * from staff",
-//         function (err, result) {
-//           //client.end();
-//           done();
-//           if(err) {
-//             console.log("Error inserting data: ", err);
-//             //next(err);
-//           } else {
-//             console.log('RESULT ROWS', result.rows);
-//             res.send(result.rows);
-//           }
-//         });
-//   });
-// });

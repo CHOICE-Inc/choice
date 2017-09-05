@@ -54,4 +54,29 @@ router.put('/updateClient/', function(req, res){
   });
 });
 
+router.post('/addClient', function(req, res) {
+  console.log('in server making a new client', req.body);
+  //date_tracked = date_tracked.format();
+
+
+  pool.connect(function(err, client, done, next) {
+    if(err) {
+      console.log("Error connecting: ", err);
+      //next(err);
+    }
+    //join goal, client, staff, job, job_site to find all goal date
+    client.query("insert into client(staff_id, client_name) values($1, $2);",
+    [req.body.staff_id, req.body.name],
+        function (err, result) {
+          done();
+          if(err) {
+            console.log("Error inserting data: ", err);
+            //next(err);
+          } else {
+            res.sendStatus(202);
+          }
+    });
+  });
+});
+
 module.exports = router;

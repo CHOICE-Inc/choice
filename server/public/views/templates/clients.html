@@ -2,7 +2,18 @@
 <!-- MANAGE STAFF PAGE - This page will allow the admin to add/disable staff and edit their listings -->
 
 <h1>Choice Clients</h1>
-<p>{{cc.message}}</p>
+
+<form class=""  ng-submit="cc.addNewClient()">
+  <input type="text" name="" value="" placeholder="name" ng-model="cc.clientToAdd.name">
+  <md-select ng-model="cc.clientToAdd.location" placeholder="Location" class="md-no-underline">
+  <md-option ng-repeat="loc in cc.locationArray" value="{{loc}}">{{loc}}</md-option>
+  </md-select>
+  <md-select ng-model="cc.clientToAdd.staff_id" placeholder="Case Manager" class="md-no-underline">
+  <md-option ng-repeat="cms in cc.getStaffListForAdd()" value="{{cms.id}}">{{cms.staff_name}}</md-option>
+  </md-select>
+<br><br>
+  <input type="submit" name="" value="Add new client">
+
 
 <table>
   <thead>
