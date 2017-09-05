@@ -1,7 +1,24 @@
 var myApp = angular.module('myApp', ['ngMaterial', 'ngMessages', 'ngRoute', 'xeditable']);
 
-/// Routes ///
-myApp.config(function($routeProvider, $locationProvider) {
+
+myApp.config(function($routeProvider, $locationProvider, $mdThemingProvider) {
+/// ANGULAR MATERIAL THEME ///
+  $mdThemingProvider.theme('default')
+    .primaryPalette('light-blue', {
+      'default' : '600',
+      'hue-1' : '700',
+      'hue-2' : '900'
+    })
+    .accentPalette('purple', {
+      'default': '600'
+    })
+    .warnPalette('green')
+    .backgroundPalette('grey', {
+      'default' : '100',
+      'hue-1' : '500'
+    });
+
+/// ROUTES ///
   $locationProvider.hashPrefix('');
   console.log('myApp -- config');
   $routeProvider
@@ -21,9 +38,8 @@ myApp.config(function($routeProvider, $locationProvider) {
           return UserService.getuser();
         }
       }
-    })
-    .when('/goal', {
-      templateUrl: '/views/templates/goal.html',
+    }).when('/goal', {
+      templateUrl: '/views/templates/addGoal.html',
       controller: 'GoalController as gc',
       resolve: {
         getuser : function(UserService){
@@ -61,6 +77,14 @@ myApp.config(function($routeProvider, $locationProvider) {
     .when('/jobSites', {
       templateUrl: '/views/templates/jobSites.html',
       controller: 'JobSitesController as jc',
+      resolve: {
+        getuser : function(UserService){
+          return UserService.getuser();
+        }
+      }
+    }).when('/viewGoal', {
+      templateUrl: '/views/partials/goalView.html',
+      controller: 'GoalController as gc',
       resolve: {
         getuser : function(UserService){
           return UserService.getuser();
