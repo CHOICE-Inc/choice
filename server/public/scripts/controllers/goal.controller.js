@@ -206,6 +206,6 @@ myApp.controller('GoalController', function(UserService, GoalService, $http, $lo
       };
     }
 
-
+    
 
   }); //end of controller
