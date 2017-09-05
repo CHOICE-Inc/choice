@@ -11,8 +11,18 @@ myApp.controller('JobSitesController', function(UserService, $http) {
 //GET all Jobsites in the DB and display on the DOM
   function getManageJobSites(){
     $http.get('/jobSites/managejobsites').then(function(response) {
-      jsc.manageJobSiteData = response.data;
       console.log('Getting all the jobsites: ', response.data);
+//FOR LOOP TO LOOP THROUGH DATA TO CHECK BOOLEAN FOR jobsite_status IN THE JOBSITE TABLE
+      for(i=0;i<response.data.length; i++){ //add a new object property based on the status for each jobsite
+        if(response.data[i].jobsite_status === true){
+          response.data[i].status = "Deactivate";
+        }
+        else if (response.data[i].jobsite_status === false){
+          response.data[i].status = "Activate";
+        }
+      }
+      jsc.manageJobSiteData = response.data;
+      console.log("manageJobSiteData: ", jsc.manageJobSiteData);
     }); //end of $http.get for managejobsites
   } //end of getManageJobSites
 
@@ -32,10 +42,12 @@ function addNewJobSite() {
 }
 
 //Disable JobSite
-  jsc.disableJobSite = function(id) {
+  jsc.disableJobSite = function(id, boolean) {
         console.log('jobSite id to disable: ', id);
-        $http.put('/jobSites/disablejobsite/' + id, data).then(function(response){
+        console.log('boolean value: ', boolean);
+        $http.put('/jobSites/disablejobsite/' + id + '/' + boolean).then(function(response){
           console.log('Disable jobSites response: ', response);
+          getManageJobSites();
         });
       }; //end of disableJobSites
 

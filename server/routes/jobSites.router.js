@@ -12,7 +12,7 @@ router.get('/managejobsites', function(req, res) {
       next(err);
     }
     //
-    db.query("select * from job_site",
+    db.query("select * from job_site ORDER BY",
         function (err, result) {
           done();
           if(err) {
@@ -113,8 +113,17 @@ router.put('/editjobsites', function(req, res){
 }); // end of route
 
 //PUT ROUTE TO UPDATE JOBSITES
-router.put('/disablejobsite/:id', function(req, res){
-  console.log('In put route disable jobsite: ', req.params.id);
+router.put('/disablejobsite/:id/:boolean', function(req, res){
+  console.log('In PUT route disable jobsite: ', req.params.id);
+
+//  if/else statement to toggle jobsite_status to activate or deactivate
+  var changeStatus;
+  if(req.params.boolean === 'true'){
+    changeStatus = false;
+  } else if(req.params.boolean === 'false'){
+    changeStatus = true;
+  }
+  console.log('changed jobsite_status to:', changeStatus);
 
   pool.connect(function(errConnectingToDatabase, db, done){
     if(errConnectingToDatabase) {
@@ -122,7 +131,7 @@ router.put('/disablejobsite/:id', function(req, res){
       res.sendStatus(500);
     } else {
       // MAKE DB QUERY
-      db.query('UPDATE job_site SET jobsite_status=FALSE WHERE id=$1', [req.params.id], function(errMakingQuery, result){
+      db.query('UPDATE job_site SET jobsite_status=$1 WHERE id=$2', [changeStatus, req.params.id], function(errMakingQuery, result){
         done();
         if(errMakingQuery){
           console.log('There was an error making INSERT query: ', errMakingQuery);

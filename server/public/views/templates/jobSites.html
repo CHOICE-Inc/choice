@@ -19,8 +19,8 @@ MANAGE JOB SITES PAGE
       <td>{{jobSites.address}}</td>
       <td>{{jobSites.phone}}</td>
       <td>{{jobSites.contact}}</td>
-      <td><button type="button" class="btn btn-primary" ng-click="jobSites.updateJobSites(jobSites.id)">Update</button>
-      <td><button type="button" class="btn btn-primary" ng-click="jobSites.disableJobSite(jobSites.id)">Deactivate</button></td>
+      <td><button type="button" class="btn btn-primary" ng-click="jc.updateJobSites(jobSites.id)">Update</button>
+      <td><button type="button" class="btn btn-primary" ng-click="jc.disableJobSite(jobSites.id, jobSites.jobsite_status)">{{jobSites.status}}</button></td>
       </td>
 
       <!--<td><input type="submit" value="Update"> <input type="submit" name="" ng-click="jc.updateJobSites(staffMember.employed, staffMember.staff_id)" value="{{staffMember.status}}"></td> -->
