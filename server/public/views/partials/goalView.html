@@ -1,0 +1,121 @@
+<!-- GOAL CRITERA PAGE - VIEW ONLY PAGE -->
+
+<div class="container goalView" layout="column" flex>
+  <md-content>
+
+        <div layout="row" flex="none">
+          <h2>CSSP SUPPORT AND METHODS PLAN - STEP PROGRAM GOAL</h2>
+        </div>
+
+        <!-- Row for Client Info/Dates Box -->
+        <div layout="row">
+          <div layout="column" flex="50">
+            <div layout="row" flex>
+              <p class="label">Client Name:</p> &nbsp
+              <p class="userText" ng-model="gc.clientName">{{gc.clientName}}</p>
+            </div>
+            <div layout="row" flex>
+              <p class="label">CHOICE Representative:</p> &nbsp
+              <p class="userText" ng-model="gc.casemanagerName">{{gc.casemanagerName}}</p>
+            </div>
+            <div layout="row" flex>
+              <p class="label">Job Site:</p> &nbsp
+              <p class="userText" ng-model="gc.jobSite">{{gc.jobSite}}</p>
+            </div>
+            <div layout="row" flex>
+              <p class="label">Goal Name:</p> &nbsp
+              <p class="userText" ng-model="gc.goal_name">{{gc.goal_name}}</p>
+            </div>
+          </div>
+          <div layout="column" flex="50">
+            <div layout="row" flex>
+              <p class="label">Implementation Date:</p> &nbsp
+              <p class="userText" ng-model="gc.implementation_date">{{gc.implementation_date}}</p>
+            </div>
+            <div layout="row" flex>
+              <p class="label">Review Dates:</p> &nbsp
+              <p class="userText" ng-model="gc.review_dates">{{gc.review_dates}}</p>
+            </div>
+            <div layout="row" flex>
+              <p class="label">Completion Date:</p> &nbsp
+              <p class="userText" ng-model="gc.completion_date">{{gc.completion_date}}</p>
+            </div>
+          </div>
+        </div> <!-- End of Row for Client Info/Dates Box -->
+
+        <!--Row for Goal Summary for use on the tracking page-->
+        <div layout="row" flex>
+              <p class="label">GOAL SUMMARY:</p> &nbsp
+              <p class="userText" ng-model="gc.goal_summary">{{gc.goal_summary}}</p>
+          </div>
+
+        <!-- Row for Service Outcome -->
+        <div layout="row" flex>
+              <p class="label">SERVICE OUTCOME:</p> &nbsp
+              <p class="userText" ng-model="gc.service_outcome">{{gc.service_outcome}}</p>
+        </div> <!-- end of Row for Service Outcome -->
+
+        <!-- Row for Objective -->
+        <div layout="row" flex>
+              <p class="label">OBJECTIVE:</p> &nbsp
+              <p class="userText" ng-model="gc.objective">{{gc.objective}}</textarea>
+        </div> <!-- End of Row for Objective -->
+
+        <!-- Row for Methods header -->
+        <div layout="row" flex>
+          <h3>DESCRIBE METHODS OF IMPLEMENTATION AND DATA COLLECTION BELOW:</h3>
+        </div><!-- End of Row for Methods header-->
+
+        <!-- Row for Method - Where/When -->
+        <div layout="row" flex>
+              <p class="label">Where will the plan be run:</p> &nbsp
+              <p class="userText" ng-model="gc.jobsite_details">{{gc.jobsite_details}}</p>
+      </div>
+      <div class="row" flex>
+              <p class="label">When will the plan be run:</p> &nbsp
+              <p class="userText" ng-model="gc.when_notes"></p>
+
+        </div> <!-- End of Row for Method - Where/When -->
+
+        <!-- Row for Method - Implemented by -->
+        <div layout="row">
+            <p class="userText"><span class="label">Implemented by:</span> &nbsp Implemented by: Choice, Inc. Supported Employement Instructors and Direct Service Providers</p>
+        </div><!-- End of Row for Method - Implemented by -->
+
+        <!-- Row for Method - Equipment and materials used -->
+
+          <div layout="row" flex>
+              <p class="label">What equipment and materials will be needed:</p> &nbsp
+              <p class="userText" ng-model="gc.equipment"></p>
+        </div><!-- End of Row for Method - Equipment and materials used -->
+
+        <!-- Row for Method - behavior techniques -->
+        <div layout="row">
+              <p class="label">What behavior techniques will be used, consistent with communication mode and learning style:</p> &nbsp
+              <p class="userText" ng-model="gc.behavior_techniques">{{gc.behavior_techniques}}</p>
+        </div><!-- End of Row for Method - behavior techniques -->
+
+        <!-- Row for Method - changes to environments -->
+        <div layout="row">
+              <p class="label">Changes or modifications necessary to the physical and social environments:</p> &nbsp
+              <p class="userText" ng-model="gc.modifications">{{gc.modifications}}</p>
+        </div><!-- End of Row for Method - changes to environments -->
+
+        <!-- Row for How to run the plan -->
+        <div layout="row">
+          <h3>HOW TO RUN THE PLAN STEP BY STEP</h3>
+        </div><!-- End of Row for How to run the plan -->
+
+        <!-- Row for Plan Steps -->
+        <div layout="row"> &nbsp
+              <p class="userText" ng-model="gc.plan_steps">{{gc.plan_steps}}</p>
+        </div><!-- End of Row for Plan Steps -->
+
+        <!-- Row for Footer of goal sheet -->
+        <div layout="row">
+          <p class="label">* Please see report for goal progress</p>
+        </div><!-- End of Row for Footer of goal sheet -->
+
+  </md-content> <!-- end of material container-->
+
+</div> <!-- end of container -->
