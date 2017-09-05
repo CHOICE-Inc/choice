@@ -108,6 +108,9 @@ GOAL TRACKING PAGE
 
 </div><!-- end tracking div -->
 <div ng-show="goal.hidden == true"> <!-- history div-->
+  <div class="">
+    SUCCESS RATE: {{goal.successRate}}%
+  </div>
 <div layout="row">
 
 
@@ -141,7 +144,7 @@ GOAL TRACKING PAGE
     <td>{{gh.complete_or_not}}</td>
     <td>{{gh.notes}}</td>
     <td><button type="button" name="button">Edit</button>
-      <button type="button" name="button">Delete</button>
+      <button type="button" name="button" ng-click="tc.deleteEntry(gh.id, goal)">Delete</button>
     </td>
   </tr>
 
@@ -152,3 +155,4 @@ GOAL TRACKING PAGE
       </div> <!-- end goal div -->
     </div>
   </div>
+</div>
