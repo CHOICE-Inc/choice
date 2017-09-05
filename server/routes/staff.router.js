@@ -11,7 +11,7 @@ router.get('/getStaff', function(req, res) {
       next(err);
     }
     //join client, staff, and users to filter all cleints from user login
-    client.query("select * from staff join users on users.staff_id = staff.id",
+    client.query("select * from staff left join users on users.staff_id = staff.id",
         function (err, result) {
           //client.end();
           done();
@@ -47,6 +47,33 @@ router.put('/updateStaff/:id/:boolean', function(req, res){
     //update employment status of employee
     client.query("UPDATE staff SET employed = $1 WHERE id = $2;",
       [changeStatus, req.params.id],
+        function (err, result) {
+          //client.end();
+          done();
+          if(err) {
+            console.log("Error inserting data: ", err);
+            res.sendStatus(420);
+            //next(err);
+          } else {
+            //console.log('RESULT ROWS', result.rows);
+            res.sendStatus(202);
+          }
+        });
+  });
+});
+
+router.post('/newStaff', function(req, res){
+
+  console.log('employee', req.body);
+
+  pool.connect(function(err, client, done, next) {
+    if(err) {
+      console.log("Error connecting: ", err);
+      //next(err);
+    }
+    //make a new employee
+    client.query("insert into staff(staff_name, location, email, role) values($1, $2, $3, $4);",
+      [req.body.name, req.body.location.place, req.body.email, req.body.role.type],
         function (err, result) {
           //client.end();
           done();

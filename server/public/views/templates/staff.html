@@ -4,6 +4,15 @@
 <h1>Choice Employees</h1>
 <p>{{sc.message}}</p>
 
+<form class=""  ng-submit="sc.newEmployee()">
+  <input type="text" name="" value="" placeholder="name" ng-model="sc.employee.name">
+  <input type="text" name="" value="" placeholder="email address" ng-model="sc.employee.email">
+  <select ng-model="sc.employee.location" ng-options="x.place for x in sc.location"></select>
+  <select ng-model="sc.employee.role" ng-options="y.role for y in sc.roles"></select>
+<br><br>
+  <input type="submit" name="" value="Add new employee">
+</form>
+<br>
 <table>
   <thead>
     <th>Name</th>

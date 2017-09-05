@@ -6,6 +6,25 @@ myApp.controller('StaffController', function(UserService, $http) {
 
   vm.message = "hello mate";
 
+  vm.employee = {
+    name: '',
+    location: '',
+    email: '',
+    role : ''
+  };
+
+  vm.roles = [
+    {role: "Administrator", type: 1},
+    {role: "Case Manager", type: 2},
+    {role: "Staff", type: 3}
+  ];
+
+  vm.location = [
+    {place: 'Eden Prairie'},
+    {place: 'Bloomington'},
+    {place: 'Maple Grove'}
+  ];
+
   getStaff();
 
   function getStaff(){
@@ -35,8 +54,6 @@ myApp.controller('StaffController', function(UserService, $http) {
         }
       }
       vm.staffArray = response.data;
-
-
     });
   }
 
@@ -47,4 +64,13 @@ myApp.controller('StaffController', function(UserService, $http) {
       getStaff();
     });
   };
+
+  vm.newEmployee = function(){
+    console.log('added a new employee', vm.employee);
+    $http.post('/staff/newStaff/', vm.employee).then(function(response){
+      console.log(response.data);
+      getStaff();
+    });
+  };
+
 });
