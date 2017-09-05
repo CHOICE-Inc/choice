@@ -38,6 +38,7 @@ myApp.controller('TrackingController', function(UserService, $http, $mdToast) {
     }
   };
 
+  // Gets last tracking update and determines if current day's AM and/or PM tracking is done
   getLastUpdate = function(goal){
     console.log('in getLastUpdate with:', goal);
     var today = new Date();
@@ -188,10 +189,12 @@ myApp.controller('TrackingController', function(UserService, $http, $mdToast) {
     }
   }; //end of trackGoal
 
+  // Will go to goal criteria
   vm.toGoalCriteria = function(goal){
     console.log('in toGoalCriteria with goal:', goal);
   };
 
+  // Brings up goal history
   vm.toGoalHistory = function(goal){
     // console.log('in toGoalHistory with goal:', goal);
     // console.log('goal hidden is:', goal.hidden);
@@ -206,6 +209,7 @@ myApp.controller('TrackingController', function(UserService, $http, $mdToast) {
     }
   };
 
+  // Displays toast on goal tracking submission
   vm.showToast = function(message, parentId){
     var el = angular.element(document.getElementById(parentId));
 
@@ -219,6 +223,7 @@ myApp.controller('TrackingController', function(UserService, $http, $mdToast) {
     $mdToast.show(toast);
   };
 
+  // Filters goal history based on date range entered
   vm.filterHistory = function(goal){
     // console.log('in filterHistory with id:', id);
     // console.log('in filterHistory with startDate:', vm.historyStart);
@@ -281,13 +286,16 @@ myApp.controller('TrackingController', function(UserService, $http, $mdToast) {
 
   }; //end of filterHistory
 
+
+// Sets month for getLastUpdate function
   getMonth = function(num, monthOrDay){
     if(monthOrDay == "month"){num += 1;}
     if(num < 10){return "0" + num;}
     else {return num;}
   };
 
-
+// Populates goal history
+// AMANDA DO YOUR CLASS WORK HERE
   vm.getGoalHistory = function(goal){
     console.log('in getGoalHistory');
     $http.get('/tracking/getGoalHistory/' + goal.goalid).then(function(response) {
@@ -309,6 +317,8 @@ myApp.controller('TrackingController', function(UserService, $http, $mdToast) {
     });
   };
 
+
+// Deletes an entry in goal history
   vm.deleteEntry = function(id, goal){
     console.log('in deletEntry with gh.id:', id);
     swal({
@@ -335,7 +345,7 @@ myApp.controller('TrackingController', function(UserService, $http, $mdToast) {
     'success'
   );
 });
-  
+
   };
 
   vm.test = function(){
@@ -347,11 +357,11 @@ myApp.controller('TrackingController', function(UserService, $http, $mdToast) {
     console.log('getTime is:', vm.clientGoals[0].max_goal_date_pm);
   };
 
-  vm.convertDate = function(date){
-    console.log('in convertDate with date:', date);
-    var d = (date.getMonth()+1) + '/' + date.getDate() + '/' + date.getFullYear();
-    console.log('d is:', d);
-  };
+  // vm.convertDate = function(date){
+  //   console.log('in convertDate with date:', date);
+  //   var d = (date.getMonth()+1) + '/' + date.getDate() + '/' + date.getFullYear();
+  //   console.log('d is:', d);
+  // };
 
   //Change class on goal history table depending on goal completion
   function setTableRowClass(completionStatus){
