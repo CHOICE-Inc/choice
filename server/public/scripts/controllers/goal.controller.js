@@ -1,15 +1,15 @@
-myApp.controller('GoalController', function(UserService, $http) {
+myApp.controller('GoalController', function(UserService, GoalService, $http) {
   console.log('UserController created');
   var vm = this;
   vm.userService = UserService;
   vm.userObject = UserService.userObject;
+  vm.goalService = GoalService;
 
   vm.clientData = [];
   vm.jobSiteData = [];
   vm.casemanagerData = [];
-  vm.allGoalData = [];
+  vm.allGoalData = vm.goalService.allGoalData.data;
   var goal = {};
-
 
 // GET REQUEST TO RETIEVE CLIENT NAMES AND IDs fROM DB TO POPULATE PULLDOWN MENU / AUTOCOMPLETE
 // Route: /goal/clients
@@ -62,23 +62,14 @@ vm.assignJobsiteId = function (id){
    console.log('Client ID to retrieve goals for: ', client_id);
 
    //GET request to get all the goals available for the client_id
-   getAllGoals(client_id);
+   vm.goalService.getAllGoals(client_id);
    console.log('Goals for that client include: ', vm.allGoalData);
    //Display the goal "names" for each one in the pulldown menu
 
  };
 
 //GET * ALL * CRITERIA DATA FOR A SPECIFIC USER FROM THE DB
-    //Will be called by other functions to do logic upon that data
-    function getAllGoals(client_id){
-      //GET request to get all the goals available for the client_id
-      $http.get('/goal/allCriteria/' + client_id).then(function(response){
-        console.log('Get all criteria for: ', client_id, 'Gives response: ', response.data);
-        //Assign that data to vm.allGoalData
-        vm.allGoalData = response.data;
-        console.log('assigning response data to all allGoalData: ', vm.allGoalData);
-      });
-    }
+  //function getAllGoals has been moved into GoalService
 
 // GET SINGLE CRITERIA FROM THE DB BASED ON GOAL_ID
 // May need to do a join on the server side to grab client name and jobname
@@ -124,11 +115,10 @@ function assignData(dataObject) {
 }
 
 // POST NEW CRITERIA TO THE DB
-
-// RETRIVE GOAL CRITERIA DATA FROM DOM
 vm.saveCriteria = function(implementation_date, review_dates, completion_date,
   service_outcome, objective, behavior_techniques, modifications, equipment, jobsite_details,
   when_notes, plan_steps,goal_name, goal_summary) {
+    // RETRIVE GOAL CRITERIA DATA FROM DOM
     goal.implementation_date = implementation_date;
     goal.review_dates = review_dates;
     goal.completion_date = completion_date;
