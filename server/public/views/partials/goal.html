@@ -1,4 +1,3 @@
-<div ng-include="'views/partials/nav.html'"></div>
 <!-- CREATE NEW GOAL CRITERA PAGE -->
 
 <div class="container goals" layout="column" flex>
@@ -11,10 +10,13 @@
     </div>
     <div layout="column" layout-align="center center" flex="40">
       <div layout="row">
-      <md-button class="md-raised md-accent" type="button" name="saveBtn" ng-click="gc.saveCriteria(gc.implementation_date, gc.review_dates, gc.completion_date,
+      <md-button class="md-raised md-accent" name="saveBtn" ng-disabled="false" ng-click="gc.saveCriteria(gc.implementation_date, gc.review_dates, gc.completion_date,
         gc.service_outcome, gc.objective, gc.behavior_techniques, gc.modifications, gc.equipment, gc.jobsite_details, gc.when_notes, gc.plan_steps,
         gc.goal_name, gc.goal_summary)">Save</md-button>
 
+        <md-button class="md-raised md-warn" name="updateBtn" ng-disabled="false" ng-click="gc.updateCriteria(gc.clientID, gc.jobSite, gc.implementation_date, gc.review_dates, gc.completion_date,
+          gc.service_outcome, gc.objective, gc.behavior_techniques, gc.modifications, gc.equipment, gc.jobsite_details, gc.when_notes, gc.plan_steps,
+          gc.goal_name, gc.goal_summary, gc.goalID)">Update</md-button>
       </div>
     </div>
   </div>
