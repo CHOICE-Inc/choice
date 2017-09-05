@@ -12,7 +12,10 @@ router.get('/getClients', function(req, res) {
       //next(err);
     }
     //join client, staff, and users to filter all cleints from user login
-    client.query("select client.id as clientid, client.client_name, staff.id as staffid, staff.staff_name, job_site.id as jobsite_id, job_site.business_name from client join goal on goal.client_id = client.id join job_site on goal.jobsite_id = job_site.id join staff on client.staff_id = staff.id join users on users.staff_id = users.staff_id;",
+    client.query("select client.id as clientid, client.client_name, staff.id as staffid, staff.staff_name, " +
+    "job_site.id as jobsite_id, job_site.business_name from client join goal on goal.client_id = client.id " +
+    "join job_site on goal.jobsite_id = job_site.id join staff on client.staff_id = staff.id " +
+    "join users on users.staff_id = users.staff_id where users.id = " + req.user.id + ";",
         function (err, result) {
           done();
           if(err) {
@@ -36,7 +39,16 @@ router.get('/getGoals/:id', function(req, res) { //and latest goal_tracking subm
       //next(err);
     }
     //make two CTE'S that will find last submitted for specific am or pm submission tied to each goal
-    client.query("WITH get_date_tracked_am AS (SELECT goal_id, am_or_pm as am, max(date_tracked) as dt FROM goal_tracking where am_or_pm ilike 'am' GROUP BY goal_id, am_or_pm), get_date_tracked_pm AS (select goal_id, am_or_pm as pm, max(date_tracked) as dt from goal_tracking where am_or_pm ilike 'pm' group by goal_id, am_or_pm)select goal.id as goalid, client.client_name, staff.staff_name, goal.implementation_date, goal.goal_summary as goalNotes, goal.goal_name as goalName, job_site.business_name, get_date_tracked_am.am, get_date_tracked_am.dt as max_goal_date_am, get_date_tracked_pm.pm, get_date_tracked_pm.dt as max_goal_date_pm from goal join client on goal.client_id = client.id join staff on staff.id = client.staff_id join job_site on job_site.id = goal.jobsite_id left join get_date_tracked_am on goal.id = get_date_tracked_am.goal_id left join get_date_tracked_pm on goal.id = get_date_tracked_pm.goal_id WHERE client_id = " + req.params.id + ";",
+    client.query("WITH get_date_tracked_am AS (SELECT goal_id, am_or_pm as am, max(date_tracked) as dt " +
+    "FROM goal_tracking where am_or_pm ilike 'am' GROUP BY goal_id, am_or_pm), get_date_tracked_pm " +
+    "AS (select goal_id, am_or_pm as pm, max(date_tracked) as dt from goal_tracking " +
+    "where am_or_pm ilike 'pm' group by goal_id, am_or_pm)select goal.id as goalid, client.client_name, " +
+    "staff.staff_name, goal.implementation_date, goal.goal_summary as goalNotes, goal.goal_name as goalName, " +
+    "job_site.business_name, get_date_tracked_am.am, get_date_tracked_am.dt as max_goal_date_am, " +
+    "get_date_tracked_pm.pm, get_date_tracked_pm.dt as max_goal_date_pm from goal join client on " +
+    "goal.client_id = client.id join staff on staff.id = client.staff_id join job_site on job_site.id = goal.jobsite_id " +
+    "left join get_date_tracked_am on goal.id = get_date_tracked_am.goal_id left join get_date_tracked_pm on " +
+    "goal.id = get_date_tracked_pm.goal_id WHERE client_id = " + req.params.id + ";",
         function (err, result) {
           done();
           if(err) {
@@ -108,6 +120,31 @@ router.get('/getGoalHistory/:id', function(req, res) {
         });
   });
 });
+
+router.delete('/deleteEntry/:id', function(req, res) { //and latest goal_tracking submission
+  console.log('in server deleting goal history entry');
+  console.log('at goal history id: ', req.params.id); //client id
+var id = req.params.id;
+  pool.connect(function(err, client, done, next) {
+    if(err) {
+      console.log("Error connecting: ", err);
+      //next(err);
+    }
+
+    client.query("DELETE from goal_tracking where id = $1", [id],
+        function (err, result) {
+          done();
+          if(err) {
+            console.log("Error deleting data: ", err);
+            //next(err);
+          } else {
+            console.log('delete SUCCESS');
+            res.sendStatus(200);
+          }
+    });
+  });
+});
+
 //End Chase Router
 
 module.exports = router;
