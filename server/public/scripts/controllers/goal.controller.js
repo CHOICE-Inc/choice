@@ -1,4 +1,4 @@
-myApp.controller('GoalController', function(UserService, $http) {
+myApp.controller('GoalController', function(UserService, $http, $location) {
   console.log('UserController created');
   var vm = this;
   vm.userService = UserService;
@@ -153,6 +153,14 @@ vm.saveCriteria = function(implementation_date, review_dates, completion_date,
 };
 
 // UPDATE SINGEL CRITERIA IN DB USING GOAL_ID
+
+// 'EDIT' CRITERIA -- ON VIEW GOAL PAGE
+vm.editCriteria =  function(client_id, goal_id){
+  //Relocate to editGoal.html
+  $location.path("/editGoal");
+  //Load data into input fields
+  
+};
 
 
 // "DELETE" CRITERIA BY CHANGING GOAL_STATUS TO FALSE & DISABLING IT
