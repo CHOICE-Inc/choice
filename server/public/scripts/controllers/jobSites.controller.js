@@ -6,8 +6,12 @@ myApp.controller('JobSitesController', function(UserService, $http) {
   jsc.userObject = UserService.userObject;
   jsc.manageJobSiteData = [];
   var jobsiteObject = {};
+  var jobsiteData = {};
 
   getManageJobSites();
+
+
+// ----------GET ROUTES------------
 
 //GET all Jobsites in the DB and display on the DOM
   function getManageJobSites(){
@@ -27,15 +31,10 @@ myApp.controller('JobSitesController', function(UserService, $http) {
     }); //end of $http.get for managejobsites
   } //end of getManageJobSites
 
-// PUT request to update Jobsites
-  function updateJobSites(id){
-    $http.put('/jobSites/editjobsites/' + id, data).then(function(response) {
-      console.log('JobSites Updated: ', response);
-    }); //end of $http.put for updateJobSites
-  } //end of updateJobSites
 
+// --------POST ROUTES------------
 
-//Add a new jobsite to the DB
+//ADD NEW JOBSITE TO THE DB
  jsc.addNewJobSite = function(business_name, address, phone, contact, jobsite_status) {
    jobsiteObject.business_name = business_name;
    jobsiteObject.address = address;
@@ -43,15 +42,31 @@ myApp.controller('JobSitesController', function(UserService, $http) {
    jobsiteObject.contact = contact;
    jobsiteObject.jobsite_status = jobsite_status;
 
-  $http.post('/jobSites/newjobsite/').then(function(response) {
+  $http.post('/jobSites/newjobsite', jobsiteObject).then(function(response) {
     console.log('added new Job Site to db:', response);
     if (response) {
       console.log('server sent something back: ', response);
     }
   });
+  getManageJobSites();
 };
 
-//Disable JobSite
+// ----------PUT ROUTES----------
+
+// PUT request to update Jobsites
+  function updateJobSites(id){
+    jobsiteData.business_name = business_name;
+    jobsiteObject.address = address;
+    jobsiteObject.phone = phone;
+    jobsiteObject.contact = contact;
+    jobsiteObject.jobsite_status = jobsite_status;
+
+    $http.put('/jobSites/editjobsites/' + id, jobsiteData).then(function(response) {
+      console.log('JobSites Updated: ', response);
+    }); //end of $http.put for updateJobSites
+  } //end of updateJobSites
+
+//PUT request to Disable JobSite
   jsc.disableJobSite = function(id, boolean) {
         console.log('jobSite id to disable: ', id);
         console.log('boolean value: ', boolean);

@@ -26,7 +26,7 @@ router.get('/managejobsites', function(req, res) {
 }); //end of router.get
 
 //POST ROUTE TO ADD A NEW JOBSITE
-router.post('/newjobsite/'), (function(req, res) {
+router.post('/newjobsite', function(req, res) {
 console.log('In post route to add new jobsite: ', req.body);
 
 pool.connect(function(errConnectingToDatabase, db, done){
@@ -36,18 +36,17 @@ pool.connect(function(errConnectingToDatabase, db, done){
   } else {
     //DEFINE DATA VALUES
     //var jobSite_id = req.params.id;
-    var business_name = req.params.business_name;
-    var address = req.params.address;
-    var phone = req.params.phone;
-    var contact = req.params.contact;
-    var jobsiteStatus = req.params.jobsite_status;
+    var business_name = req.body.business_name;
+    var address = req.body.address;
+    var phone = req.body.phone;
+    var contact = req.body.contact;
 
     //BUILD DB QUERY STRING & DATA VALUE ARRAY
     var jobSitePostQueryString = 'INSERT INTO job_site (business_name, address, phone, ' +
-    'contact, jobsites_status) VALUES ($1, $2, $3, $4, $5)';
+    'contact) VALUES ($1, $2, $3, $4)';
     console.log('For jobsite post, using DB query string: ', jobSitePostQueryString);
 
-    var jobSiteValuesArray = [business_name, address, phone, contact, jobsiteStatus];
+    var jobSiteValuesArray = [business_name, address, phone, contact];
     console.log('Going to push these values to the DB: ', jobSiteValuesArray);
 
     // MAKE DB QUERY
