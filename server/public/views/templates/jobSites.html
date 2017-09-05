@@ -4,7 +4,38 @@
 MANAGE JOB SITES PAGE
 
 <h1>Mangae Job Sites</h1>
-<button type="button" class="btn btn-primary" ng-click"">Add New Job Site</button>
+<div class="container goals" layout="column" flex>
+  <md-content>
+    <form name="goalForm">
+      <fieldset>
+        <div layout="row">
+          <md-input-container>
+            <label>Job Site Name:</label>
+            <input type="text" ng-model="jc.business_name" placeholder="McDonald's">
+          </md-input-container>
+          <md-input-container>
+            <label>Address:</label>
+            <input type="text" ng-model="jc.address" placeholder="ex: 123 Main St., St. Paul, MN 55119">
+          </md-input-container>
+          <md-input-container>
+            <label>Phone:</label>
+            <input type="text" ng-model="jc.phone" placeholder="763-111-1111">
+          </md-input-container>
+          <md-input-container>
+            <label>Contact:</label>
+            <input type="text" ng-model="jc.contact" placeholder="Mary Smith">
+          </md-input-container>
+        </div>
+        <div layout="row">
+          <md-button class="md-raised md-accent" ng-click="jc.addNewJobSite(jc.business_name, jc.address, jc.phone, jc.contact)">Add New Job Site</md-button>
+
+        </div>
+      </fieldset>
+    </form>
+
+</md-content> <!-- end of material container-->
+</div>
+
 <table>
   <thead>
     <th>Jobsite Name</th>
@@ -20,7 +51,7 @@ MANAGE JOB SITES PAGE
       <td>{{jobSites.phone}}</td>
       <td>{{jobSites.contact}}</td>
       <td><button type="button" class="btn btn-primary" ng-click="jc.updateJobSites(jobSites.id)">Update</button>
-      <td><button type="button" class="btn btn-primary" ng-click="jc.disableJobSite(jobSites.id, jobSites.jobsite_status)">{{jobSites.status}}</button></td>
+        <td><button type="button" class="btn btn-primary" ng-click="jc.disableJobSite(jobSites.id, jobSites.jobsite_status)">{{jobSites.status}}</button></td>
       </td>
 
       <!--<td><input type="submit" value="Update"> <input type="submit" name="" ng-click="jc.updateJobSites(staffMember.employed, staffMember.staff_id)" value="{{staffMember.status}}"></td> -->

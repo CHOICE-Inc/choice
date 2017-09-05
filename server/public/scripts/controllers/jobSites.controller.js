@@ -5,6 +5,7 @@ myApp.controller('JobSitesController', function(UserService, $http) {
   jsc.userService = UserService;
   jsc.userObject = UserService.userObject;
   jsc.manageJobSiteData = [];
+  var jobsiteObject = {};
 
   getManageJobSites();
 
@@ -35,11 +36,20 @@ myApp.controller('JobSitesController', function(UserService, $http) {
 
 
 //Add a new jobsite to the DB
-function addNewJobSite() {
+ jsc.addNewJobSite = function(business_name, address, phone, contact, jobsite_status) {
+   jobsiteObject.business_name = business_name;
+   jobsiteObject.address = address;
+   jobsiteObject.phone = phone;
+   jobsiteObject.contact = contact;
+   jobsiteObject.jobsite_status = jobsite_status;
+
   $http.post('/jobSites/newjobsite/').then(function(response) {
     console.log('added new Job Site to db:', response);
+    if (response) {
+      console.log('server sent something back: ', response);
+    }
   });
-}
+};
 
 //Disable JobSite
   jsc.disableJobSite = function(id, boolean) {

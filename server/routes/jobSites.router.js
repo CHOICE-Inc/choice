@@ -12,7 +12,7 @@ router.get('/managejobsites', function(req, res) {
       next(err);
     }
     //
-    db.query("select * from job_site ORDER BY",
+    db.query("select * from job_site ORDER BY id",
         function (err, result) {
           done();
           if(err) {
@@ -26,7 +26,7 @@ router.get('/managejobsites', function(req, res) {
 }); //end of router.get
 
 //POST ROUTE TO ADD A NEW JOBSITE
-router.post('/'), (function(req, res) {
+router.post('/newjobsite/'), (function(req, res) {
 console.log('In post route to add new jobsite: ', req.body);
 
 pool.connect(function(errConnectingToDatabase, db, done){
