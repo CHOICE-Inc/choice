@@ -14,6 +14,7 @@ myApp.controller('TrackingController', function(UserService, $http, $mdToast) {
   vm.today = new Date();
   vm.filters = ['Show All', 'Location', 'Case Manager', 'Option 3', 'Option 4', 'Option 5'];
   vm.hidden=false;
+  vm.rowClass = 'rowDefault';
 
   // builds list of clients to display on goal tracking page
   buildLists = function(data){
@@ -60,15 +61,12 @@ myApp.controller('TrackingController', function(UserService, $http, $mdToast) {
     } else {
       return goal.max_goal_date_pm;
     }
-  };
+  }; //end of getLastUpdate
 
   //ted stuff
   getClients();
 
-
   // gets list of clients
-
-
   function getClients(){
     $http.get('/tracking/getClients').then(function(response) {
       console.log(response.data);
@@ -77,10 +75,7 @@ myApp.controller('TrackingController', function(UserService, $http, $mdToast) {
       // console.log('vm.clientList:',vm.clientList);
       // console.log('vm.locationList:',vm.locationList);
       // console.log('vm.caseManagers:',vm.caseManagers);
-
     });
-
-
   }
   //end ted stuff
 
@@ -184,16 +179,14 @@ myApp.controller('TrackingController', function(UserService, $http, $mdToast) {
         'Enter your initials in the field labeled "initials."',
         'error'
       );
-    }
-
-    else {
+    } else {
       $http.post('/tracking/trackGoal/', goalData).then(function(response){
         console.log('Received response from trackGoal POST:', response);
         vm.showClientGoals(vm.clientToView);
         vm.showToast("Goal data submitted.", "footer");
       });
     }
-  };
+  }; //end of trackGoal
 
   vm.toGoalCriteria = function(goal){
     console.log('in toGoalCriteria with goal:', goal);
@@ -211,7 +204,6 @@ myApp.controller('TrackingController', function(UserService, $http, $mdToast) {
     } else {
       goal.hidden = !goal.hidden;
     }
-
   };
 
   vm.showToast = function(message, parentId){
@@ -232,7 +224,7 @@ myApp.controller('TrackingController', function(UserService, $http, $mdToast) {
     // console.log('in filterHistory with startDate:', vm.historyStart);
     // console.log('in filterHistory with endDate:', vm.historyEnd);
 
-goal.shownHistory = angular.copy(goal.history);
+    goal.shownHistory = angular.copy(goal.history);
     if(goal.historyStart == undefined){
       console.log('error: fill in start date');
       swal(
@@ -249,12 +241,10 @@ goal.shownHistory = angular.copy(goal.history);
       );
     } else if(goal.historyStart > goal.historyEnd) {
       swal(
-      'Oops...',
-      'The start date cannot be a later date than the end date.',
-      'error'
-    );
-
-
+        'Oops...',
+        'The start date cannot be a later date than the end date.',
+        'error'
+      );
     } else {
       var newHistory = [];
 
@@ -266,7 +256,6 @@ goal.shownHistory = angular.copy(goal.history);
           console.log('goal.history[i].date_tracked is:',goal.history[i].date_tracked);
           console.log('typeof goal.history[i].date_tracked is:',typeof goal.history[i].date_tracked);
         }
-
 
         if(!(goal.history[i].date_tracked < goal.historyStart || goal.history[i].date_tracked > goal.historyEnd)){
           newHistory.push(goal.history[i]);
@@ -290,14 +279,13 @@ goal.shownHistory = angular.copy(goal.history);
 
     }
 
-  };
+  }; //end of filterHistory
 
   getMonth = function(num, monthOrDay){
     if(monthOrDay == "month"){num += 1;}
     if(num < 10){return "0" + num;}
     else {return num;}
   };
-
 
 
   vm.getGoalHistory = function(goal){
@@ -365,5 +353,15 @@ goal.shownHistory = angular.copy(goal.history);
     console.log('d is:', d);
   };
 
+  //Change class on goal history table depending on goal completion
+  function setTableRowClass(completionStatus){
+    if(completionStatus === 'complete'){
+      vm.rowClass = 'rowComplete';
+    } else if(completionStatus === 'incomplete'){
+      vm.rowClass = 'rowIncomplete';
+    } else {
+      vm.rowClass = 'rowDefault';
+    }
+  } //end function
 
-});
+}); //END OF CONTROLLER
