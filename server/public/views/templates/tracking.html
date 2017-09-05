@@ -58,7 +58,7 @@
             <p class="label">GOAL LOCATION: <span class="locationName"> {{goal.business_name}}</span></p>
           </div>
           <div class="column" flex="50">
-            <md-button ng-hide="goal.hidden == true" class="md-raised md-primary" ng-click="tc.toGoalCriteria(goal)">Goal Criteria</md-button>
+            <md-button ng-hide="goal.hidden == true" class="md-raised md-primary" ng-click="tc.goalService.viewGoalCriteria(goal.goalid, tc.clientToView.clientid)">Goal Criteria</md-button>
             <md-button ng-hide="goal.hidden == true" class="md-raised md-warn" ng-click="tc.toGoalHistory(goal)">Goal History</md-button>
             <md-button ng-show="goal.hidden == true" class="md-raised md-primary" ng-click="tc.toGoalHistory(goal)">Back to Tracking</md-button>
           </div>
@@ -190,3 +190,7 @@
     </div> <!-- end goal box -->
   </div> <!-- end of right side column-->
 </div> <!-- end of page container -->
+
+<!-- div for displaying toast on tracking submission -->
+<div id="footer" style="background-color:transparent;position: fixed;bottom: 0;width: 100%;height:60px;pointer-events:none">
+</div>

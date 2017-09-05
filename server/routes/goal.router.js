@@ -60,7 +60,7 @@ router.post('/', function(req, res){
 
 // RETIEVE CLIENT NAMES AND IDs fROM DB TO POPULATE PULLDOWN MENU / AUTOCOMPLETE
 router.get('/clients', function(req, res){
-  console.log('In get route for client names. ');
+  console.log('In get route for client names.');
 
   pool.connect(function(errConnectingToDatabase, db, done){
     if(errConnectingToDatabase) {
@@ -146,7 +146,9 @@ router.get('/allCriteria/:id', function(req, res){
       res.sendStatus(500);
     } else {
       // BUILD DB QUERY STRING
+
       var dbQueryString = 'SELECT goal.id as goalid, * FROM "goal" ' +
+
       'JOIN "client" ON "goal"."client_id" = "client"."id" ' +
       'JOIN "job_site" ON "job_site"."id" = "goal"."jobsite_id"' +
       'WHERE "client_id" = $1 ';
@@ -200,7 +202,7 @@ router.get('/singlecriteria', function(req, res){
 
     } //end of DB connect if-else
   }); //end of pool.connect
-}); // end of route
+}); // end of router
 
 /* -------------- PUT ROUTES ---------------------- */
 
@@ -289,6 +291,7 @@ router.put('/disable/:id', function(req, res){
     } //end of DB connect if-else
   }); //end of pool.connect
 }); // end of route
+
 
 
 module.exports = router;

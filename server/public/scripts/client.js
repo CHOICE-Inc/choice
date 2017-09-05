@@ -46,7 +46,8 @@ myApp.config(function($routeProvider, $locationProvider, $mdThemingProvider) {
           return UserService.getuser();
         }
       }
-    }).when('/editGoal', {
+    })
+    .when('/editGoal', {
       templateUrl: '/views/templates/editGoal.html',
       controller: 'GoalController as gc',
       resolve: {
@@ -63,7 +64,8 @@ myApp.config(function($routeProvider, $locationProvider, $mdThemingProvider) {
           return UserService.getuser();
         }
       }
-    }).when('/staff', {
+    })
+    .when('/staff', {
       templateUrl: '/views/templates/staff.html',
       controller: 'StaffController as sc',
       resolve: {
@@ -71,9 +73,18 @@ myApp.config(function($routeProvider, $locationProvider, $mdThemingProvider) {
           return UserService.getuser();
         }
       }
-    }).when('/jobSites', {
+    })
+    .when('/jobSites', {
       templateUrl: '/views/templates/jobSites.html',
       controller: 'JobSitesController as jc',
+      resolve: {
+        getuser : function(UserService){
+          return UserService.getuser();
+        }
+      }
+    }).when('/viewGoal', {
+      templateUrl: '/views/partials/goalView.html',
+      controller: 'GoalController as gc',
       resolve: {
         getuser : function(UserService){
           return UserService.getuser();

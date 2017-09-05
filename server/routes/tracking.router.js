@@ -120,6 +120,31 @@ router.get('/getGoalHistory/:id', function(req, res) {
         });
   });
 });
+
+router.delete('/deleteEntry/:id', function(req, res) { //and latest goal_tracking submission
+  console.log('in server deleting goal history entry');
+  console.log('at goal history id: ', req.params.id); //client id
+var id = req.params.id;
+  pool.connect(function(err, client, done, next) {
+    if(err) {
+      console.log("Error connecting: ", err);
+      //next(err);
+    }
+
+    client.query("DELETE from goal_tracking where id = $1", [id],
+        function (err, result) {
+          done();
+          if(err) {
+            console.log("Error deleting data: ", err);
+            //next(err);
+          } else {
+            console.log('delete SUCCESS');
+            res.sendStatus(200);
+          }
+    });
+  });
+});
+
 //End Chase Router
 
 module.exports = router;
