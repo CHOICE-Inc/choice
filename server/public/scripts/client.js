@@ -79,6 +79,14 @@ myApp.config(function($routeProvider, $locationProvider, $mdThemingProvider) {
           return UserService.getuser();
         }
       }
+    }).when('/viewGoal', {
+      templateUrl: '/views/partials/goalView.html',
+      controller: 'GoalController as gc',
+      resolve: {
+        getuser : function(UserService){
+          return UserService.getuser();
+        }
+      }
     })
 
     .otherwise({
