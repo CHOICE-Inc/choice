@@ -1,4 +1,4 @@
-myApp.controller('TrackingController', function(UserService, $http, $mdToast) {
+myApp.controller('TrackingController', function(UserService, $http, $mdToast, $location) {
   console.log('UserController created');
   var vm = this;
   vm.userService = UserService;
@@ -190,6 +190,14 @@ myApp.controller('TrackingController', function(UserService, $http, $mdToast) {
 
   vm.toGoalCriteria = function(goal){
     console.log('in toGoalCriteria with goal:', goal);
+    console.log('in toGoalCriteria with goal.id:', goal.id);
+    console.log('in toGoalCriteria with client.id:', goal.client_id);
+    //load client_id and goal_id variables
+    //Get goal for those variables
+    //load data into getGoalCriteria -- which needs to be loaded into service
+    //That GET request pulls data into the form
+    //Redirect to goalView.html
+    $location.path("/viewGoal");
   };
 
   vm.toGoalHistory = function(goal){
