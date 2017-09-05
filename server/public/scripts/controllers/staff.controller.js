@@ -6,6 +6,25 @@ myApp.controller('StaffController', function(UserService, $http) {
 
   vm.message = "hello mate";
 
+  vm.employee = {
+    name: '',
+    location: '',
+    email: '',
+    role : ''
+  };
+
+  vm.roles = [
+    {role: "Administrator", type: 1},
+    {role: "Case Manager", type: 2},
+    {role: "Staff", type: 3}
+  ];
+
+  vm.location = [
+    {place: 'Eden Prairie'},
+    {place: 'Bloomington'},
+    {place: 'Maple Grove'}
+  ];
+
   getStaff();
 
   function getStaff(){
@@ -35,16 +54,31 @@ myApp.controller('StaffController', function(UserService, $http) {
         }
       }
       vm.staffArray = response.data;
-
-
     });
   }
 
-  vm.updateEmployee = function(boolean, id){
+  vm.toggleEmployee = function(boolean, id){
     console.log('changed from', boolean, 'for staff id', id);
-    $http.put('/staff/updateStaff/' + id + '/' + boolean).then(function(response){
+    $http.put('/staff/toggleStaff/' + id + '/' + boolean).then(function(response){
       console.log(response.data);
       getStaff();
     });
   };
+
+  vm.newEmployee = function(){
+    console.log('added a new employee', vm.employee);
+    $http.post('/staff/newStaff/', vm.employee).then(function(response){
+      console.log(response.data);
+      getStaff();
+    });
+  };
+
+  vm.updateEmployee = function(emp){
+    console.log(emp);
+    $http.put('/staff/updateStaff/', emp).then(function(response){
+      console.log(response.data);
+      getStaff();
+    });
+  }
+
 });
