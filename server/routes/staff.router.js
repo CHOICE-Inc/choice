@@ -11,7 +11,7 @@ router.get('/getStaff', function(req, res) {
       next(err);
     }
     //join client, staff, and users to filter all cleints from user login
-    client.query("select * from staff left join users on users.staff_id = staff.id",
+    client.query("select staff.id as staffs_id, users.id as users_id, * from staff left join users on users.staff_id = staff.id",
         function (err, result) {
           //client.end();
           done();
@@ -26,7 +26,7 @@ router.get('/getStaff', function(req, res) {
   });
 });
 
-router.put('/updateStaff/:id/:boolean', function(req, res){
+router.put('/toggleStaff/:id/:boolean', function(req, res){
   console.log('staff id', req.params.id);
   console.log('boolean', req.params.boolean);
   //console.log('blah ', req.params, req.params.boolean == 'false', req.params.boolean === false);
@@ -74,6 +74,31 @@ router.post('/newStaff', function(req, res){
     //make a new employee
     client.query("insert into staff(staff_name, location, email, role) values($1, $2, $3, $4);",
       [req.body.name, req.body.location.place, req.body.email, req.body.role.type],
+        function (err, result) {
+          //client.end();
+          done();
+          if(err) {
+            console.log("Error inserting data: ", err);
+            res.sendStatus(420);
+            //next(err);
+          } else {
+            //console.log('RESULT ROWS', result.rows);
+            res.sendStatus(202);
+          }
+        });
+  });
+});
+
+router.put('/updateStaff', function(req, res){
+  console.log('employee to update', req.body);
+  pool.connect(function(err, client, done, next) {
+    if(err) {
+      console.log("Error connecting: ", err);
+      //next(err);
+    }
+    //make a new employee
+    client.query("update staff set staff_name = $1, location = $2, email = $3, role = $4 where id = $5;",
+      [req.body.staff_name, req.body.location, req.body.email, req.body.role, req.body.staffs_id],
         function (err, result) {
           //client.end();
           done();

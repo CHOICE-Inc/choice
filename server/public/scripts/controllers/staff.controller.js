@@ -57,9 +57,9 @@ myApp.controller('StaffController', function(UserService, $http) {
     });
   }
 
-  vm.updateEmployee = function(boolean, id){
+  vm.toggleEmployee = function(boolean, id){
     console.log('changed from', boolean, 'for staff id', id);
-    $http.put('/staff/updateStaff/' + id + '/' + boolean).then(function(response){
+    $http.put('/staff/toggleStaff/' + id + '/' + boolean).then(function(response){
       console.log(response.data);
       getStaff();
     });
@@ -72,5 +72,13 @@ myApp.controller('StaffController', function(UserService, $http) {
       getStaff();
     });
   };
+
+  vm.updateEmployee = function(emp){
+    console.log(emp);
+    $http.put('/staff/updateStaff/', emp).then(function(response){
+      console.log(response.data);
+      getStaff();
+    });
+  }
 
 });
