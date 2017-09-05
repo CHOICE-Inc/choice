@@ -23,6 +23,17 @@ textarea {
 }
 
 
+/* GOAL CRITERIA STYLING */
+.userText {
+  font-size: 1.2em;
+}
+
+.goalView {
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #0d47a1;
+}
+
 /* GOAL TRACKING STYLING */
 #leftColumn {
   padding: 10px;
