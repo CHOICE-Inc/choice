@@ -1,8 +1,10 @@
-myApp.controller('TrackingController', function(UserService, $http, $mdToast, $location) {
-  console.log('UserController created');
+myApp.controller('TrackingController', function(UserService, GoalService, $http, $mdToast, $location) {
+  console.log('TrackingController created');
   var vm = this;
   vm.userService = UserService;
   vm.userObject = UserService.userObject;
+  vm.goalService = GoalService;
+
   vm.dataList = [];
   vm.clientList = [];
   vm.locationList = [];
@@ -190,17 +192,17 @@ myApp.controller('TrackingController', function(UserService, $http, $mdToast, $l
   }; //end of trackGoal
 
   // Will go to goal criteria
-  vm.toGoalCriteria = function(goal){
-    console.log('in toGoalCriteria with goal:', goal);
-    console.log('in toGoalCriteria with goal.id:', goal.id);
-    console.log('in toGoalCriteria with client.id:', goal.client_id);
+  /*vm.toGoalCriteria = function(goal_id, client_id){
+    //console.log('in toGoalCriteria with goal:', goal);
+    console.log('in toGoalCriteria with goal.id:', goal_id);
+    console.log('in toGoalCriteria with client.id:', client_id);
     //load client_id and goal_id variables
     //Get goal for those variables
     //load data into getGoalCriteria -- which needs to be loaded into service
     //That GET request pulls data into the form
     //Redirect to goalView.html
     $location.path("/viewGoal");
-  };
+  };*/
 
   // Brings up goal history
   vm.toGoalHistory = function(goal){
@@ -381,5 +383,9 @@ myApp.controller('TrackingController', function(UserService, $http, $mdToast, $l
       vm.rowClass = 'rowDefault';
     }
   } //end function
+
+
+
+
 
 }); //END OF CONTROLLER
