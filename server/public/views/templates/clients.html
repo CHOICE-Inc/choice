@@ -26,8 +26,8 @@
   <tbody>
     <tr ng-repeat="client in cc.clientArray">
 
-      <td>{{client.client_name}}</td>
-
+      <td ng-hide="client.editing == true">{{client.client_name}}</td>
+      <td ng-show="client.editing == true"><input type="text" name="" ng-value="cc.clientToEdit.client_name" placeholder="name" ng-model="cc.clientToEdit.client_name"></td>
       <td ng-hide="client.editing == true">{{client.location}}</td>
       <td ng-show="client.editing == true">
         <md-select ng-model="cc.clientToEdit.location" placeholder="staff" class="md-no-underline">

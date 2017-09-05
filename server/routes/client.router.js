@@ -37,8 +37,8 @@ router.put('/updateClient/', function(req, res){
       //next(err);
     }
     //update employment status of employee
-    client.query("UPDATE client SET active = $1,staff_id = $2 WHERE id = $3;",
-      [req.body.active, req.body.staff_id, req.body.clientid],
+    client.query("UPDATE client SET active = $1,staff_id = $2,client_name = $3 WHERE id = $4;",
+      [req.body.active, req.body.staff_id, req.body.client_name, req.body.clientid],
         function (err, result) {
           //client.end();
           done();
