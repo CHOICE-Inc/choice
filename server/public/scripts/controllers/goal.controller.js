@@ -23,6 +23,8 @@ myApp.controller('GoalController', function(UserService, GoalService, $http, $lo
     });
   }
   getClients();
+
+
   //CONVERT CLIENT NAME TO CLIENT ID
   vm.assignClientID = function (id){
     console.log("assignClient id: ", id);
@@ -31,7 +33,6 @@ myApp.controller('GoalController', function(UserService, GoalService, $http, $lo
 
   // GET REQUEST TO RETIEVE CASE MANAGER NAMES AND IDs fROM DB TO POPULATE PULLDOWN MENU / AUTOCOMPLETE
   // Route: /goal/casemanager
-
   function getCaseManagers() {
     $http.get('/goal/casemanager').then(function(response) {
       console.log("case managers response: ", response.data);
@@ -39,6 +40,7 @@ myApp.controller('GoalController', function(UserService, GoalService, $http, $lo
     });
   }
   getCaseManagers();
+
   //CONVERT CLIENT NAME TO STAFF ID
   vm.assignCMID = function (id) {
     console.log("assignClient id: ", id);
@@ -54,6 +56,7 @@ myApp.controller('GoalController', function(UserService, GoalService, $http, $lo
     });
   }
   getJobSites();
+
   //CONVERT JOB NAME TO JOBSITE ID
   vm.assignJobsiteId = function (id){
     console.log("assignJobsiteId id: ", id);
@@ -165,7 +168,6 @@ myApp.controller('GoalController', function(UserService, GoalService, $http, $lo
 
 
     // "DELETE" CRITERIA BY CHANGING GOAL_STATUS TO FALSE & DISABLING IT
-
     vm.disableCriteria = function(id) {
       console.log('Goal criteria id to disable: ', id);
 
