@@ -81,7 +81,6 @@ vm.assignJobsiteId = function (id){
     }
 
 // GET SINGLE CRITERIA FROM THE DB BASED ON GOAL_ID
-// May need to do a join on the server side to grab client name and jobname
 vm.getGoalCriteria = function(goal_id, client_id) {
   var oneGoalData = {client_id: client_id};
   console.log("oneGoalData is: ", oneGoalData);

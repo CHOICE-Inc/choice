@@ -4,13 +4,14 @@
 MANAGE JOB SITES PAGE
 
 <h1>Mangae Job Sites</h1>
-
+<button type="button" class="btn btn-primary" ng-click"">Add New Job Site</button>
 <table>
   <thead>
     <th>Jobsite Name</th>
     <th>Address</th>
     <th>Phone Number</th>
     <th>Contact Name</th>
+    <th>Manage Jobsites</th>
   </thead>
   <tbody>
     <tr ng-repeat="jobSites in jc.manageJobSiteData">
@@ -18,7 +19,11 @@ MANAGE JOB SITES PAGE
       <td>{{jobSites.address}}</td>
       <td>{{jobSites.phone}}</td>
       <td>{{jobSites.contact}}</td>
-      <!-- <td><input type="submit" value="Update"> <input type="submit" name="" ng-click="sc.updateEmployee(staffMember.employed, staffMember.staff_id)" value="{{staffMember.status}}"></td> -->
+      <td><button type="button" class="btn btn-primary" ng-click="jobSites.updateJobSites(jobSites.id)">Update</button>
+      <td><button type="button" class="btn btn-primary" ng-click="jobSites.disableJobSite(jobSites.id)">Deactivate</button></td>
+      </td>
+
+      <!--<td><input type="submit" value="Update"> <input type="submit" name="" ng-click="jc.updateJobSites(staffMember.employed, staffMember.staff_id)" value="{{staffMember.status}}"></td> -->
     </tr>
   </tbody>
 </table>
