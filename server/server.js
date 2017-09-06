@@ -14,6 +14,7 @@ var trackingRouter = require('./routes/tracking.router');
 var jobSitesRouter = require('./routes/jobSites.router');
 var staffRouter = require('./routes/staff.router');
 var summaryRouter = require('./routes/summary.router');
+var clientRouter = require('./routes/client.router');
 
 var port = process.env.PORT || 5000;
 
@@ -39,6 +40,7 @@ app.use('/tracking', trackingRouter);
 app.use('/staff', staffRouter);
 app.use('/jobSites', jobSitesRouter);
 app.use('/summary', summaryRouter);
+app.use('/client', clientRouter);
 
 // Catch all bucket, must be last!
 app.use('/', indexRouter);

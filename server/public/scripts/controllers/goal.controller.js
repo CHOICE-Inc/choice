@@ -99,8 +99,9 @@ myApp.controller('GoalController', function(UserService, GoalService, $http, $lo
       client_id: client_id
     }};
     $http.get("/goal/singlecriteria", config).then(function(response) {
-      console.log("Get one goal from DB: ", response.data);
+      //console.log("Get one goal from DB: ", response.data);
       var goalData = response.data[0];
+      console.log("Get one goal from DB: ", goalData);
       vm.assignData(goalData);
     });
   };
@@ -113,8 +114,9 @@ myApp.controller('GoalController', function(UserService, GoalService, $http, $lo
   //ASSIGNING GOAL DATA TO THE DOM
   vm.assignData = function (dataObject) {
     vm.clientName = dataObject.client_name;
+    vm.clientID = dataObject.client_id;
     console.log("response data name is: ", dataObject.client_name);
-    vm.jobSite = dataObject.business_name;
+    vm.jobSite = dataObject.jobsite_id;
     vm.implementation_date = dataObject.implementation_date;
     vm.review_dates = dataObject.review_dates;
     vm.completion_date = dataObject.completion_date;
@@ -128,6 +130,7 @@ myApp.controller('GoalController', function(UserService, GoalService, $http, $lo
     vm.plan_steps = dataObject.plan_steps;
     vm.goal_name = dataObject.goal_name;
     vm.goal_summary = dataObject.goal_summary;
+    vm.goalID = dataObject.goalid;
   };
 
   // POST NEW CRITERIA TO THE DB
@@ -158,7 +161,38 @@ myApp.controller('GoalController', function(UserService, GoalService, $http, $lo
       });
     };
 
-    // UPDATE SINGEL CRITERIA IN DB USING GOAL_ID
+    // UPDATE SINGLE CRITERIA IN DB USING GOAL_ID
+    vm.updateCriteria = function(client_id, jobsite_id, implementation_date, review_dates, completion_date,
+      service_outcome, objective, behavior_techniques, modifications, equipment, jobsite_details,
+      when_notes, plan_steps,goal_name, goal_summary, goal_id) {
+        console.log('Updating goal w/ id of: ', goal_id);
+
+        // RETRIVE GOAL CRITERIA DATA FROM DOM
+        goal.client_id = client_id;
+        goal.jobsite_id = jobsite_id;
+        goal.implementation_date = implementation_date;
+        goal.review_dates = review_dates;
+        goal.completion_date = completion_date;
+        goal.service_outcome = service_outcome;
+        goal.objective = objective;
+        goal.behavior_techniques = behavior_techniques;
+        goal.modifications = modifications;
+        goal.equipment = equipment;
+        goal.jobsite_details = jobsite_details;
+        goal.when_notes = when_notes;
+        goal.plan_steps = plan_steps;
+        goal.goal_name = goal_name;
+        goal.goal_summary = goal_summary;
+        console.log("goal: ", goal);
+
+        //PUT request to update DB
+        $http.put('/goal/' + goal_id, goal).then(function(response) {
+          console.log('sending goal data to db: ');
+          if (response) {
+            console.log('server sent something back: ', response);
+          }
+        });
+      };
 
     // GO BACK TO TRACKING PAGE -- ON VIEW GOAL PAGE
     vm.goBackToTracking =  function(goal_id, client_id){
