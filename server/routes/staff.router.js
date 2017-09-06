@@ -11,7 +11,7 @@ router.get('/getStaff', function(req, res) {
       next(err);
     }
     //join client, staff, and users to filter all cleints from user login
-    client.query("select staff.id as staffs_id, users.id as users_id, * from staff left join users on users.staff_id = staff.id",
+    client.query("select staff.id as staffs_id, users.id as users_id, * from staff left join users on users.staff_id = staff.id order by staff.employed desc",
         function (err, result) {
           //client.end();
           done();

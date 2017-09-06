@@ -74,11 +74,12 @@ myApp.controller('StaffController', function(UserService, $http) {
   };
 
   vm.updateEmployee = function(emp){
-    console.log(emp);
+    console.log('in updateEmployee with:', emp);
+    console.log(vm.employee);
     $http.put('/staff/updateStaff/', emp).then(function(response){
       console.log(response.data);
       getStaff();
     });
-  }
+  };
 
 });
