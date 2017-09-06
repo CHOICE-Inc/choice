@@ -11,7 +11,7 @@ router.get('/getClients', function(req, res) {
       next(err);
     }
 
-    client.query("select client.id as clientid, staff_id, client_name, staff_name, active, location from client join staff on (client.staff_id = staff.id) order by active DESC;",
+    client.query("select client.id as clientid, staff_id, client_name, staff_name, active, location from client join staff on (client.staff_id = staff.id) order by active DESC, name;",
         function (err, result) {
           //client.end();
           done();
