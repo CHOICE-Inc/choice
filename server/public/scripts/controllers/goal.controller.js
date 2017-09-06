@@ -82,7 +82,7 @@ myApp.controller('GoalController', function(UserService, GoalService, $http, $lo
       console.log('Get all criteria for: ', client_id, 'Gives response: ', response.data);
       //Assign that data to vm.allGoalData
       vm.allGoalData = response.data;
-      console.log('assigning response data to all allGoalData: ', allGoalData);
+      console.log('assigning response data to all allGoalData: ', vm.allGoalData);
       return response;
     });
   }
