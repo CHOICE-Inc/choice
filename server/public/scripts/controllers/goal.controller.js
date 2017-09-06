@@ -128,6 +128,8 @@ myApp.controller('GoalController', function(UserService, GoalService, $http, $lo
     vm.plan_steps = dataObject.plan_steps;
     vm.goal_name = dataObject.goal_name;
     vm.goal_summary = dataObject.goal_summary;
+    vm.goal_id = dataObject.goalid;
+    vm.goal_status = dataObject.goal_status;
   };
 
   // POST NEW CRITERIA TO THE DB
@@ -168,12 +170,13 @@ myApp.controller('GoalController', function(UserService, GoalService, $http, $lo
 
 
     // "DELETE" CRITERIA BY CHANGING GOAL_STATUS TO FALSE & DISABLING IT
-    vm.disableCriteria = function(id) {
+    vm.disableCriteria = function(id, boolean) {
       console.log('Goal criteria id to disable: ', id);
-
-      $http.put('/goal/disable/' + id, data).then(function(response){
+      console.log('This goal\'s status: ', boolean);
+      $http.put('/goal/disable/' + id + '/' + boolean).then(function(response){
         console.log('Disable criteria response: ', response);
       });
+  
     }; //end of disable function
 
 
