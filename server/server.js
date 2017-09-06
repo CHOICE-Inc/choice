@@ -38,7 +38,7 @@ app.use('/user', userRouter);
 app.use('/goal', goalRouter);
 app.use('/tracking', trackingRouter);
 app.use('/staff', staffRouter);
-app.use('/jobsites', jobSitesRouter);
+app.use('/jobSites', jobSitesRouter);
 app.use('/summary', summaryRouter);
 app.use('/client', clientRouter);
 

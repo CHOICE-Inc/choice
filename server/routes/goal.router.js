@@ -86,9 +86,8 @@ router.get('/clients', function(req, res){
 // RETIEVE CASE MANAGER NAMES AND IDs fROM DB TO POPULATE PULLDOWN MENU / AUTOCOMPLETE
 router.get('/casemanager', function(req, res){
   console.log('In get route for client names. ');
-
   var getCaseManagersQuery = 'SELECT * FROM "staff" WHERE "role" = 2;';
-                 console.log("Getting all Case Managers: ", getCaseManagersQuery);
+     console.log("Getting all Case Managers: ", getCaseManagersQuery);
 
   pool.connect(function(errConnectingToDatabase, db, done){
     if(errConnectingToDatabase) {
@@ -177,7 +176,7 @@ router.get('/singlecriteria', function(req, res){
   console.log('In get route for client\'s goal criteria: ', req.query);
   console.log('on server, client_id = ', req.query.client_id, 'on server, goal_id = ', req.query.goal_id);
 
-  var getGoal = ' SELECT * FROM "goal" JOIN "client" ON "goal"."client_id" = "client"."id" ' +
+  var getGoal = ' SELECT goal.id as goalID, * FROM "goal" JOIN "client" ON "goal"."client_id" = "client"."id" ' +
   ' JOIN "job_site" ON "job_site"."id" = "goal"."jobsite_id" WHERE "client_id" = $1 AND "goal"."id" = $2; ';
 
   var clientID = parseInt(req.query.client_id);
@@ -210,7 +209,7 @@ router.get('/singlecriteria', function(req, res){
 // UPDATE ROUTE AFTER USER EDIT
 // NEED GOAL ID TO ACCESS CORRECT GOAL
 router.put('/:id', function(req, res){
-  console.log('In put route for client\'s goal to disable goal: ', req.params.id);
+  console.log('In put route for client\'s goal to update goal: ', req.params.id);
   console.log('Going to put this updated data: ', req.body);
 
   pool.connect(function(errConnectingToDatabase, db, done){
@@ -229,6 +228,7 @@ router.put('/:id', function(req, res){
       var completion_date = req.body.completion_date;
       var service_outcome = req.body.service_outcome;
       var objective = req.body.objective;
+      var jobsite_details = req.body.jobsite_details;
       var behavior_techniques = req.body.behavior_techniques;
       var modifications = req.body.modifications;
       var equipment = req.body.equipment;
@@ -239,13 +239,13 @@ router.put('/:id', function(req, res){
 
       //BUILD DB QUERY STRING & DATA VALUE ARRAY
       var dbQueryString = 'UPDATE goal SET client_id=$1, jobsite_id=$2, implementation_date=$3, ' +
-      'review_dates=$4, completion_date=$5, service_outcome=$6, objective=$7, ' +
-      'behavior_techniques=$8, modifications=$9, equipment=$10, when_notes=$11, plan_steps=$12, goal_name=$13, goal_summary=$14 WHERE id=$15';
+      'review_dates=$4, completion_date=$5, service_outcome=$6, objective=$7, jobsite_details=$8, ' +
+      'behavior_techniques=$9, modifications=$10, equipment=$11, when_notes=$12, plan_steps=$13, goal_name=$14, goal_summary=$15 WHERE id=$16';
 
       console.log('For goal update, using DB query string: ', dbQueryString);
 
       var goalValuesArray = [client_id, jobsite_id, implementation_date, review_dates, completion_date,
-      service_outcome, objective, behavior_techniques, modifications, equipment, when_notes, plan_steps, goal_name, goal_summary, goal_ID];
+      service_outcome, objective, jobsite_details, behavior_techniques, modifications, equipment, when_notes, plan_steps, goal_name, goal_summary, goal_ID];
 
       console.log('Going to update the DB with these values: ', goalValuesArray);
       // MAKE DB QUERY

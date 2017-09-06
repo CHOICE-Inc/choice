@@ -41,11 +41,7 @@
   </div>
 
   <div layout="column" flex="15">
-    <!-- Edit & Disable buttons -->
-    <md-button class="md-raised md-primary md-hue-2" name="editBtn">Edit Criteria</md-button>
-
-  </div>
-  <div layout="column" flex="15">
+    <!-- Disable button -->
     <md-button class="md-raised md-warn" name="disableBtn" ng-click="gc.disableCriteria(gc.goal_id)">Disable Criteria</md-button>
   </div>
 
@@ -53,6 +49,5 @@
 
 <!-- Bottom Portion: Load goal.html and populate w/ selected criteria's data -->
 <div ng-include="'views/partials/goal.html'"></div>
->>>>>>> master
 
 </div> <!-- End of page container -->

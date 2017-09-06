@@ -2,3 +2,77 @@
 <!-- Job sites page - From this page, the admin can add / delete Job sites and edit existing info -->
 
 MANAGE JOB SITES PAGE
+
+<h1>Mangae Job Sites</h1>
+<div class="container goals" layout="column" flex>
+  <md-content>
+    <fieldset>
+      <div layout="row">
+        <md-input-container>
+          <label>Job Site Name:</label>
+          <input type="text" ng-model="jc.business_name" placeholder="McDonald's">
+        </md-input-container>
+        <md-input-container>
+          <label>Address:</label>
+          <input type="text" ng-model="jc.address" placeholder="ex: 123 Main St., St. Paul, MN 55119">
+        </md-input-container>
+        <md-input-container>
+          <label>Phone:</label>
+          <input type="text" ng-model="jc.phone" placeholder="763-111-1111">
+        </md-input-container>
+        <md-input-container>
+          <label>Contact:</label>
+          <input type="text" ng-model="jc.contact" placeholder="Mary Smith">
+        </md-input-container>
+      </div>
+      <div layout="row">
+        <md-button class="md-raised md-accent" ng-click="jc.addNewJobSite(jc.business_name, jc.address, jc.phone, jc.contact)">Add New Job Site</md-button>
+
+      </div>
+    </fieldset>
+  </form>
+
+</md-content> <!-- end of material container-->
+</div>
+
+<form editable-form name="jobsiteForm" onaftersave="jc.updateJobSites(jc.jobsiteData)">
+
+  <table>
+    <thead>
+      <th>Jobsite Name</th>
+      <th>Address</th>
+      <th>Phone Number</th>
+      <th>Contact Name</th>
+      <th>Manage Jobsites</th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="jobSites in jc.manageJobSiteData">
+        <td> <span editable-text="jobSites.business_name" e-name="type" e-form="jobsiteForm">{{jobSites.business_name}}</span></td>
+        <td> <span editable-text="jobSites.address" e-name="type" e-form="jobsiteForm">{{jobSites.address}}</span></td>
+        <td> <span editable-text="jobSites.phone" e-name="type" e-form="jobsiteForm">{{jobSites.phone}}</span></td>
+        <td> <span editable-text="jobSites.contact" e-name="type" e-form="jobsiteForm">{{jobSites.contact}}</span></td>
+
+        <td>
+          <form editable-form name="jobsiteForm" onaftersave="jc.updateJobSites(jobSites.business_name, jobSites.address, jobSites.phone, jobSites.contact, jobSites.id)">
+            <!-- <div class="xeditableBtns"> -->
+              <!-- buttons to submit / cancel form -->
+              <span ng-show="jobsiteForm.$visible">
+                <button type="submit" class="btn btn-primary" ng-disabled="jobsiteForm.$waiting">
+                  Save
+                </button>
+                <button type="button" class="btn btn-default" ng-disabled="jobsiteForm.$waiting" ng-click="jobsiteForm.$cancel()">
+                  Cancel
+                </button>
+              </span>
+            <!-- </div> -->
+            </form>
+            <div class="buttons" ng-show="!jobsiteForm.$visible">
+            <button type="button" class="btn btn-primary" ng-click="jobsiteForm.$show()" ng-show="!jobsiteForm.$visible">Update</button>
+            <button type="button" class="btn btn-primary" ng-click="jc.disableJobSite(jobSites.id, jobSites.jobsite_status)">{{jobSites.status}}</button>
+          </div>
+          </td>
+
+        <!--<td><input type="submit" value="Update"> <input type="submit" name="" ng-click="jc.updateJobSites(staffMember.employed, staffMember.staff_id)" value="{{staffMember.status}}"></td> -->
+      </tr>
+    </tbody>
+  </table>
