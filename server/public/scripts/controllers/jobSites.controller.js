@@ -54,17 +54,18 @@ myApp.controller('JobSitesController', function(UserService, $http) {
 // ----------PUT ROUTES----------
 
 // PUT request to update Jobsites
-  function updateJobSites(id){
+  jsc.updateJobSites = function(business_name, address, phone, contact, jobsite_status, id){
+    console.log("updated information: ", business_name, address, phone, contact, jobsite_status, id);
     jobsiteData.business_name = business_name;
-    jobsiteObject.address = address;
-    jobsiteObject.phone = phone;
-    jobsiteObject.contact = contact;
-    jobsiteObject.jobsite_status = jobsite_status;
+    jobsiteData.address = address;
+    jobsiteData.phone = phone;
+    jobsiteData.contact = contact;
+    jobsiteData.jobsite_status = jobsite_status;
 
     $http.put('/jobSites/editjobsites/' + id, jobsiteData).then(function(response) {
       console.log('JobSites Updated: ', response);
     }); //end of $http.put for updateJobSites
-  } //end of updateJobSites
+  }; //end of updateJobSites
 
 //PUT request to Disable JobSite
   jsc.disableJobSite = function(id, boolean) {
