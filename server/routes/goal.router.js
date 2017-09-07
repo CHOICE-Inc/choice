@@ -204,6 +204,7 @@ router.get('/singlecriteria', function(req, res){
   }); //end of pool.connect
 }); // end of router
 
+
 /* -------------- PUT ROUTES ---------------------- */
 
 // UPDATE ROUTE AFTER USER EDIT
@@ -267,8 +268,16 @@ router.put('/:id', function(req, res){
 
 // UPDATE ROUTE TO DISABLE GOAL IN DB (INSTEAD OF DELETING THE GOAL, NEED RECORD-KEEPING)
 // NEED GOAL ID TO ACCESS CORRECT GOAL
-router.put('/disable/:id', function(req, res){
+router.put('/disable/:id/:boolean', function(req, res){
   console.log('In put route for client\'s goal to disable goal: ', req.params.id);
+
+  var changeStatus;
+  if(req.params.boolean === 'true'){
+    changeStatus = false;
+  } else if(req.params.boolean === 'false'){
+    changeStatus = true;
+  }
+  console.log('changed goal status to:', changeStatus);
 
   pool.connect(function(errConnectingToDatabase, db, done){
     if(errConnectingToDatabase) {
@@ -278,7 +287,7 @@ router.put('/disable/:id', function(req, res){
       //BUILD DB QUERY STRING
 
       // MAKE DB QUERY
-      db.query('UPDATE goal SET goal_status=FALSE WHERE id=$1', [req.params.id], function(errMakingQuery, result){
+      db.query('UPDATE goal SET goal_status= $1 WHERE id= $2', [changeStatus, req.params.id], function(errMakingQuery, result){
         done();
         if(errMakingQuery){
           console.log('There was an error making INSERT query: ', errMakingQuery);
