@@ -35,7 +35,7 @@
                 md-items="item in gc.querySearch(gc.searchText)"
                 md-item-text="item.client_name"
                 md-selected-item-change="gc.assignClientID(gc.selectedItem.id)"
-                placeholder="Enter client's name"
+                placeholder="Enter participant's name"
                 md-clear-button="true">
                 <md-item-template>
                   <span md-highlight-text="gc.searchText">{{item.client_name}}</span>
