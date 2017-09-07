@@ -56,6 +56,7 @@
         <td ng-hide="jobsite.editing == true">{{jobsite.contact}}</td>
         <td ng-show="jobsite.editing == true"><input type="text" name="" ng-value="jc.siteToEdit.contact" placeholder="Contac" ng-model="jc.siteToEdit.contact"></td>
         <td>
+
           <input ng-hide="jobsite.editing == true" type="submit" name="" value="Edit" ng-click="jc.toggleEditing(jobsite)">
           <input ng-show="jobsite.editing == true" type="submit" name="" value="Submit" ng-click="jc.updateJobSite(jc.siteToEdit)">
           <input ng-show="jobsite.editing == true" type="submit" name="" value="Cancel" ng-click="jc.toggleEditing(jobsite)">
