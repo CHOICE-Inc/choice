@@ -40,9 +40,14 @@
     </head>
 
     <body ng-app="myApp">
-      <!--<header ng-include="'/views/partials/header.html'"></header>-->
+      <div class="bodyContainer">
+        <main ng-view></main>
+      </div>
 
-      <main ng-view></main>
+      <footer>
+        <hr>
+        <p id="copyright">(c) 2017 CHOICE, Inc.</p>
+      </footer>
 
     </body>
 </html>
