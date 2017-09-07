@@ -82,7 +82,7 @@ myApp.controller('GoalController', function(UserService, GoalService, $http, $lo
       console.log('Get all criteria for: ', client_id, 'Gives response: ', response.data);
       //Assign that data to vm.allGoalData
       vm.allGoalData = response.data;
-      console.log('assigning response data to all allGoalData: ', allGoalData);
+      console.log('assigning response data to all allGoalData: ', vm.allGoalData);
       return response;
     });
   }
@@ -112,6 +112,8 @@ myApp.controller('GoalController', function(UserService, GoalService, $http, $lo
 
   //ASSIGNING GOAL DATA TO THE DOM
   vm.assignData = function (dataObject) {
+    console.log('in assignData with:', dataObject);
+    vm.client_id = dataObject.client_id;
     vm.clientName = dataObject.client_name;
     console.log("response data name is: ", dataObject.client_name);
     vm.jobSite = dataObject.business_name;
@@ -128,6 +130,8 @@ myApp.controller('GoalController', function(UserService, GoalService, $http, $lo
     vm.plan_steps = dataObject.plan_steps;
     vm.goal_name = dataObject.goal_name;
     vm.goal_summary = dataObject.goal_summary;
+    vm.goal_id = dataObject.goalid;
+    vm.goal_status = dataObject.goal_status;
   };
 
   // POST NEW CRITERIA TO THE DB
@@ -168,11 +172,13 @@ myApp.controller('GoalController', function(UserService, GoalService, $http, $lo
 
 
     // "DELETE" CRITERIA BY CHANGING GOAL_STATUS TO FALSE & DISABLING IT
-    vm.disableCriteria = function(id) {
-      console.log('Goal criteria id to disable: ', id);
-
-      $http.put('/goal/disable/' + id, data).then(function(response){
+    vm.disableCriteria = function(goal_id, boolean, client_id) {
+      console.log('Goal criteria id to disable: ', goal_id);
+      console.log('This goal\'s status: ', boolean);
+      $http.put('/goal/disable/' + goal_id + '/' + boolean).then(function(response){
         console.log('Disable criteria response: ', response);
+        vm.getGoalCriteria(goal_id, client_id);
+
       });
     }; //end of disable function
 
