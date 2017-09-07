@@ -7,7 +7,7 @@ Goal Tracker CI is a full-stack web application that will allow the staff at Cho
 
 - SEAN Stack: PostgreSQL, Express, AngularJS, Node.js
 - Angular Material for styling
-- Angular-xeditable for in-line editing
+- Material Design Data Table for data table styling and pagination
 - Passport for user authentication
 - SweetAlert2 for user notifications and modals
 - Google Font and Font Awesome for text and icon styling
@@ -26,21 +26,15 @@ Link to software that is required to install the app (e.g. node).
 - [PostgreSQL] (https://www.postgresql.org/)
 - [Express](http://expressjs.com/)
 - [Angular Material](https://material.angularjs.org/latest/)
-- [Angular-xeditable](https://vitalets.github.io/angular-xeditable/)
 - [SweetAlert2] (https://limonte.github.io/sweetalert2/)
+- [Material Design Data Table](https://github.com/daniel-nagy/md-data-table)
 
 
 ### Installing
 
 Steps to get the development environment running.
 
-```sql
-CREATE TABLE "users" (
-  "id" serial primary key,
-  "username" varchar(80) not null UNIQUE,
-  "password" varchar(240) not null
-);
-```
+- Use DBqueries.txt to set up database and tables using SQL and PostgreSQL
 
 ## Screen Shot
 
@@ -54,14 +48,21 @@ Link to a read-only version of your scope document or other relevant documentati
 
 High level list of items completed.
 
-- [x] Feature a
-- [x] Feature b
+- [x] Create new goal criteria
+- [x] Edit / Disable goal criteria
+- [x] Select a participant and display their goals
+- [x] Enter AM & PM goal tracking data (complete, incomplete, notes, etc.)
+- [x] View a goal's completion rate and overall history of tracking via a table
+- [x] Admin can add, update, and inactivate participants, staff, and job sites
+- [ ] User access is limited based on their staff role: admin, case manager, or general staff
 
 ### Next Steps
 
 Features that you would like to add at some point in the future.
 
-- [ ] Feature c
+- [ ] Filter by goals that are uncompleted for the day on the goal tracking page
+- [ ] Email notifications & in-app notifications for multiple days of missing goal tracking data
+- [ ] Create a Reports Page of goal data compiled over the reporting period and make it printable or exportable as a PDF.
 
 ## Deployment
 
@@ -74,4 +75,4 @@ Add additional notes about how to deploy this on a live system
 
 ## Acknowledgments
 
-* Hat tip to anyone who's code was used
+- Daniel Nagy for Material Design Data Table (md-data-table)
