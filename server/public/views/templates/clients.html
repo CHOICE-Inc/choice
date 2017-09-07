@@ -48,35 +48,24 @@
                 </md-select>
               </td>
 
-              <td md-cell ng-hide="client.editing == true">{{client.status}}</td>
-              <td md-cell ng-show="client.editing == true">
-                <md-select ng-model="cc.clientToEdit.active" placeholder="Status" class="md-no-underline">
-                  <!-- <md-option ng-repeat="cm in cc.staffArray" value="{{cm.staff_name}}">{{cm.staff_name}}</md-option> -->
-                  <md-option ng-value="true">Active</md-option>
-                  <md-option ng-value="false">Inactive</md-option>
-                </md-select>
-              </td>
-              <td md-cell>
-                <input ng-hide="client.editing == true" type="submit" name="" value="Edit" ng-click="cc.toggleEditing(client)">
-                <input ng-show="client.editing == true" type="submit" name="" value="Submit" ng-click="cc.updateClient(cc.clientToEdit)">
-                <input ng-show="client.editing == true" type="submit" name="" value="Cancel" ng-click="cc.toggleEditing(client)">
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </md-table-container>
-    </div> <!-- end of table div -->
-    <!-- Table pagination bar -->
-    <div layout="row" flex="nogrow">
-      <md-table-pagination md-limit="cc.goalService.tableQuery.limit" md-limit-options="cc.goalService.tableLimitOptions"
-      md-page="cc.goalService.tableQuery.page" md-total="{{cc.clientArray.length}}" md-page-select="cc.goalService.tableOptions.pageSelect"
-      md-boundary-links="cc.goalService.tableOptions.boundaryLinks" md-on-paginate="logPagination"></md-table-pagination>
-    </div>
-
-
-
-
-
+            <td md-cell ng-hide="client.editing == true">{{client.status}}</td>
+            <td md-cell ng-show="client.editing == true">
+              <md-select ng-model="cc.clientToEdit.active" placeholder="Status" class="md-no-underline">
+              <!-- <md-option ng-repeat="cm in cc.staffArray" value="{{cm.staff_name}}">{{cm.staff_name}}</md-option> -->
+              <md-option ng-value="true">Active</md-option>
+              <md-option ng-value="false">Inactive</md-option>
+              </md-select>
+            </td>
+            <td md-cell>
+              <input ng-hide="client.editing == true" type="submit" name="" value="Edit" ng-click="cc.toggleEditing(client)">
+              <input ng-show="client.editing == true" type="submit" name="" value="Submit" ng-click="cc.updateClient(cc.clientToEdit)">
+              <input ng-show="client.editing == true" type="submit" name="" value="Cancel" ng-click="cc.toggleEditing(client)">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+  </div> <!-- end of table div -->
 
   </md-content>
 </div> <!-- end of container div -->
