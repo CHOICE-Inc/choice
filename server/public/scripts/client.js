@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ngMaterial', 'ngMessages', 'ngRoute', 'xeditable']);
+var myApp = angular.module('myApp', ['ngMaterial', 'ngMessages', 'ngRoute', 'xeditable', 'md.data.table']);
 
 
 myApp.config(function($routeProvider, $locationProvider, $mdThemingProvider) {

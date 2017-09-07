@@ -384,8 +384,23 @@ myApp.controller('TrackingController', function(UserService, GoalService, $http,
     }
   } //end function
 
+//FUNCTIONS FOR THE GOAL HISTORY TABLE (md.data.table)
+vm.limitOptions = [5, 10, 15];
+vm.options = {
+  rowSelection: true,
+  multiSelect: true,
+  autoSelect: true,
+  decapitate: false,
+  largeEditDialog: false,
+  boundaryLinks: false,
+  limitSelect: true,
+  pageSelect: true
+};
 
-
+vm.query = {
+  limit: 5,
+  page: 1
+};
 
 
 }); //END OF CONTROLLER
