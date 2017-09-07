@@ -115,7 +115,7 @@ textarea {
   border-bottom: 1px solid #000;
 }
 
-/* LOGIN SCREEN & NAVBAR STYLING */
+/* LOGIN SCREEN, NAVBAR & FOOTER STYLING */
 .loginScreen a {
   color: #F3E3FF;
 }
@@ -186,6 +186,16 @@ textarea {
 
 #logoutBtn {
   margin-top: 10px;
+}
+
+#copyright {
+  text-align: right;
+  padding-right: 20px;
+}
+#backToTop {
+  color: #000;
+  text-align: left;
+  padding-left: 20px;
 }
 
 
