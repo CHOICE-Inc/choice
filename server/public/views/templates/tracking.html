@@ -115,7 +115,7 @@
 
         <!-- Row for Last Updated notification -->
         <div layout="row" ng-hide="goal.hidden == true" flex>
-          <div layout="column" flex="33">
+          <div ng-hide="goal.max_goal_date_am == 0 && goal.max_goal_date_pm == 0" layout="column" flex="33">
             <p class="label">Last updated: <span class="lastUpdateDate">{{goal.lastUpdate | date}}</span> </p>
           </div>
           <div layout="column" flex="33">
@@ -131,7 +131,7 @@
         <!-- GOAL HISTORY DIV-->
         <div layout="row" ng-show="goal.hidden == true" flex>
           <div layout="column" flex>
-            <div>
+            <div ng-show="goal.successRate != 'NaN'">
               Success rate for this time period: {{goal.successRate}}%
             </div>
             <!-- Select date range for goal history -->
