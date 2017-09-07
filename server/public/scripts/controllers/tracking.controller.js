@@ -1,4 +1,4 @@
-myApp.controller('TrackingController', function(UserService, GoalService, $http, $mdToast, $location) {
+myApp.controller('TrackingController', function($http, $mdToast, $location, UserService, GoalService) {
   console.log('TrackingController created');
   var vm = this;
   vm.userService = UserService;

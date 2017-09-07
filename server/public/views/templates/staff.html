@@ -7,24 +7,23 @@
     </div>
     <!-- Add new staff -->
     <div layout="row" flex>
-      <div layout="column" flex="30">
+      <div layout="column" layout-align="center start" flex="30">
         <label> Staff Name: </label>
         <input type="text" placeholder="Enter name here" ng-model="sc.staffToAdd.name">
       </div>
       <div layout="column" flex="20">
-        <label> Staff's Role: </label>
-        <md-select ng-model="sc.staffToAdd.role" placeholder="Please select role" class="md-no-underline">
+        <md-select ng-model="sc.staffToAdd.role" placeholder="Please select staff's role" class="md-no-underline">
           <md-option ng-value="1">Administrator</md-option>
           <md-option ng-value="2">Case Manager</md-option>
           <md-option ng-value="3">Staff</md-option>
         </md-select>
       </div>
-      <div layout="column" flex="30">
+      <div layout="column" layout-align="center start" flex="30">
         <label> Staff Email: </label>
-        <input type="text" name="" value="" placeholder="Email" ng-model="sc.staffToAdd.email">
+        <input type="text" placeholder="Enter staff email" ng-model="sc.staffToAdd.email">
       </div>
-      <div layout="column" flex="10">
-        <md-button class="md-raised md-accent" ng-click="sc.addNewStaff()">Add new staff member</md-button>
+      <div layout="column" layout-align="center center" flex="15">
+        <md-button class="md-raised md-accent" ng-click="sc.addNewStaff()">Add staff member</md-button>
       </div>
     </div>
     <!-- Staff table -->
@@ -36,6 +35,7 @@
             <th md-column>Role</th>
             <th md-column>Email</th>
             <th md-column>Status</th>
+            <th md-column></th>
           </thead>
           <tbody md-body>
             <tr md-row ng-class="tc.rowClass" ng-repeat="staff in sc.staffArray">
@@ -71,6 +71,7 @@
 
       </md-table-container>
     </div> <!-- End of table div -->
+    <!-- Table pagination bar -->
     <div layout="row" flex="nogrow">
       <md-table-pagination md-limit="sc.goalService.tableQuery.limit" md-limit-options="sc.goalService.tableLimitOptions"
       md-page="sc.goalService.tableQuery.page" md-total="{{sc.staffArray.length}}" md-page-select="sc.goalService.tableOptions.pageSelect"

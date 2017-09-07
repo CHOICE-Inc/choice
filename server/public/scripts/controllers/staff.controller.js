@@ -1,4 +1,4 @@
-myApp.controller('StaffController', function(UserService, $http) {
+myApp.controller('StaffController', function($http, $mdToast, $location, UserService, GoalService) {
   console.log('UserController created');
   var vm = this;
   vm.userService = UserService;
