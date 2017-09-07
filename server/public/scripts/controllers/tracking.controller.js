@@ -45,11 +45,19 @@ myApp.controller('TrackingController', function($http, $mdToast, $location, User
     console.log('in getLastUpdate with:', goal);
     var today = new Date();
     var date = today.getFullYear() + "-" + getMonth(today.getMonth(), "month") + "-" + getMonth(today.getDate(), "day");
+
+    if(goal.max_goal_date_am == null){
+      goal.max_goal_date_am = 0;
+    }
+    if(goal.max_goal_date_pm == null){
+      goal.max_goal_date_pm = 0;
+    }
+
     var amDate = goal.max_goal_date_am.toString().substring(0, 10);
     var pmDate = goal.max_goal_date_pm.toString().substring(0, 10);
     // console.log('STRING date is:', date);
-    // console.log('STRING amdate is:', amDate);
-    // console.log('STRING pmdate is:', pmDate);
+    console.log('STRING amdate is:', amDate);
+    console.log('STRING pmdate is:', pmDate);
     if(date == amDate){
       goal.amDone = true;
     }
@@ -59,7 +67,7 @@ myApp.controller('TrackingController', function($http, $mdToast, $location, User
     // console.log('goal.amDone is:',goal.amDone);
     // console.log('goal.pmDone is:',goal.pmDone);
 
-    if(goal.max_goal_date_am > goal.max_goal_date_pm){
+    if(goal.max_goal_date_am > goal.max_goal_date_pm || goal.max_goal_date_pm == 0){
       return goal.max_goal_date_am;
     } else {
       return goal.max_goal_date_pm;
