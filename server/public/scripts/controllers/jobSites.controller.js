@@ -5,6 +5,7 @@ myApp.controller('JobSitesController', function(UserService, $http) {
   jsc.userService = UserService;
   jsc.userObject = UserService.userObject;
   jsc.manageJobSiteData = [];
+  jsc.editStatus = false;
   var jobsiteObject = {};
   var jobsiteData = {};
 
@@ -44,28 +45,17 @@ myApp.controller('JobSitesController', function(UserService, $http) {
 
   $http.post('/jobSites/newjobsite', jobsiteObject).then(function(response) {
     console.log('added new Job Site to db:', response);
+    getManageJobSites();
     if (response) {
       console.log('server sent something back: ', response);
     }
   });
-  getManageJobSites();
+
 };
 
 // ----------PUT ROUTES----------
 
-// PUT request to update Jobsites
-  jsc.updateJobSites = function(business_name, address, phone, contact, jobsite_status, id){
-    console.log("updated information: ", business_name, address, phone, contact, jobsite_status, id);
-    jobsiteData.business_name = business_name;
-    jobsiteData.address = address;
-    jobsiteData.phone = phone;
-    jobsiteData.contact = contact;
-    jobsiteData.jobsite_status = jobsite_status;
 
-    $http.put('/jobSites/editjobsites/' + id, jobsiteData).then(function(response) {
-      console.log('JobSites Updated: ', response);
-    }); //end of $http.put for updateJobSites
-  }; //end of updateJobSites
 
 //PUT request to Disable JobSite
   jsc.disableJobSite = function(id, boolean) {
@@ -77,6 +67,20 @@ myApp.controller('JobSitesController', function(UserService, $http) {
         });
       }; //end of disableJobSites
 
+      // Toggles the display of editable content, and assigns the staffmember to be edited
+      jsc.toggleEditing = function(jobsite){
+        console.log('in toggleEditing with jobsite:', jobsite);
+        jsc.siteToEdit = jobsite;
+        jobsite.editing = !jobsite.editing;
+        jsc.editStatus = !jsc.editStatus;
+      };
 
+      jsc.updateJobSite = function(jobsite){
+        console.log('in updateJobSite, sending:', jobsite);
+        $http.put('/jobSites/editjobsites/', jobsite).then(function(response){
+          console.log(response.data);
+          getManageJobSites();
+        });
+      };
 
 }); //end of JobSitesController
