@@ -14,7 +14,7 @@ myApp.factory('UserService', function($http, $location, $mdDialog){
               //console.log(response.data);
               userObject.userName = response.data.username;
               userObject.role = response.data.role;
-              console.log('UserService -- getuser -- User Data: ', userObject.userName);
+              console.log('UserService -- getuser -- User Data: ', userObject);
           } else {
               console.log('UserService -- getuser -- failure');
               // user has no session, bounce them back to the login page
