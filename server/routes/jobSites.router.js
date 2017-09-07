@@ -69,7 +69,6 @@ pool.connect(function(errConnectingToDatabase, db, done){
 // UPDATE ROUTE AFTER USER EDIT
 // NEED JOBSITE ID TO ACCESS CORRECT GOAL
 router.put('/editjobsites', function(req, res){
-  console.log('In put route to update jobsites: ', req.params.id);
   console.log('Going to put this updated data: ', req.body);
 
   pool.connect(function(errConnectingToDatabase, db, done){
@@ -79,20 +78,19 @@ router.put('/editjobsites', function(req, res){
     } else {
 
       //DEFINE DATA VALUES
-      var jobSite_id = req.params.id;
-      var business_name = req.params.business_name;
-      var address = req.params.address;
-      var phone = req.params.phone;
-      var contact = req.params.contact;
-      var jobsiteStatus = req.params.jobsite_status;
+      var jobSite_id = req.body.id;
+      var business_name = req.body.business_name;
+      var address = req.body.address;
+      var phone = req.body.phone;
+      var contact = req.body.contact;
 
       //BUILD DB QUERY STRING & DATA VALUE ARRAY
 
-      var jobSiteQueryString = 'UPDATE job_site SET business_name=$1, address=$2, phone=$3, contact=$4, jobsiteStatus=$5 WHERE jobSite_id=$6';
+      var jobSiteQueryString = 'UPDATE job_site SET business_name=$1, address=$2, phone=$3, contact=$4 WHERE id=$5';
 
       console.log('For deactivating jobsite, using DB query string: ', jobSiteQueryString);
 
-      var jobSiteArray = [business_name, address, phone, contact, jobsiteStatus, jobSite_id];
+      var jobSiteArray = [business_name, address, phone, contact, jobSite_id];
 
       console.log('Going to update the DB with these values: ', jobSiteArray);
       // MAKE DB QUERY

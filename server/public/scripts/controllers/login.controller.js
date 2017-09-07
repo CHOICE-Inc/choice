@@ -38,8 +38,9 @@ myApp.controller('LoginController', function($http, $location, UserService) {
 
         //check existing staff
         $http.post('/register/check/', vm.user).then(function(response) {//check for existing username
-          console.log('checked the staff table.');
+          console.log('checked the staff table.', response.data[0]);
           if(response.data.length > 0){
+            vm.user.staff_id = response.data[0].id;
             console.log('LoginController -- registerUser -- sending to server...', vm.user);
             $http.post('/register', vm.user).then(function(response) {
               console.log('LoginController -- registerUser -- success');
@@ -49,12 +50,10 @@ myApp.controller('LoginController', function($http, $location, UserService) {
               vm.message = "Please try again.";
             });
           } else {
-            vm.message = "Username not found.";
+            vm.message = "Incorrect username, contact your Administrator.";
           }
         });
         //
-
-
       }
-    }
+    };
 });

@@ -1,24 +1,21 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <!-- MANAGE STAFF PAGE - This page will allow the admin to add/disable staff and edit their listings -->
 
-<h1>Choice Clients</h1>
+<h1>Manage Participants</h1>
 
-<form class=""  ng-submit="cc.addNewClient()">
   <input type="text" name="" value="" placeholder="name" ng-model="cc.clientToAdd.name">
-  <md-select ng-model="cc.clientToAdd.location" placeholder="Location" class="md-no-underline">
-  <md-option ng-repeat="loc in cc.locationArray" value="{{loc}}">{{loc}}</md-option>
-  </md-select>
+
   <md-select ng-model="cc.clientToAdd.staff_id" placeholder="Case Manager" class="md-no-underline">
-  <md-option ng-repeat="cms in cc.getStaffListForAdd()" value="{{cms.id}}">{{cms.staff_name}}</md-option>
+  <md-option ng-repeat="cms in cc.staffArray" value="{{cms.id}}">{{cms.staff_name}}</md-option>
   </md-select>
-<br><br>
-  <input type="submit" name="" value="Add new client">
+
+<input type="submit" name="" value="Add new client" ng-click="cc.addNewClient()">
 
 
 <table>
   <thead>
     <th>Name</th>
-    <th>Location</th>
+
     <th>Case Manager</th>
     <th>Status</th>
 
@@ -28,18 +25,13 @@
 
       <td ng-hide="client.editing == true">{{client.client_name}}</td>
       <td ng-show="client.editing == true"><input type="text" name="" ng-value="cc.clientToEdit.client_name" placeholder="name" ng-model="cc.clientToEdit.client_name"></td>
-      <td ng-hide="client.editing == true">{{client.location}}</td>
-      <td ng-show="client.editing == true">
-        <md-select ng-model="cc.clientToEdit.location" placeholder="staff" class="md-no-underline">
-        <md-option ng-repeat="loc in cc.locationArray" value="{{loc}}">{{loc}}</md-option>
-        </md-select>
-      </td>
+
 
       <td ng-hide="client.editing == true">{{client.staff_name}}</td>
       <td ng-show="client.editing == true">
         <md-select ng-model="cc.clientToEdit.staff_id" placeholder="Case Manager" class="md-no-underline">
         <!-- <md-option ng-repeat="cm in cc.staffArray" value="{{cm.staff_name}}">{{cm.staff_name}}</md-option> -->
-        <md-option ng-repeat="cm in cc.getStaffList()" value="{{cm.id}}">{{cm.staff_name}}</md-option>
+        <md-option ng-repeat="cm in cc.staffArray" value="{{cm.id}}">{{cm.staff_name}}</md-option>
         </md-select>
       </td>
 

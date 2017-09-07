@@ -3,30 +3,13 @@ myApp.controller('StaffController', function(UserService, $http) {
   var vm = this;
   vm.userService = UserService;
   vm.userObject = UserService.userObject;
+  vm.editStatus = false;
+  vm.roles = ['Administrator', 'Case Manager', 'Staff'];
 
-  vm.message = "hello mate";
-
-  vm.employee = {
-    name: '',
-    location: '',
-    email: '',
-    role : ''
-  };
-
-  vm.roles = [
-    {roleString: "Administrator", role: 1},
-    {roleString: "Case Manager", role: 2},
-    {roleString: "Staff", role: 3}
-  ];
-
-  vm.location = [
-    {place: 'Eden Prairie'},
-    {place: 'Bloomington'},
-    {place: 'Maple Grove'}
-  ];
 
   getStaff();
 
+  // Get list of staff members
   function getStaff(){
     console.log('refresh Staff members');
     $http.get('/staff/getStaff').then(function(response) {
@@ -34,10 +17,10 @@ myApp.controller('StaffController', function(UserService, $http) {
 
       for(i=0;i<response.data.length; i++){ //add a new object property based on the status for each employee
         if(response.data[i].employed === true){
-          response.data[i].status = 'Deactivate';
+          response.data[i].status = 'Active';
         }
         else if (response.data[i].employed === false){
-          response.data[i].status = 'Activate';
+          response.data[i].status = 'Inactive';
         }
       }
 
@@ -57,30 +40,32 @@ myApp.controller('StaffController', function(UserService, $http) {
     });
   }
 
-  vm.toggleEmployee = function(boolean, id){
-    console.log('changed from', boolean, 'for staff id', id);
-    $http.put('/staff/toggleStaff/' + id + '/' + boolean).then(function(response){
+  // Add a new staff member
+  vm.addNewStaff = function(){
+    console.log('added a new employee', vm.staffToAdd);
+    $http.post('/staff/newStaff/', vm.staffToAdd).then(function(response){
+      console.log('received response from addNewStaff POST');
+      vm.staffToAdd = {};
+      getStaff();
+    });
+  };
+
+  // Update information on existing staff member
+  vm.updateStaff = function(staff){
+    console.log('in updateStaff, sending:', staff);
+    $http.put('/staff/updateStaff/', staff).then(function(response){
       console.log(response.data);
       getStaff();
     });
   };
 
-  vm.newEmployee = function(){
-    console.log('added a new employee', vm.employee);
-    $http.post('/staff/newStaff/', vm.employee).then(function(response){
-      console.log(response.data);
-      getStaff();
-    });
+  // Toggles the display of editable content, and assigns the staffmember to be edited
+  vm.toggleEditing = function(staff){
+    console.log('in toggleEditing with staff:', staff);
+    vm.staffToEdit = staff;
+    staff.editing = !staff.editing;
+    vm.editStatus = !vm.editStatus;
   };
 
-  vm.updateEmployee = function(emp, id){
-    console.log('in updateEmployee with:', emp, id);
-    emp.staffs_id = id;
-    console.log(vm.employee);
-    $http.put('/staff/updateStaff/', emp).then(function(response){
-      console.log(response.data);
-      getStaff();
-    });
-  };
 
 });

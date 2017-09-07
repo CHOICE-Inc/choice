@@ -11,7 +11,7 @@ router.get('/getStaff', function(req, res) {
       next(err);
     }
     //join client, staff, and users to filter all cleints from user login
-    client.query("select staff.id as staffs_id, users.id as users_id, * from staff left join users on users.staff_id = staff.id order by staff.employed desc",
+    client.query("select staff.id as staffs_id, users.id as users_id, * from staff left join users on users.staff_id = staff.id order by employed DESC, role, staff_name;",
         function (err, result) {
           //client.end();
           done();
@@ -72,8 +72,8 @@ router.post('/newStaff', function(req, res){
       //next(err);
     }
     //make a new employee
-    client.query("insert into staff(staff_name, location, email, role) values($1, $2, $3, $4);",
-      [req.body.name, req.body.location.place, req.body.email, req.body.role.type],
+    client.query("insert into staff(staff_name, email, role) values($1, $2, $3);",
+      [req.body.name, req.body.email, req.body.role],
         function (err, result) {
           //client.end();
           done();
@@ -97,8 +97,8 @@ router.put('/updateStaff', function(req, res){
       //next(err);
     }
     //make a new employee
-    client.query("update staff set staff_name = $1, location = $2, email = $3, role = $4 where id = $5;",
-      [req.body.staff_name, req.body.location, req.body.email, req.body.role, req.body.staffs_id],
+    client.query("update staff set staff_name = $1, email = $2, role = $3, employed = $4 where id = $5;",
+      [req.body.staff_name, req.body.email, req.body.role, req.body.employed, req.body.staffs_id],
         function (err, result) {
           //client.end();
           done();

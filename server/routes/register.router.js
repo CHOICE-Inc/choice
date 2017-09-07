@@ -16,7 +16,8 @@ router.post('/', function(req, res, next) {
 
   var saveUser = {
     username: req.body.username,
-    password: encryptLib.encryptPassword(req.body.password)
+    password: encryptLib.encryptPassword(req.body.password),
+    staff_id: req.body.staff_id
   };
   console.log('new user:', saveUser);
 
@@ -25,14 +26,13 @@ router.post('/', function(req, res, next) {
       console.log("Error connecting: ", err);
       next(err);
     }
-    client.query("INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id",
-      [saveUser.username, saveUser.password],
+    client.query("INSERT INTO users (username, password, staff_id) VALUES ($1, $2, $3) RETURNING id",
+      [saveUser.username, saveUser.password, saveUser.staff_id],
         function (err, result) {
-          client.end();
-
+          done();
           if(err) {
             console.log("Error inserting data: ", err);
-            next(err);
+            //next(err);
           } else {
             res.redirect('/');
           }
@@ -42,15 +42,13 @@ router.post('/', function(req, res, next) {
 });
 
 router.post('/check', function(req, res, next) {
-
   console.log('checking existing username', req.body);
-
   pool.connect(function(err, client, done) {
     if(err) {
       console.log("Error connecting: ", err);
       next(err);
     }
-    client.query("SELECT email FROM staff WHERE email ilike $1 limit 1;",
+    client.query("SELECT email, id FROM staff WHERE email ilike $1 limit 1;",
       [req.body.username],
         function (err, result) {
           done();
@@ -58,11 +56,11 @@ router.post('/check', function(req, res, next) {
             console.log("Error getting data", err);
             //next(err);
           } else {
+            console.log(result.rows[0]);
             res.send(result.rows);
           }
         });
   });
-
 });
 
 
