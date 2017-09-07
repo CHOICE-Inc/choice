@@ -68,7 +68,8 @@ CREATE TABLE "job_site" (
 	"address" varchar(50) null,
 	"phone" varchar(20) null,
 	"contact" varchar(30) null,
-	"jobsite_status" boolean DEFAULT true
+	"jobsite_status" boolean DEFAULT true,
+	"active" boolen DEFAULT true
 );
 
 ---- Create sample job sites ----
