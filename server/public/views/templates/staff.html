@@ -1,54 +1,80 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <!-- MANAGE STAFF PAGE - This page will allow the admin to add/disable staff and edit their listings -->
-
-<h1>Manage Staff</h1>
-
-<input type="text" name="" value="" placeholder="Name" ng-model="sc.staffToAdd.name">
-
-<md-select ng-model="sc.staffToAdd.role" placeholder="Role" class="md-no-underline">
-<md-option ng-value="1">Administrator</md-option>
-<md-option ng-value="2">Case Manager</md-option>
-<md-option ng-value="3">Staff</md-option>
-</md-select>
-<input type="text" name="" value="" placeholder="Email" ng-model="sc.staffToAdd.email">
-
-<input type="submit" name="" value="Add new staff member" ng-click="sc.addNewStaff()">
-
-<table>
-  <thead>
-    <th>Name</th>
-    <th>Role</th>
-    <th>Email</th>
-    <th>Status</th>
-  </thead>
-  <tbody>
-    <tr ng-repeat="staff in sc.staffArray">
-      <td ng-hide="staff.editing == true">{{staff.staff_name}}</td>
-      <td ng-show="staff.editing == true"><input type="text" name="" ng-value="sc.staffToEdit.client_name" placeholder="name" ng-model="sc.staffToEdit.staff_name"></td>
-      <td ng-hide="staff.editing == true">{{staff.roleString}}</td>
-      <td ng-show="staff.editing == true">
-        <md-select ng-model="sc.staffToEdit.role" placeholder="Role" class="md-no-underline">
-        <md-option ng-value="1">Administrator</md-option>
-        <md-option ng-value="2">Case Manager</md-option>
-        <md-option ng-value="3">Staff</md-option>
-      </md-select>
-      </td>
-      <td ng-hide="staff.editing == true">{{staff.email}}</td>
-      <td ng-show="staff.editing == true"><input type="text" name="" ng-value="sc.staffToEdit.email" placeholder="email" ng-model="sc.staffToEdit.email"></td>
-
-      <td ng-hide="staff.editing == true">{{staff.status}}</td>
-      <td ng-show="staff.editing == true">
-        <md-select ng-model="sc.staffToEdit.employed" placeholder="Status" class="md-no-underline">
-        <md-option ng-value="true">Active</md-option>
-        <md-option ng-value="false">Inactive</md-option>
+<div class="container" layout="column" flex>
+  <md-content>
+    <div layout="row" flex>
+      <h1>Manage Staff</h1>
+    </div>
+    <!-- Add new staff -->
+    <div layout="row" flex>
+      <div layout="column" flex="30">
+        <label> Staff Name: </label>
+        <input type="text" placeholder="Enter name here" ng-model="sc.staffToAdd.name">
+      </div>
+      <div layout="column" flex="20">
+        <label> Staff's Role: </label>
+        <md-select ng-model="sc.staffToAdd.role" placeholder="Please select role" class="md-no-underline">
+          <md-option ng-value="1">Administrator</md-option>
+          <md-option ng-value="2">Case Manager</md-option>
+          <md-option ng-value="3">Staff</md-option>
         </md-select>
-      </td>
+      </div>
+      <div layout="column" flex="30">
+        <label> Staff Email: </label>
+        <input type="text" name="" value="" placeholder="Email" ng-model="sc.staffToAdd.email">
+      </div>
+      <div layout="column" flex="10">
+        <md-button class="md-raised md-accent" ng-click="sc.addNewStaff()">Add new staff member</md-button>
+      </div>
+    </div>
+    <!-- Staff table -->
+    <div layout="row" flex>
+      <md-table-container>
+        <table md-table id="staffTable">
+          <thead md-head class="tableHeader">
+            <th md-column>Name</th>
+            <th md-column>Role</th>
+            <th md-column>Email</th>
+            <th md-column>Status</th>
+          </thead>
+          <tbody md-body>
+            <tr md-row ng-class="tc.rowClass" ng-repeat="staff in sc.staffArray">
+              <td md-cell ng-hide="staff.editing == true">{{staff.staff_name}}</td>
+              <td md-cell ng-show="staff.editing == true"><input type="text" name="" ng-value="sc.staffToEdit.client_name" placeholder="name" ng-model="sc.staffToEdit.staff_name"></td>
+              <td md-cell ng-hide="staff.editing == true">{{staff.roleString}}</td>
+              <td md-cell ng-show="staff.editing == true">
+                <md-select ng-model="sc.staffToEdit.role" placeholder="Role" class="md-no-underline">
+                  <md-option ng-value="1">Administrator</md-option>
+                  <md-option ng-value="2">Case Manager</md-option>
+                  <md-option ng-value="3">Staff</md-option>
+                </md-select>
+              </td>
+              <td md-cell ng-hide="staff.editing == true">{{staff.email}}</td>
+              <td md-cell ng-show="staff.editing == true"><input type="text" name="" ng-value="sc.staffToEdit.email" placeholder="email" ng-model="sc.staffToEdit.email"></td>
 
-      <td>
-        <input ng-hide="staff.editing == true" type="submit" name="" value="Edit" ng-click="sc.toggleEditing(staff)">
-        <input ng-show="staff.editing == true" type="submit" name="" value="Submit" ng-click="sc.updateStaff(sc.staffToEdit)">
-        <input ng-show="staff.editing == true" type="submit" name="" value="Cancel" ng-click="sc.toggleEditing(staff)">
-      </td>
-    </tr>
-  </tbody>
-</table>
+              <td md-cell ng-hide="staff.editing == true">{{staff.status}}</td>
+              <td md-cell ng-show="staff.editing == true">
+                <md-select ng-model="sc.staffToEdit.employed" placeholder="Status" class="md-no-underline">
+                  <md-option ng-value="true">Active</md-option>
+                  <md-option ng-value="false">Inactive</md-option>
+                </md-select>
+              </td>
+
+              <td md-cell>
+                <input ng-hide="staff.editing == true" type="submit" name="" value="Edit" ng-click="sc.toggleEditing(staff)">
+                <input ng-show="staff.editing == true" type="submit" name="" value="Submit" ng-click="sc.updateStaff(sc.staffToEdit)">
+                <input ng-show="staff.editing == true" type="submit" name="" value="Cancel" ng-click="sc.toggleEditing(staff)">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </md-table-container>
+      <md-table-pagination md-limit="sc.query.limit" md-limit-options="sc.limitOptions"
+      md-page="sc.query.page" md-total="{{sc.staffArray.length}}" md-page-select="sc.options.pageSelect"
+      md-boundary-links="sc.options.boundaryLinks" md-on-paginate="logPagination"></md-table-pagination>
+
+    </div> <!-- End of table div -->
+
+  </md-content>
+</div> <!-- end of container -->

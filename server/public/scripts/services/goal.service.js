@@ -4,11 +4,30 @@ myApp.factory('GoalService', function($http, $location, $mdDialog){
   var allGoalData = {};
   var singleGoal = {};
 
+  //ELEMENTS FOR THE GOAL HISTORY TABLE (md.data.table)
+  var limitOptions = [5, 10, 15];
+  var options = {
+    rowSelection: true,
+    multiSelect: true,
+    autoSelect: true,
+    decapitate: false,
+    largeEditDialog: false,
+    boundaryLinks: false,
+    limitSelect: true,
+    pageSelect: true
+  };
+  var query = {
+    limit: 5,
+    page: 1
+  };
 
   return {
 
     allGoalData: allGoalData,
     singleGoal: singleGoal,
+    tableLimitOptions: limitOptions,
+    tableOptions: options,
+    tableQuery: query,
 
     //Move from goal tracking to view selected goal's criteria
     viewGoalCriteria: function(goal_id, client_id) {
