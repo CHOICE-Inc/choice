@@ -24,14 +24,14 @@
   </thead>
   <tbody>
     <tr ng-repeat="staffMember in sc.staffArray">
-      <td editable-text="staffMember.staff_name" e-name="type" e-form="staffForm">{{staffMember.staff_name}}</td>
-      <td editable-text="staffMember.email" e-name="type" e-form="staffForm">{{staffMember.email}}</td>
-      <td editable-select="staffMember.roleString" e-ng-options="x.role for x in sc.roles" e-name="type" e-form="staffForm" >{{staffMember.roleString}}</td>
-      <td editable-select="staffMember.location" e-ng-options="y.place for y in sc.location" e-name="type" e-form="staffForm" >{{staffMember.location}}</td>
+      <td editable-text="staffMember.staff_name" e-name="staff_name" e-form="staffForm">{{staffMember.staff_name}}</td>
+      <td editable-text="staffMember.email" e-name="email" e-form="staffForm">{{staffMember.email}}</td>
+      <td editable-select="staffMember.role" e-ng-options="x.role as x.roleString for x in sc.roles" e-name="role" e-form="staffForm" >{{staffMember.roleString}}</td>
+      <td editable-select="staffMember.location" e-ng-options="y.place for y in sc.location" e-name="location" e-form="staffForm" >{{staffMember.location}}</td>
       <td>
         <input type="submit" name="" ng-click="sc.toggleEmployee(staffMember.employed, staffMember.staffs_id)" value="{{staffMember.status}}">
-        <form editable-form name="staffForm" ng-show="staffForm.$visible">
-            <button type="submit" ng-disabled="staffForm.$waiting" class="saveBtn" ng-click="sc.updateEmployee(staffMember)">
+        <form editable-form name="staffForm" ng-show="staffForm.$visible" onbeforesave="sc.updateEmployee($data, staffMember.staffs_id)">
+            <button type="submit" ng-disabled="staffForm.$waiting" class="saveBtn">
               <i class="fa fa-floppy-o" aria-hidden="true"></i>
             </button>
             <button type="button" ng-disabled="staffForm.$waiting"  class="cancelBtn" ng-click="staffForm.$cancel()">

@@ -14,9 +14,9 @@ myApp.controller('StaffController', function(UserService, $http) {
   };
 
   vm.roles = [
-    {role: "Administrator", type: 1},
-    {role: "Case Manager", type: 2},
-    {role: "Staff", type: 3}
+    {roleString: "Administrator", role: 1},
+    {roleString: "Case Manager", role: 2},
+    {roleString: "Staff", role: 3}
   ];
 
   vm.location = [
@@ -73,8 +73,9 @@ myApp.controller('StaffController', function(UserService, $http) {
     });
   };
 
-  vm.updateEmployee = function(emp){
-    console.log('in updateEmployee with:', emp);
+  vm.updateEmployee = function(emp, id){
+    console.log('in updateEmployee with:', emp, id);
+    emp.staffs_id = id;
     console.log(vm.employee);
     $http.put('/staff/updateStaff/', emp).then(function(response){
       console.log(response.data);

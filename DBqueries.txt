@@ -100,11 +100,7 @@ CREATE TABLE "goal" (
 	"behavior_techniques" varchar(1000) not null,
 	"modifications" varchar(500) not null,
 	"equipment" varchar(500) not null,
-<<<<<<< HEAD
-  "jobsite_details" varchar(500) not null,
-=======
 	"jobsite_details" varchar(500) not null
->>>>>>> cca17cc2579147ec2d850a2e94f31447fbc8938d
 	"when_notes" varchar(500) not null,
 	"plan_steps" varchar(1000) not null,
 	"goal_status" boolean DEFAULT TRUE

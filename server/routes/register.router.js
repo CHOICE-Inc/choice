@@ -41,5 +41,29 @@ router.post('/', function(req, res, next) {
 
 });
 
+router.post('/check', function(req, res, next) {
+
+  console.log('checking existing username', req.body);
+
+  pool.connect(function(err, client, done) {
+    if(err) {
+      console.log("Error connecting: ", err);
+      next(err);
+    }
+    client.query("SELECT email FROM staff WHERE email ilike $1 limit 1;",
+      [req.body.username],
+        function (err, result) {
+          done();
+          if(err) {
+            console.log("Error getting data", err);
+            //next(err);
+          } else {
+            res.send(result.rows);
+          }
+        });
+  });
+
+});
+
 
 module.exports = router;

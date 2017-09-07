@@ -13,6 +13,7 @@ myApp.factory('UserService', function($http, $location, $mdDialog){
               // user has a curret session on the server
               console.log(response.data);
               userObject.userName = response.data.username;
+              userObject.role = response.data.role;
               console.log('UserService -- getuser -- User Data: ', userObject.userName);
           } else {
               console.log('UserService -- getuser -- failure');
