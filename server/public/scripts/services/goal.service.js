@@ -7,11 +7,6 @@ myApp.factory('GoalService', function($http, $location, $mdDialog){
   //ELEMENTS FOR THE GOAL HISTORY TABLE (md.data.table)
   var limitOptions = [5, 10, 15];
   var options = {
-    rowSelection: true,
-    multiSelect: true,
-    autoSelect: true,
-    decapitate: false,
-    largeEditDialog: false,
     boundaryLinks: false,
     limitSelect: true,
     pageSelect: true
