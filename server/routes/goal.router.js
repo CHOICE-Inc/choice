@@ -2,58 +2,66 @@ var express = require('express');
 var router = express.Router();
 var pool = require('../modules/pool.js');
 
+var ADMIN = 1;
+var CASE = 2;
+
 /* -------------- POST ROUTES ---------------------- */
 
 // ADD NEW GOAL TO DATABASE
 router.post('/', function(req, res){
   console.log('In post route for goal criteria: ', req.body);
 
-  pool.connect(function(errConnectingToDatabase, db, done){
-    if(errConnectingToDatabase) {
-      console.log('There was an error connecting to database: ', errConnectingToDatabase);
-      res.sendStatus(500);
-    } else {
-      //DEFINE DATA VALUES
-      var client_id = req.body.client_id;
-      var jobsite_id = req.body.jobsite_id;
-      var implementation_date = req.body.implementation_date;
-      var review_dates = req.body.review_dates;
-      var completion_date = req.body.completion_date;
-      var service_outcome = req.body.service_outcome;
-      var objective = req.body.objective;
-      var behavior_techniques = req.body.behavior_techniques;
-      var modifications = req.body.modifications;
-      var equipment = req.body.equipment;
-      var jobsite_details = req.body.jobsite_details;
-      var when_notes = req.body.when_notes;
-      var plan_steps = req.body.plan_steps;
-      var goal_name = req.body.goal_name;
-      var goal_summary = req.body.goal_summary;
+  if(req.user.role == ADMIN || req.user.role == CASE){
+    pool.connect(function(errConnectingToDatabase, db, done){
+      if(errConnectingToDatabase) {
+        console.log('There was an error connecting to database: ', errConnectingToDatabase);
+        res.sendStatus(500);
+      } else {
+        //DEFINE DATA VALUES
+        var client_id = req.body.client_id;
+        var jobsite_id = req.body.jobsite_id;
+        var implementation_date = req.body.implementation_date;
+        var review_dates = req.body.review_dates;
+        var completion_date = req.body.completion_date;
+        var service_outcome = req.body.service_outcome;
+        var objective = req.body.objective;
+        var behavior_techniques = req.body.behavior_techniques;
+        var modifications = req.body.modifications;
+        var equipment = req.body.equipment;
+        var jobsite_details = req.body.jobsite_details;
+        var when_notes = req.body.when_notes;
+        var plan_steps = req.body.plan_steps;
+        var goal_name = req.body.goal_name;
+        var goal_summary = req.body.goal_summary;
 
-      //BUILD DB QUERY STRING & DATA VALUE ARRAY
-      var dbQueryString = 'INSERT INTO goal (client_id, jobsite_id, implementation_date, review_dates, completion_date, ' +
-      'service_outcome, objective, behavior_techniques, modifications, equipment, jobsite_details, when_notes, plan_steps, ' +
-      'goal_name, goal_summary) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)';
-      console.log('For goal post, using DB query string: ', dbQueryString);
+        //BUILD DB QUERY STRING & DATA VALUE ARRAY
+        var dbQueryString = 'INSERT INTO goal (client_id, jobsite_id, implementation_date, review_dates, completion_date, ' +
+        'service_outcome, objective, behavior_techniques, modifications, equipment, jobsite_details, when_notes, plan_steps, ' +
+        'goal_name, goal_summary) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)';
+        console.log('For goal post, using DB query string: ', dbQueryString);
 
-      var goalValuesArray = [client_id, jobsite_id, implementation_date, review_dates, completion_date, service_outcome,
-            objective, behavior_techniques, modifications, equipment, jobsite_details, when_notes, plan_steps, goal_name, goal_summary];
-      console.log('Going to push these values to the DB: ', goalValuesArray);
+        var goalValuesArray = [client_id, jobsite_id, implementation_date, review_dates, completion_date, service_outcome,
+              objective, behavior_techniques, modifications, equipment, jobsite_details, when_notes, plan_steps, goal_name, goal_summary];
+        console.log('Going to push these values to the DB: ', goalValuesArray);
 
-      // MAKE DB QUERY
-      db.query(dbQueryString, goalValuesArray, function(errMakingQuery, result){
-        done();
-        if(errMakingQuery){
-          console.log('There was an error making INSERT query: ', errMakingQuery);
-          res.sendStatus(500);
-        } else {
-          console.log('Goal criteria added to DB.');
-          res.sendStatus(200);
-        }
-      }); //end of db.query
+        // MAKE DB QUERY
+        db.query(dbQueryString, goalValuesArray, function(errMakingQuery, result){
+          done();
+          if(errMakingQuery){
+            console.log('There was an error making INSERT query: ', errMakingQuery);
+            res.sendStatus(500);
+          } else {
+            console.log('Goal criteria added to DB.');
+            res.sendStatus(200);
+          }
+        }); //end of db.query
 
-    } //end of DB connect if-else
-  }); //end of pool.connect
+      } //end of DB connect if-else
+    }); //end of pool.connect
+  } else {
+    console.log('unauthorized');
+    res.sendStatus(401);
+  }
 }); // end of route
 
 /* -------------- GET ROUTES ---------------------- */
@@ -62,25 +70,30 @@ router.post('/', function(req, res){
 router.get('/clients', function(req, res){
   console.log('In get route for client names.');
 
-  pool.connect(function(errConnectingToDatabase, db, done){
-    if(errConnectingToDatabase) {
-      console.log('There was an error connecting to database: ', errConnectingToDatabase);
-      res.sendStatus(500);
-    } else {
-      // MAKE DB QUERY
-      db.query('SELECT id, client_name FROM client', function(errMakingQuery, result){
-        done();
-        if(errMakingQuery){
-          console.log('There was an error making INSERT query: ', errMakingQuery);
-          res.sendStatus(500);
-        } else {
-          console.log('Retrieved client data from DB: ', result);
-          res.send(result.rows);
-        }
-      }); //end of db.query
+  if(req.user.role == ADMIN || req.user.role == CASE){
+    pool.connect(function(errConnectingToDatabase, db, done){
+      if(errConnectingToDatabase) {
+        console.log('There was an error connecting to database: ', errConnectingToDatabase);
+        res.sendStatus(500);
+      } else {
+        // MAKE DB QUERY
+        db.query('SELECT id, client_name FROM client', function(errMakingQuery, result){
+          done();
+          if(errMakingQuery){
+            console.log('There was an error making INSERT query: ', errMakingQuery);
+            res.sendStatus(500);
+          } else {
+            console.log('Retrieved client data from DB: ', result);
+            res.send(result.rows);
+          }
+        }); //end of db.query
 
-    } //end of DB connect if-else
-  }); //end of pool.connect
+      } //end of DB connect if-else
+    }); //end of pool.connect
+  } else {
+    console.log('unauthorized');
+    res.sendStatus(401);
+  }
 }); // end of route
 
 // RETIEVE CASE MANAGER NAMES AND IDs fROM DB TO POPULATE PULLDOWN MENU / AUTOCOMPLETE
@@ -88,85 +101,97 @@ router.get('/casemanager', function(req, res){
   console.log('In get route for client names. ');
   var getCaseManagersQuery = 'SELECT * FROM "staff" WHERE "role" = 2;';
      console.log("Getting all Case Managers: ", getCaseManagersQuery);
+  if(req.user.role == ADMIN || req.user.role == CASE){
+    pool.connect(function(errConnectingToDatabase, db, done){
+      if(errConnectingToDatabase) {
+        console.log('There was an error connecting to database: ', errConnectingToDatabase);
+        res.sendStatus(500);
+      } else {
+        // MAKE DB QUERY
+        db.query(getCaseManagersQuery, function(errMakingQuery, result){
+          done();
+          if(errMakingQuery){
+            console.log('There was an error making INSERT query: ', errMakingQuery);
+            res.sendStatus(500);
+          } else {
+            console.log('Retrieved client data from DB: ', result);
+            res.send(result.rows);
+          }
+        }); //end of db.query
 
-  pool.connect(function(errConnectingToDatabase, db, done){
-    if(errConnectingToDatabase) {
-      console.log('There was an error connecting to database: ', errConnectingToDatabase);
-      res.sendStatus(500);
-    } else {
-      // MAKE DB QUERY
-      db.query(getCaseManagersQuery, function(errMakingQuery, result){
-        done();
-        if(errMakingQuery){
-          console.log('There was an error making INSERT query: ', errMakingQuery);
-          res.sendStatus(500);
-        } else {
-          console.log('Retrieved client data from DB: ', result);
-          res.send(result.rows);
-        }
-      }); //end of db.query
-
-    } //end of DB connect if-else
-  }); //end of pool.connect
+      } //end of DB connect if-else
+    }); //end of pool.connect
+  } else {
+    console.log('unauthorized');
+    res.sendStatus(401);
+  }
 }); // end of route
 
 
 // RETIEVE JOB SITES AND IDs fROM DB TO POPULATE PULLDOWN MENU / AUTOCOMPLETE
 router.get('/jobsites', function(req, res){
   console.log('In get route for job sites: ');
+  if(req.user.role == ADMIN || req.user.role == CASE){
+    pool.connect(function(errConnectingToDatabase, db, done){
+      if(errConnectingToDatabase) {
+        console.log('There was an error connecting to database: ', errConnectingToDatabase);
+        res.sendStatus(500);
+      } else {
+        // MAKE DB QUERY
+        db.query('SELECT id, business_name FROM job_site', function(errMakingQuery, result){
+          done();
+          if(errMakingQuery){
+            console.log('There was an error making INSERT query: ', errMakingQuery);
+            res.sendStatus(500);
+          } else {
+            console.log('Retrieved job site data from DB: ', result);
+            res.send(result.rows);
+          }
+        }); //end of db.query
 
-  pool.connect(function(errConnectingToDatabase, db, done){
-    if(errConnectingToDatabase) {
-      console.log('There was an error connecting to database: ', errConnectingToDatabase);
-      res.sendStatus(500);
-    } else {
-      // MAKE DB QUERY
-      db.query('SELECT id, business_name FROM job_site', function(errMakingQuery, result){
-        done();
-        if(errMakingQuery){
-          console.log('There was an error making INSERT query: ', errMakingQuery);
-          res.sendStatus(500);
-        } else {
-          console.log('Retrieved job site data from DB: ', result);
-          res.send(result.rows);
-        }
-      }); //end of db.query
-
-    } //end of DB connect if-else
-  }); //end of pool.connect
+      } //end of DB connect if-else
+    }); //end of pool.connect
+  } else {
+    console.log('unauthorized');
+    res.sendStatus(401);
+  }
 }); // end of route
 
 // GET ROUTE TO RETRIVE * ALL THE GOAL CRITERIA * IN THE DB FOR THE SPECIFIED USER
 router.get('/allCriteria/:id', function(req, res){
   console.log('In get route for client\'s goal criteria: ', req.params.id);
+  if(req.user.role == ADMIN || req.user.role == CASE){
+    pool.connect(function(errConnectingToDatabase, db, done){
+      if(errConnectingToDatabase) {
+        console.log('There was an error connecting to database: ', errConnectingToDatabase);
+        res.sendStatus(500);
+      } else {
+        // BUILD DB QUERY STRING
 
-  pool.connect(function(errConnectingToDatabase, db, done){
-    if(errConnectingToDatabase) {
-      console.log('There was an error connecting to database: ', errConnectingToDatabase);
-      res.sendStatus(500);
-    } else {
-      // BUILD DB QUERY STRING
+        var dbQueryString = 'SELECT goal.id as goalid, * FROM "goal" ' +
 
-      var dbQueryString = 'SELECT goal.id as goalid, * FROM "goal" ' +
+        'JOIN "client" ON "goal"."client_id" = "client"."id" ' +
+        'JOIN "job_site" ON "job_site"."id" = "goal"."jobsite_id"' +
+        'WHERE "client_id" = $1 ';
 
-      'JOIN "client" ON "goal"."client_id" = "client"."id" ' +
-      'JOIN "job_site" ON "job_site"."id" = "goal"."jobsite_id"' +
-      'WHERE "client_id" = $1 ';
+        // MAKE DB QUERY
+        db.query(dbQueryString, [req.params.id], function(errMakingQuery, result){
+          done();
+          if(errMakingQuery){
+            console.log('There was an error making INSERT query: ', errMakingQuery);
+            res.sendStatus(500);
+          } else {
+            console.log('Retrieved criteria data from DB: ', result);
+            res.send(result.rows);
+          }
+        }); //end of db.query
 
-      // MAKE DB QUERY
-      db.query(dbQueryString, [req.params.id], function(errMakingQuery, result){
-        done();
-        if(errMakingQuery){
-          console.log('There was an error making INSERT query: ', errMakingQuery);
-          res.sendStatus(500);
-        } else {
-          console.log('Retrieved criteria data from DB: ', result);
-          res.send(result.rows);
-        }
-      }); //end of db.query
-
-    } //end of DB connect if-else
-  }); //end of pool.connect
+      } //end of DB connect if-else
+    }); //end of pool.connect
+  } else {
+    console.log('unauthorized');
+    res.sendStatus(401);
+  }
 }); // end of route
 
 
@@ -183,25 +208,30 @@ router.get('/singlecriteria', function(req, res){
   var goalID = parseInt(req.query.goal_id);
   console.log('on server after parseInt, client_id = ', clientID, 'on server, goal_id = ', goalID);
 
-  pool.connect(function(errConnectingToDatabase, db, done){
-    if(errConnectingToDatabase) {
-      console.log('There was an error connecting to database: ', errConnectingToDatabase);
-      res.sendStatus(500);
-    } else {
-      // MAKE DB QUERY
-      db.query(getGoal, [clientID, goalID], function(errMakingQuery, result){
-        done();
-        if(errMakingQuery){
-          console.log('There was an error making INSERT query: ', errMakingQuery);
-          res.sendStatus(500);
-        } else {
-          console.log('Retrieved criteria data from DB: ', result.rows);
-          res.send(result.rows);
-        }
-      }); //end of db.query
+  if(req.user.role == ADMIN || req.user.role == CASE){
+    pool.connect(function(errConnectingToDatabase, db, done){
+      if(errConnectingToDatabase) {
+        console.log('There was an error connecting to database: ', errConnectingToDatabase);
+        res.sendStatus(500);
+      } else {
+        // MAKE DB QUERY
+        db.query(getGoal, [clientID, goalID], function(errMakingQuery, result){
+          done();
+          if(errMakingQuery){
+            console.log('There was an error making INSERT query: ', errMakingQuery);
+            res.sendStatus(500);
+          } else {
+            console.log('Retrieved criteria data from DB: ', result.rows);
+            res.send(result.rows);
+          }
+        }); //end of db.query
 
-    } //end of DB connect if-else
-  }); //end of pool.connect
+      } //end of DB connect if-else
+    }); //end of pool.connect
+  } else {
+    console.log('unauthorized');
+    res.sendStatus(401);
+  }
 }); // end of router
 
 
