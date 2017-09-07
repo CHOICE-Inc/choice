@@ -1,4 +1,4 @@
-myApp.controller('JobSitesController', function(UserService, $http) {
+myApp.controller('JobSitesController', function($http, $mdToast, $location, UserService, GoalService) {
   console.log('JobSitesController created');
   //jsc = JobSitesController
   var jsc = this;
