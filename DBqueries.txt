@@ -64,12 +64,12 @@ values (3, 'Wormtongue');
 
 CREATE TABLE "job_site" (
 	"id" serial primary key,
-	"business_name" varchar(20) not null,
-	"address" varchar(50) null,
+	"business_name" varchar(50) not null,
+	"address" varchar(100) null,
 	"phone" varchar(20) null,
 	"contact" varchar(30) null,
 	"jobsite_status" boolean DEFAULT true,
-	"active" boolen DEFAULT true
+	"active" boolean DEFAULT true
 );
 
 ---- Create sample job sites ----
@@ -122,22 +122,22 @@ CREATE TABLE "goal_tracking" (
 ----- add a few sample goals -----
 
 insert into "goal" (client_id, jobsite_id, goal_name, goal_summary, implementation_date, review_dates, completion_date, service_outcome,
-objective, behavior_technique, modifications, equipment, jobsite_details, when_notes, plan_steps, goal_status)
+objective, behavior_techniques, modifications, equipment, jobsite_details, when_notes, plan_steps, goal_status)
 values(1, 2, 'Destroy Ring', 'Take ring to Modor and destroy it', '08/07/2017', '09/09/17 and 04/05/18', '05/09/17', 'Save Middle Earth.',
 'Destroy the One Ring and save Sam', 'Be gallant and destroy evil', 'Make hobbits more brave', 'Elven cloak, the Ring',
 'Middle Earth, Modor, and Dead Swamps', 'high noon every day', '1. Find Sam 2. Ride eagle. 3. Do Magic', true);
 
 insert into "goal" (client_id, jobsite_id, goal_name, goal_summary, implementation_date, review_dates, completion_date, service_outcome, objective,
-behavior_technique, modifications, equipment, jobsite_details, when_notes, plan_steps, goal_status)
+behavior_techniques, modifications, equipment, jobsite_details, when_notes, plan_steps, goal_status)
 values(1, 1, 'Live life', 'Life normal life after destorying ring', '08/07/2017', '09/09/17 and 04/05/18', '05/09/17', 'Be happy', 'Live a normal life', 'Live like a hobbit', 'Do not talk about travels', 'ink and quill', 'Hobbiton and Bowtruckle', 'For the next few years', '1. Talk with Sam 2. Get married 3. Write about my adventures', true);
 
 insert into "goal" (client_id, jobsite_id, goal_name, goal_summary, implementation_date, review_dates, completion_date, service_outcome, objective,
-behavior_technique, modifications, equipment, jobsite_details, when_notes, plan_steps, goal_status)
+behavior_techniques, modifications, equipment, jobsite_details, when_notes, plan_steps, goal_status)
 values(2, 1, 'Help Gandalf', 'Fight with other wizards to destroy evil', '08/07/2017', '09/09/17 and 04/05/18', '05/09/17', 'Be one with nature', 'talk to birds', 'be weird and by yourself talk to many animals', 'be less weird', 'wizard staff', 'Rohan and the Forest Moon of Endor',
 'For the next year', '1. Find Gandalf 2. Talk to animals 3. Destroy inanimate objects', true);
 
 insert into "goal" (client_id, jobsite_id, goal_name, goal_summary, implementation_date, review_dates, completion_date, service_outcome, objective,
-behavior_technique, modifications, equipment, jobsite_details, when_notes, plan_steps, goal_status)
+behavior_techniques, modifications, equipment, jobsite_details, when_notes, plan_steps, goal_status)
 values(3, 3, 'Help Sauriman', 'Lie convincingly to our enemies', '08/07/2017', '09/09/17 and 04/05/18', '05/09/17', 'Be a good liar', 'Destroy Rohan and the good', 'be weird and to yourself', 'be better liar', 'Moldy robe', 'Rohan and the Black Tower',
 'For the next year', '1. Find Sauriman 2. Lie to the King 3. Destroy Rohan', true);
 
