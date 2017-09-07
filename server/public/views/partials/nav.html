@@ -10,7 +10,7 @@
                 <a href="#/summary">User Home</a>
               </md-button>
 
-            <md-menu>
+            <md-menu ng-if="nc.userObject.role == 1 || nc.userObject.role == 2">
               <md-button id="manageGoalsLink" ng-click="$mdMenu.open()">Manage goals</md-button>
 
               <md-menu-content>
@@ -25,12 +25,12 @@
 
             </md-menu>
 
-            <md-button ng-click="$mdMenu.open()">
+            <md-button ng-if="nc.userObject.role == 3 || nc.userObject.role == 2 || nc.userObject.role == 1" ng-click="$mdMenu.open()">
               <a href="#/tracking">Goal Tracker</a>
             </md-button>
 
-            <md-menu>
-              <md-button id="adminToolsLink" ng-click="$mdMenu.open()">Admin Tools</md-button>
+            <md-menu ng-if="nc.userObject.role == 1">
+              <md-button id="adminToolsLink"  ng-click="$mdMenu.open()">Admin Tools</md-button>
 
               <md-menu-content>
                 <md-menu-item>

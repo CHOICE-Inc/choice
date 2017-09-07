@@ -19,7 +19,7 @@ passport.deserializeUser(function(id, done) {
 
     var user = {};
 
-    client.query("SELECT * FROM users WHERE id = $1", [id], function(err, result) {
+    client.query("SELECT users.id, users.username, users.password, users.staff_id, staff.role FROM users JOIN staff ON staff.id = users.staff_id WHERE users.id = $1", [id], function(err, result) {
 
       // Handle Errors
       if(err) {
@@ -53,11 +53,11 @@ passport.use('local', new localStrategy({
 	    	console.log('called local - pg');
 
         // assumes the username will be unique, thus returning 1 or 0 results
-        client.query("SELECT * FROM users WHERE username = $1", [username],
+        client.query("SELECT users.id, users.username, users.password, users.staff_id, staff.role FROM users JOIN staff ON staff.id = users.staff_id WHERE username = $1", [username],
           function(err, result) {
             var user = {};
 
-            console.log('here');
+            console.log('here', result.rows);
 
             // Handle Errors
             if (err) {
