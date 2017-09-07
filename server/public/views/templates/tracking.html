@@ -131,8 +131,8 @@
         <!-- GOAL HISTORY DIV-->
         <div layout="row" ng-show="goal.hidden == true" flex>
           <div layout="column" flex>
-            <div>
-              Success rate for this time period: {{goal.successRate}}%
+            <div layout="row" flex="nogrow">
+              <p class="label">Success rate for this time period: <span class="successRate">{{goal.successRate}}%</span></p>
             </div>
             <!-- Select date range for goal history -->
             <div layout="row" flex="nogrow">
@@ -160,26 +160,37 @@
                   <p class="label">GOAL HISTORY TABLE</p>
                 </div>
                 <div layout="row" flex>
-                  <table class="goalHistoryTable">
-                    <tr class="header">
-                      <th style="width:20%;">Date</th>
-                      <th style="width:10%;">Time</th>
-                      <th style="width:10%;">Initials</th>
-                      <th style="width:20%;">Completion</th>
-                      <th style="width:40%;">Notes</th>
-                      <th style="width:40%;">Buttons</th>
-                    </tr>
-                    <tr ng-class="tc.rowClass" ng-repeat="gh in goal.shownHistory">
-                      <td>{{gh.date_tracked | date}}</td>
-                      <td>{{gh.am_or_pm}}</td>
-                      <td>IN</td>
-                      <td>{{gh.complete_or_not}}</td>
-                      <td>{{gh.notes}}</td>
-                      <td><button type="button" name="button">Edit</button>
-                        <button type="button" name="button">Delete</button>
-                      </td>
-                    </tr>
-                  </table>
+                  <md-content>
+                    <md-table-container>
+                      <table md-table class="goalHistoryTable">
+                        <thead md-head class="tableHeader">
+                          <tr md-row>
+                            <th md-column style="width:20%;">Date</th>
+                            <th md-column style="width:10%;">Time</th>
+                            <th md-column style="width:10%;">Initials</th>
+                            <th md-column style="width:20%;">Completion</th>
+                            <th md-column style="width:40%;">Notes</th>
+                            <th md-column style="width:40%;">Buttons</th>
+                          </tr>
+                        </thead>
+                        <tbody md-body>
+                          <tr md-row ng-class="tc.rowClass" ng-repeat="gh in goal.shownHistory">
+                            <td md-cell>{{gh.date_tracked | date}}</td>
+                            <td md-cell>{{gh.am_or_pm}}</td>
+                            <td md-cell>IN</td>
+                            <td md-cell>{{gh.complete_or_not}}</td>
+                            <td md-cell>{{gh.notes}}</td>
+                            <td md-cell><button type="button" name="button">Edit</button>
+                              <button type="button" name="button">Delete</button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </md-table-container>
+                    <md-table-pagination md-limit="tc.goalService.tableQuery.limit" md-limit-options="tc.goalService.tableLimitOptions"
+                    md-page="tc.goalService.tableQuery.page" md-total="{{goal.shownHistory.length}}" md-page-select="tc.goalService.tableOptions.pageSelect"
+                    md-boundary-links="tc.goalService.tableOptions.boundaryLinks" md-on-paginate="logPagination"></md-table-pagination>
+                  </md-content>
                 </div>
 
               </div> <!-- end of table column -->
