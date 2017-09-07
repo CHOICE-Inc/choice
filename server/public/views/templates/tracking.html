@@ -3,7 +3,6 @@
 
 <!-- <button type="button" name="button" ng-click="tc.test()">TEST</button> -->
 <div layout="row" class="container" id="goalPage" flex>
-
   <!-- LEFT SIDE OF PAGE - LIST OF PARTICIPANTS -->
   <div id="leftColumn" layout="column" flex="20">
     <div id="clientListTitle">
@@ -22,7 +21,7 @@
         <md-option ng-repeat="loc in tc.locationList" ng-value="loc">{{loc}}</md-option>
       </md-select>
 
-      <md-button class="md-raised md-accent" ng-click="tc.filterClients(tc.dataList)">Filter</md-button>
+      <md-button class="md-raised md-primary md-hue-1" ng-click="tc.filterClients(tc.dataList)">Filter</md-button>
     </div>
 
     <!-- List of Participants -->
@@ -59,8 +58,8 @@
           </div>
           <div class="column" flex="50">
             <md-button ng-hide="goal.hidden == true" class="md-raised md-primary" ng-click="tc.goalService.viewGoalCriteria(goal.goalid, tc.clientToView.clientid)">Goal Criteria</md-button>
-            <md-button ng-hide="goal.hidden == true" class="md-raised md-warn" ng-click="tc.toGoalHistory(goal)">Goal History</md-button>
-            <md-button ng-show="goal.hidden == true" class="md-raised md-primary" ng-click="tc.toGoalHistory(goal)">Back to Tracking</md-button>
+            <md-button ng-hide="goal.hidden == true" class="md-raised md-primary md-hue-1" ng-click="tc.toGoalHistory(goal)">Goal History</md-button>
+            <md-button ng-show="goal.hidden == true" class="md-raised md-primary md-hue-1" ng-click="tc.toGoalHistory(goal)">Back to Tracking</md-button>
           </div>
         </div>
 
@@ -147,7 +146,7 @@
                 <md-datepicker ng-model="goal.historyEnd" md-placeholder="Enter date" md-open-on-focus></md-datepicker>
               </div>
               <div class="column" flex="25">
-                <md-button class="md-raised md-accent" ng-click="tc.filterHistory(goal)">Filter</md-button>
+                <md-button class="md-raised md-primary md-hue-1" ng-click="tc.filterHistory(goal)">Filter</md-button>
               </div>
             </div>
 
@@ -193,4 +192,5 @@
 
 <!-- div for displaying toast on tracking submission -->
 <div id="footer" style="background-color:transparent;position: fixed;bottom: 0;width: 100%;height:60px;pointer-events:none">
+
 </div>

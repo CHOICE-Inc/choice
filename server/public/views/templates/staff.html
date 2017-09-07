@@ -1,45 +1,53 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <!-- MANAGE STAFF PAGE - This page will allow the admin to add/disable staff and edit their listings -->
 
-<h1>Choice Employees</h1>
-<p>{{sc.message}}</p>
+<h1>Manage Staff</h1>
 
-<form class=""  ng-submit="sc.newEmployee()">
-  <input type="text" name="" value="" placeholder="name" ng-model="sc.employee.name">
-  <input type="text" name="" value="" placeholder="email address" ng-model="sc.employee.email">
-  <select ng-model="sc.employee.location" ng-options="x.place for x in sc.location"></select>
-  <select ng-model="sc.employee.role" ng-options="y.role for y in sc.roles"></select>
-<br><br>
-  <input type="submit" name="" value="Add new employee">
-</form>
-<br>
+<input type="text" name="" value="" placeholder="Name" ng-model="sc.staffToAdd.name">
+
+<md-select ng-model="sc.staffToAdd.role" placeholder="Role" class="md-no-underline">
+<md-option ng-value="1">Administrator</md-option>
+<md-option ng-value="2">Case Manager</md-option>
+<md-option ng-value="3">Staff</md-option>
+</md-select>
+<input type="text" name="" value="" placeholder="Email" ng-model="sc.staffToAdd.email">
+
+<input type="submit" name="" value="Add new staff member" ng-click="sc.addNewStaff()">
+
 <table>
   <thead>
     <th>Name</th>
-    <th>Job Title</th>
+    <th>Role</th>
     <th>Email</th>
-    <th>Manage Staff</th>
-    <th></th>
+    <th>Status</th>
   </thead>
   <tbody>
-    <tr ng-repeat="staffMember in sc.staffArray">
-      <td editable-text="staffMember.staff_name" e-name="type" e-form="staffForm">{{staffMember.staff_name}}</td>
-      <td editable-text="staffMember.roleString" e-name="type" e-form="staffForm">{{staffMember.roleString}}</td>
-      <td editable-text="staffMember.email" e-name="type" e-form="staffForm">{{staffMember.email}}</td>
+    <tr ng-repeat="staff in sc.staffArray">
+      <td ng-hide="staff.editing == true">{{staff.staff_name}}</td>
+      <td ng-show="staff.editing == true"><input type="text" name="" ng-value="sc.staffToEdit.client_name" placeholder="name" ng-model="sc.staffToEdit.staff_name"></td>
+      <td ng-hide="staff.editing == true">{{staff.roleString}}</td>
+      <td ng-show="staff.editing == true">
+        <md-select ng-model="sc.staffToEdit.role" placeholder="Role" class="md-no-underline">
+        <md-option ng-value="1">Administrator</md-option>
+        <md-option ng-value="2">Case Manager</md-option>
+        <md-option ng-value="3">Staff</md-option>
+      </md-select>
+      </td>
+      <td ng-hide="staff.editing == true">{{staff.email}}</td>
+      <td ng-show="staff.editing == true"><input type="text" name="" ng-value="sc.staffToEdit.email" placeholder="email" ng-model="sc.staffToEdit.email"></td>
+
+      <td ng-hide="staff.editing == true">{{staff.status}}</td>
+      <td ng-show="staff.editing == true">
+        <md-select ng-model="sc.staffToEdit.employed" placeholder="Status" class="md-no-underline">
+        <md-option ng-value="true">Active</md-option>
+        <md-option ng-value="false">Inactive</md-option>
+        </md-select>
+      </td>
+
       <td>
-        <input type="submit" name="" ng-click="sc.toggleEmployee(staffMember.employed, staffMember.staff_id)" value="{{staffMember.status}}">
-        <form editable-form name="staffForm" ng-show="staffForm.$visible">
-            <button type="submit" ng-disabled="staffForm.$waiting" class="saveBtn" ng-click="sc.updateEmployee(staffMember)">
-              <i class="fa fa-floppy-o" aria-hidden="true"></i>
-            </button>
-            <button type="button" ng-disabled="staffForm.$waiting"  class="cancelBtn" ng-click="staffForm.$cancel()">
-              <i class="fa fa-ban" aria-hidden="true"></i>
-            </button>
-        </form>
-          <div class="buttons" ng-show="!staffForm.$visible">
-          <button type="button" class="editBtn" ng-click="staffForm.$show()"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-          <!-- <button type="button" class="deleteBtn" ng-click="rc.deleteHop(hop.hopType, hop.hopName)"><i class="fa fa-trash-o" aria-hidden="true"></i></button> -->
-        </form>
+        <input ng-hide="staff.editing == true" type="submit" name="" value="Edit" ng-click="sc.toggleEditing(staff)">
+        <input ng-show="staff.editing == true" type="submit" name="" value="Submit" ng-click="sc.updateStaff(sc.staffToEdit)">
+        <input ng-show="staff.editing == true" type="submit" name="" value="Cancel" ng-click="sc.toggleEditing(staff)">
       </td>
     </tr>
   </tbody>

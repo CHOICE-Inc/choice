@@ -9,7 +9,6 @@ create database choice_db;
 CREATE TABLE "staff"(
 	"id" serial primary key,
 	"staff_name" varchar(50) not null,
-	"location" varchar(20) not null,
 	"email" varchar(50) not null,
 	"role" integer DEFAULT 0,
   "employed" boolean DEFAULT true
@@ -18,14 +17,14 @@ CREATE TABLE "staff"(
 
 ----- 3. Create initial "ADMIN" in STAFF table. -----
 
-INSERT INTO "staff" ("staff_name", "location", "email")
-VALUES ('Admin', 'Eden Prairie', 'admin@choiceinc.org');
+INSERT INTO "staff" ("staff_name", "email")
+VALUES ('Admin', 'admin@choiceinc.org');
 
-INSERT INTO "staff" ("staff_name", "location", "email")
-VALUES ('Gandalf', 'Eden Prairie', 'gandalf@choiceinc.org');
+INSERT INTO "staff" ("staff_name", "email")
+VALUES ('Gandalf', 'gandalf@choiceinc.org');
 
-INSERT INTO "staff" ("staff_name", "location", "email")
-VALUES ('Saruman', 'Eden Prairie', 'saruman@choiceinc.org');
+INSERT INTO "staff" ("staff_name", "email")
+VALUES ('Saruman', 'saruman@choiceinc.org');
 
 
 ----- 4. Create "USER" table for user registration and authentication. -----
@@ -69,7 +68,8 @@ CREATE TABLE "job_site" (
 	"address" varchar(50) null,
 	"phone" varchar(20) null,
 	"contact" varchar(30) null,
-	"jobsite_status" boolean DEFAULT true
+	"jobsite_status" boolean DEFAULT true,
+	"active" boolen DEFAULT true
 );
 
 ---- Create sample job sites ----
@@ -100,11 +100,7 @@ CREATE TABLE "goal" (
 	"behavior_techniques" varchar(1000) not null,
 	"modifications" varchar(500) not null,
 	"equipment" varchar(500) not null,
-<<<<<<< HEAD
   "jobsite_details" varchar(500) not null,
-=======
-	"jobsite_details" varchar(500) not null
->>>>>>> cca17cc2579147ec2d850a2e94f31447fbc8938d
 	"when_notes" varchar(500) not null,
 	"plan_steps" varchar(1000) not null,
 	"goal_status" boolean DEFAULT TRUE
