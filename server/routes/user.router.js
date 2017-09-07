@@ -12,6 +12,7 @@ router.get('/', function(req, res) {
       username : req.user.username,
       role: req.user.role
     };
+    console.log('USER INFO', userInfo);
     res.send(userInfo);
   } else {
     // failure best handled on the server. do redirect here.

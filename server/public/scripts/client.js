@@ -30,9 +30,9 @@ myApp.config(function($routeProvider, $locationProvider, $mdThemingProvider) {
       templateUrl: '/views/templates/register.html',
       controller: 'LoginController as lc'
     })
-    .when('/summary', {
-      templateUrl: '/views/templates/summary.html',
-      controller: 'SummaryController as sc',
+    .when('/userhome', {
+      templateUrl: '/views/templates/userhome.html',
+      controller: 'HomeController as hc',
       resolve: {
         getuser : function(UserService){
           return UserService.getuser();
@@ -99,6 +99,13 @@ myApp.config(function($routeProvider, $locationProvider, $mdThemingProvider) {
         }
       }
     })
+    // .when('/userhome', {
+    //   templateUrl: '/views/partials/admin.html',
+    //   resolve: {
+    //     getuser : function(UserService){
+    //       return UserService.getuser();
+    //     }
+    //   }
 
     .otherwise({
       redirectTo: 'home'

@@ -11,9 +11,10 @@ myApp.factory('UserService', function($http, $location, $mdDialog){
       $http.get('/user').then(function(response) {
           if(response.data.username) {
               // user has a curret session on the server
-              console.log(response.data);
+              console.log('RESPONSE', response.data);
               userObject.userName = response.data.username;
-              console.log('UserService -- getuser -- User Data: ', userObject.userName);
+              userObject.role = response.data.role;
+              console.log('UserService -- getuser -- User Data: ', userObject);
           } else {
               console.log('UserService -- getuser -- failure');
               // user has no session, bounce them back to the login page

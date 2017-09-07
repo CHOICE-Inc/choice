@@ -1,0 +1,15 @@
+<div ng-include="'views/partials/nav.html'"></div>
+<!-- MAIN SUMMARY PAGE - Lists all the participants at a given location and buttons to manage participants -->
+<div class="homeContainer">
+  <div class="homeImage">
+    <img id="homePageImage" src="https://images.unsplash.com/photo-1447300305215-ffa37ace0df1?dpr=2&auto=format&fit=crop&w=1500&h=994&q=80&cs=tinysrgb&crop=" alt="Wooded area with fog">
+  </div>
+  <div class="doNext">
+    <div class="homeWelcome">
+      <h1 id="welcome">Welcome, {{hc.userObject.userName}}!</h1>
+      <div ng-include=" 'views/partials/adminpartial.html' ">
+
+      </div>
+    </div>
+  </div>
+</div>

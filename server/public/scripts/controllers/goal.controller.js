@@ -24,7 +24,6 @@ myApp.controller('GoalController', function($http, $location, UserService, GoalS
   }
   getClients();
 
-
   //CONVERT CLIENT NAME TO CLIENT ID for use in data object being sent w/ POST request
   vm.assignClientID = function (id){
     console.log("assignClient id: ", id);

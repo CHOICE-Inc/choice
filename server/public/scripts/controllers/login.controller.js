@@ -17,7 +17,7 @@ myApp.controller('LoginController', function($http, $location, UserService) {
           if(response.data.username) {
             console.log('LoginController -- login -- success: ', response.data);
             // location works with SPA (ng-route)
-            $location.path('/summary'); // http://localhost:5000/#/summary
+            $location.path('/userhome'); // http://localhost:5000/#/summary
           } else {
             console.log('LoginController -- login -- failure: ', response);
             vm.message = "Wrong!!";
@@ -34,14 +34,26 @@ myApp.controller('LoginController', function($http, $location, UserService) {
       if(vm.user.username === '' || vm.user.password === '') {
         vm.message = "Choose a username and password!";
       } else {
-        console.log('LoginController -- registerUser -- sending to server...', vm.user);
-        $http.post('/register', vm.user).then(function(response) {
-          console.log('LoginController -- registerUser -- success');
-          $location.path('/home');
-        }).catch(function(response) {
-          console.log('LoginController -- registerUser -- error');
-          vm.message = "Please try again."
+        console.log('gonna check for the username');
+
+        //check existing staff
+        $http.post('/register/check/', vm.user).then(function(response) {//check for existing username
+          console.log('checked the staff table.', response.data[0]);
+          if(response.data.length > 0){
+            vm.user.staff_id = response.data[0].id;
+            console.log('LoginController -- registerUser -- sending to server...', vm.user);
+            $http.post('/register', vm.user).then(function(response) {
+              console.log('LoginController -- registerUser -- success');
+              $location.path('/home');
+            }).catch(function(response) {
+              console.log('LoginController -- registerUser -- error');
+              vm.message = "Please try again.";
+            });
+          } else {
+            vm.message = "Incorrect username, contact your Administrator.";
+          }
         });
+        //
       }
-    }
+    };
 });
