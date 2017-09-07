@@ -70,12 +70,17 @@
         </table>
 
       </md-table-container>
-    </div> <!-- End of table div -->
-    <!-- Table pagination bar -->
-    <div layout="row" flex="nogrow">
-      <md-table-pagination md-limit="sc.goalService.tableQuery.limit" md-limit-options="sc.goalService.tableLimitOptions"
-      md-page="sc.goalService.tableQuery.page" md-total="{{sc.staffArray.length}}" md-page-select="sc.goalService.tableOptions.pageSelect"
-      md-boundary-links="sc.goalService.tableOptions.boundaryLinks" md-on-paginate="logPagination"></md-table-pagination>
+    </div><!-- End of table div -->
+    <div layout="row" flex>
+      <!-- Table pagination bar -->
+      <md-table-pagination
+      md-limit="sc.goalService.tableQuery.limit"
+      md-limit-options="sc.goalService.tableLimitOptions"
+      md-page="sc.goalService.tableQuery.page"
+      md-total="{{sc.staffArray.length}}"
+      md-page-select="sc.goalService.tableOptions.pageSelect"
+      md-boundary-links="sc.goalService.tableOptions.boundaryLinks"
+      md-on-paginate="logPagination"></md-table-pagination>
     </div>
   </md-content>
 </div> <!-- end of container -->

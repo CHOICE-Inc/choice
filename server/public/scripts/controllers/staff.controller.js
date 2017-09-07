@@ -3,6 +3,7 @@ myApp.controller('StaffController', function($http, $mdToast, $location, UserSer
   var vm = this;
   vm.userService = UserService;
   vm.userObject = UserService.userObject;
+  vm.goalService = GoalService;
   vm.editStatus = false;
   vm.roles = ['Administrator', 'Case Manager', 'Staff'];
 
