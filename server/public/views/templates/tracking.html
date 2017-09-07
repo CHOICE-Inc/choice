@@ -131,8 +131,8 @@
         <!-- GOAL HISTORY DIV-->
         <div layout="row" ng-show="goal.hidden == true" flex>
           <div layout="column" flex>
-            <div>
-              Success rate for this time period: {{goal.successRate}}%
+            <div layout="row" flex="nogrow">
+              <p class="label">Success rate for this time period: <span class="successRate">{{goal.successRate}}%</span></p>
             </div>
             <!-- Select date range for goal history -->
             <div layout="row" flex="nogrow">
