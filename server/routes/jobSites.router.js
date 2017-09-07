@@ -2,67 +2,79 @@ var express = require('express');
 var router = express.Router();
 var pool = require('../modules/pool.js');
 
+var ADMIN = 1;
+var CASE = 2;
+
 //GET ROUTE FOR DISPLAYING ALL THE JOBSITES TO THE DOM
 router.get('/managejobsites', function(req, res) {
   console.log('In server getting jobsites');
 
-  pool.connect(function(err, db, done) {
-    if(err) {
-      console.log("Error connecting: ", err);
-      next(err);
-    }
-    //
-    db.query("select * from job_site ORDER BY id",
-        function (err, result) {
-          done();
-          if(err) {
-            console.log("Error inserting data: ", err);
-          } else {
-            console.log('RESULT ROWS', result.rows);
-            res.send(result.rows);
-          } //end of else statement
-        }); //end of db query
-  }); //end of pool.connect
+  if(req.user.role == ADMIN){
+    pool.connect(function(err, db, done) {
+      if(err) {
+        console.log("Error connecting: ", err);
+        next(err);
+      }
+      //
+      db.query("select * from job_site ORDER BY id",
+          function (err, result) {
+            done();
+            if(err) {
+              console.log("Error inserting data: ", err);
+            } else {
+              console.log('RESULT ROWS', result.rows);
+              res.send(result.rows);
+            } //end of else statement
+          }); //end of db query
+    }); //end of pool.connect
+  } else {
+    console.log('unauthorized');
+    res.sendStatus(401);
+  }
 }); //end of router.get
 
 //POST ROUTE TO ADD A NEW JOBSITE
 router.post('/newjobsite', function(req, res) {
 console.log('In post route to add new jobsite: ', req.body);
 
-pool.connect(function(errConnectingToDatabase, db, done){
-  if(errConnectingToDatabase) {
-    console.log('There was an error connecting to database: ', errConnectingToDatabase);
-    res.sendStatus(500);
-  } else {
-    //DEFINE DATA VALUES
-    //var jobSite_id = req.params.id;
-    var business_name = req.body.business_name;
-    var address = req.body.address;
-    var phone = req.body.phone;
-    var contact = req.body.contact;
-
-    //BUILD DB QUERY STRING & DATA VALUE ARRAY
-    var jobSitePostQueryString = 'INSERT INTO job_site (business_name, address, phone, ' +
-    'contact) VALUES ($1, $2, $3, $4)';
-    console.log('For jobsite post, using DB query string: ', jobSitePostQueryString);
-
-    var jobSiteValuesArray = [business_name, address, phone, contact];
-    console.log('Going to push these values to the DB: ', jobSiteValuesArray);
-
-    // MAKE DB QUERY
-    db.query(jobSitePostQueryString, jobSiteValuesArray, function(errMakingQuery, result){
-      done();
-      if(errMakingQuery){
-        console.log('There was an error making POST query: ', errMakingQuery);
+  if(req.user.role == ADMIN){
+    pool.connect(function(errConnectingToDatabase, db, done){
+      if(errConnectingToDatabase) {
+        console.log('There was an error connecting to database: ', errConnectingToDatabase);
         res.sendStatus(500);
       } else {
-        console.log('New Jobsite added to DB.');
-        res.sendStatus(200);
-      }
-    }); //end of db.query
+        //DEFINE DATA VALUES
+        //var jobSite_id = req.params.id;
+        var business_name = req.body.business_name;
+        var address = req.body.address;
+        var phone = req.body.phone;
+        var contact = req.body.contact;
 
-  } //end of DB connect if-else
-}); //end of pool.connect
+        //BUILD DB QUERY STRING & DATA VALUE ARRAY
+        var jobSitePostQueryString = 'INSERT INTO job_site (business_name, address, phone, ' +
+        'contact) VALUES ($1, $2, $3, $4)';
+        console.log('For jobsite post, using DB query string: ', jobSitePostQueryString);
+
+        var jobSiteValuesArray = [business_name, address, phone, contact];
+        console.log('Going to push these values to the DB: ', jobSiteValuesArray);
+
+        // MAKE DB QUERY
+        db.query(jobSitePostQueryString, jobSiteValuesArray, function(errMakingQuery, result){
+          done();
+          if(errMakingQuery){
+            console.log('There was an error making POST query: ', errMakingQuery);
+            res.sendStatus(500);
+          } else {
+            console.log('New Jobsite added to DB.');
+            res.sendStatus(200);
+          }
+        }); //end of db.query
+      } //end of DB connect if-else
+    }); //end of pool.connect
+  } else {
+    console.log('unauthorized');
+    res.sendStatus(401);
+  }
 }); //end of route
 
 
