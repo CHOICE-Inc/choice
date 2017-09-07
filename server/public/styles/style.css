@@ -27,6 +27,11 @@ textarea {
 }
 
 
+/* TABLE STYLING FOR MANAGE __ PAGES */
+#staffTable{
+  width: 100%;
+}
+
 /* GOAL CRITERIA STYLING */
 .userText {
   font-size: 1.2em;
@@ -101,8 +106,17 @@ textarea {
   text-align: center;
 }
 
+.successRate {
+  font-size: 2.0em;
+  font-weight: bold;
+}
+
+.tableHeader {
+  background-color: #b3e5fc;
+}
+
 .rowDefault {
-  background-color: #002171;
+  background-color: #e1f5fe;
   color: #fff;
   border-bottom: 1px solid #000;
 }
