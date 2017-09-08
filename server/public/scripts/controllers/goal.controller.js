@@ -160,9 +160,20 @@ myApp.controller('GoalController', function($http, $location, UserService, GoalS
         console.log('sending goal data to db: ');
         if (response) {
           console.log('server sent something back: ', response);
+          swal(
+  'Success!',
+  'New goal created.',
+  'success'
+);
           var data = {};
           vm.assignData(data);
         }
+      }).catch(function(){
+        swal(
+  'There was an error creating this goal.',
+  'Check that all required information has been entered.',
+  'error'
+);
       });
     };
 
@@ -197,8 +208,19 @@ myApp.controller('GoalController', function($http, $location, UserService, GoalS
               console.log('sending goal data to db: ');
               if (response) {
                 console.log('server sent something back: ', response);
+                swal(
+        'Success!',
+        'Goal successfully updated.',
+        'success'
+      );
 
               }
+            }).catch(function(){
+              swal(
+        'There was an error updating the goal.',
+        'Check that all required information has been entered.',
+        'error'
+      );
             });
           };
 

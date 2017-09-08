@@ -79,7 +79,7 @@ router.post('/addClient', function(req, res) {
             done();
             if(err) {
               console.log("Error inserting data: ", err);
-              //next(err);
+              res.sendStatus(420);
             } else {
               res.sendStatus(202);
             }
