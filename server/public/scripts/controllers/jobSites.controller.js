@@ -4,6 +4,7 @@ myApp.controller('JobSitesController', function($http, $mdToast, $location, User
   var jsc = this;
   jsc.userService = UserService;
   jsc.userObject = UserService.userObject;
+  jsc.goalService = GoalService;
   jsc.manageJobSiteData = [];
   jsc.editStatus = false;
   var jobsiteObject = {};

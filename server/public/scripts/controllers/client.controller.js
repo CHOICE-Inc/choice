@@ -3,6 +3,7 @@ myApp.controller('ClientController', function($http, $mdToast, $location, UserSe
   var vm = this;
   vm.userService = UserService;
   vm.userObject = UserService.userObject;
+  vm.goalService = GoalService;
   vm.editStatus = false;
   vm.clientToAdd = {};
   vm.clientToEdit = {};

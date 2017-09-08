@@ -8,69 +8,60 @@
   <!-- Add new job site-->
   <div class="container goals" layout="row" flex>
     <md-content>
-      <fieldset>
-          <div class="row" flex>
-            <md-input-container>
-              <label>Job Site Name:</label>
-              <input type="text" ng-model="jc.business_name" placeholder="McDonald's">
-            </md-input-container>
-            <md-input-container>
-              <label>Address:</label>
-              <input type="text" ng-model="jc.address" placeholder="ex: 123 Main St., St. Paul, MN 55119">
-            </md-input-container>
-            <md-input-container>
-              <label>Phone:</label>
-              <input type="text" ng-model="jc.phone" placeholder="763-111-1111">
-            </md-input-container>
-            <md-input-container>
-              <label>Contact:</label>
-              <input type="text" ng-model="jc.contact" placeholder="Mary Smith">
-            </md-input-container>
-          <md-button class="md-raised md-accent"
-          ng-click="jc.addNewJobSite(jc.business_name, jc.address, jc.phone, jc.contact)">Add New Job Site</md-button>
-        </div>
-      </fieldset>
-    </form>
+      <div class="row" flex>
+        <md-input-container>
+          <label>Job Site Name:</label>
+          <input type="text" ng-model="jc.business_name" placeholder="McDonald's">
+        </md-input-container>
+        <md-input-container>
+          <label>Address:</label>
+          <input type="text" ng-model="jc.address" placeholder="ex: 123 Main St., St. Paul, MN 55119">
+        </md-input-container>
+        <md-input-container>
+          <label>Phone:</label>
+          <input type="text" ng-model="jc.phone" placeholder="763-111-1111">
+        </md-input-container>
+        <md-input-container>
+          <label>Contact:</label>
+          <input type="text" ng-model="jc.contact" placeholder="Mary Smith">
+        </md-input-container>
+        <md-button class="md-raised md-accent"
+        ng-click="jc.addNewJobSite(jc.business_name, jc.address, jc.phone, jc.contact)">Add New Job Site</md-button>
+      </div>
+    </div> <!-- end of add job site div-->
 
-  </div> <!-- end of add job site div-->
-
-  <!-- Job site Table-->
-  <div layout="row" flex>
-    <md-table-container>
-      <table md-table id="jobsiteTable">
-        <thead md-head class="tableHeader">
-          <th md-column>Jobsite Name</th>
-          <th md-column>Address</th>
-          <th md-column>Phone Number</th>
-          <th md-column>Contact Name</th>
-          <th md-column></th>
-        </thead>
-        <tbody md-body>
-          <tr md-row ng-class="tc.rowClass" ng-repeat="jobsite in jc.manageJobSiteData">
-            <td md-cell ng-hide="jobsite.editing == true">{{jobsite.business_name}}</td>
-            <td md-cell ng-show="jobsite.editing == true"><input type="text" name="" ng-value="jc.siteToEdit.business_name" placeholder="Business name" ng-model="jc.siteToEdit.staff_name"></td>
-            <td md-cell ng-hide="jobsite.editing == true">{{jobsite.address}}</td>
-            <td md-cell ng-show="jobsite.editing == true"><input type="text" name="" ng-value="jc.siteToEdit.address" placeholder="Address" ng-model="jc.siteToEdit.address"></td>
-            <td md-cell ng-hide="jobsite.editing == true">{{jobsite.phone}}</td>
-            <td md-cell ng-show="jobsite.editing == true"><input type="text" name="" ng-value="jc.siteToEdit.phone" placeholder="Phone" ng-model="jc.siteToEdit.phone"></td>
-            <td md-cell ng-hide="jobsite.editing == true">{{jobsite.contact}}</td>
-            <td md-cell ng-show="jobsite.editing == true"><input type="text" name="" ng-value="jc.siteToEdit.contact" placeholder="Contac" ng-model="jc.siteToEdit.contact"></td>
-            <td md-cell>
-              <input ng-hide="jobsite.editing == true" type="submit" name="" value="Edit" ng-click="jc.toggleEditing(jobsite)">
-              <input ng-show="jobsite.editing == true" type="submit" name="" value="Submit" ng-click="jc.updateJobSite(jc.siteToEdit)">
-              <input ng-show="jobsite.editing == true" type="submit" name="" value="Cancel" ng-click="jc.toggleEditing(jobsite)">
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <!-- Job site Table-->
+    <div layout="row" flex>
+      <md-table-container>
+        <table md-table id="jobsiteTable">
+          <thead md-head class="tableHeader">
+            <th md-column>Jobsite Name</th>
+            <th md-column>Address</th>
+            <th md-column>Phone Number</th>
+            <th md-column>Contact Name</th>
+            <th md-column></th>
+          </thead>
+          <tbody md-body>
+            <tr md-row ng-class="tc.rowClass" ng-repeat="jobsite in jc.manageJobSiteData">
+              <td md-cell ng-hide="jobsite.editing == true">{{jobsite.business_name}}</td>
+              <td md-cell ng-show="jobsite.editing == true"><input type="text" name="" ng-value="jc.siteToEdit.business_name" placeholder="Business name" ng-model="jc.siteToEdit.staff_name"></td>
+              <td md-cell ng-hide="jobsite.editing == true">{{jobsite.address}}</td>
+              <td md-cell ng-show="jobsite.editing == true"><input type="text" name="" ng-value="jc.siteToEdit.address" placeholder="Address" ng-model="jc.siteToEdit.address"></td>
+              <td md-cell ng-hide="jobsite.editing == true">{{jobsite.phone}}</td>
+              <td md-cell ng-show="jobsite.editing == true"><input type="text" name="" ng-value="jc.siteToEdit.phone" placeholder="Phone" ng-model="jc.siteToEdit.phone"></td>
+              <td md-cell ng-hide="jobsite.editing == true">{{jobsite.contact}}</td>
+              <td md-cell ng-show="jobsite.editing == true"><input type="text" name="" ng-value="jc.siteToEdit.contact" placeholder="Contac" ng-model="jc.siteToEdit.contact"></td>
+              <td md-cell>
+                <input ng-hide="jobsite.editing == true" type="submit" name="" value="Edit" ng-click="jc.toggleEditing(jobsite)">
+                <input ng-show="jobsite.editing == true" type="submit" name="" value="Submit" ng-click="jc.updateJobSite(jc.siteToEdit)">
+                <input ng-show="jobsite.editing == true" type="submit" name="" value="Cancel" ng-click="jc.toggleEditing(jobsite)">
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </md-table-container>
   </div> <!-- end of table div -->
-  <!-- table pagination bar -->
-  <div layout="row" flex>
-    <md-table-pagination md-limit="jc.goalService.tableQuery.limit" md-limit-options="jc.goalService.tableLimitOptions"
-    md-page="jc.goalService.tableQuery.page" md-total="{{jc.manageJobSiteData.length}}" md-page-select="jc.goalService.tableOptions.pageSelect"
-    md-boundary-links="jc.goalService.tableOptions.boundaryLinks" md-on-paginate="logPagination"></md-table-pagination>
-  </div>
 
-</md-content> <!-- end of material container-->
+
+  </md-content> <!-- end of material container-->
 </div> <!-- end of container div -->

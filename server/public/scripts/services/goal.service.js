@@ -5,9 +5,9 @@ myApp.factory('GoalService', function($http, $location, $mdDialog){
   var singleGoal = {};
 
   //ELEMENTS FOR THE GOAL HISTORY TABLE (md.data.table)
-  var limitOptions = [5, 10, 15];
+  var limitOptions = [10, 15, 25];
   var options = {
-    boundaryLinks: false,
+    boundaryLinks: true,
     limitSelect: true,
     pageSelect: true
   };

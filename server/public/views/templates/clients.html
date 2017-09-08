@@ -2,51 +2,51 @@
 <!-- MANAGE STAFF PAGE - This page will allow the admin to add/disable staff and edit their listings -->
 <div class="container" layout="column" flex>
   <md-content>
-  <div layout="row" flex>
-    <h1>Manage Participants</h1>
-  </div>
-
-  <!-- Add New Client-->
-  <div layout="row" flex>
-    <div layout="column" layout-align="center start" flex="20">
-      <label>Participant Name: </label>
-      <input type="text" placeholder="Enter name" ng-model="cc.clientToAdd.name">
+    <div layout="row" flex>
+      <h1>Manage Participants</h1>
     </div>
-    <div layout="column" flex="20">
-      <md-select ng-model="cc.clientToAdd.staff_id" placeholder="Selec Case Manager" class="md-no-underline">
-        <md-option ng-repeat="cms in cc.staffArray" value="{{cms.id}}">{{cms.staff_name}}</md-option>
-      </md-select>
-    </div>
-    <div layout="column" layout-align="center center" flex="10">
-      <input type="submit" name="" value="Add new client" ng-click="cc.addNewClient()">
-    </div>
-    <div layout="column" flex=>
 
-    </div>
-  </div> <!-- end of add client div -->
+    <!-- Add New Client-->
+    <div layout="row" flex>
+      <div layout="column" layout-align="center start" flex="20">
+        <label>Participant Name: </label>
+        <input type="text" placeholder="Enter name" ng-model="cc.clientToAdd.name">
+      </div>
+      <div layout="column" flex="20">
+        <md-select ng-model="cc.clientToAdd.staff_id" placeholder="Selec Case Manager" class="md-no-underline">
+          <md-option ng-repeat="cms in cc.staffArray" value="{{cms.id}}">{{cms.staff_name}}</md-option>
+        </md-select>
+      </div>
+      <div layout="column" layout-align="center center" flex="10">
+        <input type="submit" name="" value="Add new client" ng-click="cc.addNewClient()">
+      </div>
+      <div layout="column" flex=>
 
-  <!-- Particpant table -->
-  <div layout="row" flex>
-    <md-table-container>
-      <table md-table id="clientTable">
-        <thead md-head class="tableHeader">
-          <th md-column>Name</th>
-          <th md-column>Case Manager</th>
-          <th md-column>Status</th>
-          <th md-column></th>
-        </thead>
-        <tbody md-body>
-          <tr md-row ng-class="tc.rowClass" ng-repeat="client in cc.clientArray">
-            <td md-cell ng-hide="client.editing == true">{{client.client_name}}</td>
-            <td md-cell ng-show="client.editing == true"><input type="text" name="" ng-value="cc.clientToEdit.client_name" placeholder="name" ng-model="cc.clientToEdit.client_name"></td>
+      </div>
+    </div> <!-- end of add client div -->
 
-            <td md-cell ng-hide="client.editing == true">{{client.staff_name}}</td>
-            <td md-cell ng-show="client.editing == true">
-              <md-select ng-model="cc.clientToEdit.staff_id" placeholder="Case Manager" class="md-no-underline">
-              <!-- <md-option ng-repeat="cm in cc.staffArray" value="{{cm.staff_name}}">{{cm.staff_name}}</md-option> -->
-              <md-option ng-repeat="cm in cc.staffArray" value="{{cm.id}}">{{cm.staff_name}}</md-option>
-              </md-select>
-            </td>
+    <!-- Particpant table -->
+    <div layout="row" flex>
+      <md-table-container>
+        <table md-table id="clientTable">
+          <thead md-head class="tableHeader">
+            <th md-column>Name</th>
+            <th md-column>Case Manager</th>
+            <th md-column>Status</th>
+            <th md-column></th>
+          </thead>
+          <tbody md-body>
+            <tr md-row ng-class="tc.rowClass" ng-repeat="client in cc.clientArray">
+              <td md-cell ng-hide="client.editing == true">{{client.client_name}}</td>
+              <td md-cell ng-show="client.editing == true"><input type="text" name="" ng-value="cc.clientToEdit.client_name" placeholder="name" ng-model="cc.clientToEdit.client_name"></td>
+
+              <td md-cell ng-hide="client.editing == true">{{client.staff_name}}</td>
+              <td md-cell ng-show="client.editing == true">
+                <md-select ng-model="cc.clientToEdit.staff_id" placeholder="Case Manager" class="md-no-underline">
+                  <!-- <md-option ng-repeat="cm in cc.staffArray" value="{{cm.staff_name}}">{{cm.staff_name}}</md-option> -->
+                  <md-option ng-repeat="cm in cc.staffArray" value="{{cm.id}}">{{cm.staff_name}}</md-option>
+                </md-select>
+              </td>
 
             <td md-cell ng-hide="client.editing == true">{{client.status}}</td>
             <td md-cell ng-show="client.editing == true">
@@ -66,17 +66,6 @@
       </table>
     </md-table-container>
   </div> <!-- end of table div -->
-  <!-- Table pagination bar -->
-  <div layout="row" flex="nogrow">
-    <md-table-pagination md-limit="cc.goalService.tableQuery.limit" md-limit-options="cc.goalService.tableLimitOptions"
-    md-page="cc.goalService.tableQuery.page" md-total="{{cc.clientArray.length}}" md-page-select="cc.goalService.tableOptions.pageSelect"
-    md-boundary-links="cc.goalService.tableOptions.boundaryLinks" md-on-paginate="logPagination"></md-table-pagination>
-  </div>
 
-
-
-
-
-
-</md-content>
+  </md-content>
 </div> <!-- end of container div -->
