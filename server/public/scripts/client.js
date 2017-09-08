@@ -5,19 +5,16 @@ myApp.config(function($routeProvider, $locationProvider, $mdThemingProvider) {
 /// ANGULAR MATERIAL THEME ///
   $mdThemingProvider.theme('default')
     .primaryPalette('light-blue', {
-      'default' : '600',
-      'hue-1' : '700',
-      'hue-2' : '900'
+      'default' : '500',
     })
     .accentPalette('green',{
-      'default': '300'
+      'default': '400'
     })
-    .warnPalette('purple', {
-      'default': '600'
+    .warnPalette('red', {
+      'default': '500'
     })
     .backgroundPalette('grey', {
-      'default' : '100',
-      'hue-1' : '500'
+      'default' : '100'
     });
 
 /// ROUTES ///

@@ -1,11 +1,17 @@
-<div class="adminhtml">
-  <h3 class="welcomeMsg">What would you like to do today?</h3>
-  <ul>
-    <li class="userhomePTags"><a href="#/staff">Add or update staff</a></li>
-    <li class="userhomePTags"><a href="#/clients">Add or update participant info</a></li>
-    <li class="userhomePTags"><a href="#/jobSites">Add or update job sites</a></li>
-    <li class="userhomePTags"><a href="#/tracking">Track goal progress for a participant</a></li>
-    <li class="userhomePTags"><a href="#/goal">Create a new goal criteria</a></li>
-    <li class="userhomePTags"><a href="#/editgoal">Edit an existing goal</a></li>
-  </ul>
+<div class="adminhtml" layout="column" flex>
+  <div class="row" flex="nogrow">
+    <h2 class="whatToDo">Welcome, {{hc.userObject.name}}. <br> What would you like to do today? </h2>
+  </div>
+  <div layout="row" flex="nogrow">
+    <ul>
+      <li class="userhomeOptions"><a href="#/staff">Add or update staff</a></li>
+      <li class="userhomeOptions"><a href="#/clients">Add or update participant info</a></li>
+      <li class="userhomeOptions"><a href="#/jobSites">Add or update job sites</a></li>
+      <li class="userhomeOptions"><a href="#/tracking">Track goal progress for a participant</a></li>
+      <li class="userhomeOptions"><a href="#/goal">Create a new goal criteria</a></li>
+      <li class="userhomeOptions"><a href="#/editgoal">Edit an existing goal</a></li>
+    </ul>
+  </div>
+
+
 </div>

@@ -1,61 +1,63 @@
 <div class="navbar" layout="row" ng-controller="NavController as nc" ng-cloak flex>
-    <div id="navbarImage" layout="column" layout-align="center center" flex="10">
-        <img id="choiceLogoSm" ng-src="../../assets/img/choice-logo-noTag.jpg" alt="Choice inc logo">
-    </div>
+  <div id="navbarImage" layout="column" layout-align="center center" flex="10">
+    <img id="choiceLogoSm" ng-src="../../assets/img/choice-logo-noTag.jpg" alt="Choice inc logo">
+  </div>
 
-    <div layout="column" layout="center start" flex="65">
-      <md-toolbar class="nav-toolbar" layout="center start">
-        <md-menu-bar id="navMenuOptions">
-              <md-button ng-click="$mdMenu.open()">
-                <a href="#/userhome">User Home</a>
-              </md-button>
+  <div layout="column" layout="center start" flex="65">
+    <md-toolbar layout="center start">
+      <md-menu-bar id="navMenuOptions">
+        <md-button ng-click="$mdMenu.open()">
+          <a href="#/userhome">User Home</a>
+        </md-button>
 
-            <md-menu ng-if="nc.userObject.role == 1 || nc.userObject.role == 2">
-              <md-button id="manageGoalsLink" ng-click="$mdMenu.open()">Manage goals</md-button>
+        <md-menu ng-if="nc.userObject.role == 1 || nc.userObject.role == 2">
+          <md-button id="manageGoalsLink" ng-click="$mdMenu.open()">Manage goals</md-button>
 
-              <md-menu-content>
-                <md-menu-item>
-                  <md-button> <a class="pulldownOption" href="#/goal">Create New Goal</a></md-button>
-                </md-menu-item>
+          <md-menu-content>
+            <md-menu-item>
+              <md-button> <a class="pulldownOption" href="#/goal">Create New Goal</a></md-button>
+            </md-menu-item>
 
-                <md-menu-item>
-                    <md-button><a class="pulldownOption" href="#/editGoal">Edit Existing Goal</a></md-button>
-                </md-menu-item>
-              </md-menu-content>
+            <md-menu-item>
+              <md-button><a class="pulldownOption" href="#/editGoal">Edit Existing Goal</a></md-button>
+            </md-menu-item>
+          </md-menu-content>
 
-            </md-menu>
+        </md-menu>
 
-            <md-button ng-if="nc.userObject.role == 3 || nc.userObject.role == 2 || nc.userObject.role == 1" ng-click="$mdMenu.open()">
-              <a href="#/tracking">Goal Tracker</a>
-            </md-button>
+        <md-button ng-if="nc.userObject.role == 3 || nc.userObject.role == 2 || nc.userObject.role == 1" ng-click="$mdMenu.open()">
+          <a href="#/tracking">Goal Tracker</a>
+        </md-button>
 
-            <md-menu ng-if="nc.userObject.role == 1">
-              <md-button id="adminToolsLink"  ng-click="$mdMenu.open()">Admin Tools</md-button>
+        <md-menu ng-if="nc.userObject.role == 1">
+          <md-button id="adminToolsLink"  ng-click="$mdMenu.open()">Admin Tools</md-button>
 
-              <md-menu-content>
-                <md-menu-item>
-                  <md-button> <a class="pulldownOption" href="#/staff">Manage Staff</a></md-button>
-                </md-menu-item>
+          <md-menu-content>
+            <md-menu-item>
+              <md-button> <a class="pulldownOption" href="#/staff">Manage Staff</a></md-button>
+            </md-menu-item>
 
-                <md-menu-item>
-                    <md-button><a class="pulldownOption" href="#/clients">Manage Participants</a></md-button>
-                </md-menu-item>
+            <md-menu-item>
+              <md-button><a class="pulldownOption" href="#/clients">Manage Participants</a></md-button>
+            </md-menu-item>
 
-                <md-menu-item>
-                    <md-button><a class="pulldownOption" href="#/jobSites">Manage Job Sites</a></md-button>
-                </md-menu-item>
-              </md-menu-content>
+            <md-menu-item>
+              <md-button><a class="pulldownOption" href="#/jobSites">Manage Job Sites</a></md-button>
+            </md-menu-item>
+          </md-menu-content>
 
-            </md-menu>
+        </md-menu>
 
-        </md-menu-bar>
-      </md-toolbar>
-    </div>
-    <div layout="column" layout="center start" flex="15">
-      <p id="welcomeMsg">Welcome, {{nc.userObject.name}}!</p>
-    </div>
-    <div layout="column" layout="center center" flex="10">
-      <md-button id="logoutBtn" class="md-raised md-accent" ng-click="nc.userService.logout()">Log Out</md-button>
-    </div>
+      </md-menu-bar>
+    </md-toolbar>
+  </div>
 
-</div>
+  <div layout="column" layout="center start" flex="15">
+    <p id="welcomeMsg">Welcome, {{nc.userObject.name}}!</p>
+  </div>
+
+  <div layout="column" layout="center center" flex="10">
+    <md-button id="logoutBtn" class="md-raised md-warn" ng-click="nc.userService.logout()">Log Out</md-button>
+  </div>
+
+</div> <!-- end of container div -->
