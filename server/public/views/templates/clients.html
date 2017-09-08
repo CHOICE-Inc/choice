@@ -8,21 +8,16 @@
 
     <!-- Add New Client-->
     <div layout="row" flex>
-      <div layout="column" layout-align="center start" flex="20">
-        <label>Participant Name: </label>
+      <md-input-container>
+        <label> Participant Name: </label>
         <input type="text" placeholder="Enter name" ng-model="cc.clientToAdd.name">
-      </div>
-      <div layout="column" flex="20">
+      </md-input-container>
+      <md-input-container>
         <md-select ng-model="cc.clientToAdd.staff_id" placeholder="Selec Case Manager" class="md-no-underline">
           <md-option ng-repeat="cms in cc.staffArray" value="{{cms.id}}">{{cms.staff_name}}</md-option>
         </md-select>
-      </div>
-      <div layout="column" layout-align="center center" flex="10">
-        <input type="submit" name="" value="Add new client" ng-click="cc.addNewClient()">
-      </div>
-      <div layout="column" flex=>
-
-      </div>
+      </md-input-container>
+      <md-button id="addStaffBtn" class="md-raised md-accent" type="submit" ng-click="cc.addNewClient()">Add new client</md-button>
     </div> <!-- end of add client div -->
 
     <!-- Particpant table -->

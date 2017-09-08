@@ -12,9 +12,11 @@ body, html {
 
 a {
   color: #fff;
+  text-decoration: none;
 }
 a:hover {
   color: #b2fab4;
+  text-decoration: underline;
 }
 
 textarea {
@@ -155,14 +157,16 @@ li a:hover {
 /* LOGIN SCREEN, NAVBAR & FOOTER STYLING */
 .loginScreen a {
   color: #FFF;
+  text-decoration: none;
 }
 
 .loginScreen a:hover {
   color: #b2fab4;
+  text-decoration: underline;
 }
 
 .loginScreen {
-  background-image: url("https://images.unsplash.com/photo-1490272951680-512033991007?dpr=2&auto=format&fit=crop&w=1199&h=799&q=80&cs=tinysrgb&crop=");
+  background-image: url("https://images.unsplash.com/photo-1495801424028-edc6b0a54252?dpr=2&amp;auto=compress,format&amp;fit=crop&amp;w=376&amp;h=251&amp;q=80&amp;cs=tinysrgb&amp;crop=");
   background-size: cover;
   height: 700px;
 }
@@ -205,10 +209,12 @@ li a:hover {
 
 .pulldownOption {
   color: #01579b;
+  text-decoration: none;
 }
 
 .pulldownOption:hover {
   color: #0288d1;
+  text-decoration: underline;
 }
 
 #navbarImage {
@@ -221,8 +227,12 @@ li a:hover {
 }
 
 #manageGoalsLink, #adminToolsLink {
-  text-decoration: underline;
   color: #e8f5e9;
+}
+
+#manageGoalsLink:hover, #adminToolsLink:hover {
+  color: #b2fab4;
+  text-decoration: underline;
 }
 
 #welcomeMsg {
@@ -252,6 +262,10 @@ li a:hover {
 /* TABLE STYLING FOR MANAGE PAGES */
 #staffTable{
   width: 100%;
+}
+
+#addStaffBtn {
+  height: 25px;
 }
 
 
