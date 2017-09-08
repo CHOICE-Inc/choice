@@ -9,7 +9,9 @@ myApp.config(function($routeProvider, $locationProvider, $mdThemingProvider) {
       'hue-1' : '700',
       'hue-2' : '900'
     })
-    .accentPalette('green')
+    .accentPalette('green',{
+      'default': '300'
+    })
     .warnPalette('purple', {
       'default': '600'
     })
