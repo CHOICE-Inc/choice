@@ -104,10 +104,21 @@
 
 
 /* TABLE STYLING FOR MANAGE PAGES */
+table.md-table th.md-column {
+  color: #007ac1;
+  font-size: 1.5em;
+  padding: 10px 0px;
+}
+table.md-table:not(.md-row-select) td.md-cell:nth-child(n+2):nth-last-child(n+2),
+table.md-table:not(.md-row-select) th.md-column:nth-child(n+2):nth-last-child(n+2) {
+  padding: 10px 56px 10px 0px;
+}
+table.md-table td.md-cell {
+  font-size: 1.1em;
+}
 #staffTable{
   width: 100%;
 }
-
 #addStaffBtn {
   height: 25px;
 }
