@@ -1,0 +1,113 @@
+/* CSS FILE FOR GOAL CRITERIA PAGE AND GOAL TRACKING PAGE */
+/* Also includes styling for the Manage pages*/
+
+/* GOAL CRITERIA STYLING */
+.userText {
+  font-size: 1.2em;
+}
+
+.goalView {
+  padding: 10px;
+  margin: 5px;
+  /*border: 1px solid #01579b;*/
+}
+
+/* GOAL TRACKING STYLING */
+#leftColumn {
+  padding: 10px;
+  border: 1px solid #01579b;
+}
+
+#rightColumn {
+  padding: 10px;
+}
+
+.goalBox {
+  width: 100%;
+  background-color: #e6ffff;
+  border-bottom: 1px solid #01579b;
+  margin: auto;
+  padding: 5px;
+}
+
+.goalNameBox {
+  background-color: #004ba0;
+  color: #fff;
+  border: 1px solid #01579b;
+}
+
+.goalName {
+  font-size: 1.5em;
+}
+
+.label {
+  font-weight: bold;
+  color: #004ba0;
+}
+
+#clientName, #cmName {
+  font-weight: normal;
+  font-size: 1.8em;
+  color: #000;
+}
+
+.locationName, .goalNotes, .date {
+  font-weight: normal;
+  font-size: 1.5em;
+  color: #000;
+}
+
+.amPmButtons {
+  padding-left: 5px;
+}
+
+.amComplete, .pmComplete {
+  font-size: 1.2em;
+}
+
+.initialsInput {
+  border: 1px solid #01579b;
+  background-color: white;
+}
+
+/* HISTORY TABLE CONDITIONAL STYLING */
+.goalHistoryTable {
+  text-align: center;
+}
+
+.successRate {
+  font-size: 2.0em;
+  font-weight: bold;
+}
+
+.tableHeader {
+  background-color: #b3e5fc;
+}
+
+.rowDefault {
+  background-color: #f5f5f5;
+  color: #fff;
+  border-bottom: 1px solid #01579b;
+}
+
+.rowComplete {
+  background-color: #00600f;
+  color: #fff;
+  border-bottom: 1px solid #01579b;
+}
+
+.rowIncomplete {
+  background-color: #ab000d;
+  color: #fff;
+  border-bottom: 1px solid #01579b;
+}
+
+
+/* TABLE STYLING FOR MANAGE PAGES */
+#staffTable{
+  width: 100%;
+}
+
+#addStaffBtn {
+  height: 25px;
+}
