@@ -382,15 +382,19 @@ vm.test = function(){
 // };
 
 //Change class on goal history table depending on goal completion
-function setTableRowClass(completionStatus){
+vm.setTableRowClass = function(completionStatus){
+  var completeStyle = "background-color: green";
+  var incompleteStyle = "background-color: red";
+  var defaultStyle = "background-color: grey";
+
   if(completionStatus === 'complete'){
-    vm.rowClass = 'rowComplete';
+    return completeStyle;
   } else if(completionStatus === 'incomplete'){
-    vm.rowClass = 'rowIncomplete';
+    return incompleteStyle;
   } else {
-    vm.rowClass = 'rowDefault';
+    return defaultStyle;
   }
-} //end function
+}; //end function
 
 
 
