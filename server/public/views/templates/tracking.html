@@ -180,8 +180,8 @@
                             <td md-cell>IN</td>
                             <td md-cell>{{gh.complete_or_not}}</td>
                             <td md-cell>{{gh.notes}}</td>
-                            <td md-cell><button type="button" name="button">Edit</button>
-                              <button type="button" name="button">Delete</button>
+                            <td md-cell><button ng-if="tc.userObject.role < 3" type="button" name="button">Edit</button>
+                              <button ng-if="tc.userObject.role < 3" type="button" name="button">Delete</button>
                             </td>
                           </tr>
                         </tbody>
