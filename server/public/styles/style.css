@@ -11,10 +11,10 @@ body, html {
 }
 
 a {
-  color: #e8f5e9;
+  color: #fff;
 }
 a:hover {
-  color: #98ee99;
+  color: #b2fab4;
 }
 
 textarea {
@@ -22,14 +22,33 @@ textarea {
   height: 100%;
 }
 
-.bodyContainer {
-  min-height: 700px;
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
+li {
+  float: left;
+}
 
-/* TABLE STYLING FOR MANAGE __ PAGES */
-#staffTable{
-  width: 100%;
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+  text-decoration: underline;
+  color: #b2fab4;
+}
+
+.bodyContainer {
+  min-height: 700px;
 }
 
 /* GOAL CRITERIA STYLING */
@@ -40,13 +59,13 @@ textarea {
 .goalView {
   padding: 10px;
   margin: 5px;
-  border: 1px solid #0d47a1;
+  border: 1px solid #01579b;
 }
 
 /* GOAL TRACKING STYLING */
 #leftColumn {
   padding: 10px;
-  border: 1px solid #0d47a1;
+  border: 1px solid #01579b;
 }
 
 #rightColumn {
@@ -56,7 +75,7 @@ textarea {
 .goalBox {
   width: 100%;
   background-color: #e6ffff;
-  border-bottom: 1px solid #0d47a1;
+  border-bottom: 1px solid #01579b;
   margin: auto;
   padding: 5px;
 }
@@ -64,7 +83,7 @@ textarea {
 .goalNameBox {
   background-color: #004ba0;
   color: #fff;
-  border: 1px solid #0d47a1;
+  border: 1px solid #01579b;
 }
 
 .goalName {
@@ -97,7 +116,7 @@ textarea {
 }
 
 .initialsInput {
-  border: 1px solid #0d47a1;
+  border: 1px solid #01579b;
   background-color: white;
 }
 
@@ -116,26 +135,30 @@ textarea {
 }
 
 .rowDefault {
-  background-color: #e1f5fe;
+  background-color: #f5f5f5;
   color: #fff;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #01579b;
 }
 
 .rowComplete {
   background-color: #00600f;
   color: #fff;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #01579b;
 }
 
 .rowIncomplete {
   background-color: #ab000d;
   color: #fff;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #01579b;
 }
 
 /* LOGIN SCREEN, NAVBAR & FOOTER STYLING */
 .loginScreen a {
-  color: #F3E3FF;
+  color: #FFF;
+}
+
+.loginScreen a:hover {
+  color: #b2fab4;
 }
 
 .loginScreen {
@@ -145,7 +168,7 @@ textarea {
 }
 
 .loginBox {
-  color: white;
+  color: #fff;
 }
 
 .choiceLogo {
@@ -170,16 +193,22 @@ textarea {
   margin: 5px;
 }
 
+.navbar {
+  background-color: #039be5;
+  width: 100%;
+  border-radius: 0px;
+}
+
 .nav-toolbar {
-  color: #e8f5e9;
+  color: #039be5;
 }
 
 .pulldownOption {
-  color: black;
+  color: #01579b;
 }
 
 .pulldownOption:hover {
-  color: #006db3;
+  color: #0288d1;
 }
 
 #navbarImage {
@@ -210,12 +239,76 @@ textarea {
   text-align: right;
   padding-right: 20px;
 }
-#backToTop {
-  color: #000;
-  text-align: left;
-  padding-left: 20px;
+
+
+/* LANDING PAGE STYLING */
+#welcome {
+  color: #fff;
+}
+.welcomeMsg {
+  color: #e8f5e9;
 }
 
+/* TABLE STYLING FOR MANAGE PAGES */
+#staffTable{
+  width: 100%;
+}
+
+
+/* Angular Material Tables */
+table-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  min-width: 300px;
+}
+
+.mat-table {
+  overflow: auto;
+}
+
+/* Home Page after login */
+
+.homeImage {
+  width: 700px;
+  height: 460px;
+  margin-left: 60px;
+  margin-top: 40px;
+  border: 1px solid black;
+}
+
+#homePageImage {
+  width: 700px;
+  height: auto;
+}
+
+.homeContainer {
+  display: inline-flex;
+}
+
+.homeWelcome {
+  margin-top: 10px;
+  text-align: center;
+}
+
+#welcome {
+  margin-bottom: 50px;
+  font-size: 30px;
+}
+
+.doNext {
+  width: 400px;
+  height: 460px;
+  margin: 40px;
+  border: 1px solid #01579b;
+  background-color: #039be5;
+}
+
+/* ADMIN PARTIAL */
+
+.adminhtml {
+  font-size: 20px;
+}
 
 /* ---- BASE STYLING FROM THE PROJECT TEMPLATE ---- */
 .instructions .container h1 {
@@ -261,89 +354,35 @@ textarea {
   margin-left: 10px;
 }
 
-.navbar {
-  background-color: #039be5;
-  width: 100%;
-  border-radius: 0px;
-}
-
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-}
-
-li {
-  float: left;
-}
-
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-/* Change the link color to #111 (black) on hover */
-li a:hover {
-  text-decoration: underline;
-  color: #eee;
-}
-
-/* Angular Material Tables */
-table-container {
-  display: flex;
-  flex-direction: column;
-  max-height: 500px;
-  min-width: 300px;
-}
-
-.mat-table {
-  overflow: auto;
-}
 
 
-/* Home Page after login */
+/* ------- COLOR LIBRARY ---------
+Primary Palette - Material Light Blue 600
+Light Blue: #039be5 (middle blue)
+md-hue-1: #0288d1 (slightly darker middle blue)
+md-hue-2: #01579b (dark blue)
 
-.homeImage {
-  width: 700px;
-  height: 460px;
-  margin-left: 60px;
-  margin-top: 40px;
-  border: 1px solid black;
-}
+Accent Palette - Material Green 300
+Middle Green: #81c784
+Dark Green: #519657
+Light Green: #b2fab4
 
-#homePageImage {
-  width: 700px;
-  height: auto;
-}
+Warn Palette - Material Purple 600
+Middle Purple: #8e24aa
+Light Purple: #c158dc
+Dark Purple: #5c007a
 
-.homeContainer {
-  display: inline-flex;
-}
+Background Palette - Material Grey 100
+Middle grey: #f5f5f5
+Dark grey: #c2c2c2
 
-.homeWelcome {
-  margin-top: 10px;
-  text-align: center;
-}
+Text Color:
+White: #fff (a tags, other text on blue)
+Black: #000
 
-#welcome {
-  margin-bottom: 50px;
-  font-size: 30px;
-}
 
-.doNext {
-  width: 400px;
-  height: 460px;
-  margin: 40px;
-  border: 1px solid black;
-  background-color: #039be5;
-}
 
-/* ADMIN PARTIAL */
 
-.adminhtml {
-  font-size: 20px;
-}
+
+
+*/
