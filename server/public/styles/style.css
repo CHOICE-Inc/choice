@@ -216,6 +216,13 @@ textarea {
   padding-left: 20px;
 }
 
+/* LANDING PAGE STYLING */
+#welcome {
+  color: #fff;
+}
+.welcomeMsg {
+  color: #e8f5e9;
+}
 
 /* ---- BASE STYLING FROM THE PROJECT TEMPLATE ---- */
 .instructions .container h1 {
