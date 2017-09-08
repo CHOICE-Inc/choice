@@ -131,6 +131,9 @@ myApp.controller('GoalController', function($http, $location, UserService, GoalS
     vm.goal_summary = dataObject.goal_summary;
     vm.goal_id = dataObject.goalid;
     vm.goal_status = dataObject.goal_status;
+    vm.jobsite_id = dataObject.jobsite_id;
+    vm.staff_id = dataObject.staff_id;
+    vm.staff_name = dataObject.staff_name;
   };
 
   // POST NEW CRITERIA TO THE DB
@@ -157,11 +160,48 @@ myApp.controller('GoalController', function($http, $location, UserService, GoalS
         console.log('sending goal data to db: ');
         if (response) {
           console.log('server sent something back: ', response);
+          var data = {};
+          vm.assignData(data);
         }
       });
     };
 
     // UPDATE SINGEL CRITERIA IN DB USING GOAL_ID
+
+    // UPDATE SINGLE CRITERIA IN DB USING GOAL_ID
+        vm.updateCriteria = function(client_id, jobsite_id, implementation_date, review_dates, completion_date,
+          service_outcome, objective, behavior_techniques, modifications, equipment, jobsite_details,
+          when_notes, plan_steps,goal_name, goal_summary, goal_id) {
+            console.log('Updating goal w/ id of: ', goal_id);
+
+            // RETRIVE GOAL CRITERIA DATA FROM DOM
+            goal.client_id = client_id;
+            goal.jobsite_id = jobsite_id;
+            goal.implementation_date = implementation_date;
+            goal.review_dates = review_dates;
+            goal.completion_date = completion_date;
+            goal.service_outcome = service_outcome;
+            goal.objective = objective;
+            goal.behavior_techniques = behavior_techniques;
+            goal.modifications = modifications;
+            goal.equipment = equipment;
+            goal.jobsite_details = jobsite_details;
+            goal.when_notes = when_notes;
+            goal.plan_steps = plan_steps;
+            goal.goal_name = goal_name;
+            goal.goal_summary = goal_summary;
+            console.log("goal: ", goal);
+
+            //PUT request to update DB
+            $http.put('/goal/' + goal_id, goal).then(function(response) {
+              console.log('sending goal data to db: ');
+              if (response) {
+                console.log('server sent something back: ', response);
+
+              }
+            });
+          };
+
 
     // GO BACK TO TRACKING PAGE -- ON VIEW GOAL PAGE
     vm.goBackToTracking =  function(goal_id, client_id){

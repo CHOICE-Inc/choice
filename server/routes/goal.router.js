@@ -201,8 +201,7 @@ router.get('/singlecriteria', function(req, res){
   console.log('In get route for client\'s goal criteria: ', req.query);
   console.log('on server, client_id = ', req.query.client_id, 'on server, goal_id = ', req.query.goal_id);
 
-  var getGoal = ' SELECT goal.id as goalID, * FROM "goal" JOIN "client" ON "goal"."client_id" = "client"."id" ' +
-  ' JOIN "job_site" ON "job_site"."id" = "goal"."jobsite_id" WHERE "client_id" = $1 AND "goal"."id" = $2; ';
+  var getGoal = 'SELECT goal.id as goalID, * FROM "client" JOIN "staff" ON "client"."staff_id" = "staff"."id" JOIN "goal" ON "goal"."client_id" = "client"."id" JOIN "job_site" ON "job_site"."id" = "goal"."jobsite_id" WHERE "client_id" = $1 AND "goal"."id" = $2';
 
   var clientID = parseInt(req.query.client_id);
   var goalID = parseInt(req.query.goal_id);
@@ -250,7 +249,7 @@ router.put('/:id', function(req, res){
     } else {
 
       //DEFINE DATA VALUES
-      var goal_ID = req.params.id;
+      var goal_id = req.params.id;
 
       var client_id = req.body.client_id;
       var jobsite_id = req.body.jobsite_id;
@@ -276,7 +275,7 @@ router.put('/:id', function(req, res){
       console.log('For goal update, using DB query string: ', dbQueryString);
 
       var goalValuesArray = [client_id, jobsite_id, implementation_date, review_dates, completion_date,
-      service_outcome, objective, jobsite_details, behavior_techniques, modifications, equipment, when_notes, plan_steps, goal_name, goal_summary, goal_ID];
+      service_outcome, objective, jobsite_details, behavior_techniques, modifications, equipment, when_notes, plan_steps, goal_name, goal_summary, goal_id];
 
       console.log('Going to update the DB with these values: ', goalValuesArray);
       // MAKE DB QUERY
