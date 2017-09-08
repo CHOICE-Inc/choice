@@ -1,8 +1,9 @@
-div {
+* {
   /*border: 1px solid blue;*/
 }
+/* OVERALL GENERAL STYLING CSS FILE*/
 
-/* OVERALL STYLING */
+/* OVERALL STYLING ON MAIN ELEMENTS */
 body, html {
   margin: 0;
   padding: 0;
@@ -12,9 +13,11 @@ body, html {
 
 a {
   color: #fff;
+  text-decoration: none;
 }
 a:hover {
   color: #b2fab4;
+  text-decoration: underline;
 }
 
 textarea {
@@ -35,7 +38,7 @@ li {
 
 li a {
   display: block;
-  color: white;
+  color: #007ac1;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -44,270 +47,29 @@ li a {
 /* Change the link color to #111 (black) on hover */
 li a:hover {
   text-decoration: underline;
-  color: #b2fab4;
+  color: #03a9f4;
 }
 
 .bodyContainer {
   min-height: 700px;
 }
 
-/* GOAL CRITERIA STYLING */
-.userText {
-  font-size: 1.2em;
+hr {
+	border-top: 1px solid #c2c2c2;
+	text-align: center;
 }
-
-.goalView {
-  padding: 10px;
-  margin: 5px;
-  border: 1px solid #01579b;
-}
-
-/* GOAL TRACKING STYLING */
-#leftColumn {
-  padding: 10px;
-  border: 1px solid #01579b;
-}
-
-#rightColumn {
-  padding: 10px;
-}
-
-.goalBox {
-  width: 100%;
-  background-color: #e6ffff;
-  border-bottom: 1px solid #01579b;
-  margin: auto;
-  padding: 5px;
-}
-
-.goalNameBox {
-  background-color: #004ba0;
-  color: #fff;
-  border: 1px solid #01579b;
-}
-
-.goalName {
-  font-size: 1.5em;
-}
-
-.label {
-  font-weight: bold;
-  color: #004ba0;
-}
-
-#clientName, #cmName {
-  font-weight: normal;
-  font-size: 1.8em;
-  color: #000;
-}
-
-.locationName, .goalNotes, .date {
-  font-weight: normal;
-  font-size: 1.5em;
-  color: #000;
-}
-
-.amPmButtons {
-  padding-left: 5px;
-}
-
-.amComplete, .pmComplete {
-  font-size: 1.2em;
-}
-
-.initialsInput {
-  border: 1px solid #01579b;
-  background-color: white;
-}
-
-/* HISTORY TABLE CONDITIONAL STYLING */
-.goalHistoryTable {
-  text-align: center;
-}
-
-.successRate {
-  font-size: 2.0em;
-  font-weight: bold;
-}
-
-.tableHeader {
-  background-color: #b3e5fc;
-}
-
-.rowDefault {
-  background-color: #f5f5f5;
-  color: #fff;
-  border-bottom: 1px solid #01579b;
-}
-
-.rowComplete {
-  background-color: #00600f;
-  color: #fff;
-  border-bottom: 1px solid #01579b;
-}
-
-.rowIncomplete {
-  background-color: #ab000d;
-  color: #fff;
-  border-bottom: 1px solid #01579b;
-}
-
-/* LOGIN SCREEN, NAVBAR & FOOTER STYLING */
-.loginScreen a {
-  color: #FFF;
-}
-
-.loginScreen a:hover {
-  color: #b2fab4;
-}
-
-.loginScreen {
-  background-image: url("https://images.unsplash.com/photo-1490272951680-512033991007?dpr=2&auto=format&fit=crop&w=1199&h=799&q=80&cs=tinysrgb&crop=");
-  background-size: cover;
-  height: 700px;
-}
-
-.loginBox {
-  color: #fff;
-}
-
-.choiceLogo {
-  width: 80px;
-  height: 80px;
-}
-
-#choiceLogoSm {
-  width: 70px;
-  height: 60px;
-}
-
-.title {
-  font-size: 3.0em;
-  font-family: serif;
-  color: #333;
-  padding-left: 20px;
-  text-align: center;
-}
-
-.loginForm input {
-  margin: 5px;
-}
-
-.navbar {
-  background-color: #039be5;
-  width: 100%;
-  border-radius: 0px;
-}
-
-.nav-toolbar {
-  color: #039be5;
-}
-
-.pulldownOption {
-  color: #01579b;
-}
-
-.pulldownOption:hover {
-  color: #0288d1;
-}
-
-#navbarImage {
-  background-color: #fff;
-}
-
-#navMenuOptions {
-  padding-top: 10px;
-  font-size: 2.5em;
-}
-
-#manageGoalsLink, #adminToolsLink {
-  text-decoration: underline;
-  color: #e8f5e9;
-}
-
-#welcomeMsg {
-  color: #fff;
-  font-size: 1.5em;
-  padding-top: 10px;
-}
-
-#logoutBtn {
-  margin-top: 10px;
-}
-
-#copyright {
-  text-align: right;
-  padding-right: 20px;
-}
-
-
-/* LANDING PAGE STYLING */
-#welcome {
-  color: #fff;
-}
-.welcomeMsg {
-  color: #e8f5e9;
-}
-
-/* TABLE STYLING FOR MANAGE PAGES */
-#staffTable{
-  width: 100%;
-}
-
-
-/* Angular Material Tables */
-table-container {
-  display: flex;
-  flex-direction: column;
-  max-height: 500px;
-  min-width: 300px;
-}
-
-.mat-table {
-  overflow: auto;
-}
-
-/* Home Page after login */
-
-.homeImage {
-  width: 700px;
-  height: 460px;
-  margin-left: 60px;
-  margin-top: 40px;
-  border: 1px solid black;
-}
-
-#homePageImage {
-  width: 700px;
-  height: auto;
-}
-
-.homeContainer {
-  display: inline-flex;
-}
-
-.homeWelcome {
-  margin-top: 10px;
-  text-align: center;
-}
-
-#welcome {
-  margin-bottom: 50px;
-  font-size: 30px;
-}
-
-.doNext {
-  width: 400px;
-  height: 460px;
-  margin: 40px;
-  border: 1px solid #01579b;
-  background-color: #039be5;
-}
-
-/* ADMIN PARTIAL */
-
-.adminhtml {
-  font-size: 20px;
+hr:after {
+	content: '§';
+	display: inline-block;
+	position: relative;
+	top: -14px;
+	padding: 0 10px;
+	background: #f5f5f5;
+	color: #c2c2c2;
+	font-size: 18px;
+	-webkit-transform: rotate(60deg);
+	-moz-transform: rotate(60deg);
+	transform: rotate(60deg);
 }
 
 /* ---- BASE STYLING FROM THE PROJECT TEMPLATE ---- */
@@ -354,35 +116,32 @@ table-container {
   margin-left: 10px;
 }
 
-
-
 /* ------- COLOR LIBRARY ---------
-Primary Palette - Material Light Blue 600
-Light Blue: #039be5 (middle blue)
-md-hue-1: #0288d1 (slightly darker middle blue)
-md-hue-2: #01579b (dark blue)
+Primary Palette - Material Light Blue 00
+Light Blue: #67daff
+Medium Blue: #03a9fd
+Dark Blue: #007ac1
 
-Accent Palette - Material Green 300
-Middle Green: #81c784
-Dark Green: #519657
-Light Green: #b2fab4
+Accent Palette - Material Green 400
+Light Green: #98ee99
+Middle Green: #66bb6a
+Dark Green: #338ae3
 
-Warn Palette - Material Purple 600
-Middle Purple: #8e24aa
-Light Purple: #c158dc
-Dark Purple: #5c007a
+Warn Palette - Material Red 500
+Light Purple: #ff6f60
+Middle Purple: #e53935
+Dark Purple: #ab000d
 
 Background Palette - Material Grey 100
 Middle grey: #f5f5f5
 Dark grey: #c2c2c2
 
 Text Color:
-White: #fff (a tags, other text on blue)
+White & <a> on dark background: #fff
+<a> hover: #b2fab4 (light green)
 Black: #000
-
-
-
-
-
+Dark blue: #007acl
+<a> on light background: #03a9fd (medium blue)
+<a> hover: #67daff (light blue)
 
 */

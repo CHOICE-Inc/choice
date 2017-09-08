@@ -175,11 +175,16 @@
                         </thead>
                         <tbody md-body>
                           <tr md-row ng-class="tc.rowClass" ng-repeat="gh in goal.shownHistory">
-                            <td md-cell>{{gh.date_tracked | date}}</td>
-                            <td md-cell>{{gh.am_or_pm}}</td>
-                            <td md-cell>IN</td>
-                            <td md-cell>{{gh.complete_or_not}}</td>
-                            <td md-cell>{{gh.notes}}</td>
+                            <td md-cell ng-class="{rowComplete: gh.complete_or_not == 'complete' , rowIncomplete: gh.complete_or_not == 'incomplete'}">
+                              {{gh.date_tracked | date}}</td>
+                            <td md-cell ng-class="{rowComplete: gh.complete_or_not == 'complete' , rowIncomplete: gh.complete_or_not == 'incomplete'}">
+                              {{gh.am_or_pm}}</td>
+                            <td md-cell ng-class="{rowComplete: gh.complete_or_not == 'complete' , rowIncomplete: gh.complete_or_not == 'incomplete'}">
+                              IN</td>
+                            <td md-cell ng-class="{rowComplete: gh.complete_or_not == 'complete' , rowIncomplete: gh.complete_or_not == 'incomplete'}">
+                              {{gh.complete_or_not}}</td>
+                            <td md-cell ng-class="{rowComplete: gh.complete_or_not == 'complete' , rowIncomplete: gh.complete_or_not == 'incomplete'}">
+                              {{gh.notes}}</td>
                             <td md-cell><button ng-if="tc.userObject.role < 3" type="button" name="button">Edit</button>
                               <button ng-if="tc.userObject.role < 3" type="button" name="button">Delete</button>
                             </td>

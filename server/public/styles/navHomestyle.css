@@ -1,0 +1,147 @@
+/* THIS CSS FILE CONTAINS STYLING FOR THE LOGIN PAGE, THE HOME PAGE
+ & THE NAV BAR */
+
+/* LOGIN SCREEN STYLING */
+.loginScreen a {
+  color: #FFF;
+  text-decoration: none;
+}
+
+.loginScreen a:hover {
+  color: #b2fab4;
+  text-decoration: underline;
+}
+
+.loginScreen {
+  background-image: url("https://images.unsplash.com/photo-1495801424028-edc6b0a54252?dpr=2&amp;auto=compress,format&amp;fit=crop&amp;w=376&amp;h=251&amp;q=80&amp;cs=tinysrgb&amp;crop=");
+  background-size: cover;
+  height: 700px;
+}
+
+.loginBox {
+  color: #fff;
+}
+
+.choiceLogo {
+  width: 80px;
+  height: 80px;
+}
+
+.title {
+  font-size: 3.0em;
+  font-family: serif;
+  color: #333;
+  padding-left: 20px;
+  text-align: center;
+}
+
+.loginForm input {
+  margin: 5px;
+}
+
+/* NAVBAR & FOOTER STYLING */
+.navbar {
+  background-color: #03a9f4;
+  width: 100%;
+  border-radius: 0px;
+}
+
+.pulldownOption {
+  color: #007ac1;
+  text-decoration: none;
+}
+
+.pulldownOption:hover {
+  color: #000;
+  text-decoration: underline;
+}
+
+#navbarImage {
+  background-color: #fff;
+}
+
+#choiceLogoSm {
+  width: 70px;
+  height: 60px;
+}
+
+#navMenuOptions {
+  padding-top: 10px;
+  font-size: 2.5em;
+}
+
+#manageGoalsLink, #adminToolsLink {
+  color: #e8f5e9;
+}
+
+#manageGoalsLink:hover, #adminToolsLink:hover {
+  color: #b2fab4;
+  text-decoration: underline;
+}
+
+#welcomeMsg {
+  color: #fff;
+  font-size: 1.5em;
+  padding-top: 10px;
+}
+
+#logoutBtn {
+  margin-top: 10px;
+  background-color: #ab000d;
+  opacity: 0.8;
+}
+#logoutBtn:hover {
+  background-color: #e53935;
+}
+
+/* Footer */
+#copyright {
+  color: #c2c2c2;
+  text-align: right;
+  padding-right: 20px;
+}
+
+/* LANDING PAGE STYLING */
+.homeImage {
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+
+.welcome {
+  color: #007ac1;
+  font-size: 2.0em;
+}
+.whatToDo {
+  color: #66bb6a;
+  font-size: 2.0em;
+}
+
+#homePageImage {
+  width: 500px;
+  height: auto;
+  opacity: 75;
+}
+
+.homeWelcome {
+  margin-top: 10px;
+}
+
+.homeWelcome a {
+  color: #007acl;
+}
+
+#welcome {
+  font-size: 30px;
+  color: #03a9f4;
+}
+.userhomeOptions {
+  font-size: 1.7em;
+}
+
+.doNext {
+  width: 400px;
+  height: 460px;
+  margin: 40px;
+  /*border: 1px solid #01579b;*/
+  background-color: #039be5;
+}
