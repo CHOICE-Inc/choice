@@ -87,27 +87,38 @@
 .rowDefault {
   background-color: #f5f5f5;
   color: #fff;
-  border-bottom: 1px solid #01579b;
+  /*border-bottom: 1px solid #fff;*/
 }
 
 .rowComplete {
-  background-color: #00600f;
+  background-color: #ef9a9a;
   color: #fff;
-  border-bottom: 1px solid #01579b;
+  /*border-bottom: 1px solid #fff;*/
 }
 
 .rowIncomplete {
-  background-color: #ab000d;
+  background-color: #d7ffd9;
   color: #fff;
-  border-bottom: 1px solid #01579b;
+  /*border-bottom: 1px solid #fff;*/
 }
 
 
 /* TABLE STYLING FOR MANAGE PAGES */
+table.md-table th.md-column {
+  color: #007ac1;
+  font-size: 1.5em;
+  padding: 10px 0px;
+}
+table.md-table:not(.md-row-select) td.md-cell:nth-child(n+2):nth-last-child(n+2),
+table.md-table:not(.md-row-select) th.md-column:nth-child(n+2):nth-last-child(n+2) {
+  padding: 10px 56px 10px 0px;
+}
+table.md-table td.md-cell {
+  font-size: 1.1em;
+}
 #staffTable{
   width: 100%;
 }
-
 #addStaffBtn {
   height: 25px;
 }

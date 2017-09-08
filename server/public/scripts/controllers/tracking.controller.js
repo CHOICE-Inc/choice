@@ -381,18 +381,6 @@ vm.test = function(){
 //   console.log('d is:', d);
 // };
 
-//Change class on goal history table depending on goal completion
-function setTableRowClass(completionStatus){
-  if(completionStatus === 'complete'){
-    vm.rowClass = 'rowComplete';
-  } else if(completionStatus === 'incomplete'){
-    vm.rowClass = 'rowIncomplete';
-  } else {
-    vm.rowClass = 'rowDefault';
-  }
-} //end function
-
-
 
 
 }); //END OF CONTROLLER
