@@ -20,11 +20,11 @@ myApp.controller('LoginController', function($http, $location, UserService) {
             $location.path('/userhome'); // http://localhost:5000/#/summary
           } else {
             console.log('LoginController -- login -- failure: ', response);
-            vm.message = "Wrong!!";
+            vm.message = "Incorrect Credentials. Please see your administrator.";
           }
         }).catch(function(response){
           console.log('LoginController -- registerUser -- failure: ', response);
-          vm.message = "Wrong!!";
+          vm.message = "Incorrect Credentials. Please see your administrator.";
         });
       }
     };
