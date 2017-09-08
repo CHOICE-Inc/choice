@@ -6,13 +6,13 @@
   </div>
   <div class="doNext">
     <div class="homeWelcome">
-      <h1 id="welcome">Welcome, {{hc.userObject.name}}!</h1>
+      <h1 id="welcome">Welcome, {{hc.userObject.userName}}!</h1>
       <div ng-if="hc.userObject.role == 1" ng-include=" 'views/partials/adminpartial.html' ">
       </div>
       <div ng-if="hc.userObject.role == 2" ng-include=" 'views/partials/casemanagerpartial.html' ">
       </div>
       <div ng-if="hc.userObject.role == 3 " ng-include=" 'views/partials/staffpartial.html' ">
-
+        
       </div>
     </div>
   </div>
