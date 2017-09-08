@@ -45,9 +45,20 @@ myApp.controller('StaffController', function($http, $mdToast, $location, UserSer
   vm.addNewStaff = function(){
     console.log('added a new employee', vm.staffToAdd);
     $http.post('/staff/newStaff/', vm.staffToAdd).then(function(response){
+      swal(
+'Success!',
+'A new staff member has been created.',
+'success'
+);
       console.log('received response from addNewStaff POST');
       vm.staffToAdd = {};
       getStaff();
+    }).catch(function(){
+      swal(
+  'Error adding new staff.',
+  'Make sure all required information has been entered!',
+  'error'
+);
     });
   };
 
@@ -56,7 +67,18 @@ myApp.controller('StaffController', function($http, $mdToast, $location, UserSer
     console.log('in updateStaff, sending:', staff);
     $http.put('/staff/updateStaff/', staff).then(function(response){
       console.log(response.data);
+      swal(
+'Success!',
+'Staff member information has been updated.',
+'success'
+);
       getStaff();
+    }).catch(function(){
+      swal(
+  'Error updating staff.',
+  'Make sure all required information has been entered!',
+  'error'
+);
     });
   };
 

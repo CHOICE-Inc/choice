@@ -46,10 +46,21 @@ myApp.controller('JobSitesController', function($http, $mdToast, $location, User
 
   $http.post('/jobSites/newjobsite', jobsiteObject).then(function(response) {
     console.log('added new Job Site to db:', response);
+    swal(
+'Success!',
+'A new job site has been added.',
+'success'
+);
     getManageJobSites();
     if (response) {
       console.log('server sent something back: ', response);
     }
+  }).catch(function(){
+    swal(
+'Error adding new job site.',
+'Make sure all required information has been entered!',
+'error'
+);
   });
 
 };
@@ -79,8 +90,19 @@ myApp.controller('JobSitesController', function($http, $mdToast, $location, User
       jsc.updateJobSite = function(jobsite){
         console.log('in updateJobSite, sending:', jobsite);
         $http.put('/jobSites/editjobsites/', jobsite).then(function(response){
+          swal(
+    'Success!',
+    'Job site information has been updated.',
+    'success'
+    );
           console.log(response.data);
           getManageJobSites();
+        }).catch(function(){
+          swal(
+      'Error updating job site.',
+      'Make sure all required information has been entered!',
+      'error'
+    );
         });
       };
 
