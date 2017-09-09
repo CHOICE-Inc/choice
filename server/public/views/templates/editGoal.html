@@ -35,7 +35,7 @@
     <md-input-container>
       <label>Select goal to view:</label>
       <md-select ng-model="gc.goalSelection">
-        <md-option ng-repeat="goal in gc.allGoalData" value="{{goal.objective}}" ng-click="gc.getGoalCriteria(goal.goalid, goal.client_id)">{{goal.objective}}</md-option>
+        <md-option ng-repeat="goal in gc.allGoalData" value="{{goal.goal_name}}" ng-click="gc.getGoalCriteria(goal.goalid, goal.client_id)">{{goal.goal_name}}</md-option>
       </md-select>
     </md-input-container>
   </div>
@@ -58,7 +58,7 @@
           </div>
           <div layout="column" layout-align="center center" flex="40">
             <div layout="row">
-            
+
 
               <md-button class="md-raised md-primary md-hue-1" name="updateBtn" ng-disabled="false" ng-click="gc.updateCriteria(gc.client_id, gc.jobsite_id, gc.implementation_date, gc.review_dates, gc.completion_date,
               gc.service_outcome, gc.objective, gc.behavior_techniques, gc.modifications, gc.equipment, gc.jobsite_details, gc.when_notes, gc.plan_steps,
@@ -96,7 +96,7 @@
             </form>
           </div>
             <md-input-container>
-              <span>CASE MANAGER: {{gc.staff_name}}</span>
+              <span>CHOICE Representative: {{gc.staff_name}}</span>
               <!-- <label>CHOICE Representative:</label>
               <md-select ng-model="gc.casemanagerName">
                 <md-option ng-repeat="casemanagerName in gc.casemanagerData" value="{{casemanagerName.staff_name}}" ng-click="gc.assignCMID(casemanagerName.id)">{{casemanagerName.staff_name}}</md-option>

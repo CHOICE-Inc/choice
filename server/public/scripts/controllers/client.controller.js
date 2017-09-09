@@ -40,7 +40,7 @@ myApp.controller('ClientController', function($http, $mdToast, $location, UserSe
  // gets list of staff
   function getStaff(){
     console.log('in getSt');
-    $http.get('/staff/getAllStaff').then(function(response) {
+    $http.get('/staff/getAllCM').then(function(response) {
       console.log(response.data);
       vm.staffArray = response.data;
       console.log('staff array is:', vm.staffArray);
@@ -62,7 +62,18 @@ myApp.controller('ClientController', function($http, $mdToast, $location, UserSe
     $http.put('/client/updateClient/', client).then(function(response){
 
       console.log('got response from updateClient PUT');
+      swal(
+'Success!',
+'Participant information has been updated.',
+'success'
+);
       getClients();
+    }).catch(function(){
+      swal(
+  'Error updating participant.',
+  'Make sure all required information has been entered!',
+  'error'
+);
     });
   };
 
@@ -70,8 +81,20 @@ vm.addNewClient = function(){
   console.log('in addNewClient');
   $http.post('/client/addClient/', vm.clientToAdd).then(function(response){
     console.log('received response from addNewClient POST');
+    swal(
+'Success!',
+'A new participant has been created.',
+'success'
+);
     vm.clientToAdd = {};
     getClients();
+  }).catch(function(){
+    console.log('ERROR ERROR ERROR ERROR');
+    swal(
+'Error adding new participant.',
+'Make sure all required information has been entered!',
+'error'
+);
   });
 
 };
