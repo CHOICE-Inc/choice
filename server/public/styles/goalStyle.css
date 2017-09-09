@@ -93,13 +93,13 @@
 }
 
 .rowComplete {
-  background-color: #ef9a9a;
+  background-color: #98ee99;
   color: #fff;
   /*border-bottom: 1px solid #fff;*/
 }
 
 .rowIncomplete {
-  background-color: #d7ffd9;
+  background-color: #ff6f60;
   color: #fff;
   /*border-bottom: 1px solid #fff;*/
 }
