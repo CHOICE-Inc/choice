@@ -118,8 +118,8 @@ router.post('/trackGoal', function(req, res) {
       //next(err);
     }
     //join goal, client, staff, job, job_site to find all goal date
-    client.query("insert into goal_tracking(goal_id, am_or_pm, complete_or_not, notes, date_tracked) values($1, $2, $3, $4, $5);",
-    [req.body.id, req.body.time, req.body.completion, req.body.notes, req.body.date],
+    client.query("insert into goal_tracking(goal_id, am_or_pm, complete_or_not, notes, date_tracked, entered_by) values($1, $2, $3, $4, $5, $6);",
+    [req.body.id, req.body.time, req.body.completion, req.body.notes, req.body.date, req.user.staff_name],
         function (err, result) {
           done();
           if(err) {

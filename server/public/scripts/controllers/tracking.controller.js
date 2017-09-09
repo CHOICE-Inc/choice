@@ -150,7 +150,6 @@ myApp.controller('TrackingController', function($http, $mdToast, $location, $sco
       time: goal.amOrPm,
       completion: goal.completion,
       notes: goal.notes,
-      initials: vm.initials,
       date: new Date(),
     };
     console.log('sending goalData:', goalData);
@@ -181,13 +180,6 @@ myApp.controller('TrackingController', function($http, $mdToast, $location, $sco
       swal(
         'Today\'s PM data has already been tracked.',
         'To modify an entry, please click the <span style="color:blue"><b>Goal History</b></span> button.',
-        'error'
-      );
-    } else if(vm.initials == ""){
-      console.log('no initials');
-      swal(
-        'Please initial this tracking entry.',
-        'Enter your initials in the field labeled "initials."',
         'error'
       );
     } else {
@@ -368,11 +360,7 @@ vm.deleteEntry = function(id, goal){
 
 vm.test = function(){
   console.log('in test');
-  var x = 3;
-  console.log('am is:' ,vm.clientGoals[0].max_goal_date_am);
-  console.log('pm is:' ,vm.clientGoals[0].max_goal_date_pm);
-  console.log(vm.clientGoals[0].max_goal_date_pm < vm.clientGoals[0].max_goal_date_am);
-  console.log('getTime is:', vm.clientGoals[0].max_goal_date_pm);
+  console.log('userobject is:', vm.userObject);
 };
 
 // Friday night addition
