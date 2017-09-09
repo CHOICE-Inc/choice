@@ -11,7 +11,7 @@
         </md-button>
 
         <md-menu ng-if="nc.userObject.role == 1 || nc.userObject.role == 2">
-          <md-button id="manageGoalsLink" ng-click="$mdMenu.open()">Manage goals</md-button>
+          <md-button id="manageGoalsLink" ng-mouseover="$mdMenu.open()" ng-mouseout="$mdMenu.close()">Manage goals</md-button>
 
           <md-menu-content>
             <md-menu-item>
@@ -30,7 +30,7 @@
         </md-button>
 
         <md-menu ng-if="nc.userObject.role == 1">
-          <md-button id="adminToolsLink"  ng-click="$mdMenu.open()">Admin Tools</md-button>
+          <md-button id="adminToolsLink"  ng-mouseover="$mdMenu.open()" ng-mouseout="$mdMenu.close()">Admin Tools</md-button>
 
           <md-menu-content>
             <md-menu-item>
