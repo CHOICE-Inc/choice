@@ -34,8 +34,7 @@ CREATE TABLE "users" (
   "id" serial primary key,
   "username" varchar(80) not null UNIQUE,
   "password" varchar(240) not null,
-  "staff_id" integer references staff(id),
-  "user_role" integer references staff(id)
+  "staff_id" integer references staff(id)
 );
 
 
