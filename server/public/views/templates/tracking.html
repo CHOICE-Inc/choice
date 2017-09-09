@@ -35,6 +35,9 @@
   <div id="rightColumn" layout="column" flex="80">
 
     <!-- Header Info: Participant's Name & Case Manager -->
+<div layout="row" layout-align="end" flex="none">
+<md-button class="md-raised md-primary" type="button" name="button" ng-click="tc.notifyAdmin(message)">Message Admin</md-button>
+    </div>
     <div layout="row" flex="none">
       <p class="label">Participant Name: <span id="clientName"> {{tc.clientToView.client_name}}</span></p>
     </div>
@@ -44,7 +47,7 @@
 
 
     <!-- TEMPLATE FOR A GOAL & ITS TRACKING INPUTS -->
-    <div class="goalBox" layout="row" ng-repeat="goal in tc.clientGoals" flex>
+    <div style="margin:20px" class="goalBox" layout="row" ng-repeat="goal in tc.clientGoals" flex>
       <div layout="column" flex>
 
         <!-- Row for Goal Name -->
