@@ -40,7 +40,7 @@ myApp.controller('ClientController', function($http, $mdToast, $location, UserSe
  // gets list of staff
   function getStaff(){
     console.log('in getSt');
-    $http.get('/staff/getAllStaff').then(function(response) {
+    $http.get('/staff/getAllCM').then(function(response) {
       console.log(response.data);
       vm.staffArray = response.data;
       console.log('staff array is:', vm.staffArray);
