@@ -109,9 +109,18 @@ md-menu-bar md-menu>button:focus {
 }
 
 /* LANDING PAGE STYLING */
-.homeImage {
-  opacity: 0.5;
-  filter: alpha(opacity=50);
+.homeContainer {
+  min-height: 600px;
+  background-image: url('../../assets/img/choiceLeaves_light.svg');
+  background-size: 700px 700px;
+  background-repeat: no-repeat;
+}
+.userChoices {
+  width: 65%;
+  margin: 0 auto;
+}
+.userhomeOptions a {
+  color: #007ac1;
 }
 
 .welcome {
@@ -121,12 +130,6 @@ md-menu-bar md-menu>button:focus {
 .whatToDo {
   color: #66bb6a;
   font-size: 2.0em;
-}
-
-#homePageImage {
-  width: 500px;
-  height: auto;
-  opacity: 75;
 }
 
 .homeWelcome {
@@ -143,12 +146,4 @@ md-menu-bar md-menu>button:focus {
 }
 .userhomeOptions {
   font-size: 1.7em;
-}
-
-.doNext {
-  width: 400px;
-  height: 460px;
-  margin: 40px;
-  /*border: 1px solid #01579b;*/
-  background-color: #039be5;
 }
