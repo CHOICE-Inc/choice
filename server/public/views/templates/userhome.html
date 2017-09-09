@@ -1,13 +1,7 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <!-- MAIN SUMMARY PAGE - Lists all the participants at a given location and buttons to manage participants -->
 <div class="homeContainer" layout="row" flex>
-  <div class="homeImage" layout="column" flex="35">
-    <img id="homePageImage" src="../../assets/img/choiceLeaves.svg" alt="Choice logo without text">
-  </div>
-  <div class="homeWelcome" layout="column" flex="35">
-    <!-- LOAD RIGHT SIDE MENU DEPENDING ON USER'S ROLE -->
-    <div layout="row" ng-if="hc.userObject.role == 1" ng-include=" 'views/partials/adminpartial.html' "></div>
-    <div layout="row" ng-if="hc.userObject.role == 2" ng-include=" 'views/partials/casemanagerpartial.html' "></div>
-    <div layout="row" ng-if="hc.userObject.role == 3 " ng-include=" 'views/partials/staffpartial.html' "></div>
-  </div>
+  <div class="userChoices" layout="row" ng-if="hc.userObject.role == 1" ng-include=" 'views/partials/adminpartial.html' "></div>
+  <div class="userChoices" layout="row" ng-if="hc.userObject.role == 2" ng-include=" 'views/partials/casemanagerpartial.html' "></div>
+  <div class="userChoices" layout="row" ng-if="hc.userObject.role == 3 " ng-include=" 'views/partials/staffpartial.html' "></div>
 </div>
