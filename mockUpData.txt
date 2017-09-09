@@ -72,21 +72,21 @@ select * from job_site where business_name ilike 'Choice Inc';
 --find and replace /*fromGoalChoiceID*/ with Choice Inc ID
 
 insert into "goal" (client_id, jobsite_id, goal_name, goal_summary, implementation_date, review_dates,  service_outcome, objective,
-behavior_technique, modifications, equipment, jobsite_details, when_notes, plan_steps)
+behavior_techniques, modifications, equipment, jobsite_details, when_notes, plan_steps)
 values(/*fromGoalGeorgeID*/, /*fromGoalFleetFarmID*/, 'Money Counting', 'Practice counting money out of the cash drawer.', '08/12/2017', '02/18/18 and 08/08/18', 'George has more practice counting money.', 'Twice per week, George will practice counting money or by making change.', 'Verbal redirection, modeling, positive verbal coaching and praise will be used to assist George.', 'NA', 'Computer and cash drawer', 'Fleet Farm cashier space', 'Tuesday and Thursday 9:00 AM - 2:45 PM',
 '1. The goal will be explained to George. 2. Twice per week George will practice math and money skills. 3. If he practices with one cue or fewer, he will receive a star. Otherwise a minus.');
 
 insert into "goal" (client_id, jobsite_id, goal_name, goal_summary, implementation_date, review_dates,  service_outcome, objective,
-behavior_technique, modifications, equipment, jobsite_details, when_notes, plan_steps)
+behavior_techniques, modifications, equipment, jobsite_details, when_notes, plan_steps)
 values(/*fromGoalGeorgeID*/, /*fromGoalChoiceID*/, 'Excercise', 'Physical activity such as yoga, Wii, and walking club.', '08/15/2017', '02/15/2018 and 08/08/2018', 'George will improve her health and well being through physical excercise.', 'Twice per week, George will choose to excercise or participate in physical activity for twenty minutes. He will choose to excercise with one cue or less 90% of the time.', 'Verbal redirection, modeling, positive verbal coaching and praise will be used to assist George.', 'NA', 'Wii', 'Excercise room.', 'Tuesday and Thursday 2:15 PM - 2:45 PM',
 '1. The goal will be explained to George. 2. Twice per week George will practice in SHAPE. 3. George will put away all electronic distractions, she may use her iPod for music.');
 
 insert into "goal" (client_id, jobsite_id, goal_name, goal_summary, implementation_date, review_dates,  service_outcome, objective,
-behavior_technique, modifications, equipment, jobsite_details, when_notes, plan_steps)
+behavior_techniques, modifications, equipment, jobsite_details, when_notes, plan_steps)
 values(/*fromGoalGeorgeID*/, /*fromGoalChoiceID*/, 'Improve work/vocational skills', 'George will participate in vocational activites when asked.', '08/12/2017', '02/18/18 and 08/08/18', 'Improve work/voactional skills', 'George will participate in vocational activities when asked. Vocational activities may include onsite work, subbing at jobsites, or volunteering. Staff will provide George up to three cues. George will complete this goal with a sucess rate of 70%. This goal will be evaluated in March 2018.', 'Verbal redirection, modeling, positive verbal coaching and praise will be used to assist George.', 'NA', 'Jobsite Board, appropriate cleaning or other work supplies, oreo cookies', 'Choice, Inc and job sites.', 'Tuesday and Thursday 9:00 AM - 2:45 PM','1. The goal will be explained to George. 2. When there is an opportunity, staff will ask George to work or volunteer, and will provide him three cues. 3. If George works or volunteers with three cues or fewer, he will receive a star and an oreo cookie. Otherwise a minus and no oreo cookie.');
 
 insert into "goal" (client_id, jobsite_id, goal_name, goal_summary, implementation_date, review_dates,  service_outcome, objective,
-behavior_technique, modifications, equipment, jobsite_details, when_notes, plan_steps)
+behavior_techniques, modifications, equipment, jobsite_details, when_notes, plan_steps)
 values(/*fromGoalGeorgeID*/, /*fromGoalChoiceID*/, 'Improve Physical Health', 'George will complete a strength-training routine one time per week.', '08/12/2017', '02/18/18 and 08/08/18', 'George will improve his physical health.', 'George will complete a strength-training routine one time per week. He will complete this with two cues or fewer, at a sucess rate of 75%. This goal will be re-evaluated in March 2018.', 'Verbal redirection, modeling, positive verbal coaching and praise will be used to assist George', 'NA', 'NA', 'Choice, Inc', 'Monday -Friday 9:00 AM - 2:45 PM',
 '1. The goal will be explained to George. 2. Staff will encourage George to do his exercises throughout the week. She will receive two cues or fewer per trial. After George completes his exercise during the week, staff will stop cueing him. 3. If he practices with one cue or fewer, he will receive a star.');
 
@@ -97,7 +97,7 @@ select * from client where client_name ilike 'Sam';
 --find and replace /*fromGoalSamID*/ with Sam ID
 
 insert into "goal" (client_id, jobsite_id, goal_name, goal_summary, implementation_date, review_dates,  service_outcome, objective,
-behavior_technique, modifications, equipment, jobsite_details, when_notes, plan_steps)
+behavior_techniques, modifications, equipment, jobsite_details, when_notes, plan_steps)
 values(/*fromGoalSamID*/, /*fromGoalWalmartId*/, 'Excercise', 'Physical activity such as yoga, Wii, and walking club.', '09/15/2017', '03/15/2018 and 09/08/2018', 'Sam will improve her health and well being through physical excercise.', 'Twice per week, Sam will choose to excercise or participate in physical activity for twenty minutes. She will choose to excercise with one cue or less 90% of the time.', 'Verbal redirection, modeling, positive verbal coaching and praise will be used to assist Sam.', 'NA', 'Wii', 'Excercise room.', 'Tuesday and Thursday 2:15 PM - 2:45 PM',
 '1. The goal will be explained to Sam. 2. Twice per week Sam will practice in SHAPE. 3. Sam will put away all electronic distractions, she may use her iPod for music.');
 
