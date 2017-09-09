@@ -25,7 +25,7 @@ myApp.factory('GoalService', function($http, $location, $mdDialog){
     tableQuery: query,
 
     //Move from goal tracking to view selected goal's criteria
-    viewGoalCriteria: function(goal_id, client_id) {
+    viewGoalCriteria : function(goal_id, client_id, ev) {
       //load client_id and goal_id variables
       console.log('in toGoalCriteria with goal.id:', goal_id);
       console.log('in toGoalCriteria with client.id:', client_id);
@@ -40,11 +40,18 @@ myApp.factory('GoalService', function($http, $location, $mdDialog){
         singleGoal.data = response.data[0];
         console.log("Get single goal from DB: ", singleGoal.data);
 
-        //Redirect to goalView.html & pass values
-        $location.path("/viewGoal");
+        //Opens view criteria hmtl in a modal
+        $mdDialog.show({
+          templateUrl: './views/partials/goalView.html',
+          parent: angular.element(document.body),
+          targetEvent: ev,
+          clickOutsideToClose:true
+        });
 
       });
     } //end of toGoalCriteria
+
+
 
 
 

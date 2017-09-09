@@ -2,6 +2,10 @@
 /* Also includes styling for the Manage pages*/
 
 /* GOAL CRITERIA STYLING */
+.goalHeader {
+  background-color: #004ba0;
+  color: #fff;
+}
 .userText {
   font-size: 1.2em;
 }
@@ -15,7 +19,6 @@
 /* GOAL TRACKING STYLING */
 #leftColumn {
   padding: 10px;
-  border: 1px solid #01579b;
 }
 
 #rightColumn {
@@ -33,7 +36,6 @@
 .goalNameBox {
   background-color: #004ba0;
   color: #fff;
-  border: 1px solid #01579b;
 }
 
 .goalName {

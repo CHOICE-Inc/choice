@@ -1,4 +1,4 @@
-myApp.controller('TrackingController', function($http, $mdToast, $location, UserService, GoalService) {
+myApp.controller('TrackingController', function($http, $mdToast, $location, $scope, $mdDialog, UserService, GoalService) {
   console.log('TrackingController created');
   var vm = this;
   vm.userService = UserService;
@@ -423,6 +423,11 @@ vm.notifyAdmin = function(message) {
 //   var d = (date.getMonth()+1) + '/' + date.getDate() + '/' + date.getFullYear();
 //   console.log('d is:', d);
 // };
+
+vm.closeModal = function() {
+  console.log('Attempting to close popup');
+ $mdDialog.cancel();
+};
 
 
 
