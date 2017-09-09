@@ -146,6 +146,7 @@ md-menu-bar md-menu>button:focus {
     -moz-background-size: cover;
     -webkit-background-size: cover;
     background-size: contain;
+    pointer-events: none;
 }
 .homeOptions {
   border: 1px solid black;

@@ -1,15 +1,7 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <!-- MAIN SUMMARY PAGE - Lists all the participants at a given location and buttons to manage participants -->
-<<<<<<< HEAD
-
-<div class="homeContainer">
-  <div class="homeOptions" layout="row" ng-if="hc.userObject.role == 1" ng-include=" 'views/partials/adminpartial.html' "></div>
-  <div class="homeOptions" layout="row" ng-if="hc.userObject.role == 2" ng-include=" 'views/partials/casemanagerpartial.html' "></div>
-  <div class="homeOptions" layout="row" ng-if="hc.userObject.role == 3" ng-include=" 'views/partials/staffpartial.html' "></div>
-=======
 <div class="homeContainer" layout="row" flex>
   <div class="userChoices" layout="row" ng-if="hc.userObject.role == 1" ng-include=" 'views/partials/adminpartial.html' "></div>
   <div class="userChoices" layout="row" ng-if="hc.userObject.role == 2" ng-include=" 'views/partials/casemanagerpartial.html' "></div>
   <div class="userChoices" layout="row" ng-if="hc.userObject.role == 3 " ng-include=" 'views/partials/staffpartial.html' "></div>
->>>>>>> master
 </div>
