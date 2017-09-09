@@ -1,7 +1,7 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <!-- GOAL TRACKING PAGE - Page will let users log completion of goals -->
 
-<!-- <button type="button" name="button" ng-click="tc.notifyAdmin(message)">TEST</button> -->
+<button type="button" name="button" ng-click="tc.test()">TEST</button>
 
 <div layout="row" class="container" id="goalPage" flex>
   <!-- LEFT SIDE OF PAGE - LIST OF PARTICIPANTS -->
@@ -99,13 +99,8 @@
 
         <!-- Row for Initials and Notes -->
         <div class="initialsInput" layout="row" ng-hide="goal.hidden == true" flex>
-          <div layout="column" flex="30">
-            <md-input-container>
-              <label class="label">Initials:</label>
-              <input type="text" ng-model="tc.initials">
-            </md-input-container>
-          </div>
-          <div layout="column" flex="40">
+
+          <div layout="column" flex="70">
             <md-input-container>
               <label class="label">Notes: </label>
               <input type="text" ng-model="goal.notes">
@@ -171,7 +166,7 @@
                           <tr md-row>
                             <th md-column style="width:20%;">Date</th>
                             <th md-column style="width:10%;">Time</th>
-                            <th md-column style="width:10%;">Initials</th>
+                            <th md-column style="width:10%;">Entered by</th>
                             <th md-column style="width:20%;">Completion</th>
                             <th md-column style="width:40%;">Notes</th>
                             <th md-column style="width:40%;">Buttons</th>
@@ -184,7 +179,7 @@
                             <td md-cell ng-class="{rowComplete: gh.complete_or_not == 'complete' , rowIncomplete: gh.complete_or_not == 'incomplete'}">
                               {{gh.am_or_pm}}</td>
                             <td md-cell ng-class="{rowComplete: gh.complete_or_not == 'complete' , rowIncomplete: gh.complete_or_not == 'incomplete'}">
-                              IN</td>
+                              {{gh.entered_by}}</td>
                             <td md-cell ng-class="{rowComplete: gh.complete_or_not == 'complete' , rowIncomplete: gh.complete_or_not == 'incomplete'}">
                               {{gh.complete_or_not}}</td>
                             <td md-cell ng-class="{rowComplete: gh.complete_or_not == 'complete' , rowIncomplete: gh.complete_or_not == 'incomplete'}">
