@@ -12,6 +12,7 @@ Goal Tracker CI is a full-stack web application that will allow the staff at Cho
 - SweetAlert2 for user notifications and modals
 - Google Font and Font Awesome for text and icon styling
 - Trello for project management
+- Nodemailer for email notifications
 
 ## Getting Started
 
@@ -23,10 +24,11 @@ Link to software that is required to install the app (e.g. node).
 
 - [Node.js](https://nodejs.org/en/)
 - [AngularJS](https://angularjs.org/)
-- [PostgreSQL] (https://www.postgresql.org/)
+- [PostgreSQL](https://www.postgresql.org/)
 - [Express](http://expressjs.com/)
 - [Angular Material](https://material.angularjs.org/latest/)
-- [SweetAlert2] (https://limonte.github.io/sweetalert2/)
+- [SweetAlert2](https://limonte.github.io/sweetalert2/)
+- [Nodemailer](https://nodemailer.com/about/)
 - [Material Design Data Table](https://github.com/daniel-nagy/md-data-table)
 
 
@@ -54,7 +56,8 @@ High level list of items completed.
 - [x] Enter AM & PM goal tracking data (complete, incomplete, notes, etc.)
 - [x] View a goal's completion rate and overall history of tracking via a table
 - [x] Admin can add, update, and inactivate participants, staff, and job sites
-- [ ] User access is limited based on their staff role: admin, case manager, or general staff
+- [x] User access is limited based on their staff role: admin, case manager, or general staff
+- [x] Can send an email to the Admin from the Goal Tracking page
 
 ### Next Steps
 

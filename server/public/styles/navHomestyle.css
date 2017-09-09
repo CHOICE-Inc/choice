@@ -109,11 +109,58 @@ md-menu-bar md-menu>button:focus {
 }
 
 /* LANDING PAGE STYLING */
-.homeImage {
-  opacity: 0.5;
-  filter: alpha(opacity=50);
+.homeContainer {
+  min-height: 600px;
+  background-image: url('../../assets/img/choiceLeaves_light.svg');
+  background-size: 700px 700px;
+  background-repeat: no-repeat;
+}
+.userChoices {
+  width: 65%;
+  margin: 0 auto;
+}
+.userhomeOptions a {
+  color: #007ac1;
 }
 
+/* Adds transparent background image */
+.homeContainer {
+  margin-left: 50px;
+  overflow:hidden;
+}
+.homeContainer:after {
+  content: ' ';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0.15;
+    background-image: url('../../assets/img/choiceLeaves.svg');
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    -ms-background-size: cover;
+    -o-background-size: cover;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    background-size: contain;
+    pointer-events: none;
+}
+.homeOptions {
+  border: 1px solid black;
+  width: 50%;
+  margin: 0 auto;
+}
+.userOptions a {
+  color: #007ac1;
+  text-decoration: none;
+}
+.userOptions a:hover {
+  color: #66bb6a;
+  text-decoration: underline;
+}
 .welcome {
   color: #007ac1;
   font-size: 2.0em;
@@ -121,12 +168,6 @@ md-menu-bar md-menu>button:focus {
 .whatToDo {
   color: #66bb6a;
   font-size: 2.0em;
-}
-
-#homePageImage {
-  width: 500px;
-  height: auto;
-  opacity: 75;
 }
 
 .homeWelcome {
@@ -143,12 +184,4 @@ md-menu-bar md-menu>button:focus {
 }
 .userhomeOptions {
   font-size: 1.7em;
-}
-
-.doNext {
-  width: 400px;
-  height: 460px;
-  margin: 40px;
-  /*border: 1px solid #01579b;*/
-  background-color: #039be5;
 }

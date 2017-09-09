@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var pool = require('../modules/pool.js');
-//friday night update
+
+//NODEMAILER
 var nodemailer = require('nodemailer');
 
 var emailUser = process.env.EMAIL_USER || require('../config.js').user;
@@ -66,6 +67,30 @@ router.get('/getClients', function(req, res) {
   });
 });
 
+router.get('/getNoGoalClients', function(req, res) {
+  console.log('in server getting no goal clients');
+  console.log('CURRENT USER ID', req.user.id);
+
+  pool.connect(function(err, client, done, next) {
+    if(err) {
+      console.log("Error connecting: ", err);
+      //next(err);
+    }
+    //join client, staff, and users to filter all cleints from user login
+    client.query("select goal.id as goal_id, client.id as client_id, client_name, staff_name from client left join goal on goal.client_id = client.id join staff on client.staff_id = staff.id where goal.id is null;",
+        function (err, result) {
+          done();
+          if(err) {
+            console.log("Error inserting data: ", err);
+            //next(err);
+          } else {
+            console.log('RESULT ROWS', result.rows);
+            res.send(result.rows);
+          }
+        });
+  });
+});
+
 router.get('/getGoals/:id', function(req, res) { //and latest goal_tracking submission
   console.log('in server getting dem goals');
   console.log('all goals from this id ', req.params.id); //client id
@@ -117,8 +142,8 @@ router.post('/trackGoal', function(req, res) {
       //next(err);
     }
     //join goal, client, staff, job, job_site to find all goal date
-    client.query("insert into goal_tracking(goal_id, am_or_pm, complete_or_not, notes, date_tracked) values($1, $2, $3, $4, $5);",
-    [req.body.id, req.body.time, req.body.completion, req.body.notes, req.body.date],
+    client.query("insert into goal_tracking(goal_id, am_or_pm, complete_or_not, notes, date_tracked, entered_by) values($1, $2, $3, $4, $5, $6);",
+    [req.body.id, req.body.time, req.body.completion, req.body.notes, req.body.date, req.user.staff_name],
         function (err, result) {
           done();
           if(err) {

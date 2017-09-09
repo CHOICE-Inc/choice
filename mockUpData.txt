@@ -112,17 +112,17 @@ values(/*fromGoalID*/, '08/12/17', 'am', 'complete', 'Counted $1.28 correctly');
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
 values(/*fromGoalID*/, '08/14/17', 'pm', 'complete', 'Counted $5.59 correctly');
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
-values(/*fromGoalID*/, '08/19/17', 'am', 'not complete', 'Didnt counted $2.70 correctly');
+values(/*fromGoalID*/, '08/19/17', 'am', 'incomplete', 'Didnt counted $2.70 correctly');
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
-values(/*fromGoalID*/, '08/20/17', 'am', 'not complete', 'Didnt counted $2.70 correctly');
+values(/*fromGoalID*/, '08/20/17', 'am', 'incomplete', 'Didnt counted $2.70 correctly');
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
-values(/*fromGoalID*/, '08/24/17', 'am', 'not complete', 'Didnt counted $2.70 correctly');
+values(/*fromGoalID*/, '08/24/17', 'am', 'incomplete', 'Didnt counted $2.70 correctly');
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
-values(/*fromGoalID*/, '08/26/17', 'am', 'not complete', 'Didnt counted $2.70 correctly');
+values(/*fromGoalID*/, '08/26/17', 'am', 'incomplete', 'Didnt counted $2.70 correctly');
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
-values(/*fromGoalID*/, '08/29/17', 'am', 'not complete', 'Didnt counted $2.70 correctly');
+values(/*fromGoalID*/, '08/29/17', 'am', 'incomplete', 'Didnt counted $2.70 correctly');
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
-values(/*fromGoalID*/, '09/3/17', 'pm', ' complete', 'Counted $2.70 correctly');
+values(/*fromGoalID*/, '09/3/17', 'pm', 'complete', 'Counted $2.70 correctly');
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
 values(/*fromGoalID*/, '09/5/17', 'pm', 'complete', 'Counted $6.97 correctly');
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
@@ -136,9 +136,9 @@ values(/*fromGoalID2*/, '08/12/17', 'am', 'complete', 'In the excerise room');
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
 values(/*fromGoalID2*/, '08/14/17', 'pm', 'complete', 'Played Wii Fit');
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
-values(/*fromGoalID2*/, '08/19/17', 'am', 'not complete', 'George declined exercise today.');
+values(/*fromGoalID2*/, '08/19/17', 'am', 'incomplete', 'George declined exercise today.');
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
-values(/*fromGoalID2*/, '08/20/17', 'am', 'not complete', 'George declined exercise today');
+values(/*fromGoalID2*/, '08/20/17', 'am', 'incomplete', 'George declined exercise today');
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
 values(/*fromGoalID2*/, '08/24/17', 'am', 'complete', 'Played Wii Fit');
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
@@ -146,11 +146,11 @@ values(/*fromGoalID2*/, '08/26/17', 'pm', 'complete', 'Played Wii Fit');
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
 values(/*fromGoalID2*/, '08/29/17', 'pm', 'complete', 'In the excerise room');
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
-values(/*fromGoalID2*/, '09/3/17', 'pm', ' complete', 'Played Wii Fit');
+values(/*fromGoalID2*/, '09/3/17', 'pm', 'complete', 'Played Wii Fit');
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
 values(/*fromGoalID2*/, '09/5/17', 'pm', 'complete', 'Played Wii Fit');
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
-values(/*fromGoalID2*/, '09/8/17', 'am', 'not complete', 'George declined exercise today. Not feeling well.');
+values(/*fromGoalID2*/, '09/8/17', 'am', 'incomplete', 'George declined exercise today. Not feeling well.');
 
 select * from goal limit 1 offset 2;
 --find and replace /*fromGoalID3*/ with goal id
@@ -160,9 +160,9 @@ values(/*fromGoalID3*/, '08/12/17', 'am', 'complete', 'When offered work, George
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
 values(/*fromGoalID3*/, '08/14/17', 'pm', 'complete', 'When offered work, George accepted today.');
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
-values(/*fromGoalID3*/, '08/19/17', 'am', 'not complete', 'George declined work today.');
+values(/*fromGoalID3*/, '08/19/17', 'am', 'incomplete', 'George declined work today.');
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
-values(/*fromGoalID3*/, '08/20/17', 'am', 'not complete', 'George declined work today');
+values(/*fromGoalID3*/, '08/20/17', 'am', 'incomplete', 'George declined work today');
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
 values(/*fromGoalID3*/, '08/24/17', 'am', 'complete', 'When offered work, George accepted today.');
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
@@ -170,11 +170,11 @@ values(/*fromGoalID3*/, '08/26/17', 'pm', 'complete', 'When offered work, George
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
 values(/*fromGoalID3*/, '08/29/17', 'pm', 'complete', 'When offered work, George accepted today.');
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
-values(/*fromGoalID3*/, '09/3/17', 'pm', ' complete', 'When offered work, George accepted today.');
+values(/*fromGoalID3*/, '09/3/17', 'pm', 'complete', 'When offered work, George accepted today.');
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
 values(/*fromGoalID3*/, '09/5/17', 'pm', 'complete', 'When offered work, George accepted today.');
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
-values(/*fromGoalID3*/, '09/8/17', 'am', 'not complete', 'George declined work today.');
+values(/*fromGoalID3*/, '09/8/17', 'am', 'incomplete', 'George declined work today.');
 
 select * from goal limit 1 offset 3;
 --find and replace /*fromGoalID4*/ with goal id
@@ -184,18 +184,18 @@ values(/*fromGoalID4*/, '08/12/17', 'am', 'complete', 'George lifted weights tod
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
 values(/*fromGoalID4*/, '08/14/17', 'pm', 'complete', 'George lifted weights today');
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
-values(/*fromGoalID4*/, '08/19/17', 'am', 'not complete', 'George declined exercise today.');
+values(/*fromGoalID4*/, '08/19/17', 'am', 'incomplete', 'George declined exercise today.');
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
-values(/*fromGoalID4*/, '08/20/17', 'am', 'not complete', 'George declined exercise today');
+values(/*fromGoalID4*/, '08/20/17', 'am', 'incomplete', 'George declined exercise today');
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
-values(/*fromGoalID4*/, '08/24/17', 'am', 'not complete', 'George declined exercise today');
+values(/*fromGoalID4*/, '08/24/17', 'am', 'incomplete', 'George declined exercise today');
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
 values(/*fromGoalID4*/, '08/26/17', 'pm', 'complete', 'George lifted weights today.');
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
 values(/*fromGoalID4*/, '08/29/17', 'pm', 'complete', 'George lifted weights today.');
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
-values(/*fromGoalID4*/, '09/3/17', 'pm', ' complete', 'George lifted weights today.');
+values(/*fromGoalID4*/, '09/3/17', 'pm', 'complete', 'George lifted weights today.');
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
 values(/*fromGoalID4*/, '09/5/17', 'pm', 'complete', 'George lifted weights today.');
 insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
-values(/*fromGoalID4*/, '09/8/17', 'am', 'not complete', 'George declined exercise today. Not feeling well.');
+values(/*fromGoalID4*/, '09/8/17', 'am', 'incomplete', 'George declined exercise today. Not feeling well.');
