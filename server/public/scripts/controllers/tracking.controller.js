@@ -375,6 +375,49 @@ vm.test = function(){
   console.log('getTime is:', vm.clientGoals[0].max_goal_date_pm);
 };
 
+// Friday night addition
+vm.notifyAdmin = function(message) {
+  // console.log("notifyAdmin sender is:", sender);
+  // console.log("notifyAdmin sender is:", message);
+
+
+
+  swal({
+    title: 'Enter notification to send to site admin:',
+    input: 'text',
+    showCancelButton: true,
+    confirmButtonText: 'Submit',
+    showLoaderOnConfirm: true,
+    preConfirm: function (text) {
+      return new Promise(function (resolve, reject) {
+        setTimeout(function() {
+          var notification = {
+            message: text
+          };
+
+          $http.put("/tracking/notifyAdmin", notification).then(function(response) {
+            console.log("Got response from notifyAdmin:", response);
+            resolve();
+          }).catch(function(){reject('Error sending notification.');});
+        }, 2000);
+      });
+    },
+    allowOutsideClick: false
+  }).then(function (text) {
+    swal({
+      type: 'success',
+      title: 'Message sent!',
+      html: 'Sent email notification to site admin: ' + text
+    });
+  });
+
+  console.log('sending notification:', notification);
+  // $http.put("/tracking/notifyAdmin", notification).then(function(response) {
+  //   console.log("Got response from notifyAdmin:", response);
+  // });
+};
+// End Friday night addition
+
 // vm.convertDate = function(date){
 //   console.log('in convertDate with date:', date);
 //   var d = (date.getMonth()+1) + '/' + date.getDate() + '/' + date.getFullYear();

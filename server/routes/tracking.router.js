@@ -1,6 +1,43 @@
 var express = require('express');
 var router = express.Router();
 var pool = require('../modules/pool.js');
+//friday night update
+var nodemailer = require('nodemailer');
+
+var emailUser = process.env.EMAIL_USER || require('../config.js').user;
+var emailPass = process.env.EMAIL_PASS || require('../config.js').pass;
+var transporter = nodemailer.createTransport({
+    // host: 'smtp.example.com',
+    service: 'Gmail',
+    port: 465,
+    secure: true, // secure:true for port 465, secure:false for port 587
+    auth: {
+        user: emailUser,
+        pass: emailPass
+    }
+});
+
+// setup email data with unicode symbols
+var mailOptions = {
+    from: '"CHOICE" <foo@blurdybloop.com>', // sender address
+    to: '', // list of receivers
+    subject: 'CHOICE subject', // Subject line
+    text: 'Hello world? Where is this going?', // plain text body
+    html: '<b>GameNight emailing is working on Thursday morning!</b>' // html body
+};
+
+
+sendMail = function(){
+  transporter.sendMail(mailOptions, function(error, info) {
+      if (error) {
+          return console.log(error);
+      }
+      // console.log('Message %s sent: %s', info.messageId, info.response);
+      console.log('messageId:', info.messageId);
+      console.log('response', info.response);
+  });
+};
+//friday night update
 
 router.get('/getClients', function(req, res) {
   console.log('in server getting dem clients');
@@ -146,5 +183,48 @@ var id = req.params.id;
 });
 
 //End Chase Router
+
+//friday night updateCriteria
+router.put('/notifyAdmin', function(req, res) {
+  console.log('in notifyAdmin with:', req.body);
+  console.log('req.user is:', req.user);
+  var message = req.body.message;
+
+
+  pool.connect(function(err, client, done, next) {
+    if(err) {
+      console.log("Error connecting: ", err);
+      //next(err);
+    }
+    //join goal, client, staff, job, job_site to find all goal date
+    client.query("SELECT email from staff where role = 1 limit 1;",
+        function (err, result) {
+          done();
+          if(err) {
+            console.log("Error inserting data: ", err);
+            //next(err);
+          } else {
+            console.log('RESULT ROWS', result.rows);
+            console.log('RESULTING EMAIL IS:', result.rows[0].email);
+
+            // var mailOptions = {
+            //     from: '"CHOICE" <foo@blurdybloop.com>', // sender address
+            //     to: 'chasefu@yahoo.com', // list of receivers
+            //     subject: 'CHOICE subject', // Subject line
+            //     text: 'Hello world? Where is this going?', // plain text body
+            //     html: '<b>GameNight emailing is working on Thursday morning!</b>' // html body
+            // };
+
+            mailOptions.to = result.rows[0].email;
+            mailOptions.html = req.user.staff_name + " has sent you the following notification via the CHOICE, Inc goal tracking application:<br><br>" + message;
+            sendMail();
+
+              res.sendStatus(201);
+          }
+    });
+  });
+});
+
+//end friday night update
 
 module.exports = router;
