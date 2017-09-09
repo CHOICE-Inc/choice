@@ -110,14 +110,17 @@ md-menu-bar md-menu>button:focus {
 
 /* LANDING PAGE STYLING */
 .homeContainer {
-  min-height: 500px;
+  min-height: 600px;
   background-image: url('../../assets/img/choiceLeaves_light.svg');
-  background-size: 600px 600px;
+  background-size: 700px 700px;
   background-repeat: no-repeat;
 }
 .userChoices {
   width: 65%;
   margin: 0 auto;
+}
+.userhomeOptions a {
+  color: #007ac1;
 }
 
 .welcome {
