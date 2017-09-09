@@ -3,7 +3,7 @@
 <div class="container goals" id="goalCriteriaBody" layout="column" flex>
   <md-content>
     <form name="goalForm">
-      <div class="goalCriteriaHeader">
+
         <div layout="row" flex="none">
           <div class="goalHeader" layout="column" flex="60">
             <h2 >CSSP SUPPORT AND METHODS PLAN - STEP PROGRAM GOAL</h2>
@@ -17,11 +17,11 @@
             </div>
           </div>
         </div>
-      </div>
+
 
         <!-- Row for Client Info/Dates Box -->
         <div layout="row">
-          <div layout="column" flex="50">
+          <div layout="column" flex="33.3">
             <div class="nameSelect" layout="column" flex="40">
               <!-- Autocomplete input to select client name & send clientID to client-side-->
               <form name="autocompleteForm">
@@ -49,10 +49,18 @@
           </div>
             <md-input-container>
               <span ng-model="gc.casemanagerName">CHOICE Representative: {{gc.userObject.name}}</span>
-              <!-- <label>CHOICE Representative:</label>
+              <label>CHOICE Representative:</label>
               <md-select ng-model="gc.casemanagerName">
                 <md-option ng-repeat="casemanagerName in gc.casemanagerData" value="{{casemanagerName.staff_name}}" ng-click="gc.assignCMID(casemanagerName.id)">{{casemanagerName.staff_name}}</md-option>
-              </md-select> -->
+              </md-select>
+            </md-input-container>
+
+          </div>
+          <!--DIV FOR JOB SITE AND GOAL NAME-->
+          <div layout="column" flex="33.3">
+            <md-input-container>
+              <label>Goal Name:</label>
+              <input type="text" ng-model="gc.goal_name">
             </md-input-container>
             <md-input-container>
               <label>Job Site:</label>
@@ -60,12 +68,10 @@
                 <md-option ng-repeat="jobsite in gc.jobSiteData" value="{{jobsite.id}}" ng-click="gc.assignJobsiteId(jobsite.id)">{{jobsite.business_name}}</md-option>
               </md-select>
             </md-input-container>
-            <md-input-container>
-              <label>Goal Name:</label>
-              <input type="text" ng-model="gc.goal_name">
-            </md-input-container>
+
           </div>
-          <div layout="column" flex="50">
+          <!-- DIV FOR GOAL DATES -->
+          <div layout="column" flex="33.3">
             <md-input-container>
               <label>IMPLEMENTATION DATE:</label>
               <md-datepicker ng-model="gc.implementation_date" md-placeholder="Enter Date"></md-datepicker>
