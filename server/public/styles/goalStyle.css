@@ -2,6 +2,25 @@
 /* Also includes styling for the Manage pages*/
 
 /* GOAL CRITERIA STYLING */
+
+/*DIV STYLING ON GOAL CRITERIA PAGE*/
+
+div.container.goals.ng-scope.layout-column.flex {
+  padding: 30px;
+}
+
+div.layout-column.flex-50 {
+  padding-right: 20px;
+}
+
+div.layout-row.flex-none {
+  background-color: #007ac1;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+/* GOAL CRITERIA STYLING */
+
 .goalHeader {
   background-color: #004ba0;
   color: #fff;
