@@ -19,11 +19,11 @@ var transporter = nodemailer.createTransport({
 
 // setup email data with unicode symbols
 var mailOptions = {
-    from: 'CHOICE', // sender address
-    to: '', // list of receivers
-    subject: 'CHOICE Goal Tracking Notification', // Subject line
-    text: 'No notes were entered for this notification.', // plain text body
-    html: 'No notes were entered for this notification.' // html body
+    from: '"CHOICE" <choice.noreply@gmail.com>', // sender address
+    to: 'choice.noreply@gmail.com', // list of receivers
+    subject: 'CHOICE Goal Tracking Application Notification', // Subject line
+    text: 'No message was entered.', // plain text body
+    html: '<b>No message was entered.</b>' // html body
 };
 
 
