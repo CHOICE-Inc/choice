@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var pool = require('../modules/pool.js');
-//friday night update
+
+//NODEMAILER
 var nodemailer = require('nodemailer');
 
 var emailUser = process.env.EMAIL_USER || require('../config.js').user;
