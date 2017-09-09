@@ -1,7 +1,7 @@
-<div ng-include="'views/partials/nav.html'"></div>
+<!-- <div ng-include="'views/partials/nav.html'"></div> -->
 <!-- GOAL CRITERA PAGE - VIEW ONLY PAGE -->
 
-<div class="container goalView" layout="column" flex>
+<div class="container goalView" layout="column" flex ng-controller="TrackingController as tc">
   <md-content>
 
     <div layout="row" flex="none">
@@ -10,7 +10,7 @@
       </div>
       <div layout="column" layout-align="center center" flex="40">
         <div layout="row">
-        <md-button class="md-raised md-accent" name="backBtn" ng-click="gc.goBackToTracking(gc.singleGoal.data.id, gc.singleGoal.data.client_id)">Return to Tracking</md-button>
+        <md-button class="md-raised md-accent" name="backBtn" ng-click="tc.closeModal()">Return to Tracking</md-button>
         </div>
       </div>
     </div>
@@ -20,33 +20,33 @@
           <div layout="column" flex="50">
             <div layout="row" flex>
               <p class="label">Participant Name:</p> &nbsp
-              <p class="userText">{{gc.singleGoal.data.client_name}}</p>
+              <p class="userText">{{tc.goalService.singleGoal.data.client_name}}</p>
             </div>
             <div layout="row" flex>
               <p class="label">CHOICE Representative:</p> &nbsp
-              <p class="userText">{{gc.casemanagerName}}</p>
+              <p class="userText">{{tc.casemanagerName}}</p>
             </div>
             <div layout="row" flex>
               <p class="label">Job Site:</p> &nbsp
-              <p class="userText">{{gc.singleGoal.data.jobSite}}</p>
+              <p class="userText">{{tc.goalService.singleGoal.data.jobsite_details}}</p>
             </div>
             <div layout="row" flex>
               <p class="label">Goal Name:</p> &nbsp
-              <p class="userText">{{gc.singleGoal.data.goal_name}}</p>
+              <p class="userText">{{tc.goalService.singleGoal.data.goal_name}}</p>
             </div>
           </div>
           <div layout="column" flex="50">
             <div layout="row" flex>
               <p class="label">Implementation Date:</p> &nbsp
-              <p class="userText">{{gc.singleGoal.data.implementation_date}}</p>
+              <p class="userText">{{tc.goalService.singleGoal.data.implementation_date}}</p>
             </div>
             <div layout="row" flex>
               <p class="label">Review Dates:</p> &nbsp
-              <p class="userText">{{gc.singleGoal.data.review_dates}}</p>
+              <p class="userText">{{tc.goalService.singleGoal.data.review_dates}}</p>
             </div>
             <div layout="row" flex>
               <p class="label">Completion Date:</p> &nbsp
-              <p class="userText">{{gc.singleGoal.data.completion_date}}</p>
+              <p class="userText">{{tc.goalService.singleGoal.data.completion_date}}</p>
             </div>
           </div>
         </div> <!-- End of Row for Client Info/Dates Box -->
@@ -54,19 +54,19 @@
         <!--Row for Goal Summary for use on the tracking page-->
         <div layout="row" flex>
               <p class="label">GOAL SUMMARY:</p> &nbsp
-              <p class="userText">{{gc.singleGoal.data.goal_summary}}</p>
+              <p class="userText">{{tc.goalService.singleGoal.data.goal_summary}}</p>
           </div>
 
         <!-- Row for Service Outcome -->
         <div layout="row" flex>
               <p class="label">SERVICE OUTCOME:</p> &nbsp
-              <p class="userText">{{gc.singleGoal.data.service_outcome}}</p>
+              <p class="userText">{{tc.goalService.singleGoal.data.service_outcome}}</p>
         </div> <!-- end of Row for Service Outcome -->
 
         <!-- Row for Objective -->
         <div layout="row" flex>
               <p class="label">OBJECTIVE:</p> &nbsp
-              <p class="userText">{{gc.singleGoal.data.objective}}</p>
+              <p class="userText">{{tc.goalService.singleGoal.data.objective}}</p>
         </div> <!-- End of Row for Objective -->
 
         <!-- Row for Methods header -->
@@ -77,11 +77,11 @@
         <!-- Row for Method - Where/When -->
         <div layout="row" flex>
               <p class="label">Where will the plan be run:</p> &nbsp
-              <p class="userText">{{gc.singleGoal.data.jobsite_details}}</p>
+              <p class="userText">{{tc.goalService.singleGoal.data.jobsite_details}}</p>
       </div>
       <div class="row" flex>
               <p class="label">When will the plan be run:</p> &nbsp
-              <p class="userText">{{gc.singleGoal.data.when_notes}}</p>
+              <p class="userText">{{tc.goalService.singleGoal.data.when_notes}}</p>
 
         </div> <!-- End of Row for Method - Where/When -->
 
@@ -94,19 +94,19 @@
 
           <div layout="row" flex>
               <p class="label">What equipment and materials will be needed:</p> &nbsp
-              <p class="userText">{{gc.singleGoal.data.equipment}}</p>
+              <p class="userText">{{tc.goalService.singleGoal.data.equipment}}</p>
         </div><!-- End of Row for Method - Equipment and materials used -->
 
         <!-- Row for Method - behavior techniques -->
         <div layout="row">
               <p class="label">What behavior techniques will be used, consistent with communication mode and learning style:</p> &nbsp
-              <p class="userText">{{gc.singleGoal.data.behavior_techniques}}</p>
+              <p class="userText">{{tc.goalService.singleGoal.data.behavior_techniques}}</p>
         </div><!-- End of Row for Method - behavior techniques -->
 
         <!-- Row for Method - changes to environments -->
         <div layout="row">
               <p class="label">Changes or modifications necessary to the physical and social environments:</p> &nbsp
-              <p class="userText">{{gc.singleGoal.data.modifications}}</p>
+              <p class="userText">{{tc.goalService.singleGoal.data.modifications}}</p>
         </div><!-- End of Row for Method - changes to environments -->
 
         <!-- Row for How to run the plan -->
@@ -116,7 +116,7 @@
 
         <!-- Row for Plan Steps -->
         <div layout="row"> &nbsp
-              <p class="userText">{{gc.singleGoal.data.plan_steps}}</p>
+              <p class="userText">{{tc.goalService.singleGoal.data.plan_steps}}</p>
         </div><!-- End of Row for Plan Steps -->
 
         <!-- Row for Footer of goal sheet -->
