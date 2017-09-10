@@ -23,6 +23,7 @@ myApp.controller('TrackingController', function($http, $mdToast, $location, $sco
   // builds list of clients to display on goal tracking page
   buildLists = function(data){
     console.log('in buildClientList with:', data);
+    vm.clientList = [];
     var names = [];
     var locations = [];
     var cms = [];
@@ -58,8 +59,11 @@ myApp.controller('TrackingController', function($http, $mdToast, $location, $sco
     var amDate = goal.max_goal_date_am.toString().substring(0, 10);
     var pmDate = goal.max_goal_date_pm.toString().substring(0, 10);
     // console.log('STRING date is:', date);
-    console.log('STRING amdate is:', amDate);
-    console.log('STRING pmdate is:', pmDate);
+    // console.log('STRING amdate is:', amDate);
+    // console.log('STRING pmdate is:', pmDate);
+    goal.amDone = false;
+    goal.pmDone = false;
+
     if(date == amDate){
       goal.amDone = true;
     }
@@ -85,10 +89,13 @@ myApp.controller('TrackingController', function($http, $mdToast, $location, $sco
       console.log('client list is:', response.data);
       vm.dataList = response.data;
       buildLists(vm.dataList);
+      console.log('vm.clientList after buildLists is:', vm.clientList);
       $http.get('/tracking/getNoGoalClients').then(function(res) {
         console.log('noGoal client list is:', res.data);
         vm.noGoalsData = res.data;
         vm.noGoalsClients = angular.copy(vm.noGoalsData);
+        getAllGoals();
+
 
         // console.log('vm.clientList:',vm.clientList);
         // console.log('vm.locationList:',vm.locationList);
@@ -110,6 +117,7 @@ myApp.controller('TrackingController', function($http, $mdToast, $location, $sco
       }
 
     });
+
   };
 
   // filters client list based on filter options
@@ -208,6 +216,7 @@ myApp.controller('TrackingController', function($http, $mdToast, $location, $sco
         console.log('Received response from trackGoal POST:', response);
         vm.showClientGoals(vm.clientToView);
         vm.showToast("Goal data submitted.", "footer");
+        setTrackingStatus();
       });
     }
   }; //end of trackGoal
@@ -438,6 +447,83 @@ vm.closeModal = function() {
  $mdDialog.cancel();
 };
 
+//LAST FEATURE I PROMISE
+getAllGoals = function(){
+console.log('in getAllGoals');
+// var clientIdsArray = [];
+// for(var p = 0; p < vm.clientList.length; p++){
+//   clientIdsArray.push(vm.clientList[p].clientid);
+// }
+// console.log('clientIdsArray is:', clientIdsArray);
+// var clientIdsString = clientIdsArray.join();
+// console.log('clientIdsString is:', clientIdsString);
 
+$http.get('/tracking/getAllGoals/').then(function(response){
+  console.log('Received response from getAllGoals:');
+  vm.allGoals = response.data;
+
+  for(var m = 0; m < vm.dataList.length; m++){
+    vm.dataList[m].goals = [];
+    vm.dataList[m].allAmDone = false;
+    vm.dataList[m].allPmDone = false;
+  }
+
+  console.log('vm.allGoals is:', vm.allGoals);
+  for(var i = 0; i < vm.allGoals.length; i++){
+    getLastUpdate(vm.allGoals[i]);
+    for(var x = 0; x < vm.dataList.length; x++){
+      if(vm.dataList[x].clientid == vm.allGoals[i].client_id){
+
+        console.log('PUSH');
+        vm.dataList[x].goals.push(vm.allGoals[i]);
+      }
+    }
+  }
+  console.log('vm.dataList after getAllGoals is:', vm.dataList);
+  setTrackingStatus();
+});
+
+};// end getAllGoals
+
+
+ setTrackingStatus = function(){
+   console.log('in setTrackingStatus with vm.clientList:', vm.clientList);
+
+for(i = 0; i < vm.clientList.length; i++){
+  var amsComplete = 0;
+  var pmsComplete = 0;
+  for(x = 0; x < vm.clientList[i].goals.length; x++){
+    if(vm.clientList[i].goals[x].amDone == true){
+      amsComplete++;
+    }
+    if(vm.clientList[i].goals[x].pmDone == true){
+      pmsComplete++;
+    }
+  }
+  if(amsComplete == vm.clientList[i].goals.length){
+    vm.clientList[i].allAmDone = true;
+  }
+  if(pmsComplete == vm.clientList[i].goals.length){
+    vm.clientList[i].allPmDone = true;
+  }
+
+}
+
+
+ };
+vm.setClientColor= function(client){
+  var x = "red";
+  if(client.allAmDone == true || client.allPmDone == true){
+    x = "blue";
+  }
+  if(client.allAmDone == true && client.allPmDone == true){
+    x = "green";
+  }
+  return x;
+
+
+};
+
+//END LAST FEATURE
 
 }); //END OF CONTROLLER

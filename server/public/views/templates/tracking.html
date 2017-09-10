@@ -1,7 +1,7 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <!-- GOAL TRACKING PAGE - Page will let users log completion of goals -->
 
-<!-- <button type="button" name="button" ng-click="tc.test()">TEST</button> -->
+<!-- <button type="button" name="button" ng-click="tc.getAllGoals()">TEST</button> -->
 
 <div layout="row" class="container" id="goalPage" flex>
   <!-- LEFT SIDE OF PAGE - LIST OF PARTICIPANTS -->
@@ -27,7 +27,9 @@
 
     <!-- List of Participants -->
     <div style="border-bottom:1px solid black">
-      <p id="clientList" ng-repeat="client in tc.clientList" ng-click="tc.showClientGoals(client)">{{client.client_name}}</p>
+      <p id="clientList" style="color:{{tc.setClientColor(client)}}" ng-repeat="client in tc.clientList" ng-click="tc.showClientGoals(client)">{{client.client_name}}</p>
+
+
     </div>
     <!-- <p style="margin-top:4px; margin-bottom:0px"> No goals entered for: </p> -->
     <div>

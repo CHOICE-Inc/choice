@@ -252,4 +252,42 @@ router.put('/notifyAdmin', function(req, res) {
 
 //end friday night update
 
+//LAST FEATURE I PROMISE
+router.get('/getAllGoals/', function(req, res) { //and latest goal_tracking submission
+  // var clientIds = req.body.data;
+  console.log('in server getting ALL goals');
+  // console.log('clientsIds is:', clientIds);
+
+  pool.connect(function(err, client, done, next) {
+    if(err) {
+      console.log("Error connecting: ", err);
+      //next(err);
+    }
+    //make two CTE'S that will find last submitted for specific am or pm submission tied to each goal
+    client.query("WITH get_date_tracked_am AS (SELECT goal_id, am_or_pm as am, max(date_tracked) as dt " +
+    "FROM goal_tracking where am_or_pm ilike 'am' GROUP BY goal_id, am_or_pm), get_date_tracked_pm " +
+    "AS (select goal_id, am_or_pm as pm, max(date_tracked) as dt from goal_tracking " +
+    "where am_or_pm ilike 'pm' group by goal_id, am_or_pm)select goal.id as goalid, client.client_name, " +
+    "staff.staff_name, client.id as client_id, goal.implementation_date, goal.goal_summary as goalNotes, goal.goal_name as goalName, " +
+    "job_site.business_name, get_date_tracked_am.am, get_date_tracked_am.dt as max_goal_date_am, " +
+    "get_date_tracked_pm.pm, get_date_tracked_pm.dt as max_goal_date_pm from goal join client on " +
+    "goal.client_id = client.id join staff on staff.id = client.staff_id join job_site on job_site.id = goal.jobsite_id " +
+    "left join get_date_tracked_am on goal.id = get_date_tracked_am.goal_id left join get_date_tracked_pm on " +
+    "goal.id = get_date_tracked_pm.goal_id",
+        function (err, result) {
+          done();
+          if(err) {
+            console.log("Error inserting data: ", err);
+            //next(err);
+          } else {
+            console.log('RESULT ROWS', result.rows);
+            res.send(result.rows);
+          }
+    });
+  });
+});
+
+//END LAST FEATURE
+
+
 module.exports = router;
