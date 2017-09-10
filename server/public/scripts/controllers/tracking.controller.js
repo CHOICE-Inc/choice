@@ -214,8 +214,23 @@ myApp.controller('TrackingController', function($http, $mdToast, $location, $sco
     } else {
       $http.post('/tracking/trackGoal/', goalData).then(function(response){
         console.log('Received response from trackGoal POST:', response);
+        console.log('vm.CLIENTTOVIEW IS:', vm.clientToView);
         vm.showClientGoals(vm.clientToView);
         vm.showToast("Goal data submitted.", "footer");
+
+          for(var i = 0; i < vm.clientToView.goals.length; i++){
+            if(goalData.id == vm.clientToView.goals[i].goalid){
+              if(goalData.time == "am"){
+                vm.clientToView.goals[i].amDone = true;
+              }
+              if(goalData.time == "pm"){
+                vm.clientToView.goals[i].pmDone = true;
+              }
+
+            }
+          }
+
+
         setTrackingStatus();
       });
     }
@@ -444,73 +459,73 @@ vm.notifyAdmin = function(message) {
 
 vm.closeModal = function() {
   console.log('Attempting to close popup');
- $mdDialog.cancel();
+  $mdDialog.cancel();
 };
 
 //LAST FEATURE I PROMISE
 getAllGoals = function(){
-console.log('in getAllGoals');
-// var clientIdsArray = [];
-// for(var p = 0; p < vm.clientList.length; p++){
-//   clientIdsArray.push(vm.clientList[p].clientid);
-// }
-// console.log('clientIdsArray is:', clientIdsArray);
-// var clientIdsString = clientIdsArray.join();
-// console.log('clientIdsString is:', clientIdsString);
+  console.log('in getAllGoals');
+  // var clientIdsArray = [];
+  // for(var p = 0; p < vm.clientList.length; p++){
+  //   clientIdsArray.push(vm.clientList[p].clientid);
+  // }
+  // console.log('clientIdsArray is:', clientIdsArray);
+  // var clientIdsString = clientIdsArray.join();
+  // console.log('clientIdsString is:', clientIdsString);
 
-$http.get('/tracking/getAllGoals/').then(function(response){
-  console.log('Received response from getAllGoals:');
-  vm.allGoals = response.data;
+  $http.get('/tracking/getAllGoals/').then(function(response){
+    console.log('Received response from getAllGoals:');
+    vm.allGoals = response.data;
 
-  for(var m = 0; m < vm.dataList.length; m++){
-    vm.dataList[m].goals = [];
-    vm.dataList[m].allAmDone = false;
-    vm.dataList[m].allPmDone = false;
-  }
+    for(var m = 0; m < vm.dataList.length; m++){
+      vm.dataList[m].goals = [];
+      vm.dataList[m].allAmDone = false;
+      vm.dataList[m].allPmDone = false;
+    }
 
-  console.log('vm.allGoals is:', vm.allGoals);
-  for(var i = 0; i < vm.allGoals.length; i++){
-    getLastUpdate(vm.allGoals[i]);
-    for(var x = 0; x < vm.dataList.length; x++){
-      if(vm.dataList[x].clientid == vm.allGoals[i].client_id){
+    console.log('vm.allGoals is:', vm.allGoals);
+    for(var i = 0; i < vm.allGoals.length; i++){
+      getLastUpdate(vm.allGoals[i]);
+      for(var x = 0; x < vm.dataList.length; x++){
+        if(vm.dataList[x].clientid == vm.allGoals[i].client_id){
 
-        console.log('PUSH');
-        vm.dataList[x].goals.push(vm.allGoals[i]);
+          console.log('PUSH');
+          vm.dataList[x].goals.push(vm.allGoals[i]);
+        }
       }
     }
-  }
-  console.log('vm.dataList after getAllGoals is:', vm.dataList);
-  setTrackingStatus();
-});
+    console.log('vm.dataList after getAllGoals is:', vm.dataList);
+    setTrackingStatus();
+  });
 
 };// end getAllGoals
 
 
- setTrackingStatus = function(){
-   console.log('in setTrackingStatus with vm.clientList:', vm.clientList);
+setTrackingStatus = function(){
+  console.log('in setTrackingStatus with vm.clientList:', vm.clientList);
 
-for(i = 0; i < vm.clientList.length; i++){
-  var amsComplete = 0;
-  var pmsComplete = 0;
-  for(x = 0; x < vm.clientList[i].goals.length; x++){
-    if(vm.clientList[i].goals[x].amDone == true){
-      amsComplete++;
+  for(i = 0; i < vm.clientList.length; i++){
+    var amsComplete = 0;
+    var pmsComplete = 0;
+    for(x = 0; x < vm.clientList[i].goals.length; x++){
+      if(vm.clientList[i].goals[x].amDone == true){
+        amsComplete++;
+      }
+      if(vm.clientList[i].goals[x].pmDone == true){
+        pmsComplete++;
+      }
     }
-    if(vm.clientList[i].goals[x].pmDone == true){
-      pmsComplete++;
+    if(amsComplete == vm.clientList[i].goals.length){
+      vm.clientList[i].allAmDone = true;
     }
-  }
-  if(amsComplete == vm.clientList[i].goals.length){
-    vm.clientList[i].allAmDone = true;
-  }
-  if(pmsComplete == vm.clientList[i].goals.length){
-    vm.clientList[i].allPmDone = true;
+    if(pmsComplete == vm.clientList[i].goals.length){
+      vm.clientList[i].allPmDone = true;
+    }
+
   }
 
-}
 
-
- };
+};
 vm.setClientColor= function(client){
   var x = "red";
   if(client.allAmDone == true || client.allPmDone == true){
@@ -525,5 +540,18 @@ vm.setClientColor= function(client){
 };
 
 //END LAST FEATURE
+
+//LAST FEATURE CLEANUP
+vm.testGet = function(){
+  console.log('in testGet');
+
+  $http.get('/tracking/getEverything/').then(function(response){
+    console.log('Received response from trackGoal POST:', response.data);
+
+  }).catch(function(response){
+    console.log('caught error:', response);
+  });
+};
+//END LAST FEATURE CLEANUP
 
 }); //END OF CONTROLLER
