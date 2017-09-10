@@ -26,12 +26,15 @@
     </div>
 
     <!-- List of Participants -->
-    <div style="border-bottom:1px solid black">
-      <p id="clientList" ng-repeat="client in tc.clientList" ng-click="tc.showClientGoals(client)">{{client.client_name}}</p>
+    <div layout="row" flex="nogrow">
+      <p>Please select participant:</p>
+    </div>
+    <div>
+      <p class="activeClient" ng-repeat="client in tc.clientList" ng-click="tc.showClientGoals(client)">{{client.client_name}}</p>
     </div>
     <!-- <p style="margin-top:4px; margin-bottom:0px"> No goals entered for: </p> -->
     <div>
-      <p style="font-style:italic" ng-repeat="ngclient in tc.noGoalsClients">{{ngclient.client_name}} (no goals)</p>
+      <p class="nonactiveClient" ng-repeat="ngclient in tc.noGoalsClients">{{ngclient.client_name}} (no goals)</p>
     </div>
   </div> <!-- End of left side of page-->
 
@@ -51,7 +54,7 @@
     </div>
 
     <!-- TEMPLATE FOR A GOAL & ITS TRACKING INPUTS -->
-    <div style="margin:20px" class="goalBox md-whiteframe-4dp" layout="row" ng-repeat="goal in tc.clientGoals" flex>
+    <div style="margin:20px" class="goalBox md-whiteframe-4dp" layout="row" ng-repeat="goal in tc.clientGoals" flex="nogrow">
       <div layout="column" flex>
 
         <!-- Row for Goal Name -->
