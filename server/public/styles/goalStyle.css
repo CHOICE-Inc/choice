@@ -4,7 +4,6 @@
 /* GOAL CRITERIA STYLING */
 
 /*DIV STYLING ON GOAL CRITERIA PAGE*/
-
 div.container.goals.ng-scope.layout-column.flex {
   margin-left: 70px;
   margin-right: 70px;
@@ -52,9 +51,6 @@ div#methodsRunDiv.layout-column.flex-50 {
   margin-right: 20px;
 }
 
-
-/* GOAL CRITERIA STYLING */
-
 .goalHeader {
   background-color: #004ba0;
   color: #fff;
@@ -73,26 +69,26 @@ div#methodsRunDiv.layout-column.flex-50 {
 #leftColumn {
   padding: 10px;
 }
-
 #rightColumn {
   padding: 10px;
 }
-
 .goalBox {
-  width: 100%;
-  background-color: #e6ffff;
-  border-bottom: 1px solid #01579b;
-  margin: auto;
-  padding: 5px;
+  width: 95%;
+  margin: 0 auto;
+  padding: 10px;
 }
 
 .goalNameBox {
   background-color: #004ba0;
   color: #fff;
+  height: 40px;
+  /*border-bottom: 3px solid #007ac1;*/
 }
 
 .goalName {
   font-size: 1.5em;
+  text-align: left;
+  padding-left: 10px;
 }
 
 .label {
@@ -102,7 +98,7 @@ div#methodsRunDiv.layout-column.flex-50 {
 
 #clientName, #cmName {
   font-weight: normal;
-  font-size: 1.8em;
+  font-size: 1.4em;
   color: #000;
 }
 
@@ -121,8 +117,7 @@ div#methodsRunDiv.layout-column.flex-50 {
 }
 
 .initialsInput {
-  border: 1px solid #01579b;
-  background-color: white;
+  background-color: #f5f5f5;
 }
 
 /* HISTORY TABLE CONDITIONAL STYLING */
@@ -161,8 +156,9 @@ div#methodsRunDiv.layout-column.flex-50 {
 /* TABLE STYLING FOR MANAGE PAGES */
 table.md-table th.md-column {
   color: #007ac1;
-  font-size: 1.5em;
+  font-size: 1.2em;
   padding: 10px 0px;
+  text-align: center;
 }
 table.md-table:not(.md-row-select) td.md-cell:nth-child(n+2):nth-last-child(n+2),
 table.md-table:not(.md-row-select) th.md-column:nth-child(n+2):nth-last-child(n+2) {
@@ -170,6 +166,10 @@ table.md-table:not(.md-row-select) th.md-column:nth-child(n+2):nth-last-child(n+
 }
 table.md-table td.md-cell {
   font-size: 1.1em;
+  text-align: center;
+}
+.manageTitle{
+  margin-left: 20px;
 }
 #staffTable{
   width: 100%;
