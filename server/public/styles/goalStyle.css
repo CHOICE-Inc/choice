@@ -2,6 +2,55 @@
 /* Also includes styling for the Manage pages*/
 
 /* GOAL CRITERIA STYLING */
+
+/*DIV STYLING ON GOAL CRITERIA PAGE*/
+div.container.goals.ng-scope.layout-column.flex {
+  margin-left: 70px;
+  margin-right: 70px;
+  margin-top: 25px;
+}
+
+div.goalHeader.layout-row.flex-none {
+  background-color: #007ac1;
+  color: #ffffff;
+  margin-bottom: 25px;
+}
+
+h2#supportPlan {
+  margin-left: 25px;
+}
+
+div#clientRepName.layout-column.flex-35 {
+  margin-right: 20px;
+
+}
+
+div#jobsiteGoalData.layout-column.flex-35 {
+  margin-right: 20px;
+}
+
+div.summaryOutcomeObjectiveDiv.layout-row {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#goalSummaryDiv {
+  margin-right: 20px;
+}
+
+#serviceOutcomeDiv {
+  margin-right: 20px;
+}
+
+div.methodsDiv.layout-row {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+div#methodsRunDiv.layout-column.flex-50 {
+  margin-right: 20px;
+}
+
 .goalHeader {
   background-color: #004ba0;
   color: #fff;
@@ -20,26 +69,26 @@
 #leftColumn {
   padding: 10px;
 }
-
 #rightColumn {
   padding: 10px;
 }
-
 .goalBox {
-  width: 100%;
-  background-color: #e6ffff;
-  border-bottom: 1px solid #01579b;
-  margin: auto;
-  padding: 5px;
+  width: 95%;
+  margin: 0 auto;
+  padding: 10px;
 }
 
 .goalNameBox {
   background-color: #004ba0;
   color: #fff;
+  height: 40px;
+  /*border-bottom: 3px solid #007ac1;*/
 }
 
 .goalName {
   font-size: 1.5em;
+  text-align: left;
+  padding-left: 10px;
 }
 
 .label {
@@ -49,7 +98,7 @@
 
 #clientName, #cmName {
   font-weight: normal;
-  font-size: 1.8em;
+  font-size: 1.4em;
   color: #000;
 }
 
@@ -68,8 +117,7 @@
 }
 
 .initialsInput {
-  border: 1px solid #01579b;
-  background-color: white;
+  background-color: #f5f5f5;
 }
 
 /* HISTORY TABLE CONDITIONAL STYLING */
@@ -108,8 +156,9 @@
 /* TABLE STYLING FOR MANAGE PAGES */
 table.md-table th.md-column {
   color: #007ac1;
-  font-size: 1.5em;
+  font-size: 1.2em;
   padding: 10px 0px;
+  text-align: center;
 }
 table.md-table:not(.md-row-select) td.md-cell:nth-child(n+2):nth-last-child(n+2),
 table.md-table:not(.md-row-select) th.md-column:nth-child(n+2):nth-last-child(n+2) {
@@ -117,6 +166,10 @@ table.md-table:not(.md-row-select) th.md-column:nth-child(n+2):nth-last-child(n+
 }
 table.md-table td.md-cell {
   font-size: 1.1em;
+  text-align: center;
+}
+.manageTitle{
+  margin-left: 20px;
 }
 #staffTable{
   width: 100%;
