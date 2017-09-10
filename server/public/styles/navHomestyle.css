@@ -111,7 +111,7 @@ md-menu-bar md-menu>button:focus {
 /* LANDING PAGE STYLING */
 .homeContainer {
   min-height: 600px;
-  background-image: url('../../assets/img/choiceLeaves_light.svg');
+  background-image: url('../../assets/img/choiceLeaves_lighter.svg');
   background-size: 700px 700px;
   background-repeat: no-repeat;
 }
@@ -123,6 +123,19 @@ md-menu-bar md-menu>button:focus {
   color: #007ac1;
 }
 
+.homeOptions {
+  border: 1px solid black;
+  width: 50%;
+  margin: 0 auto;
+}
+.userOptions a {
+  color: #007ac1;
+  text-decoration: none;
+}
+.userOptions a:hover {
+  color: #66bb6a;
+  text-decoration: underline;
+}
 .welcome {
   color: #007ac1;
   font-size: 2.0em;

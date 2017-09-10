@@ -34,8 +34,7 @@ CREATE TABLE "users" (
   "id" serial primary key,
   "username" varchar(80) not null UNIQUE,
   "password" varchar(240) not null,
-  "staff_id" integer references staff(id),
-  "user_role" integer references staff(id)
+  "staff_id" integer references staff(id)
 );
 
 
@@ -116,8 +115,8 @@ CREATE TABLE "goal_tracking" (
 	"date_tracked" date not null,
 	"am_or_pm" varchar(2) not null,
 	"complete_or_not" varchar(20) not null,
-	"notes" varchar(300) not null,
-	entered_by varchar(100) null
+	"notes" varchar(300) null,
+	"entered_by" varchar(100) null
 );
 
 ----- add a few sample goals -----
