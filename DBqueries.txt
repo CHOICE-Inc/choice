@@ -116,7 +116,7 @@ CREATE TABLE "goal_tracking" (
 	"date_tracked" date not null,
 	"am_or_pm" varchar(2) not null,
 	"complete_or_not" varchar(20) not null,
-	"notes" varchar(300) not null,
+	"notes" varchar(300) null,
 	entered_by varchar(100) null
 );
 
