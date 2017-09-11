@@ -72,6 +72,9 @@ div#methodsRunDiv.layout-column.flex-50 {
 #rightColumn {
   padding: 10px;
 }
+#selectPrompt {
+  color: #c2c2c2;
+}
 .goalBox {
   width: 95%;
   margin: 0 auto;
