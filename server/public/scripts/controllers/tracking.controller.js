@@ -18,7 +18,7 @@ myApp.controller('TrackingController', function($http, $mdToast, $location, $sco
   vm.today = new Date();
   vm.filters = ['Show All', 'Location', 'Case Manager', 'Option 3', 'Option 4', 'Option 5'];
   vm.hidden = false;
-  vm.promptHidden = false;
+  vm.promptHidden = true;
   vm.rowClass = 'rowDefault';
 
   // builds list of clients to display on goal tracking page
@@ -106,7 +106,7 @@ myApp.controller('TrackingController', function($http, $mdToast, $location, $sco
     $http.get('/tracking/getGoals/' + client.clientid).then(function(response) {
       console.log('getGoals response:',response.data);
       vm.clientGoals = response.data;
-      vm.promptHidden = true;
+      vm.promptHidden = false;
       for(var i = 0; i < vm.clientGoals.length; i++){
         vm.clientGoals[i].lastUpdate = getLastUpdate(vm.clientGoals[i]);
       }

@@ -22,7 +22,7 @@
         <md-option ng-repeat="loc in tc.locationList" ng-value="loc">{{loc}}</md-option>
       </md-select>
 
-      <md-button class="md-raised md-primary" ng-click="tc.filterClients(tc.dataList)">Filter</md-button>
+      <md-button class="md-raised md-primary md-hue-1" ng-click="tc.filterClients(tc.dataList)">Filter</md-button>
     </div>
 
     <!-- List of Participants -->
@@ -32,9 +32,8 @@
     <div>
       <p class="activeClient" ng-repeat="client in tc.clientList" ng-click="tc.showClientGoals(client)">{{client.client_name}}</p>
     </div>
-    <!-- <p style="margin-top:4px; margin-bottom:0px"> No goals entered for: </p> -->
     <div>
-      <p class="nonactiveClient" ng-repeat="ngclient in tc.noGoalsClients">{{ngclient.client_name}} (no goals)</p>
+      <p class="nonactiveClient" ng-repeat="ngclient in tc.noGoalsClients">{{ngclient.client_name}} (goals not assigned)</p>
     </div>
   </div> <!-- End of left side of page-->
 
@@ -49,7 +48,7 @@
         <p class="label">Case Manager: <span id="cmName"> {{tc.clientToView.staff_name}}</span></p>
       </div>
       <div layout="column" flex>
-        <md-button class="md-raised md-primary" type="button" name="button" ng-click="tc.notifyAdmin(message)">Message Admin</md-button>
+        <md-button class="md-raised md-primary md-hue-1" type="button" name="button" ng-click="tc.notifyAdmin(message)">Message Admin</md-button>
       </div>
     </div>
     <div layout="row" ng-show="tc.promptHidden" flex="nogrow">
@@ -70,10 +69,13 @@
           <div layout="column" flex="50">
             <p class="label">GOAL LOCATION: <span class="locationName"> {{goal.business_name}}</span></p>
           </div>
-          <div class="column" flex="50">
-            <md-button ng-hide="goal.hidden == true" class="md-raised md-primary" ng-click="tc.goalService.viewGoalCriteria(goal.goalid, tc.clientToView.clientid, $event)">Goal Criteria</md-button>
-            <md-button ng-hide="goal.hidden == true" class="md-raised md-primary md-hue-1" ng-click="tc.toGoalHistory(goal)">Goal History</md-button>
-            <md-button ng-show="goal.hidden == true" class="md-raised md-primary md-hue-1" ng-click="tc.toGoalHistory(goal)">Back to Tracking</md-button>
+          <div layout="column" layout-align="center end" flex>
+            <div layout="row" flex>
+              <p class="label">View:</p>
+              <md-button ng-hide="goal.hidden == true" class="md-raised md-primary md-hue-1" ng-click="tc.goalService.viewGoalCriteria(goal.goalid, tc.clientToView.clientid, $event)">Goal Criteria</md-button>
+              <md-button ng-hide="goal.hidden == true" class="md-raised md-primary md-hue-1" ng-click="tc.toGoalHistory(goal)">Goal History</md-button>
+              <md-button ng-show="goal.hidden == true" class="md-raised md-primary md-hue-1" ng-click="tc.toGoalHistory(goal)">Back to Tracking</md-button>
+            </div>
           </div>
         </div>
 
