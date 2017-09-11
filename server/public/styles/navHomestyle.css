@@ -63,6 +63,10 @@ md-menu-bar md-menu>button:focus {
   background: none;
 }
 
+button.md-raised.md-warn.md-button.md-ink-ripple {
+  margin-left: 0px;
+}
+
 #navbarImage {
   background-color: #fff;
 }
