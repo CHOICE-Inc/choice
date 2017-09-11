@@ -184,7 +184,10 @@ table.md-table td.md-cell {
   margin-left: 20px;
 }
 #staffTable{
-  width: 100%;
+  width: 90%;
+}
+#clientTable{
+  width: 90%;
 }
 #addStaffBtn {
   height: 25px;
