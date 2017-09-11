@@ -1,7 +1,6 @@
 /* CSS FILE FOR GOAL CRITERIA PAGE AND GOAL TRACKING PAGE */
 /* Also includes styling for the Manage pages*/
 
-/* GOAL CRITERIA STYLING */
 
 /*DIV STYLING ON GOAL CRITERIA PAGE*/
 div.container.goals.ng-scope.layout-column.flex {
@@ -33,6 +32,30 @@ div.summaryOutcomeObjectiveDiv.layout-row {
   margin-top: 20px;
   margin-bottom: 20px;
 }
+
+div#methodsRunDiv.layout-column.flex-30 {
+  margin-right: 20px;
+}
+
+md-autocomplete-wrap.md-whiteframe-z1.md-show-clear-button {
+  width: 260px;
+}
+
+md-autocomplete {
+  width: 260px;
+}
+
+md-input-container.md-icon-float.md-input-has-placeholder {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+
+div.layout-column.flex-40 {
+  margin-right: 20px;
+}
+
+/* GOAL CRITERIA STYLING */
 
 #goalSummaryDiv {
   margin-right: 20px;
