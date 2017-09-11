@@ -4,8 +4,8 @@
 
 /*DIV STYLING ON GOAL CRITERIA PAGE*/
 div.container.goals.ng-scope.layout-column.flex {
-  margin-left: 70px;
-  margin-right: 70px;
+  margin-left: 50px;
+  margin-right: 50px;
   margin-top: 25px;
 }
 
@@ -54,6 +54,33 @@ md-input-container.md-icon-float.md-input-has-placeholder {
 div.layout-column.flex-40 {
   margin-right: 20px;
 }
+
+/*DIV STYLING ON EDIT GOAL PAGE*/
+
+div.container.ng-scope {
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+div.container.goals.layout-coulumn.flex {
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-top: 25px;
+}
+
+div.goalSelect.layout-column.flex-30 {
+  margin-right: 20px;
+}
+
+md-input-container#goalSelect {
+  margin-top: 30px;
+}
+
+button.md-raised.md-warn.md-button.md-ink-ripple {
+  margin-left: 45px;
+  margin-top: 30px;
+}
+
 
 /* GOAL CRITERIA STYLING */
 
