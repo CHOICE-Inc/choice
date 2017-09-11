@@ -6,9 +6,9 @@
   </div>
 
   <!-- Add new job site-->
-  <div class="container" layout="row" flex>
+  <div id="addJobsite" layout="row" flex>
     <md-content>
-      <div class="row" flex>
+      <div layout="row" flex>
         <md-input-container>
           <label>Job Site Name:</label>
           <input type="text" ng-model="jc.business_name" placeholder="McDonald's">
@@ -25,7 +25,7 @@
           <label>Contact:</label>
           <input type="text" ng-model="jc.contact" placeholder="Mary Smith">
         </md-input-container>
-        <md-button class="md-raised md-accent"
+        <md-button id="addJobsiteBtn" class="md-raised md-accent"
         ng-click="jc.addNewJobSite(jc.business_name, jc.address, jc.phone, jc.contact)">Add New Job Site</md-button>
       </div>
     </div> <!-- end of add job site div-->

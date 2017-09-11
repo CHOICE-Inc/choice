@@ -6,6 +6,7 @@ myApp.config(function($routeProvider, $locationProvider, $mdThemingProvider) {
   $mdThemingProvider.theme('default')
     .primaryPalette('light-blue', {
       'default' : '500',
+      'hue-1' : '800'
     })
     .accentPalette('green',{
       'default': '400'
