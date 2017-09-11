@@ -189,3 +189,15 @@ table.md-table td.md-cell {
 #addStaffBtn {
   height: 25px;
 }
+#addStaff, #addClient {
+  margin-top: 10px;
+}
+#addJobsite {
+  margin-left: 20px;
+}
+#addJobsiteBtn {
+  height: 25px;
+}
+#jobsiteTable{
+  margin-left: 20px;
+}
