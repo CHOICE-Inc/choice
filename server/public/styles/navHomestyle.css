@@ -97,9 +97,10 @@ button.md-raised.md-warn.md-button.md-ink-ripple {
 }
 
 #logoutBtn {
-  margin-top: 10px;
+  margin-top: 20px;
   background-color: #ab000d;
   opacity: 0.8;
+  width: 75%
 }
 #logoutBtn:hover {
   background-color: #e53935;
