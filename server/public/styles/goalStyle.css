@@ -1,13 +1,12 @@
 /* CSS FILE FOR GOAL CRITERIA PAGE AND GOAL TRACKING PAGE */
 /* Also includes styling for the Manage pages*/
 
-/* GOAL CRITERIA STYLING */
 
 /*DIV STYLING ON GOAL CRITERIA PAGE*/
 div.container.goals.ng-scope.layout-column.flex {
-  margin-left: 70px;
-  margin-right: 70px;
-  margin-top: 25px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
 }
 
 div.goalHeader.layout-row.flex-none {
@@ -33,6 +32,58 @@ div.summaryOutcomeObjectiveDiv.layout-row {
   margin-top: 20px;
   margin-bottom: 20px;
 }
+
+div#methodsRunDiv.layout-column.flex-30 {
+  margin-right: 20px;
+}
+
+md-autocomplete-wrap.md-whiteframe-z1.md-show-clear-button {
+  width: 410px;
+}
+
+md-autocomplete {
+  width: 410px;
+}
+
+md-input-container.md-icon-float.md-input-has-placeholder {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+
+div.layout-column.flex-40 {
+  margin-right: 20px;
+}
+
+/*DIV STYLING ON EDIT GOAL PAGE*/
+
+div.container.ng-scope {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+div.container.goals.layout-coulumn.flex {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+}
+
+div.goalSelect.layout-column.flex-30 {
+  margin-right: 20px;
+}
+
+md-input-container#goalSelect {
+  margin-top: 30px;
+}
+
+button.md-raised.md-warn.md-button.md-ink-ripple {
+  margin-left: 45px;
+  margin-top: 30px;
+  background-color: #ab000d;
+}
+
+
+/* GOAL CRITERIA STYLING */
 
 #goalSummaryDiv {
   margin-right: 20px;
@@ -72,54 +123,66 @@ div#methodsRunDiv.layout-column.flex-50 {
 #rightColumn {
   padding: 10px;
 }
+#selectPrompt {
+  color: #c2c2c2;
+  font-size: 2.0em;
+}
 .goalBox {
   width: 95%;
   margin: 0 auto;
   padding: 10px;
 }
-
 .goalNameBox {
   background-color: #004ba0;
   color: #fff;
   height: 40px;
   /*border-bottom: 3px solid #007ac1;*/
 }
-
 .goalName {
   font-size: 1.5em;
   text-align: left;
   padding-left: 10px;
 }
-
+.md-button.md-default-theme.md-raised, .md-button.md-raised.purpleBtn {
+  background-color: #8e24aa;
+  color: #fff;
+}
+.md-button.md-default-theme.md-raised, .md-button.md-raised.purpleBtn:hover {
+  background-color: #c158dc;
+}
 .label {
   font-weight: bold;
   color: #004ba0;
 }
-
 #clientName, #cmName {
   font-weight: normal;
   font-size: 1.4em;
   color: #000;
 }
-
 .locationName, .goalNotes, .date {
   font-weight: normal;
   font-size: 1.5em;
   color: #000;
 }
-
 .amPmButtons {
   padding-left: 5px;
 }
-
 .amComplete, .pmComplete {
   font-size: 1.2em;
 }
-
 .initialsInput {
   background-color: #f5f5f5;
 }
-
+.activeClient {
+  color: #007ac1;
+}
+.activeClient:hover {
+  color: #03a9fd;
+  text-decoration: underline;
+}
+.nonactiveClient {
+  color: #c2c2c2;
+}
 /* HISTORY TABLE CONDITIONAL STYLING */
 .goalHistoryTable {
   text-align: center;
@@ -172,8 +235,23 @@ table.md-table td.md-cell {
   margin-left: 20px;
 }
 #staffTable{
-  width: 100%;
+  width: 90%;
+}
+#clientTable{
+  width: 90%;
 }
 #addStaffBtn {
   height: 25px;
+}
+#addStaff, #addClient {
+  margin-top: 10px;
+}
+#addJobsite {
+  margin-left: 20px;
+}
+#addJobsiteBtn {
+  height: 25px;
+}
+#jobsiteTable{
+  margin-left: 20px;
 }
