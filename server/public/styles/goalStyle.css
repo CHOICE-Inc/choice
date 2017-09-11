@@ -4,9 +4,9 @@
 
 /*DIV STYLING ON GOAL CRITERIA PAGE*/
 div.container.goals.ng-scope.layout-column.flex {
-  margin-left: 50px;
-  margin-right: 50px;
-  margin-top: 25px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
 }
 
 div.goalHeader.layout-row.flex-none {
@@ -38,11 +38,11 @@ div#methodsRunDiv.layout-column.flex-30 {
 }
 
 md-autocomplete-wrap.md-whiteframe-z1.md-show-clear-button {
-  width: 260px;
+  width: 410px;
 }
 
 md-autocomplete {
-  width: 260px;
+  width: 410px;
 }
 
 md-input-container.md-icon-float.md-input-has-placeholder {
@@ -58,14 +58,14 @@ div.layout-column.flex-40 {
 /*DIV STYLING ON EDIT GOAL PAGE*/
 
 div.container.ng-scope {
-  margin-left: 50px;
-  margin-right: 50px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 div.container.goals.layout-coulumn.flex {
-  margin-left: 50px;
-  margin-right: 50px;
-  margin-top: 25px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
 }
 
 div.goalSelect.layout-column.flex-30 {
