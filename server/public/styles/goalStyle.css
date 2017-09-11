@@ -1,13 +1,12 @@
 /* CSS FILE FOR GOAL CRITERIA PAGE AND GOAL TRACKING PAGE */
 /* Also includes styling for the Manage pages*/
 
-/* GOAL CRITERIA STYLING */
 
 /*DIV STYLING ON GOAL CRITERIA PAGE*/
 div.container.goals.ng-scope.layout-column.flex {
-  margin-left: 70px;
-  margin-right: 70px;
-  margin-top: 25px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
 }
 
 div.goalHeader.layout-row.flex-none {
@@ -33,6 +32,58 @@ div.summaryOutcomeObjectiveDiv.layout-row {
   margin-top: 20px;
   margin-bottom: 20px;
 }
+
+div#methodsRunDiv.layout-column.flex-30 {
+  margin-right: 20px;
+}
+
+md-autocomplete-wrap.md-whiteframe-z1.md-show-clear-button {
+  width: 410px;
+}
+
+md-autocomplete {
+  width: 410px;
+}
+
+md-input-container.md-icon-float.md-input-has-placeholder {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+
+div.layout-column.flex-40 {
+  margin-right: 20px;
+}
+
+/*DIV STYLING ON EDIT GOAL PAGE*/
+
+div.container.ng-scope {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+div.container.goals.layout-coulumn.flex {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+}
+
+div.goalSelect.layout-column.flex-30 {
+  margin-right: 20px;
+}
+
+md-input-container#goalSelect {
+  margin-top: 30px;
+}
+
+button.md-raised.md-warn.md-button.md-ink-ripple {
+  margin-left: 45px;
+  margin-top: 30px;
+  background-color: #ab000d;
+}
+
+
+/* GOAL CRITERIA STYLING */
 
 #goalSummaryDiv {
   margin-right: 20px;
