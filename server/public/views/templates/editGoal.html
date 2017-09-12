@@ -43,7 +43,8 @@
 
   <div layout="column" flex="22">
     <!-- Disable button -->
-    <md-button class="md-raised md-warn" name="disableBtn" ng-click="gc.disableCriteria(gc.goal_id, gc.goal_status, gc.client_id)">Disable Criteria</md-button>
+    <md-button ng-hide="gc.goal_status" class="md-raised md-warn" name="disableBtn" ng-click="gc.disableCriteria(gc.goal_id, gc.goal_status, gc.client_id)">Disable Criteria</md-button>
+    <md-button ng-show="gc.goal_status" class="md-raised md-warn" style="background-color:#66bb6a" name="disableBtn" ng-click="gc.disableCriteria(gc.goal_id, gc.goal_status, gc.client_id)">Enable Criteria</md-button>
   </div>
 
 </div>
@@ -59,9 +60,9 @@
         </div>
         <div layout="column" layout-align="center center" flex="35">
           <div layout="row">
-            <md-button class="md-raised md-accent" name="saveBtn" ng-disabled="false" ng-click="gc.saveCriteria(gc.implementation_date, gc.review_dates, gc.completion_date,
-            gc.service_outcome, gc.objective, gc.behavior_techniques, gc.modifications, gc.equipment, gc.jobsite_details, gc.when_notes, gc.plan_steps,
-            gc.goal_name, gc.goal_summary)">SAVE</md-button>
+            <md-button class="md-raised md-accent" name="updateBtn" ng-disabled="false" ng-click="gc.updateCriteria(gc.client_id, gc.jobsite_id, gc.implementation_date, gc.review_dates, gc.completion_date,
+              gc.service_outcome, gc.objective, gc.behavior_techniques, gc.modifications, gc.equipment, gc.jobsite_details, gc.when_notes, gc.plan_steps,
+              gc.goal_name, gc.goal_summary, gc.goal_id)">Update</md-button>
           </div>
         </div>
       </div>

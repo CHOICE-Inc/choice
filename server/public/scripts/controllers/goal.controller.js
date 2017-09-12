@@ -237,6 +237,11 @@ myApp.controller('GoalController', function($http, $location, UserService, GoalS
       console.log('This goal\'s status: ', boolean);
       $http.put('/goal/disable/' + goal_id + '/' + boolean).then(function(response){
         console.log('Disable criteria response: ', response);
+        swal(
+'Updated!',
+'Goal status has been updated.',
+'success'
+);
         vm.getGoalCriteria(goal_id, client_id);
 
       });
