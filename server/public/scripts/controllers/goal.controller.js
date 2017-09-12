@@ -25,9 +25,11 @@ myApp.controller('GoalController', function($http, $location, UserService, GoalS
   getClients();
 
   //CONVERT CLIENT NAME TO CLIENT ID for use in data object being sent w/ POST request
-  vm.assignClientID = function (id){
-    console.log("assignClient id: ", id);
-    goal.client_id = id;
+  vm.assignIds = function (client){
+    console.log("assignClient client: ", client);
+    goal.client_id = client.id;
+    vm.casemanager_id = client.staff_id;
+    vm.casemanager = client.staff_name;
   };
 
   // GET REQUEST TO RETIEVE CASE MANAGER NAMES AND IDs fROM DB TO POPULATE PULLDOWN MENU / AUTOCOMPLETE
@@ -40,11 +42,6 @@ myApp.controller('GoalController', function($http, $location, UserService, GoalS
   }
   getCaseManagers();
 
-  //CONVERT CLIENT NAME TO STAFF ID
-  vm.assignCMID = function (id) {
-    console.log("assignClient id: ", id);
-    goal.casemanager_id = id;
-  };
 
   // GET REQUEST TO RETIEVE JOB SITE NAMES AND IDs fROM DB TO POPULATE PULLDOWN MENU / AUTOCOMPLETE
   // Route: /goal/jobsites
@@ -63,11 +60,13 @@ myApp.controller('GoalController', function($http, $location, UserService, GoalS
   };
 
   //WHEN USER CLICKS A CLIENT'S NAME, AUTOPOPULATE PULLDOWN MENU FOR AVAILABLE GOALS
-  vm.getClientGoals = function(client_id) {
-    console.log('Client ID to retrieve goals for: ', client_id);
+  vm.getClientGoals = function(client) {
+    console.log('Client to retrieve goals for: ', client);
+    vm.casemanager = client.staff_name;
+    console.log('vm.casemanager is:', vm.casemanager);
 
     //GET request to get all the goals available for the client_id
-    getAllGoals(client_id);
+    getAllGoals(client.id);
     console.log('Goals for that client include: ', vm.allGoalData);
     //Display the goal "names" for each one in the pulldown menu
 
