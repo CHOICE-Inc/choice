@@ -360,9 +360,9 @@ router.post('/', function(req, res){
 // UPDATE ROUTE AFTER USER EDIT
 // NEED GOAL ID TO ACCESS CORRECT GOAL
 /**
-* @api {put} /goal Add a single goal to the database
+* @api {put} /goal Update a goal in the database
 * @apiName UpdateGoal
-* @apiGroup Goal
+* @apiGroup Goals
 *
 * @apiParam {String} behavior_techniques Goals's behavior techniques
 * @apiParam {Number} client_id  Client's ID (assigned to goal object in another function)
@@ -442,7 +442,7 @@ router.put('/:id', function(req, res){
 /**
 /* @api {put} /goal/disable/goal_id/goal_status Change goal's active status
 * @apiName DisableGoal
-* @apiGroup Goal
+* @apiGroup Goals
 *
 * @apiParam {Number} goal.id  Goal's ID from goal table
 * @apiParam {Boolean} boolean Current status of goal (true or false)
