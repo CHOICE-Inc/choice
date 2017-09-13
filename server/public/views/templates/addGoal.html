@@ -181,9 +181,15 @@
 
     <!-- Row for Footer of goal sheet -->
     <div layout="row">
+      <div layout="column" flex="75">
       * Please see report for goal progress
+      </div>
+    <div layout="column" flex="10">
+      <md-button class="md-raised md-accent" name="saveBtn" ng-disabled="false" ng-click="gc.saveCriteria(gc.implementation_date, gc.review_dates, gc.completion_date,
+      gc.service_outcome, gc.objective, gc.behavior_techniques, gc.modifications, gc.equipment, gc.jobsite_details, gc.when_notes, gc.plan_steps,
+      gc.goal_name, gc.goal_summary)">SAVE HERE</md-button>
+    </div>
     </div><!-- End of Row for Footer of goal sheet -->
-
   </form>
 </md-content> <!-- end of material container-->
 
