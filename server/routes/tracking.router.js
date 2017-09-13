@@ -217,7 +217,7 @@ router.get('/getGoalHistory/:id', function(req, res) {
 // ADD GOAL TRACKING DATA fROM DB
   /**
   /* @api {post} /tracking/trackGoal Retrieve goal tracking data for a specific client
-  * @apiName GetAllTrackingData
+  * @apiName AddGoalTrackingData
   * @apiGroup Tracking
   *
   * @apiParam {Number} goal_id  Goal ID for goal to update
@@ -263,7 +263,7 @@ router.post('/trackGoal', function(req, res) {
 // DELETE GOAL TRACKING DATA FOR A SINGLE CHECKIN
 /**
 /* @api {get} /tracking/deleteEntry/goal_id Delete goal tracking data for a specific entry
-* @apiName GetAllTrackingData
+* @apiName DeleteTrackingData
 * @apiGroup Tracking
 *
 * @apiParam {Number} goal_id  Goal ID to get data for
@@ -297,7 +297,7 @@ var id = req.params.id;
 // SEND EMAIL NOTIFICATION TO ADMIN
 /**
 /* @api {put} /tracking/notifyAdmin Email notification to admin
-* @apiName GetAllTrackingData
+* @apiName EmailAdmin
 * @apiGroup Tracking
 *
 * @apiParam {Number} staff_id  Goal ID to get data for
