@@ -21,6 +21,7 @@ myApp.controller('JobSitesController', function($http, $mdToast, $location, User
       console.log('Getting all the jobsites: ', response.data);
 //FOR LOOP TO LOOP THROUGH DATA TO CHECK BOOLEAN FOR jobsite_status IN THE JOBSITE TABLE
       for(i=0;i<response.data.length; i++){ //add a new object property based on the status for each jobsite
+        response.data[i].editing = false;
         if(response.data[i].jobsite_status === true){
           response.data[i].status = "Deactivate";
         }
@@ -85,6 +86,7 @@ myApp.controller('JobSitesController', function($http, $mdToast, $location, User
         jsc.siteToEdit = jobsite;
         jobsite.editing = !jobsite.editing;
         jsc.editStatus = !jsc.editStatus;
+        console.log('ending toggleEditing with jobsite:', jobsite);
       };
 
       jsc.updateJobSite = function(jobsite){

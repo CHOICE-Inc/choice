@@ -16,7 +16,7 @@ router.get('/managejobsites', function(req, res) {
         next(err);
       }
       //
-      db.query("select * from job_site ORDER BY id",
+      db.query("select * from job_site ORDER BY business_name;",
           function (err, result) {
             done();
             if(err) {
