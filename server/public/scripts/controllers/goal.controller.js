@@ -62,6 +62,7 @@ myApp.controller('GoalController', function($http, $location, UserService, GoalS
   //WHEN USER CLICKS A CLIENT'S NAME, AUTOPOPULATE PULLDOWN MENU FOR AVAILABLE GOALS
   vm.getClientGoals = function(client) {
     console.log('Client to retrieve goals for: ', client);
+    vm.client_name = client.client_name;
     vm.casemanager = client.staff_name;
     console.log('vm.casemanager is:', vm.casemanager);
 

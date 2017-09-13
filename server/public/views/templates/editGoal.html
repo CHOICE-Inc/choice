@@ -72,36 +72,9 @@
       <div class="basicGoalData" layout="row" flex="none">
         <div id="clientRepName" layout="column" flex="35">
 
-          <div class="nameSelect">
-            <!-- Autocomplete input to select client name & send clientID to client-side-->
-            <md-input-container name="autocompleteForm">
-              <!-- <form name="autocompleteForm"> -->
-              <md-autocomplete required
-              md-no-cache="true"
-              md-input-name="gc.autocomplete"
-              md-selected-item="gc.selectedItem"
-              md-search-text="gc.searchText"
-              md-items="item in gc.querySearch(gc.searchText)"
-              md-item-text="item.client_name"
-              md-selected-item-change="gc.assignIds(gc.selectedItem)"
-              placeholder="Enter participant's name"
-              md-clear-button="true">
-              <md-item-template>
-                <span md-highlight-text="gc.searchText">{{item.client_name}}</span>
-              </md-item-template>
-              <md-not-found>
-                No names matching "{{gc.searchText}}" were found.
-              </md-not-found>
-              <div ng-messages="autocompleteForm.autocomplete.$error">
-                <div ng-message="required">This field is required</div>
-              </div>
-            </md-autocomplete>
-            <!-- </form> -->
-          </md-input-container>
+          <span style="margin-top: 30px">CLIENT NAME: {{gc.client_name}}</span>
 
-        </div>
-
-        <span>CHOICE Representative: {{gc.casemanager}}</span>
+        <span style="margin-top: 72px">CHOICE Representative: {{gc.casemanager}}</span>
 
       </div>
       <!--DIV FOR JOB SITE AND GOAL NAME-->
