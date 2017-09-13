@@ -11,7 +11,7 @@ var CASE = 2;
 /**
 * @api {get} /jobsites/managejobsites Retrieve ALL jobsite names and IDs
 * @apiName GetAllJobsites
-* @apiGroup RetrieveData
+* @apiGroup Jobsites
 *
 * @apiSuccess {String} address Jobsite's address
 * @apiSuccess {String} business_name Jobsites's name
@@ -56,8 +56,8 @@ router.get('/managejobsites', function(req, res) {
 //POST ROUTE TO ADD A NEW JOBSITE
 /**
 * @api {post} /jobsites/newjobsite Add a new jobsite to the database
-* @apiName PostJobsite
-* @apiGroup AddData
+* @apiName AddJobsite
+* @apiGroup Jobsites
 *
 * @apiParam {String} address Jobsite's address
 * @apiParam {String} business_name Jobsites's name
@@ -113,6 +113,17 @@ console.log('In post route to add new jobsite: ', req.body);
 
 // UPDATE ROUTE AFTER USER EDIT
 // NEED JOBSITE ID TO ACCESS CORRECT GOAL
+/**
+* @api {put} /jobsites/editjobsite Update a jobsite
+* @apiName UpdateJobsite
+* @apiGroup Jobsites
+*
+* @apiSuccess {String} address Jobsite's address
+* @apiSuccess {String} business_name Jobsites's name
+* @apiSuccess {String} contact Jobsite contact info
+* @apiSuccess {Number} jobsite_id Jobsite's ID
+* @apiSuccess {String} phone Phone number for job site
+*/
 router.put('/editjobsites', function(req, res){
   console.log('Going to put this updated data: ', req.body);
 
@@ -158,7 +169,7 @@ router.put('/editjobsites', function(req, res){
 /**
 * @api {put} /jobsites/disablejobsite Disable a jobsite
 * @apiName DisableJobsite
-* @apiGroup UpdateData
+* @apiGroup Jobsites
 *
 * @apiParam {Number} id Jobsite's unique id
 * @apiParam {Boolean} jobsite_status Indicates job site's active status

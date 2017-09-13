@@ -12,7 +12,7 @@ var CASE = 2;
 /**
 * @api {get} /clients/getClients Retrieve ALL clients names and IDs
 * @apiName GetAllClients
-* @apiGroup RetrieveData
+* @apiGroup Clients
 *
 * @apiSuccess {Boolean} active Client's active status (is inactive if no longer w/ Choice)
 * @apiSuccess {String} client_name Clients's name
@@ -56,8 +56,8 @@ var CASE = 2;
 //POST a new client to the DB and display on the DOM
 /**
 * @api {post} /clients/addClient Add a new client to the database
-* @apiName PostClient
-* @apiGroup AddData
+* @apiName AddClient
+* @apiGroup Clients
 *
 * @apiParam {String} client_name Clients's name
 * @apiSuccess {Number} staff_id Case Managers's ID from staff table
@@ -97,8 +97,8 @@ router.post('/addClient', function(req, res) {
 //updates client information
 /**
 * @api {put} /clients/updateClient Updates client's names in the database
-* @apiName GetAllClients
-* @apiGroup UpdateData
+* @apiName UpdateClient
+* @apiGroup Clients
 *
 * @apiParam {Number} client Clients's unique ID
 */
