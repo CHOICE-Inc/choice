@@ -21,6 +21,194 @@ myApp.controller('TrackingController', function($http, $mdToast, $location, $sco
   vm.promptHidden = true;
   vm.rowClass = 'rowDefault';
 
+
+  /*------- GET REQUESTS -----*/
+  getClients();
+
+  // gets list of clients
+  function getClients(){
+    $http.get('/tracking/getClients').then(function(response) {
+      console.log('client list is:', response.data);
+      vm.dataList = response.data;
+      buildLists(vm.dataList);
+      $http.get('/tracking/getNoGoalClients').then(function(res) {
+        console.log('noGoal client list is:', res.data);
+        vm.noGoalsData = res.data;
+        vm.noGoalsClients = angular.copy(vm.noGoalsData);
+        // console.log('vm.clientList:',vm.clientList);
+        // console.log('vm.locationList:',vm.locationList);
+        // console.log('vm.caseManagers:',vm.caseManagers);
+      });
+    });
+  }
+
+  // gets client goals
+  vm.showClientGoals = function(client){
+    console.log('in showClientGoals with client:', client);
+    vm.clientToView = client;
+    $http.get('/tracking/getGoals/' + client.clientid).then(function(response) {
+      console.log('getGoals response:',response.data);
+      vm.clientGoals = response.data;
+      vm.promptHidden = false;
+      for(var i = 0; i < vm.clientGoals.length; i++){
+        vm.clientGoals[i].lastUpdate = getLastUpdate(vm.clientGoals[i]);
+      }
+    });
+  };
+
+  // Populates goal history
+  vm.getGoalHistory = function(goal){
+    console.log('in getGoalHistory');
+    $http.get('/tracking/getGoalHistory/' + goal.goalid).then(function(response) {
+      console.log('getGoalHistory response:',response.data);
+      goal.history = response.data;
+      goal.shownHistory = response.data;
+      goal.numCompleted = 0;
+      for(i = 0;i < goal.shownHistory.length;i++){
+        if(goal.shownHistory[i].complete_or_not == "complete"){
+          goal.numCompleted++;
+        }
+      }
+      console.log('numCompleted is:', goal.numCompleted);
+      console.log('goal.shownHistory.length:', goal.shownHistory.length);
+      goal.successRate = (goal.numCompleted / goal.shownHistory.length * 100).toFixed(0);
+      console.log('goal.history is:', goal.history);
+      console.log('successRate is:', goal.successRate);
+
+    });
+  };
+
+  /*------- POST REQUESTS -----*/
+
+  // submits goal tracking data
+  vm.trackGoal = function(goal){
+    console.log('in trackGoal');
+    var goalData = {
+      id: goal.goalid,
+      time: goal.amOrPm,
+      completion: goal.completion,
+      notes: goal.notes,
+      date: new Date(),
+    };
+    console.log('sending goalData:', goalData);
+
+    if(goalData.time == undefined){
+      console.log('error: fill in time');
+      swal(
+        'Oops...',
+        'Please select either <b>AM</b> or <b>PM</b>.',
+        'error'
+      );
+    } else if(goalData.completion == undefined){
+      console.log('error: fill in completion');
+      swal(
+        'Oops...',
+        'Please select a <b>completion status</b>.',
+        'error'
+      );
+    } else if(goalData.time == "am" && goal.amDone == true){
+      console.log('am already done');
+      swal(
+        'Today\'s AM data has already been tracked.',
+        'To modify an entry, please click the <span style="color:blue"><b>Goal History</b></span> button.',
+        'error'
+      );
+    } else if(goalData.time == "pm" && goal.pmDone == true){
+      console.log('pm already done');
+      swal(
+        'Today\'s PM data has already been tracked.',
+        'To modify an entry, please click the <span style="color:blue"><b>Goal History</b></span> button.',
+        'error'
+      );
+    } else {
+      $http.post('/tracking/trackGoal/', goalData).then(function(response){
+        console.log('Received response from trackGoal POST:', response);
+        vm.showClientGoals(vm.clientToView);
+        vm.showToast("Goal data submitted.", "footer");
+      });
+    }
+  }; //end of trackGoal
+
+
+
+  /*------ DELETE ROUTES ------*/
+
+  // Deletes an entry in goal history
+  vm.deleteEntry = function(id, goal){
+    console.log('in deletEntry with gh.id:', id);
+    swal({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then(function () {
+      $http.delete('/tracking/deleteEntry/' + id).then(function(response){
+        console.log('received response from deleteEntry DELETE');
+        swal(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        );
+        vm.getGoalHistory(goal);
+      });
+      swal(
+        'Deleted!',
+        'Your file has been deleted.',
+        'success'
+      );
+    });
+
+  };
+
+  /*------- PUT ROUTES -------*/
+
+  vm.notifyAdmin = function(message) {
+    // console.log("notifyAdmin sender is:", sender);
+    // console.log("notifyAdmin sender is:", message);
+    swal({
+      title: 'Enter notification to send to site admin:',
+      input: 'text',
+      showCancelButton: true,
+      confirmButtonText: 'Submit',
+      showLoaderOnConfirm: true,
+      preConfirm: function (text) {
+        return new Promise(function (resolve, reject) {
+          setTimeout(function() {
+            var notification = {
+              message: text
+            };
+
+            $http.put("/tracking/notifyAdmin", notification).then(function(response) {
+              console.log("Got response from notifyAdmin:", response);
+              resolve();
+            }).catch(function(){reject('Error sending notification.');});
+          }, 2000);
+        });
+      },
+      allowOutsideClick: false
+    }).then(function (text) {
+      swal({
+        type: 'success',
+        title: 'Message sent!',
+        html: 'Sent email notification to site admin: ' + text
+      });
+    });
+
+    console.log('sending notification:', notification);
+    // $http.put("/tracking/notifyAdmin", notification).then(function(response) {
+    //   console.log("Got response from notifyAdmin:", response);
+    // });
+  };
+
+  /*------- FUNCTIONS W/O HTTP REQUESTS -----*/
+
+  vm.closeModal = function() {
+    console.log('Attempting to close popup');
+    $mdDialog.cancel();
+  };
   // builds list of clients to display on goal tracking page
   buildLists = function(data){
     console.log('in buildClientList with:', data);
@@ -77,51 +265,11 @@ myApp.controller('TrackingController', function($http, $mdToast, $location, $sco
     }
   }; //end of getLastUpdate
 
-  //ted stuff
-  getClients();
-
-  // gets list of clients
-  function getClients(){
-    $http.get('/tracking/getClients').then(function(response) {
-      console.log('client list is:', response.data);
-      vm.dataList = response.data;
-      buildLists(vm.dataList);
-      $http.get('/tracking/getNoGoalClients').then(function(res) {
-        console.log('noGoal client list is:', res.data);
-        vm.noGoalsData = res.data;
-        vm.noGoalsClients = angular.copy(vm.noGoalsData);
-
-        // console.log('vm.clientList:',vm.clientList);
-        // console.log('vm.locationList:',vm.locationList);
-        // console.log('vm.caseManagers:',vm.caseManagers);
-      });
-    });
-  }
-  //end ted stuff
-
-  // gets client goals
-  vm.showClientGoals = function(client){
-    console.log('in showClientGoals with client:', client);
-    vm.clientToView = client;
-    $http.get('/tracking/getGoals/' + client.clientid).then(function(response) {
-      console.log('getGoals response:',response.data);
-      vm.clientGoals = response.data;
-      vm.promptHidden = false;
-      for(var i = 0; i < vm.clientGoals.length; i++){
-        vm.clientGoals[i].lastUpdate = getLastUpdate(vm.clientGoals[i]);
-      }
-
-    });
-  };
 
   // filters client list based on filter options
   vm.filterClients = function(data){
     var tempList = angular.copy(data);
     vm.noGoalsClients = angular.copy(vm.noGoalsData);
-
-    // console.log('in filterClients with data:', data);
-    // console.log('in filterClients with CM:', vm.filterCm);
-    // console.log('in filterClients with JS:', vm.filterJs);
 
     if(vm.caseManagers.includes(vm.filterCm)){
       for(var i = 0; i < tempList.length; i++){
@@ -160,286 +308,109 @@ myApp.controller('TrackingController', function($http, $mdToast, $location, $sco
         }
       }
     }
-
   }; // end filterClients
 
+  // Brings up goal history
+  vm.toGoalHistory = function(goal){
+    // console.log('in toGoalHistory with goal:', goal);
+    // console.log('goal hidden is:', goal.hidden);
+    if(goal.hidden == undefined){
+      goal.hidden = true;
+      vm.getGoalHistory(goal);
+    } else if(goal.hidden == false){
+      vm.getGoalHistory(goal);
+      goal.hidden = !goal.hidden;
+    } else {
+      goal.hidden = !goal.hidden;
+    }
+  };
 
-  // submits goal tracking data
-  vm.trackGoal = function(goal){
+  // Displays toast on goal tracking submission
+  vm.showToast = function(message, parentId){
+    var el = angular.element(document.getElementById(parentId));
 
-    console.log('in trackGoal');
-    var goalData = {
-      id: goal.goalid,
-      time: goal.amOrPm,
-      completion: goal.completion,
-      notes: goal.notes,
-      date: new Date(),
-    };
-    console.log('sending goalData:', goalData);
+    var toast = $mdToast.simple()
+    .content(message)
+    .highlightAction(true)
+    .hideDelay(1500)
+    .position('bottom left')
+    .parent(el);
 
-    if(goalData.time == undefined){
-      console.log('error: fill in time');
+    $mdToast.show(toast);
+  };
+
+  // Filters goal history based on date range entered
+  vm.filterHistory = function(goal){
+    // console.log('in filterHistory with id:', id);
+    // console.log('in filterHistory with startDate:', vm.historyStart);
+    // console.log('in filterHistory with endDate:', vm.historyEnd);
+
+    goal.shownHistory = angular.copy(goal.history);
+    if(goal.historyStart == undefined){
+      console.log('error: fill in start date');
       swal(
         'Oops...',
-        'Please select either <b>AM</b> or <b>PM</b>.',
+        'Please enter a <b>start date<b>.',
         'error'
       );
-    } else if(goalData.completion == undefined){
-      console.log('error: fill in completion');
+    } else if(goal.historyEnd == undefined){
+      console.log('error: fill in end date');
       swal(
         'Oops...',
-        'Please select a <b>completion status</b>.',
+        'Please enter an <b>end date<b>.',
         'error'
       );
-    } else if(goalData.time == "am" && goal.amDone == true){
-      console.log('am already done');
+    } else if(goal.historyStart > goal.historyEnd) {
       swal(
-        'Today\'s AM data has already been tracked.',
-        'To modify an entry, please click the <span style="color:blue"><b>Goal History</b></span> button.',
-        'error'
-      );
-    } else if(goalData.time == "pm" && goal.pmDone == true){
-      console.log('pm already done');
-      swal(
-        'Today\'s PM data has already been tracked.',
-        'To modify an entry, please click the <span style="color:blue"><b>Goal History</b></span> button.',
+        'Oops...',
+        'The start date cannot be a later date than the end date.',
         'error'
       );
     } else {
-      $http.post('/tracking/trackGoal/', goalData).then(function(response){
-        console.log('Received response from trackGoal POST:', response);
-        vm.showClientGoals(vm.clientToView);
-        vm.showToast("Goal data submitted.", "footer");
-      });
-    }
-  }; //end of trackGoal
+      var newHistory = [];
 
-  // Will go to goal criteria
-  /*vm.toGoalCriteria = function(goal_id, client_id){
-  //console.log('in toGoalCriteria with goal:', goal);
-  console.log('in toGoalCriteria with goal.id:', goal_id);
-  console.log('in toGoalCriteria with client.id:', client_id);
-  //load client_id and goal_id variables
-  //Get goal for those variables
-  //load data into getGoalCriteria -- which needs to be loaded into service
-  //That GET request pulls data into the form
-  //Redirect to goalView.html
-  $location.path("/viewGoal");
-};*/
+      for(var i = 0; i < goal.history.length; i++){
+        console.log('type of date_tracked', typeof goal.history[i].date_tracked);
+        if(typeof goal.history[i].date_tracked == "string"){
+          console.log('is string, converting');
+          goal.history[i].date_tracked = new Date(goal.history[i].date_tracked);
+          console.log('goal.history[i].date_tracked is:',goal.history[i].date_tracked);
+          console.log('typeof goal.history[i].date_tracked is:',typeof goal.history[i].date_tracked);
+        }
 
-// Brings up goal history
-vm.toGoalHistory = function(goal){
-  // console.log('in toGoalHistory with goal:', goal);
-  // console.log('goal hidden is:', goal.hidden);
-  if(goal.hidden == undefined){
-    goal.hidden = true;
-    vm.getGoalHistory(goal);
-  } else if(goal.hidden == false){
-    vm.getGoalHistory(goal);
-    goal.hidden = !goal.hidden;
-  } else {
-    goal.hidden = !goal.hidden;
-  }
-};
-
-// Displays toast on goal tracking submission
-vm.showToast = function(message, parentId){
-  var el = angular.element(document.getElementById(parentId));
-
-  var toast = $mdToast.simple()
-  .content(message)
-  .highlightAction(true)
-  .hideDelay(1500)
-  .position('bottom left')
-  .parent(el);
-
-  $mdToast.show(toast);
-};
-
-// Filters goal history based on date range entered
-vm.filterHistory = function(goal){
-  // console.log('in filterHistory with id:', id);
-  // console.log('in filterHistory with startDate:', vm.historyStart);
-  // console.log('in filterHistory with endDate:', vm.historyEnd);
-
-  goal.shownHistory = angular.copy(goal.history);
-  if(goal.historyStart == undefined){
-    console.log('error: fill in start date');
-    swal(
-      'Oops...',
-      'Please enter a <b>start date<b>.',
-      'error'
-    );
-  } else if(goal.historyEnd == undefined){
-    console.log('error: fill in end date');
-    swal(
-      'Oops...',
-      'Please enter an <b>end date<b>.',
-      'error'
-    );
-  } else if(goal.historyStart > goal.historyEnd) {
-    swal(
-      'Oops...',
-      'The start date cannot be a later date than the end date.',
-      'error'
-    );
-  } else {
-    var newHistory = [];
-
-    for(var i = 0; i < goal.history.length; i++){
-      console.log('type of date_tracked', typeof goal.history[i].date_tracked);
-      if(typeof goal.history[i].date_tracked == "string"){
-        console.log('is string, converting');
-        goal.history[i].date_tracked = new Date(goal.history[i].date_tracked);
-        console.log('goal.history[i].date_tracked is:',goal.history[i].date_tracked);
-        console.log('typeof goal.history[i].date_tracked is:',typeof goal.history[i].date_tracked);
+        if(!(goal.history[i].date_tracked < goal.historyStart || goal.history[i].date_tracked > goal.historyEnd)){
+          newHistory.push(goal.history[i]);
+        }
       }
+      console.log('newHistory:', newHistory);
+      goal.shownHistory = newHistory;
+      console.log('new goal.shownHistory is:', goal.shownHistory);
 
-      if(!(goal.history[i].date_tracked < goal.historyStart || goal.history[i].date_tracked > goal.historyEnd)){
-        newHistory.push(goal.history[i]);
+      goal.numCompleted = 0;
+      for(var c = 0;c < goal.shownHistory.length;c++){
+        if(goal.shownHistory[c].complete_or_not == "complete"){
+          goal.numCompleted++;
+        }
       }
+      console.log('numCompleted is:', goal.numCompleted);
+      console.log('goal.shownHistory.length:', goal.shownHistory.length);
+      goal.successRate = (goal.numCompleted / goal.shownHistory.length * 100).toFixed(0);
+      console.log('goal.history is:', goal.history);
+      console.log('successRate is:', goal.successRate);
+
     }
-    console.log('newHistory:', newHistory);
-    goal.shownHistory = newHistory;
-    console.log('new goal.shownHistory is:', goal.shownHistory);
+  }; //end of filterHistory
 
-    goal.numCompleted = 0;
-    for(var c = 0;c < goal.shownHistory.length;c++){
-      if(goal.shownHistory[c].complete_or_not == "complete"){
-        goal.numCompleted++;
-      }
-    }
-    console.log('numCompleted is:', goal.numCompleted);
-    console.log('goal.shownHistory.length:', goal.shownHistory.length);
-    goal.successRate = (goal.numCompleted / goal.shownHistory.length * 100).toFixed(0);
-    console.log('goal.history is:', goal.history);
-    console.log('successRate is:', goal.successRate);
+  // Sets month for getLastUpdate function
+  getMonth = function(num, monthOrDay){
+    if(monthOrDay == "month"){num += 1;}
+    if(num < 10){return "0" + num;}
+    else {return num;}
+  };
 
-  }
-
-}; //end of filterHistory
-
-
-// Sets month for getLastUpdate function
-getMonth = function(num, monthOrDay){
-  if(monthOrDay == "month"){num += 1;}
-  if(num < 10){return "0" + num;}
-  else {return num;}
-};
-
-// Populates goal history
-// AMANDA DO YOUR CLASS WORK HERE
-vm.getGoalHistory = function(goal){
-  console.log('in getGoalHistory');
-  $http.get('/tracking/getGoalHistory/' + goal.goalid).then(function(response) {
-    console.log('getGoalHistory response:',response.data);
-    goal.history = response.data;
-    goal.shownHistory = response.data;
-    goal.numCompleted = 0;
-    for(i = 0;i < goal.shownHistory.length;i++){
-      if(goal.shownHistory[i].complete_or_not == "complete"){
-        goal.numCompleted++;
-      }
-    }
-    console.log('numCompleted is:', goal.numCompleted);
-    console.log('goal.shownHistory.length:', goal.shownHistory.length);
-    goal.successRate = (goal.numCompleted / goal.shownHistory.length * 100).toFixed(0);
-    console.log('goal.history is:', goal.history);
-    console.log('successRate is:', goal.successRate);
-
-  });
-};
-
-
-// Deletes an entry in goal history
-vm.deleteEntry = function(id, goal){
-  console.log('in deletEntry with gh.id:', id);
-  swal({
-    title: 'Are you sure?',
-    text: "You won't be able to revert this!",
-    type: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, delete it!'
-  }).then(function () {
-    $http.delete('/tracking/deleteEntry/' + id).then(function(response){
-      console.log('received response from deleteEntry DELETE');
-      swal(
-        'Deleted!',
-        'Your file has been deleted.',
-        'success'
-      );
-      vm.getGoalHistory(goal);
-    });
-    swal(
-      'Deleted!',
-      'Your file has been deleted.',
-      'success'
-    );
-  });
-
-};
-
-vm.test = function(){
-  console.log('in test');
-  console.log('userobject is:', vm.userObject);
-};
-
-// Friday night addition
-vm.notifyAdmin = function(message) {
-  // console.log("notifyAdmin sender is:", sender);
-  // console.log("notifyAdmin sender is:", message);
-
-
-
-  swal({
-    title: 'Enter notification to send to site admin:',
-    input: 'text',
-    showCancelButton: true,
-    confirmButtonText: 'Submit',
-    showLoaderOnConfirm: true,
-    preConfirm: function (text) {
-      return new Promise(function (resolve, reject) {
-        setTimeout(function() {
-          var notification = {
-            message: text
-          };
-
-          $http.put("/tracking/notifyAdmin", notification).then(function(response) {
-            console.log("Got response from notifyAdmin:", response);
-            resolve();
-          }).catch(function(){reject('Error sending notification.');});
-        }, 2000);
-      });
-    },
-    allowOutsideClick: false
-  }).then(function (text) {
-    swal({
-      type: 'success',
-      title: 'Message sent!',
-      html: 'Sent email notification to site admin: ' + text
-    });
-  });
-
-  console.log('sending notification:', notification);
-  // $http.put("/tracking/notifyAdmin", notification).then(function(response) {
-  //   console.log("Got response from notifyAdmin:", response);
-  // });
-};
-// End Friday night addition
-
-// vm.convertDate = function(date){
-//   console.log('in convertDate with date:', date);
-//   var d = (date.getMonth()+1) + '/' + date.getDate() + '/' + date.getFullYear();
-//   console.log('d is:', d);
-// };
-
-vm.closeModal = function() {
-  console.log('Attempting to close popup');
- $mdDialog.cancel();
-};
-
-
+  vm.test = function(){
+    console.log('in test');
+    console.log('userobject is:', vm.userObject);
+  };
 
 }); //END OF CONTROLLER

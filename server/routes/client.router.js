@@ -7,6 +7,21 @@ var ADMIN = 1;
 var CASE = 2;
 
 /*---- GET routes -----*/
+
+//GET all Clients in the DB and display on the DOM
+/**
+* @api {get} /clients/getClients Retrieve ALL clients names and IDs
+* @apiName GetAllClients
+* @apiGroup RetrieveData
+*
+* @apiSuccess {Boolean} active Client's active status (is inactive if no longer w/ Choice)
+* @apiSuccess {String} client_name Clients's name
+* @apiSuccess {Number} clientid Client ID from client table
+* @apiSuccess {Boolean} editing Indicates editing status for the input fields
+* @apiSuccess {Number} staff_id Case Managers's ID from staff table
+* @apiSuccess {String} staff_name Case Manager's name
+* @apiSuccess {String} status Label for edit button "Deactive" / "Activate"
+*/
   router.get('/getClients', function(req, res) {
     console.log('in server getting clients');
 
@@ -37,6 +52,17 @@ var CASE = 2;
 });
 
 /*---- POST routes -----*/
+
+//POST a new client to the DB and display on the DOM
+/**
+* @api {post} /clients/addClient Add a new client to the database
+* @apiName PostClient
+* @apiGroup AddData
+*
+* @apiParam {String} client_name Clients's name
+* @apiSuccess {Number} staff_id Case Managers's ID from staff table
+* @apiSuccess {String} staff_name Case Manager's name
+*/
 router.post('/addClient', function(req, res) {
   console.log('in server making a new client', req.body);
   //date_tracked = date_tracked.format();

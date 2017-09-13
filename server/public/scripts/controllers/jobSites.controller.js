@@ -15,21 +15,6 @@ myApp.controller('JobSitesController', function($http, $mdToast, $location, User
 // ----------GET ROUTES------------
 
 //GET all Jobsites in the DB and display on the DOM
-/**
-* @api {get} /jobsites/managejobsites Retrieve ALL jobsite names and IDs
-* @apiName GetAllJobsites
-* @apiGroup RetrieveData
-*
-* @apiSuccess {String} address Jobsite's address
-* @apiSuccess {String} business_name Jobsites's name
-* @apiSuccess {String} contact Jobsite contact name
-* @apiSuccess {Boolean} editing Boolean variable to determine edit status
-* @apiSuccess {Number} id Jobsite ID
-* @apiSuccess {Number} jobsite_id Jobsite's ID
-* @apiSuccess {Boolean} jobsite_status Indicates active job site
-* @apiSuccess {String} phone Phone number for job site
-* @apiSuccess {String} status Label for edit button "Deactive" / "Activate"
-*/
   function getManageJobSites(){
     $http.get('/jobSites/managejobsites').then(function(response) {
       console.log('Getting all the jobsites: ', response.data);
@@ -52,18 +37,6 @@ myApp.controller('JobSitesController', function($http, $mdToast, $location, User
 // --------POST ROUTES------------
 
 //ADD NEW JOBSITE TO THE DB
-/**
-* @api {post} /jobsites/newjobsite Add a new jobsite to the database
-* @apiName PostJobsite
-* @apiGroup AddData
-*
-* @apiParam {String} address Jobsite's address
-* @apiParam {String} business_name Jobsites's name
-* @apiParam {String} contact Jobsite contact name
-* @apiParam {Boolean} jobsite_status Indicates active job site
-* @apiParam {String} phone Phone number for job site
-* @apiParam {String} status Label for edit button "Deactive" / "Activate"
-*/
  jsc.addNewJobSite = function(business_name, address, phone, contact, jobsite_status) {
    jobsiteObject.business_name = business_name;
    jobsiteObject.address = address;
@@ -93,14 +66,7 @@ myApp.controller('JobSitesController', function($http, $mdToast, $location, User
 };
 
 // ----------PUT ROUTES----------
-/**
-* @api {put} /jobsites/disablejobsite Disable a jobsite
-* @apiName DisableJobsite
-* @apiGroup UpdateData
-*
-* @apiParam {Number} id Jobsite's unique id
-* @apiParam {Boolean} jobsite_status Indicates job site's active status
-*/
+
 //Disable JobSite by toggleing jobsite's status
   jsc.disableJobSite = function(id, boolean) {
         console.log('jobSite id to disable: ', id);

@@ -16,19 +16,6 @@ myApp.controller('ClientController', function($http, $mdToast, $location, UserSe
   // ----------GET ROUTES------------
 
   //GET all Clients in the DB and display on the DOM
-  /**
-  * @api {get} /clients/getClients Retrieve ALL clients names and IDs
-  * @apiName GetAllClients
-  * @apiGroup RetrieveData
-  *
-  * @apiSuccess {Boolean} active Client's active status (is inactive if no longer w/ Choice)
-  * @apiSuccess {String} client_name Clients's name
-  * @apiSuccess {Number} clientid Client ID from client table
-  * @apiSuccess {Boolean} editing Indicates editing status for the input fields
-  * @apiSuccess {Number} staff_id Case Managers's ID from staff table
-  * @apiSuccess {String} staff_name Case Manager's name
-  * @apiSuccess {String} status Label for edit button "Deactive" / "Activate"
-  */
   function getClients(){
 
     console.log('in getClients');
@@ -51,17 +38,6 @@ myApp.controller('ClientController', function($http, $mdToast, $location, UserSe
   }
 
   // gets list of staff
-  /**
-  * @api {get} /staff/getAllCM Retrieve ALL case manager names and IDs
-  * @apiName GetAllCaseManagers
-  * @apiGroup RetrieveData
-  *
-  * @apiSuccess {String} email Case Managers's email
-  * @apiSuccess {Boolean} employed Indicates employment status (true = employed)
-  * @apiSuccess {Number} id ID of listing from staff table
-  * @apiSuccess {Number} staff_id Case Managers's ID from staff table
-  * @apiSuccess {String} staff_name Case Manager's name
-  */
   function getStaff(){
     console.log('in getSt');
     $http.get('/staff/getAllCM').then(function(response) {
@@ -71,26 +47,9 @@ myApp.controller('ClientController', function($http, $mdToast, $location, UserSe
     });
   }
 
-  // sets client status to being edited
-  vm.toggleEditing = function(client){
-    console.log('in toggleEditing');
-    vm.clientToEdit = client;
-    client.editing = !client.editing;
-    vm.editStatus = !vm.editStatus;
-  };
-
   // ----------POST ROUTES------------
 
   //POST a new client to the DB and display on the DOM
-  /**
-  * @api {post} /clients/addClient Add a new client to the database
-  * @apiName PostClient
-  * @apiGroup AddData
-  *
-  * @apiParam {String} client_name Clients's name
-  * @apiSuccess {Number} staff_id Case Managers's ID from staff table
-  * @apiSuccess {String} staff_name Case Manager's name
-  */
   vm.addNewClient = function(){
     console.log('in addNewClient');
     $http.post('/client/addClient/', vm.clientToAdd).then(function(response){
@@ -141,6 +100,16 @@ myApp.controller('ClientController', function($http, $mdToast, $location, UserSe
         'error'
       );
     });
+  };
+
+//*------ FUNCTIONS W/O HTTP REQUESTS -----*/
+
+  // sets client status to being edited
+  vm.toggleEditing = function(client){
+    console.log('in toggleEditing');
+    vm.clientToEdit = client;
+    client.editing = !client.editing;
+    vm.editStatus = !vm.editStatus;
   };
 
 }); //end of controller

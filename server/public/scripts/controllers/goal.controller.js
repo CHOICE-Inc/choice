@@ -12,70 +12,6 @@ myApp.controller('GoalController', function($http, $location, UserService, GoalS
   vm.singleGoal = GoalService.singleGoal;
   var goal = {}; //data object being built and sent to server
 
-/*------- FUNCTIONS W/O HTTP REQUESTS -----*/
-  //CONVERT CLIENT NAME TO CLIENT ID for use in data object being sent w/ POST request
-  vm.assignIds = function (client){
-    console.log("assignClient client: ", client);
-    goal.client_id = client.id;
-    vm.casemanager_id = client.staff_id;
-    vm.casemanager = client.staff_name;
-  };
-
-  //CONVERT JOB NAME TO JOBSITE ID
-  vm.assignJobsiteId = function (id){
-    console.log("assignJobsiteId id: ", id);
-    goal.jobsite_id = id;
-  };
-
-  //WHEN USER CLICKS A CLIENT'S NAME, AUTOPOPULATE PULLDOWN MENU FOR AVAILABLE GOALS
-  vm.getClientGoals = function(client) {
-    console.log('Client to retrieve goals for: ', client);
-    vm.casemanager = client.staff_name;
-    console.log('vm.casemanager is:', vm.casemanager);
-
-    //GET request to get all the goals available for the client_id
-    getAllGoals(client.id);
-    console.log('Goals for that client include: ', vm.allGoalData);
-    //Display the goal "names" for each one in the pulldown menu
-  };
-
-  vm.getOneGoal = function(id) {
-    console.log("Get One Goal: ", id);
-    goal.oneGoal_id = id;
-  };
-
-  // GO BACK TO TRACKING PAGE -- ON VIEW GOAL PAGE
-  vm.goBackToTracking =  function(goal_id, client_id){
-    //Relocate to editGoal.html
-    $location.path("/tracking");
-  };
-
-  //ASSIGNING GOAL DATA TO THE DOM
-    vm.assignData = function (dataObject) {
-      console.log('in assignData with:', dataObject);
-      vm.client_id = dataObject.client_id;
-      vm.clientName = dataObject.client_name;
-      //console.log("response data name is: ", dataObject.client_name);
-      vm.jobSite = dataObject.business_name;
-      vm.implementation_date = dataObject.implementation_date;
-      vm.review_dates = dataObject.review_dates;
-      vm.completion_date = dataObject.completion_date;
-      vm.service_outcome = dataObject.service_outcome;
-      vm.objective = dataObject.objective;
-      vm.jobsite_details = dataObject.jobsite_details;
-      vm.when_notes = dataObject.when_notes;
-      vm.equipment = dataObject.equipment;
-      vm.behavior_techniques = dataObject.behavior_techniques;
-      vm.modifications = dataObject.modifications;
-      vm.plan_steps = dataObject.plan_steps;
-      vm.goal_name = dataObject.goal_name;
-      vm.goal_summary = dataObject.goal_summary;
-      vm.goal_id = dataObject.goalid;
-      vm.goal_status = dataObject.goal_status;
-      vm.jobsite_id = dataObject.jobsite_id;
-      vm.staff_id = dataObject.staff_id;
-      vm.staff_name = dataObject.staff_name;
-    };
 
 /*----- GET ROUTES -----*/
 
@@ -424,5 +360,70 @@ myApp.controller('GoalController', function($http, $location, UserService, GoalS
           return (item.value.indexOf(lowercaseQuery) === 0);
         };
       }
+
+    /*------- FUNCTIONS W/O HTTP REQUESTS -----*/
+        //CONVERT CLIENT NAME TO CLIENT ID for use in data object being sent w/ POST request
+        vm.assignIds = function (client){
+          console.log("assignClient client: ", client);
+          goal.client_id = client.id;
+          vm.casemanager_id = client.staff_id;
+          vm.casemanager = client.staff_name;
+        };
+
+        //CONVERT JOB NAME TO JOBSITE ID
+        vm.assignJobsiteId = function (id){
+          console.log("assignJobsiteId id: ", id);
+          goal.jobsite_id = id;
+        };
+
+        //WHEN USER CLICKS A CLIENT'S NAME, AUTOPOPULATE PULLDOWN MENU FOR AVAILABLE GOALS
+        vm.getClientGoals = function(client) {
+          console.log('Client to retrieve goals for: ', client);
+          vm.casemanager = client.staff_name;
+          console.log('vm.casemanager is:', vm.casemanager);
+
+          //GET request to get all the goals available for the client_id
+          getAllGoals(client.id);
+          console.log('Goals for that client include: ', vm.allGoalData);
+          //Display the goal "names" for each one in the pulldown menu
+        };
+
+        vm.getOneGoal = function(id) {
+          console.log("Get One Goal: ", id);
+          goal.oneGoal_id = id;
+        };
+
+        // GO BACK TO TRACKING PAGE -- ON VIEW GOAL PAGE
+        vm.goBackToTracking =  function(goal_id, client_id){
+          //Relocate to editGoal.html
+          $location.path("/tracking");
+        };
+
+        //ASSIGNING GOAL DATA TO THE DOM
+          vm.assignData = function (dataObject) {
+            console.log('in assignData with:', dataObject);
+            vm.client_id = dataObject.client_id;
+            vm.clientName = dataObject.client_name;
+            //console.log("response data name is: ", dataObject.client_name);
+            vm.jobSite = dataObject.business_name;
+            vm.implementation_date = dataObject.implementation_date;
+            vm.review_dates = dataObject.review_dates;
+            vm.completion_date = dataObject.completion_date;
+            vm.service_outcome = dataObject.service_outcome;
+            vm.objective = dataObject.objective;
+            vm.jobsite_details = dataObject.jobsite_details;
+            vm.when_notes = dataObject.when_notes;
+            vm.equipment = dataObject.equipment;
+            vm.behavior_techniques = dataObject.behavior_techniques;
+            vm.modifications = dataObject.modifications;
+            vm.plan_steps = dataObject.plan_steps;
+            vm.goal_name = dataObject.goal_name;
+            vm.goal_summary = dataObject.goal_summary;
+            vm.goal_id = dataObject.goalid;
+            vm.goal_status = dataObject.goal_status;
+            vm.jobsite_id = dataObject.jobsite_id;
+            vm.staff_id = dataObject.staff_id;
+            vm.staff_name = dataObject.staff_name;
+          };
 
     }); //end of controller
