@@ -43,8 +43,8 @@
 
   <div layout="column" flex="22">
     <!-- Disable button -->
-    <md-button ng-hide="gc.goal_status" class="md-raised md-warn" name="disableBtn" ng-click="gc.disableCriteria(gc.goal_id, gc.goal_status, gc.client_id)">Disable Criteria</md-button>
-    <md-button ng-show="gc.goal_status" class="md-raised md-warn" style="background-color:#66bb6a" name="disableBtn" ng-click="gc.disableCriteria(gc.goal_id, gc.goal_status, gc.client_id)">Enable Criteria</md-button>
+    <md-button ng-show="gc.goal_status" class="md-raised md-warn" name="disableBtn" ng-click="gc.disableCriteria(gc.goal_id, gc.goal_status, gc.client_id)">Disable Criteria</md-button>
+    <md-button ng-hide="gc.goal_status" class="md-raised md-warn" style="background-color:#66bb6a" name="disableBtn" ng-click="gc.disableCriteria(gc.goal_id, gc.goal_status, gc.client_id)">Enable Criteria</md-button>
   </div>
 
 </div>
