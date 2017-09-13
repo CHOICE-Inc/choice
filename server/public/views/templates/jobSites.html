@@ -39,7 +39,8 @@
             <th md-column>Address</th>
             <th md-column>Phone Number</th>
             <th md-column>Contact Name</th>
-            <th md-column></th>
+            <th md-column>Status</th>
+            <th></th>
           </thead>
           <tbody md-body>
             <tr md-row ng-class="tc.rowClass" ng-repeat="jobsite in jc.manageJobSiteData">
@@ -50,7 +51,16 @@
               <td md-cell ng-hide="jobsite.editing == true">{{jobsite.phone}}</td>
               <td md-cell ng-show="jobsite.editing == true"><input type="text" name="" ng-value="jc.siteToEdit.phone" placeholder="Phone" ng-model="jc.siteToEdit.phone"></td>
               <td md-cell ng-hide="jobsite.editing == true">{{jobsite.contact}}</td>
-              <td md-cell ng-show="jobsite.editing == true"><input type="text" name="" ng-value="jc.siteToEdit.contact" placeholder="Contact" ng-model="jc.siteToEdit.contact"></td>
+              <td md-cell ng-show="jobsite.editing == true"><input type="text" name="" ng-value="jc.siteToEdit.contact" placeholder="Contac" ng-model="jc.siteToEdit.contact"></td>
+
+              <td md-cell ng-hide="jobsite.editing == true">{{jobsite.status}}</td>
+              <td md-cell ng-show="jobsite.editing == true">
+                <md-select ng-model="jc.siteToEdit.jobsite_status" placeholder="Status" class="md-no-underline">
+                  <md-option ng-value="true">Active</md-option>
+                  <md-option ng-value="false">Inactive</md-option>
+                </md-select>
+              </td>
+
               <td md-cell>
                 <input ng-hide="jobsite.editing == true" type="submit" name="" value="Edit" ng-click="jc.toggleEditing(jobsite)">
                 <input ng-show="jobsite.editing == true" type="submit" name="" value="Submit" ng-click="jc.updateJobSite(jc.siteToEdit)">

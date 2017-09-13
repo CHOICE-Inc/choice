@@ -77,7 +77,8 @@ router.get('/clients', function(req, res){
         res.sendStatus(500);
       } else {
         // MAKE DB QUERY
-        db.query('SELECT client.id as id, client_name, staff_name, staff.id as staff_id FROM client JOIN staff on client.staff_id = staff.id;', function(errMakingQuery, result){
+        db.query('SELECT client.id as id, client_name, staff_name, staff.id as staff_id FROM client JOIN staff on client.staff_id = staff.id WHERE client.active = true;',
+        function(errMakingQuery, result){
           done();
           if(errMakingQuery){
             console.log('There was an error making INSERT query: ', errMakingQuery);
@@ -99,7 +100,7 @@ router.get('/clients', function(req, res){
 // RETIEVE CASE MANAGER NAMES AND IDs fROM DB TO POPULATE PULLDOWN MENU / AUTOCOMPLETE
 router.get('/casemanager', function(req, res){
   console.log('In get route for client names. ');
-  var getCaseManagersQuery = 'SELECT * FROM "staff" WHERE "role" = 2;';
+  var getCaseManagersQuery = 'SELECT * FROM "staff" WHERE "role" = 2 and employed = true;';
      console.log("Getting all Case Managers: ", getCaseManagersQuery);
   if(req.user.role == ADMIN || req.user.role == CASE){
     pool.connect(function(errConnectingToDatabase, db, done){
@@ -138,7 +139,7 @@ router.get('/jobsites', function(req, res){
         res.sendStatus(500);
       } else {
         // MAKE DB QUERY
-        db.query('SELECT id, business_name FROM job_site', function(errMakingQuery, result){
+        db.query('SELECT id, business_name FROM job_site where jobsite_status = true;', function(errMakingQuery, result){
           done();
           if(errMakingQuery){
             console.log('There was an error making INSERT query: ', errMakingQuery);

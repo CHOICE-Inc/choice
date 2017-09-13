@@ -88,6 +88,7 @@ myApp.controller('StaffController', function($http, $mdToast, $location, UserSer
     vm.staffToEdit = staff;
     staff.editing = !staff.editing;
     vm.editStatus = !vm.editStatus;
+    console.log('end of toggleEditing');
   };
 
 
