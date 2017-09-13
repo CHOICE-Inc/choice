@@ -22,7 +22,6 @@ var CASE = 2;
 * @apiSuccess {Number} staff_id Case manager id from staff table
 * @apiSuccess {String} staff_name Case manager's name from staff table
 * @apiSuccess {String} status Indicates if staff is active or inactive
-* @apiSuccess {String} user_role Indicates staff's role, listed in user table
 * @apiSuccess {String} username Staff's user name for login
 * @apiSuccess {String} users_id Staff's ID from the users table
 */
@@ -36,7 +35,9 @@ router.get('/getStaff', function(req, res) {
         next(err);
       }
       //join client, staff, and users to filter all cleints from user login
-      client.query("select staff.id as staffs_id, users.id as users_id, * from staff left join users on users.staff_id = staff.id order by employed DESC, role, staff_name;",
+      client.query("select staff.id as staffs_id, users.id as users_id, staff.email, staff.staff_name, " +
+      "staff.role, staff.employed, users.username from staff left join users on " +
+      "users.staff_id = staff.id order by employed DESC, role, staff_name;",
           function (err, result) {
             //client.end();
             done();
