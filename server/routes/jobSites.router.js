@@ -95,14 +95,15 @@ router.put('/editjobsites', function(req, res){
       var address = req.body.address;
       var phone = req.body.phone;
       var contact = req.body.contact;
+      var employed = req.body.jobsite_status;
 
       //BUILD DB QUERY STRING & DATA VALUE ARRAY
 
-      var jobSiteQueryString = 'UPDATE job_site SET business_name=$1, address=$2, phone=$3, contact=$4 WHERE id=$5';
+      var jobSiteQueryString = 'UPDATE job_site SET business_name=$1, address=$2, phone=$3, contact=$4, jobsite_status=$5 WHERE id=$6';
 
       console.log('For deactivating jobsite, using DB query string: ', jobSiteQueryString);
 
-      var jobSiteArray = [business_name, address, phone, contact, jobSite_id];
+      var jobSiteArray = [business_name, address, phone, contact, employed, jobSite_id];
 
       console.log('Going to update the DB with these values: ', jobSiteArray);
       // MAKE DB QUERY
