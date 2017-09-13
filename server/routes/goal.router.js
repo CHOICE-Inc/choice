@@ -77,7 +77,7 @@ router.get('/clients', function(req, res){
         res.sendStatus(500);
       } else {
         // MAKE DB QUERY
-        db.query('SELECT id, client_name FROM client where client.active = true;',
+        db.query('SELECT client.id as id, client_name, staff_name, staff.id as staff_id FROM client JOIN staff on client.staff_id = staff.id WHERE client.active = true;',
         function(errMakingQuery, result){
           done();
           if(errMakingQuery){
