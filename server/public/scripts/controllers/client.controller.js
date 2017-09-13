@@ -22,8 +22,8 @@ myApp.controller('ClientController', function($http, $mdToast, $location, UserSe
     $http.get('/client/getClients').then(function(response) {
       console.log(response.data);
 
-
-      for(i=0;i<response.data.length; i++){ //add a new object property based on the status for each employee
+    //add a new object property based on the status for each employee
+      for(i=0;i<response.data.length; i++){
         response.data[i].editing = false;
         if(response.data[i].active === true){
           response.data[i].status = 'Active';

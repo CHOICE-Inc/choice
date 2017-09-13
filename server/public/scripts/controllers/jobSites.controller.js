@@ -77,7 +77,7 @@ myApp.controller('JobSitesController', function($http, $mdToast, $location, User
         });
       }; //end of disableJobSites
 
-      // Toggles the display of editable content, and assigns the staffmember to be edited
+  // Toggles the display of editable content, and assigns the staffmember to be edited
       jsc.toggleEditing = function(jobsite){
         console.log('in toggleEditing with jobsite:', jobsite);
         jsc.siteToEdit = jobsite;
@@ -86,6 +86,7 @@ myApp.controller('JobSitesController', function($http, $mdToast, $location, User
         console.log('ending toggleEditing with jobsite:', jobsite);
       };
 
+    //Update Job site
       jsc.updateJobSite = function(jobsite){
         console.log('in updateJobSite, sending:', jobsite);
         $http.put('/jobSites/editjobsites/', jobsite).then(function(response){

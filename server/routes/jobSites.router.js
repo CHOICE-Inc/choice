@@ -114,15 +114,15 @@ console.log('In post route to add new jobsite: ', req.body);
 // UPDATE ROUTE AFTER USER EDIT
 // NEED JOBSITE ID TO ACCESS CORRECT GOAL
 /**
-* @api {put} /jobsites/editjobsite Update a jobsite
+* @api {put} /jobsites/editjobsite/jobsite_id Update a jobsite
 * @apiName UpdateJobsite
 * @apiGroup Jobsites
 *
-* @apiSuccess {String} address Jobsite's address
-* @apiSuccess {String} business_name Jobsites's name
-* @apiSuccess {String} contact Jobsite contact info
-* @apiSuccess {Number} jobsite_id Jobsite's ID
-* @apiSuccess {String} phone Phone number for job site
+* @apiParam {String} address Jobsite's address
+* @apiParam {String} business_name Jobsites's name
+* @apiParam {String} contact Jobsite contact info
+* @apiParam {Number} jobsite_id Jobsite's ID
+* @apiParam {String} phone Phone number for job site
 */
 router.put('/editjobsites', function(req, res){
   console.log('Going to put this updated data: ', req.body);

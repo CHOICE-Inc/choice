@@ -10,8 +10,8 @@ var CASE = 2;
 //GET all Staff Members in the DB and display on the DOM
 /**
 * @api {get} /staff/getStaff Retrieve ALL staff names, roles and IDs
-* @apiName GetAllStaff
-* @apiGroup RetrieveData
+* @apiName GetStaff
+* @apiGroup Staff
 *
 * @apiSuccess {String} email Case manager's email
 * @apiSuccess {Boolean} employed True if case manager is still staff
@@ -59,7 +59,7 @@ router.get('/getStaff', function(req, res) {
 /**
 * @api {get} /staff/getAllCM Retrieve ALL case manager names and IDs
 * @apiName GetAllCaseManagers
-* @apiGroup RetrieveData
+* @apiGroup Staff
 *
 * @apiSuccess {String} email Case Managers's email
 * @apiSuccess {Boolean} employed Indicates employment status (true = employed)
@@ -101,8 +101,8 @@ router.get('/getAllCM', function(req, res) {
 //POST a new Staff Member to the DB and display on the DOM
 /**
 * @api {post} /staff/newStaff Retrieve ALL staff names, roles and IDs
-* @apiName PostStaff
-* @apiGroup AddData
+* @apiName AddStaff
+* @apiGroup Staff
 *
 * @apiParam {String} email Case manager's email
 * @apiParam {Number} role Staff's role (1-admin, 2-case manager, 3-staff)
@@ -144,7 +144,7 @@ router.post('/newStaff', function(req, res){
 /**
 * @api {put} /staff/updateStaff Update staff name, role
 * @apiName UpdateStaff
-* @apiGroup UpdateData
+* @apiGroup Staff
 *
 * @apiParam {String} email Case manager's email
 * @apiParam {Number} role Staff's role (1-admin, 2-case manager, 3-staff)
@@ -179,7 +179,7 @@ router.put('/updateStaff', function(req, res){
 /**
 * @api {put} /toggleStaff/staffID/staff_status Toggle staff's employment status
 * @apiName UpdateStaffStatus
-* @apiGroup UpdateData
+* @apiGroup Staff
 *
 * @apiParam {Number} staff_id Staff's ID
 * @apiParam {Boolean} staff_status Employment status (true = employed)

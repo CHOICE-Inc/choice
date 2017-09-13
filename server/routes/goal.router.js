@@ -11,8 +11,8 @@ var CASE = 2;
 // GET REQUEST TO RETIEVE CLIENT NAMES AND IDs fROM DB TO POPULATE PULLDOWN MENU / AUTOCOMPLETE
   /**
   /* @api {get} /goal/clients Retrieve client names and IDs
-  * @apiName GetClients
-  * @apiGroup RetrieveData
+  * @apiName GetClientsNames
+  * @apiGroup Clients
   *
   * @apiSuccess {Number} client.id  Client's ID from client table
   * @apiSuccess {String} client_name Name of Client
@@ -51,8 +51,8 @@ router.get('/clients', function(req, res){
 // RETIEVE CASE MANAGER NAMES AND IDs fROM DB TO POPULATE PULLDOWN MENU / AUTOCOMPLETE
 /**
 * @api {get} /goal/casemanager Retrieve case manager names and IDs
-* @apiName GetCaseManager
-* @apiGroup RetrieveData
+* @apiName GetCaseManagerNames
+* @apiGroup Staff
 *
 * @apiSuccess {Number} id  CaseManager's ID from staff table
 * @apiSuccess {String} staff_name Name of Case Manager
@@ -94,8 +94,8 @@ router.get('/casemanager', function(req, res){
 // RETIEVE JOB SITES AND IDs fROM DB TO POPULATE PULLDOWN MENU / AUTOCOMPLETE
 /**
 * @api {get} /goal/jobsites Retrieve jobsite names and IDs
-* @apiName GetJobsite
-* @apiGroup RetrieveData
+* @apiName GetJobsiteNames
+* @apiGroup Jobsites
 *
 * @apiSuccess {String} business_name Name of Jobsite Business
 * @apiSuccess {Number} id  Jobsite's ID from job_site table
@@ -131,8 +131,8 @@ router.get('/jobsites', function(req, res){
 // GET ROUTE TO RETRIVE * ALL THE GOAL CRITERIA * IN THE DB FOR THE SPECIFIED USER
 /**
 * @api {get} /goal/allCriteria Retrieve all the goals for a given client
-* @apiName GetAllClientGoals
-* @apiGroup RetrieveGoal
+* @apiName GetAllGoals
+* @apiGroup Goals
 *
 * @apiParam {Number} client_id Client's unique id
 *
@@ -204,8 +204,8 @@ router.get('/allCriteria/:id', function(req, res){
 // NEED GOAL ID TO ACCESS ONE (CORRECT/THIS) GOAL
 /**
 * @api {get} /goal/singlecriteria Retrieve a single goal for a given client
-* @apiName GetAllClientGoals
-* @apiGroup RetrieveGoal
+* @apiName GetSingleGoal
+* @apiGroup Goals
 *
 * @apiParam {Number} goal Goal's unique id
 * @apiParam {Number} client_id Client's unique id
@@ -279,8 +279,8 @@ router.get('/singlecriteria', function(req, res){
 // ADD NEW GOAL TO DATABASE
 /**
 * @api {post} /goal Add a single goal to the database
-* @apiName PostGoal
-* @apiGroup CreateGoal
+* @apiName AddGoal
+* @apiGroup Goals
 *
 * @apiParam {String} behavior_techniques Goals's behavior techniques
 * @apiParam {Number} client_id  Client's ID (assigned to goal object in another function)
@@ -361,8 +361,8 @@ router.post('/', function(req, res){
 // NEED GOAL ID TO ACCESS CORRECT GOAL
 /**
 * @api {put} /goal Add a single goal to the database
-* @apiName PupGoal
-* @apiGroup UpdateGoal
+* @apiName UpdateGoal
+* @apiGroup Goal
 *
 * @apiParam {String} behavior_techniques Goals's behavior techniques
 * @apiParam {Number} client_id  Client's ID (assigned to goal object in another function)
@@ -441,8 +441,8 @@ router.put('/:id', function(req, res){
 // NEED GOAL ID TO ACCESS CORRECT GOAL
 /**
 /* @api {put} /goal/disable/goal_id/goal_status Change goal's active status
-* @apiName DisableCriteria
-* @apiGroup DisableCriteria
+* @apiName DisableGoal
+* @apiGroup Goal
 *
 * @apiParam {Number} goal.id  Goal's ID from goal table
 * @apiParam {Boolean} boolean Current status of goal (true or false)
