@@ -16,6 +16,21 @@ myApp.controller('JobSitesController', function($http, $mdToast, $location, User
 // ----------GET ROUTES------------
 
 //GET all Jobsites in the DB and display on the DOM
+/**
+* @api {get} /jobsites/managejobsites Retrieve ALL jobsite names and IDs
+* @apiName GetAllJobsites
+* @apiGroup RetrieveData
+*
+* @apiSuccess {String} address Jobsite's address
+* @apiSuccess {String} business_name Jobsites's name
+* @apiSuccess {String} contact Jobsite contact name
+* @apiSuccess {Boolean} editing Boolean variable to determine edit status
+* @apiSuccess {Number} id Jobsite ID
+* @apiSuccess {Number} jobsite_id Jobsite's ID
+* @apiSuccess {Boolean} jobsite_status Indicates active job site
+* @apiSuccess {String} phone Phone number for job site
+* @apiSuccess {String} status Label for edit button "Deactive" / "Activate"
+*/
   function getManageJobSites(){
     $http.get('/jobSites/managejobsites').then(function(response) {
       console.log('Getting all the jobsites: ', response.data);
@@ -38,6 +53,18 @@ myApp.controller('JobSitesController', function($http, $mdToast, $location, User
 // --------POST ROUTES------------
 
 //ADD NEW JOBSITE TO THE DB
+/**
+* @api {post} /jobsites/newjobsite Add a new jobsite to the database
+* @apiName PostJobsite
+* @apiGroup AddData
+*
+* @apiParam {String} address Jobsite's address
+* @apiParam {String} business_name Jobsites's name
+* @apiParam {String} contact Jobsite contact name
+* @apiParam {Boolean} jobsite_status Indicates active job site
+* @apiParam {String} phone Phone number for job site
+* @apiParam {String} status Label for edit button "Deactive" / "Activate"
+*/
  jsc.addNewJobSite = function(business_name, address, phone, contact, jobsite_status) {
    jobsiteObject.business_name = business_name;
    jobsiteObject.address = address;
@@ -48,29 +75,34 @@ myApp.controller('JobSitesController', function($http, $mdToast, $location, User
   $http.post('/jobSites/newjobsite', jobsiteObject).then(function(response) {
     console.log('added new Job Site to db:', response);
     swal(
-'Success!',
-'A new job site has been added.',
-'success'
-);
+      'Success!',
+      'A new job site has been added.',
+      'success'
+    );
     getManageJobSites();
     if (response) {
       console.log('server sent something back: ', response);
     }
   }).catch(function(){
     swal(
-'Error adding new job site.',
-'Make sure all required information has been entered!',
-'error'
-);
+      'Error adding new job site.',
+      'Make sure all required information has been entered!',
+      'error'
+    );
   });
 
 };
 
 // ----------PUT ROUTES----------
-
-
-
-//PUT request to Disable JobSite
+/**
+* @api {put} /jobsites/disablejobsite Disable a jobsite
+* @apiName DisableJobsite
+* @apiGroup UpdateData
+*
+* @apiParam {Number} id Jobsite's unique id
+* @apiParam {Boolean} jobsite_status Indicates job site's active status
+*/
+//Disable JobSite by toggleing jobsite's status
   jsc.disableJobSite = function(id, boolean) {
         console.log('jobSite id to disable: ', id);
         console.log('boolean value: ', boolean);
@@ -93,18 +125,18 @@ myApp.controller('JobSitesController', function($http, $mdToast, $location, User
         console.log('in updateJobSite, sending:', jobsite);
         $http.put('/jobSites/editjobsites/', jobsite).then(function(response){
           swal(
-    'Success!',
-    'Job site information has been updated.',
-    'success'
-    );
+            'Success!',
+            'Job site information has been updated.',
+            'success'
+          );
           console.log(response.data);
           getManageJobSites();
         }).catch(function(){
           swal(
-      'Error updating job site.',
-      'Make sure all required information has been entered!',
-      'error'
-    );
+            'Error updating job site.',
+            'Make sure all required information has been entered!',
+            'error'
+          );
         });
       };
 
