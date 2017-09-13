@@ -250,6 +250,28 @@ router.put('/notifyAdmin', function(req, res) {
   });
 });
 
+// Updates a goal history entry
+router.put('/updateHistory/', function(req, res){
+  console.log('in updateHistory with:', req.body);
+
+  pool.connect(function(err, client, done, next) {
+    if(err) {
+      console.log("Error connecting: ", err);
+    }
+    client.query("UPDATE goal_tracking SET am_or_pm = $1,complete_or_not = $2, notes = $3 WHERE id = $4;",
+      [req.body.am_or_pm, req.body.complete_or_not, req.body.notes, req.body.id],
+        function (err, result) {
+          done();
+          if(err) {
+            console.log("Error inserting data: ", err);
+            res.sendStatus(420);
+            //next(err);
+          } else {
+            res.sendStatus(202);
+          }
+        });
+  });
+});
 //end friday night update
 
 module.exports = router;

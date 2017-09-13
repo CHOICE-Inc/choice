@@ -256,6 +256,32 @@ vm.showToast = function(message, parentId){
   $mdToast.show(toast);
 };
 
+calculateSuccessRate = function(goal){
+  console.log('in calculateSuccessRate with goal:', goal);
+
+  goal.numCompleted = 0;
+  for(var c = 0;c < goal.shownHistory.length;c++){
+    if(goal.shownHistory[c].complete_or_not == "complete"){
+      goal.numCompleted++;
+    }
+  }
+  console.log('numCompleted is:', goal.numCompleted);
+  console.log('goal.shownHistory.length:', goal.shownHistory.length);
+  goal.successRate = (goal.numCompleted / goal.shownHistory.length * 100).toFixed(0);
+  console.log('goal.history is:', goal.history);
+  console.log('successRate is:', goal.successRate);
+};
+
+
+vm.showAllHistory = function(goal){
+  console.log('in showAllHistory');
+goal.shownHistory = goal.history;
+calculateSuccessRate(goal);
+
+
+
+
+};
 // Filters goal history based on date range entered
 vm.filterHistory = function(goal){
   // console.log('in filterHistory with id:', id);
@@ -303,17 +329,7 @@ vm.filterHistory = function(goal){
     goal.shownHistory = newHistory;
     console.log('new goal.shownHistory is:', goal.shownHistory);
 
-    goal.numCompleted = 0;
-    for(var c = 0;c < goal.shownHistory.length;c++){
-      if(goal.shownHistory[c].complete_or_not == "complete"){
-        goal.numCompleted++;
-      }
-    }
-    console.log('numCompleted is:', goal.numCompleted);
-    console.log('goal.shownHistory.length:', goal.shownHistory.length);
-    goal.successRate = (goal.numCompleted / goal.shownHistory.length * 100).toFixed(0);
-    console.log('goal.history is:', goal.history);
-    console.log('successRate is:', goal.successRate);
+    calculateSuccessRate(goal);
 
   }
 
@@ -337,6 +353,7 @@ vm.getGoalHistory = function(goal){
     goal.shownHistory = response.data;
     goal.numCompleted = 0;
     for(i = 0;i < goal.shownHistory.length;i++){
+      goal.shownHistory[i].editing = false;
       if(goal.shownHistory[i].complete_or_not == "complete"){
         goal.numCompleted++;
       }
@@ -349,10 +366,26 @@ vm.getGoalHistory = function(goal){
 
   });
 };
+//Toggles whether or not a history entry is being edited
+vm.toggleHistoryEditing = function(gh){
+  console.log('toggling editing on history with gh:', gh);
+  vm.historyToEdit = gh;
+  gh.editing = !gh.editing;
+};
 
+//Edit a goal history entry
+vm.editHistoryEntry = function(id, goal){
+  console.log('in editHistoryEntry with gh.id:', id);
+  console.log('sending:', vm.historyToEdit);
+
+  $http.put('/tracking/updateHistory/', vm.historyToEdit).then(function(response){
+    console.log('got response from editHistory PUT');
+    vm.getGoalHistory(goal);
+  });
+};
 
 // Deletes an entry in goal history
-vm.deleteEntry = function(id, goal){
+vm.deleteHistoryEntry = function(id, goal){
   console.log('in deletEntry with gh.id:', id);
   swal({
     title: 'Are you sure?',
