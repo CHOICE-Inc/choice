@@ -21,11 +21,12 @@ myApp.controller('JobSitesController', function($http, $mdToast, $location, User
       console.log('Getting all the jobsites: ', response.data);
 //FOR LOOP TO LOOP THROUGH DATA TO CHECK BOOLEAN FOR jobsite_status IN THE JOBSITE TABLE
       for(i=0;i<response.data.length; i++){ //add a new object property based on the status for each jobsite
+        response.data[i].editing = false;
         if(response.data[i].jobsite_status === true){
-          response.data[i].status = "Deactivate";
+          response.data[i].status = "Active";
         }
         else if (response.data[i].jobsite_status === false){
-          response.data[i].status = "Activate";
+          response.data[i].status = "Inactive";
         }
       }
       jsc.manageJobSiteData = response.data;
@@ -79,12 +80,13 @@ myApp.controller('JobSitesController', function($http, $mdToast, $location, User
         });
       }; //end of disableJobSites
 
-      // Toggles the display of editable content, and assigns the staffmember to be edited
+      // Toggles the display of editable content, and assigns the jobsite to be edited
       jsc.toggleEditing = function(jobsite){
         console.log('in toggleEditing with jobsite:', jobsite);
         jsc.siteToEdit = jobsite;
         jobsite.editing = !jobsite.editing;
         jsc.editStatus = !jsc.editStatus;
+        console.log('ending toggleEditing with jobsite:', jobsite);
       };
 
       jsc.updateJobSite = function(jobsite){

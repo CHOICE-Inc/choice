@@ -12,10 +12,13 @@ myApp.controller('TrackingController', function($http, $mdToast, $location, $sco
   vm.clientGoals = [];
   vm.clientToView = {};
   vm.trackingData = {};
+  vm.noGoalsClients = [];
+  vm.noGoalsData = [];
   vm.initials = "";
   vm.today = new Date();
   vm.filters = ['Show All', 'Location', 'Case Manager', 'Option 3', 'Option 4', 'Option 5'];
-  vm.hidden=false;
+  vm.hidden = false;
+  vm.promptHidden = true;
   vm.rowClass = 'rowDefault';
 
   // builds list of clients to display on goal tracking page
@@ -80,12 +83,18 @@ myApp.controller('TrackingController', function($http, $mdToast, $location, $sco
   // gets list of clients
   function getClients(){
     $http.get('/tracking/getClients').then(function(response) {
-      console.log(response.data);
+      console.log('client list is:', response.data);
       vm.dataList = response.data;
       buildLists(vm.dataList);
-      // console.log('vm.clientList:',vm.clientList);
-      // console.log('vm.locationList:',vm.locationList);
-      // console.log('vm.caseManagers:',vm.caseManagers);
+      $http.get('/tracking/getNoGoalClients').then(function(res) {
+        console.log('noGoal client list is:', res.data);
+        vm.noGoalsData = res.data;
+        vm.noGoalsClients = angular.copy(vm.noGoalsData);
+
+        // console.log('vm.clientList:',vm.clientList);
+        // console.log('vm.locationList:',vm.locationList);
+        // console.log('vm.caseManagers:',vm.caseManagers);
+      });
     });
   }
   //end ted stuff
@@ -97,6 +106,7 @@ myApp.controller('TrackingController', function($http, $mdToast, $location, $sco
     $http.get('/tracking/getGoals/' + client.clientid).then(function(response) {
       console.log('getGoals response:',response.data);
       vm.clientGoals = response.data;
+      vm.promptHidden = false;
       for(var i = 0; i < vm.clientGoals.length; i++){
         vm.clientGoals[i].lastUpdate = getLastUpdate(vm.clientGoals[i]);
       }
@@ -107,6 +117,7 @@ myApp.controller('TrackingController', function($http, $mdToast, $location, $sco
   // filters client list based on filter options
   vm.filterClients = function(data){
     var tempList = angular.copy(data);
+    vm.noGoalsClients = angular.copy(vm.noGoalsData);
 
     // console.log('in filterClients with data:', data);
     // console.log('in filterClients with CM:', vm.filterCm);
@@ -121,6 +132,7 @@ myApp.controller('TrackingController', function($http, $mdToast, $location, $sco
       }
     }
     if(vm.locationList.includes(vm.filterJs)){
+      vm.noGoalsClients = [];
       for(var p = 0; p < tempList.length; p++){
         if(tempList[p].business_name != vm.filterJs){
           tempList.splice(p,1);
@@ -138,6 +150,17 @@ myApp.controller('TrackingController', function($http, $mdToast, $location, $sco
         names.push(tempList[x].client_name);
       }
     }
+
+    if(vm.caseManagers.includes(vm.filterCm) && !vm.locationList.includes(vm.filterJs)){
+      console.log('setting clients');
+      vm.noGoalsClients = [];
+      for(var b = 0; b < vm.noGoalsData.length; b++){
+        if(vm.noGoalsData[b].staff_name == vm.filterCm){
+          vm.noGoalsClients.push(vm.noGoalsData[b]);
+        }
+      }
+    }
+
   }; // end filterClients
 
 

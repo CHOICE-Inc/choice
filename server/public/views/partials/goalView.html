@@ -24,7 +24,7 @@
             </div>
             <div layout="row" flex>
               <p class="label">CHOICE Representative:</p> &nbsp
-              <p class="userText">{{tc.casemanagerName}}</p>
+              <p class="userText">{{tc.goalService.singleGoal.data.staff_name}}</p>
             </div>
             <div layout="row" flex>
               <p class="label">Job Site:</p> &nbsp
@@ -38,7 +38,7 @@
           <div layout="column" flex="50">
             <div layout="row" flex>
               <p class="label">Implementation Date:</p> &nbsp
-              <p class="userText">{{tc.goalService.singleGoal.data.implementation_date}}</p>
+              <p class="userText">{{tc.goalService.singleGoal.data.implementation_date | date}}</p>
             </div>
             <div layout="row" flex>
               <p class="label">Review Dates:</p> &nbsp

@@ -2,11 +2,12 @@
 <!-- EDIT GOAL CRITERA PAGE - View and edit goal criteria guidelines -->
 
 <div class="container" ng-controller="GoalController as gc" >
+  <h4>Select a Participant and then their goal that you would like to edit.<h4>
   <!-- Top Bar: Select client name, select goal w/ Edit and Disable buttons -->
   <div class="clientSelection" layout="row">
     <div class="nameSelect" layout="column" flex="40">
       <!-- Autocomplete input to select client name-->
-      <form name="autocompleteForm">
+      <md-input-container name="autocompleteForm">
         <md-autocomplete required
         md-no-cache="true"
         md-input-name="gc.autocomplete"
@@ -14,7 +15,7 @@
         md-search-text="gc.searchText"
         md-items="item in gc.querySearch(gc.searchText)"
         md-item-text="item.client_name"
-        md-selected-item-change="gc.getClientGoals(gc.selectedItem.id)"
+        md-selected-item-change="gc.getClientGoals(gc.selectedItem)"
         placeholder="Enter client's name"
         md-clear-button="true">
         <md-item-template>
@@ -27,12 +28,12 @@
           <div ng-message="required">This field is required</div>
         </div>
       </md-autocomplete>
-    </form>
+    </md-input-container>
   </div>
 
   <div class="goalSelect" layout="column" flex="30">
     <!-- Select name populates pulldown menu w/ client's goals, select goal to pouplate goal.html w/ data -->
-    <md-input-container>
+    <md-input-container id="goalSelect">
       <label>Select goal to view:</label>
       <md-select ng-model="gc.goalSelection">
         <md-option ng-repeat="goal in gc.allGoalData" value="{{goal.goal_name}}" ng-click="gc.getGoalCriteria(goal.goalid, goal.client_id)">{{goal.goal_name}}</md-option>
@@ -40,9 +41,10 @@
     </md-input-container>
   </div>
 
-  <div layout="column" flex="15">
+  <div layout="column" flex="22">
     <!-- Disable button -->
-    <md-button class="md-raised md-warn" name="disableBtn" ng-click="gc.disableCriteria(gc.goal_id, gc.goal_status, gc.client_id)">Disable Criteria</md-button>
+    <md-button ng-show="gc.goal_status" class="md-raised md-warn" name="disableBtn" ng-click="gc.disableCriteria(gc.goal_id, gc.goal_status, gc.client_id)">Disable Criteria</md-button>
+    <md-button ng-hide="gc.goal_status" class="md-raised md-warn" style="background-color:#66bb6a" name="disableBtn" ng-click="gc.disableCriteria(gc.goal_id, gc.goal_status, gc.client_id)">Enable Criteria</md-button>
   </div>
 
 </div>
@@ -52,193 +54,180 @@
   <md-content>
     <form name="goalForm">
 
-        <div layout="row" flex="none">
-          <div layout="column" flex="60">
-            <h2>CSSP SUPPORT AND METHODS PLAN - STEP PROGRAM GOAL</h2>
-          </div>
-          <div layout="column" layout-align="center center" flex="40">
-            <div layout="row">
-
-
-              <md-button class="md-raised md-primary md-hue-1" name="updateBtn" ng-disabled="false" ng-click="gc.updateCriteria(gc.client_id, gc.jobsite_id, gc.implementation_date, gc.review_dates, gc.completion_date,
+      <div class="goalHeader" layout="row" flex="none">
+        <div layout="column" flex="65">
+          <h2 id="supportPlan">CSSP SUPPORT AND METHODS PLAN - STEP PROGRAM GOAL</h2>
+        </div>
+        <div layout="column" layout-align="center center" flex="35">
+          <div layout="row">
+            <md-button class="md-raised md-accent" name="updateBtn" ng-disabled="false" ng-click="gc.updateCriteria(gc.client_id, gc.jobsite_id, gc.implementation_date, gc.review_dates, gc.completion_date,
               gc.service_outcome, gc.objective, gc.behavior_techniques, gc.modifications, gc.equipment, gc.jobsite_details, gc.when_notes, gc.plan_steps,
               gc.goal_name, gc.goal_summary, gc.goal_id)">Update</md-button>
-            </div>
           </div>
         </div>
+      </div>
 
-        <!-- Row for Client Info/Dates Box -->
-        <div layout="row">
-          <div layout="column" flex="50">
-            <div class="nameSelect" layout="column" flex="40">
-              <!-- Autocomplete input to select client name & send clientID to client-side-->
-              <form name="autocompleteForm">
-                <md-autocomplete required
-                md-no-cache="true"
-                md-input-name="gc.autocomplete"
-                md-selected-item="gc.selectedItem"
-                md-search-text="gc.searchText"
-                md-items="item in gc.querySearch(gc.searchText)"
-                md-item-text="item.client_name"
-                md-selected-item-change="gc.assignClientID(gc.selectedItem.id)"
-                placeholder="Enter participant's name"
-                md-clear-button="true">
-                <md-item-template>
-                  <span md-highlight-text="gc.searchText">{{item.client_name}}</span>
-                </md-item-template>
-                <md-not-found>
-                  No names matching "{{gc.searchText}}" were found.
-                </md-not-found>
-                <div ng-messages="autocompleteForm.autocomplete.$error">
-                  <div ng-message="required">This field is required</div>
-                </div>
-              </md-autocomplete>
-            </form>
-          </div>
-            <md-input-container>
-              <span>CHOICE Representative: {{gc.staff_name}}</span>
-              <!-- <label>CHOICE Representative:</label>
-              <md-select ng-model="gc.casemanagerName">
-                <md-option ng-repeat="casemanagerName in gc.casemanagerData" value="{{casemanagerName.staff_name}}" ng-click="gc.assignCMID(casemanagerName.id)">{{casemanagerName.staff_name}}</md-option>
-              </md-select> -->
-            </md-input-container>
-            <md-input-container>
-              <label>Job Site:</label>
-              <md-select ng-model="gc.jobsite_id">
-                <md-option ng-repeat="jobsite in gc.jobSiteData" value="{{jobsite.id}}" ng-click="gc.assignJobsiteId(jobsite.id)">{{jobsite.business_name}}</md-option>
-              </md-select>
-            </md-input-container>
-            <md-input-container>
-              <label>Goal Name:</label>
-              <input type="text" ng-model="gc.goal_name">
-            </md-input-container>
-          </div>
-          <div layout="column" flex="50">
-            <md-input-container>
-              <label>IMPLEMENTATION DATE:</label>
-              <md-datepicker ng-model="gc.implementation_date" md-placeholder="Enter Date"></md-datepicker>
-            </md-input-container>
-            <md-input-container>
-              <label>REVIEW DATE:</label>
-              <input ng-model="gc.review_dates">
-            </md-input-container>
-            <md-input-container>
-              <label>COMPLETION DATE:</label>
-              <md-datepicker ng-model="gc.completion_date" md-placeholder="Enter Date"></md-datepicker>
-            </md-input-container>
-          </div>
-        </div> <!-- End of Row for Client Info/Dates Box -->
 
-        <!--Row for Goal Summary for use on the tracking page-->
-        <div layout="row">
-          <div layout="column" flex>
-            <md-input-container class="md-block">
-              <label>GOAL SUMMARY:</label>
-              <textarea form="goalForm" rows="3" md-maxlength="500" ng-model="gc.goal_summary" placeholder="Enter brief summary of goal for use on goal tracking page."></textarea>
-            </md-input-container>
-          </div>
+      <!-- DIV FOR NAME, REP, DATES, GOAL NAME, JOB SITE -->
+      <div class="basicGoalData" layout="row" flex="none">
+        <div id="clientRepName" layout="column" flex="35">
+
+          <div class="nameSelect">
+            <!-- Autocomplete input to select client name & send clientID to client-side-->
+            <md-input-container name="autocompleteForm">
+              <!-- <form name="autocompleteForm"> -->
+              <md-autocomplete required
+              md-no-cache="true"
+              md-input-name="gc.autocomplete"
+              md-selected-item="gc.selectedItem"
+              md-search-text="gc.searchText"
+              md-items="item in gc.querySearch(gc.searchText)"
+              md-item-text="item.client_name"
+              md-selected-item-change="gc.assignIds(gc.selectedItem)"
+              placeholder="Enter participant's name"
+              md-clear-button="true">
+              <md-item-template>
+                <span md-highlight-text="gc.searchText">{{item.client_name}}</span>
+              </md-item-template>
+              <md-not-found>
+                No names matching "{{gc.searchText}}" were found.
+              </md-not-found>
+              <div ng-messages="autocompleteForm.autocomplete.$error">
+                <div ng-message="required">This field is required</div>
+              </div>
+            </md-autocomplete>
+            <!-- </form> -->
+          </md-input-container>
 
         </div>
 
-        <!-- Row for Service Outcome -->
-        <div layout="row" flex>
-          <div layout="column" flex>
-            <md-input-container class="md-block">
-              <label>SERVICE OUTCOME:</label>
-              <textarea form="goalForm" rows="3" md-maxlength="500" ng-model="gc.service_outcome"></textarea>
-            </md-input-container>
-          </div>
-        </div> <!-- end of Row for Service Outcome -->
+        <span>CHOICE Representative: {{gc.casemanager}}</span>
 
-        <!-- Row for Objective -->
-        <div layout="row" flex>
-          <div layout="column" flex>
-            <md-input-container>
-              <label>OBJECTIVE:</label>
-              <textarea form="goalForm" rows="10" md-maxlength="500" ng-model="gc.objective"></textarea>
-            </md-input-container>
-          </div>
-        </div> <!-- End of Row for Objective -->
+      </div>
+      <!--DIV FOR JOB SITE AND GOAL NAME-->
+      <div id="jobsiteGoalData" layout="column" flex="35">
+        <md-input-container>
+          <label>Goal Name:</label>
+          <input type="text" ng-model="gc.goal_name">
+        </md-input-container>
+        <md-input-container>
+          <label>Job Site:</label>
+          <md-select ng-model="gc.jobsite_id">
+            <md-option ng-repeat="jobsite in gc.jobSiteData" value="{{jobsite.id}}" ng-click="gc.assignJobsiteId(jobsite.id)">{{jobsite.business_name}}</md-option>
+          </md-select>
+        </md-input-container>
 
-        <!-- Row for Methods header -->
-        <div layout="row" flex>
-          <h3>DESCRIBE METHODS OF IMPLEMENTATION AND DATA COLLECTION BELOW:</h3>
-        </div><!-- End of Row for Methods header-->
+      </div>
+      <!-- DIV FOR GOAL DATES -->
+      <div id="datesData" layout="column" flex="30">
+        <md-input-container>
+          <label>IMPLEMENTATION DATE:</label>
+          <md-datepicker ng-model="gc.implementation_date" md-placeholder="Enter Date"></md-datepicker>
+        </md-input-container>
+        <md-input-container>
+          <label>COMPLETION DATE:</label>
+          <md-datepicker ng-model="gc.completion_date" md-placeholder="Enter Date"></md-datepicker>
+        </md-input-container>
+        <md-input-container>
+          <label>REVIEW DATE:</label>
+          <input ng-model="gc.review_dates">
+        </md-input-container>
+      </div>
+    </div> <!-- End of Row for Client Info/Dates Box -->
 
-        <!-- Row for Method - Where/When -->
-        <div layout="row">
-          <div layout="column" flex>
-            <md-input-container>
-              <label>Where will the plan be run:</label>
-              <textarea form="goalForm" rows="5" md-maxlength="500" ng-model="gc.jobsite_details"></textarea>
-            </md-input-container>
-            <md-input-container>
-              <label>When will the plan be run:</label>
-              <textarea form="goalForm" rows="5" md-maxlength="500" ng-model="gc.when_notes"></textarea>
-            </md-input-container>
-          </div>
-        </div> <!-- End of Row for Method - Where/When -->
+    <!-- Row for Methods header -->
+    <div layout="row" flex>
+      <h3>GOAL SUMMARY, SERVICE OUTCOME, OBJECTIVE</h3>
+    </div><!-- End of Row for Methods header-->
 
-        <!-- Row for Method - Implemented by -->
-        <div layout="row">
-          <div layout="column" flex>
-            <p>Implemented by: Choice, Inc. Supported Employement Instructors and Direct Service Providers</p>
-          </div>
-        </div><!-- End of Row for Method - Implemented by -->
+    <!--Row for Goal Summary/service outcome for use on the tracking page-->
+    <div class="summaryOutcomeObjectiveDiv" layout="row">
+      <!-- Row for Service Outcome -->
+      <div id="serviceOutcomeDiv" layout="column" flex="40">
+        <md-input-container class="md-block">
+          <label>SERVICE OUTCOME:</label>
+          <textarea form="goalForm"  md-maxlength="500" ng-model="gc.service_outcome" placeholder="Enter Service Outcome Information."></textarea>
+        </md-input-container>
+      </div>
+      <div layout="column" flex="40">
+        <md-input-container>
+          <label>OBJECTIVE:</label>
+          <textarea form="goalForm" md-maxlength="500" ng-model="gc.objective" placeholder="Enter Goal Objective Information."></textarea>
+        </md-input-container>
+      </div>
+      <div id="goalSummaryDiv" layout="column" flex="30">
+        <md-input-container class="md-block">
+          <label>GOAL SUMMARY:</label>
+          <textarea form="goalForm"  md-maxlength="500" ng-model="gc.goal_summary" placeholder="Enter brief summary of goal for use on goal tracking page."></textarea>
+        </md-input-container>
+      </div>
+    </div> <!-- end of Row for Summary/Service Outcome/Objective -->
 
-        <!-- Row for Method - Equipment and materials used -->
-        <div layout="column">
-          <div layout="column" flex>
-            <md-input-container>
-              <label>What equipment and materials will be needed:</label>
-              <textarea  form="goalForm" rows="5" md-maxlength="500" ng-model="gc.equipment"></textarea>
-            </md-input-container>
-          </div>
-        </div><!-- End of Row for Method - Equipment and materials used -->
+    <!-- Row for Methods header -->
+    <div layout="row" flex>
+      <h3>DESCRIBE METHODS OF IMPLEMENTATION AND DATA COLLECTION BELOW:</h3>
+    </div><!-- End of Row for Methods header-->
 
-        <!-- Row for Method - behavior techniques -->
-        <div layout="row">
-          <div layout="column" flex>
-            <md-input-container>
-              <label>What behavior techniques will be used, consistent with communication mode and learning style:</label>
-              <textarea form="goalForm" rows="5" md-maxlength="500" ng-model="gc.behavior_techniques"></textarea>
-            </md-input-container>
-          </div>
-        </div><!-- End of Row for Method - behavior techniques -->
+    <!-- Row for Methods - Where/When It Will Be Run-->
+    <div class="methodsDiv" layout="row">
+      <div id="methodsRunDiv" layout="column" flex="30">
+        <md-input-container>
+          <label>Where will the plan be run:</label>
+          <textarea form="goalForm" md-maxlength="500" ng-model="gc.jobsite_details"></textarea>
+        </md-input-container>
+        <md-input-container>
+          <label>When will the plan be run:</label>
+          <textarea form="goalForm" md-maxlength="500" ng-model="gc.when_notes"></textarea>
+        </md-input-container>
+      </div>
 
-        <!-- Row for Method - changes to environments -->
-        <div layout="row">
-          <div layout="column" flex>
-            <md-input-container>
-              <label>Changes or modifications necessary to the physical and social environments:</label>
-              <textarea form="goalForm" rows="5" md-maxlength="500" ng-model="gc.modifications"></textarea>
-            </md-input-container>
-          </div>
-        </div><!-- End of Row for Method - changes to environments -->
+      <!-- Row for Method - Equipment and materials used -->
+      <div layout="column" flex="40">
+        <div layout="column" flex>
+          <md-input-container>
+            <label>What equipment and materials will be needed:</label>
+            <textarea  form="goalForm" md-maxlength="500" ng-model="gc.equipment"></textarea>
+          </md-input-container>
+        </div>
 
-        <!-- Row for How to run the plan -->
-        <div layout="row">
-          <h3>HOW TO RUN THE PLAN STEP BY STEP</h3>
-        </div><!-- End of Row for How to run the plan -->
+        <md-input-container>
+          <label>What behavior techniques will be used, consistent with communication mode and learning style:</label>
+          <textarea form="goalForm" md-maxlength="500" ng-model="gc.behavior_techniques"></textarea>
+        </md-input-container>
 
-        <!-- Row for Plan Steps -->
-        <div layout="row">
-          <div layout="column" flex>
-            <md-input-container>
-              <textarea form="goalForm" rows="5" md-maxlength="500" ng-model="gc.plan_steps" placeholder="1. This is step one 2. Step 2 3. Step 3"></textarea>
+      </div><!-- End of Row for Method - Equipment and materials used -->
 
-            </md-input-container>
-          </div>
-        </div><!-- End of Row for Plan Steps -->
+      <!-- Row for Method - Modifications and Implemented by -->
+      <div layout="column" flex="40">
+        <md-input-container>
+          <label>Changes or modifications necessary to the physical and social environments:</label>
+          <textarea form="goalForm" md-maxlength="500" ng-model="gc.modifications"></textarea>
+        </md-input-container>
+        <p>Implemented by: Choice, Inc. Supported Employement Instructors and Direct Service Providers</p>
+      </div> <!--End of Row for Method- Modifications and Implemented by-->
+    </div> <!-- End of Row for Methods -->
 
-        <!-- Row for Footer of goal sheet -->
-        <div layout="row">
-          * Please see report for goal progress
-        </div><!-- End of Row for Footer of goal sheet -->
+    <!-- Row for How to run the plan -->
+    <div layout="row">
+      <h3>HOW TO RUN THE PLAN STEP BY STEP</h3>
+    </div><!-- End of Row for How to run the plan -->
 
-    </form>
-  </md-content> <!-- end of material container-->
+    <!-- Row for Plan Steps -->
+    <div layout="row">
+      <div layout="column" flex>
+        <md-input-container>
+          <textarea form="goalForm" md-maxlength="500" ng-model="gc.plan_steps" placeholder="1. Step one 2. Step Two 3. Step Three"></textarea>
+
+        </md-input-container>
+      </div>
+    </div><!-- End of Row for Plan Steps -->
+
+    <!-- Row for Footer of goal sheet -->
+    <div layout="row">
+      * Please see report for goal progress
+    </div><!-- End of Row for Footer of goal sheet -->
+
+  </form>
+</md-content> <!-- end of material container-->
 
 </div> <!-- end of container -->
-
-</div> <!-- End of page container -->

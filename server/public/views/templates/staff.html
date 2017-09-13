@@ -3,29 +3,39 @@
 <div class="container" layout="column" flex>
   <md-content>
     <div layout="row" flex>
-      <h1>Manage Staff</h1>
+      <div class="manageTitle" layout="column" flex="25">
+        <h1>Manage Staff</h1>
+      </div>
+      <div layout="column" flex>
+        <!-- Add new staff -->
+        <div id="addStaff" layout="row" flex>
+          <md-input-container>
+            <label> Staff Name: </label>
+            <input type="text" placeholder="Enter name here" ng-model="sc.staffToAdd.name">
+          </md-input-container>
+          <md-input-container>
+            <md-select ng-model="sc.staffToAdd.role" placeholder="Please select staff's role" class="md-no-underline">
+              <md-option ng-value="1">Administrator</md-option>
+              <md-option ng-value="2">Case Manager</md-option>
+              <md-option ng-value="3">Staff</md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container>
+            <label> Staff Email: </label>
+            <input type="text" placeholder="Enter staff email" ng-model="sc.staffToAdd.email">
+          </md-input-container>
+          <md-button id="addStaffBtn" class="md-raised md-accent" ng-click="sc.addNewStaff()">Add staff member</md-button>
+        </div>
+      </div>
     </div>
-    <!-- Add new staff -->
-    <div class="container" layout="row" flex>
-      <md-input-container>
-        <label> Staff Name: </label>
-        <input type="text" placeholder="Enter name here" ng-model="sc.staffToAdd.name">
-      </md-input-container>
-      <md-input-container>
-        <md-select ng-model="sc.staffToAdd.role" placeholder="Please select staff's role" class="md-no-underline">
-          <md-option ng-value="1">Administrator</md-option>
-          <md-option ng-value="2">Case Manager</md-option>
-          <md-option ng-value="3">Staff</md-option>
-        </md-select>
-      </md-input-container>
-      <md-input-container>
-        <label> Staff Email: </label>
-        <input type="text" placeholder="Enter staff email" ng-model="sc.staffToAdd.email">
-      </md-input-container>
-      <md-button id="addStaffBtn" class="md-raised md-accent" ng-click="sc.addNewStaff()">Add staff member</md-button>
-    </div>
+
     <!-- Staff table -->
     <div layout="row" flex>
+      <div layout="column" flex="5">
+
+      </div>
+      <div layout="column" flex="90">
+
       <md-table-container>
         <table md-table id="staffTable">
           <thead md-head class="tableHeader">
@@ -68,6 +78,7 @@
         </table>
 
       </md-table-container>
+      </div>
     </div> <!-- End of table div -->
 
   </md-content>

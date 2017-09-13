@@ -38,7 +38,7 @@ li {
 li a {
   display: block;
   color: #007ac1;
-  text-align: center;
+  text-align: left;
   padding: 14px 16px;
   text-decoration: none;
 }
@@ -127,13 +127,19 @@ Middle Green: #66bb6a
 Dark Green: #338ae3
 
 Warn Palette - Material Red 500
-Light Purple: #ff6f60
-Middle Purple: #e53935
-Dark Purple: #ab000d
+Light Red: #ff6f60
+Middle Red: #e53935
+Dark Red: #ab000d
 
 Background Palette - Material Grey 100
 Middle grey: #f5f5f5
 Dark grey: #c2c2c2
+
+Material Purple 600
+Light: #c158dc
+Medium: #8e24aa
+Dark: #5c007a
+
 
 Text Color:
 White & <a> on dark background: #fff

@@ -1,7 +1,7 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <!-- GOAL TRACKING PAGE - Page will let users log completion of goals -->
 
-<button type="button" name="button" ng-click="tc.test()">TEST</button>
+<!-- <button type="button" name="button" ng-click="tc.test()">TEST</button> -->
 
 <div layout="row" class="container" id="goalPage" flex>
   <!-- LEFT SIDE OF PAGE - LIST OF PARTICIPANTS -->
@@ -22,54 +22,66 @@
         <md-option ng-repeat="loc in tc.locationList" ng-value="loc">{{loc}}</md-option>
       </md-select>
 
-      <md-button class="md-raised md-primary" ng-click="tc.filterClients(tc.dataList)">Filter</md-button>
+      <md-button class="md-raised md-primary md-hue-1" ng-click="tc.filterClients(tc.dataList)">Filter</md-button>
     </div>
 
     <!-- List of Participants -->
+    <div layout="row" flex="nogrow">
+      <p>Please select participant:</p>
+    </div>
     <div>
-      <p id="clientList" ng-repeat="client in tc.clientList" ng-click="tc.showClientGoals(client)">{{client.client_name}}</p>
+      <p class="activeClient" ng-repeat="client in tc.clientList" ng-click="tc.showClientGoals(client)">{{client.client_name}}</p>
+    </div>
+    <div>
+      <p class="nonactiveClient" ng-repeat="ngclient in tc.noGoalsClients">{{ngclient.client_name}} (goals not assigned)</p>
     </div>
   </div> <!-- End of left side of page-->
 
   <!-- RIGHT SIDE OF PAGE - LIST OF PARTICIPANTS -->
   <div id="rightColumn" layout="column" flex="80">
-
     <!-- Header Info: Participant's Name & Case Manager -->
-<div layout="row" layout-align="end" flex="none">
-<md-button class="md-raised md-primary" type="button" name="button" ng-click="tc.notifyAdmin(message)">Message Admin</md-button>
+    <div layout="row" flex="nogrow">
+      <div layout="column" flex="40">
+        <p class="label">Participant Name: <span id="clientName"> {{tc.clientToView.client_name}}</span></p>
+      </div>
+      <div layout="column" flex="40">
+        <p class="label">Case Manager: <span id="cmName"> {{tc.clientToView.staff_name}}</span></p>
+      </div>
+      <div layout="column" flex>
+        <md-button class="md-raised md-primary md-hue-1" type="button" name="button" ng-click="tc.notifyAdmin(message)">Message Admin</md-button>
+      </div>
     </div>
-    <div layout="row" flex="none">
-      <p class="label">Participant Name: <span id="clientName"> {{tc.clientToView.client_name}}</span></p>
+    <div layout="row" ng-show="tc.promptHidden" flex="nogrow">
+      <p id="selectPrompt">Please select a participant to display their goals.</p>
     </div>
-    <div layout="row" flex="none">
-      <p class="label">Case Manager: <span id="cmName"> {{tc.clientToView.staff_name}}</span></p>
-    </div>
-
 
     <!-- TEMPLATE FOR A GOAL & ITS TRACKING INPUTS -->
-    <div style="margin:20px" class="goalBox" layout="row" ng-repeat="goal in tc.clientGoals" flex>
+    <div style="margin:20px" class="goalBox md-whiteframe-4dp" layout="row" ng-repeat="goal in tc.clientGoals" flex="nogrow">
       <div layout="column" flex>
 
         <!-- Row for Goal Name -->
-        <div class="goalNameBox" layout="row" layout-align="center center" flex="nogrow">
+        <div class="goalNameBox" layout="row" layout-align="start center" flex="nogrow">
           <h3 class="goalName">{{goal.goalname}}</h3>
         </div>
 
         <!-- Row for Goal Location and Navigation Buttons -->
         <div layout="row" flex="nogrow">
           <div layout="column" flex="50">
-            <p class="label">GOAL LOCATION: <span class="locationName"> {{goal.business_name}}</span></p>
+            <p class="label">LOCATION: <span class="locationName"> {{goal.business_name}}</span></p>
           </div>
-          <div class="column" flex="50">
-            <md-button ng-hide="goal.hidden == true" class="md-raised md-primary" ng-click="tc.goalService.viewGoalCriteria(goal.goalid, tc.clientToView.clientid, $event)">Goal Criteria</md-button>
-            <md-button ng-hide="goal.hidden == true" class="md-raised md-primary md-hue-1" ng-click="tc.toGoalHistory(goal)">Goal History</md-button>
-            <md-button ng-show="goal.hidden == true" class="md-raised md-primary md-hue-1" ng-click="tc.toGoalHistory(goal)">Back to Tracking</md-button>
+          <div layout="column" layout-align="center end" flex>
+            <div layout="row" flex>
+              <p class="label">VIEW:</p>
+              <md-button ng-hide="goal.hidden == true" class="md-raised md-primary md-hue-1" ng-click="tc.goalService.viewGoalCriteria(goal.goalid, tc.clientToView.clientid, $event)">Goal Criteria</md-button>
+              <md-button ng-hide="goal.hidden == true" class="md-raised md-primary md-hue-1" ng-click="tc.toGoalHistory(goal)">Goal History</md-button>
+              <md-button ng-show="goal.hidden == true" class="md-raised md-primary md-hue-1" ng-click="tc.toGoalHistory(goal)">Back to Tracking</md-button>
+            </div>
           </div>
         </div>
 
         <!-- Row for Goal Notes & Date -->
         <div layout="row" ng-hide="goal.hidden == true" flex>
-          <p class="label"> GOAL NOTES: <span class="goalNotes"> {{goal.goalnotes}}</span></p>
+          <p class="label"> SUMMARY: <span class="goalNotes"> {{goal.goalnotes}}</span></p>
         </div>
 
         <div layout="row" ng-hide="goal.hidden == true" flex>
@@ -80,7 +92,7 @@
         <div class="checkIn" layout="row" ng-hide="goal.hidden == true" flex>
           <div layout="column" flex="30">
             <md-radio-group class="amPmButtons" layout="row" ng-model="goal.amOrPm">
-              <p class="label">TIME: </p> &nbsp
+              <p style="margin-left:-5px" class="label">CHECK-IN: </p> &nbsp
               <md-radio-button value="am" class="md-primary">AM</md-radio-button>
               <md-radio-button value="pm" class="md-primary">PM</md-radio-button>
             </md-radio-group>
@@ -176,38 +188,38 @@
                           <tr md-row ng-class="tc.rowClass" ng-repeat="gh in goal.shownHistory">
                             <td md-cell ng-class="{rowComplete: gh.complete_or_not == 'complete' , rowIncomplete: gh.complete_or_not == 'incomplete'}">
                               {{gh.date_tracked | date}}</td>
-                            <td md-cell ng-class="{rowComplete: gh.complete_or_not == 'complete' , rowIncomplete: gh.complete_or_not == 'incomplete'}">
-                              {{gh.am_or_pm}}</td>
-                            <td md-cell ng-class="{rowComplete: gh.complete_or_not == 'complete' , rowIncomplete: gh.complete_or_not == 'incomplete'}">
-                              {{gh.entered_by}}</td>
-                            <td md-cell ng-class="{rowComplete: gh.complete_or_not == 'complete' , rowIncomplete: gh.complete_or_not == 'incomplete'}">
-                              {{gh.complete_or_not}}</td>
-                            <td md-cell ng-class="{rowComplete: gh.complete_or_not == 'complete' , rowIncomplete: gh.complete_or_not == 'incomplete'}">
-                              {{gh.notes}}</td>
-                            <td md-cell><button ng-if="tc.userObject.role < 3" type="button" name="button">Edit</button>
-                              <button ng-if="tc.userObject.role < 3" type="button" name="button">Delete</button>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </md-table-container>
-                    <md-table-pagination md-limit="tc.goalService.tableQuery.limit" md-limit-options="tc.goalService.tableLimitOptions"
-                    md-page="tc.goalService.tableQuery.page" md-total="{{goal.shownHistory.length}}" md-page-select="tc.goalService.tableOptions.pageSelect"
-                    md-boundary-links="tc.goalService.tableOptions.boundaryLinks" md-on-paginate="logPagination"></md-table-pagination>
-                  </md-content>
-                </div>
+                              <td md-cell ng-class="{rowComplete: gh.complete_or_not == 'complete' , rowIncomplete: gh.complete_or_not == 'incomplete'}">
+                                {{gh.am_or_pm}}</td>
+                                <td md-cell ng-class="{rowComplete: gh.complete_or_not == 'complete' , rowIncomplete: gh.complete_or_not == 'incomplete'}">
+                                  {{gh.entered_by}}</td>
+                                  <td md-cell ng-class="{rowComplete: gh.complete_or_not == 'complete' , rowIncomplete: gh.complete_or_not == 'incomplete'}">
+                                    {{gh.complete_or_not}}</td>
+                                    <td md-cell ng-class="{rowComplete: gh.complete_or_not == 'complete' , rowIncomplete: gh.complete_or_not == 'incomplete'}">
+                                      {{gh.notes}}</td>
+                                      <td md-cell><button ng-if="tc.userObject.role < 3" type="button" name="button">Edit</button>
+                                        <button ng-if="tc.userObject.role < 3" type="button" name="button">Delete</button>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </md-table-container>
+                              <md-table-pagination md-limit="tc.goalService.tableQuery.limit" md-limit-options="tc.goalService.tableLimitOptions"
+                              md-page="tc.goalService.tableQuery.page" md-total="{{goal.shownHistory.length}}" md-page-select="tc.goalService.tableOptions.pageSelect"
+                              md-boundary-links="tc.goalService.tableOptions.boundaryLinks" md-on-paginate="logPagination"></md-table-pagination>
+                            </md-content>
+                          </div>
 
-              </div> <!-- end of table column -->
-            </div> <!-- end of table row -->
+                        </div> <!-- end of table column -->
+                      </div> <!-- end of table row -->
 
-          </div><!-- end of column container for history -->
-        </div><!--end history div -->
-      </div> <!-- end of column div inside goalBox div -->
-    </div> <!-- end goal box -->
-  </div> <!-- end of right side column-->
-</div> <!-- end of page container -->
+                    </div><!-- end of column container for history -->
+                  </div><!--end history div -->
+                </div> <!-- end of column div inside goalBox div -->
+              </div> <!-- end goal box -->
+            </div> <!-- end of right side column-->
+          </div> <!-- end of page container -->
 
-<!-- div for displaying toast on tracking submission -->
-<div id="footer" style="background-color:transparent;position: fixed;bottom: 0;width: 100%;height:60px;pointer-events:none">
+          <!-- div for displaying toast on tracking submission -->
+          <div id="footer" style="background-color:transparent;position: fixed;bottom: 0;width: 100%;height:60px;pointer-events:none">
 
-</div>
+          </div>
