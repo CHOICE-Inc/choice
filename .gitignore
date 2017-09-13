@@ -1,6 +1,8 @@
 .DS_STORE
 node_modules/
+doc/
 .idea/
 *.log
 *.logs
 config.js
+apidoc.json
