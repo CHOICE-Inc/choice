@@ -170,7 +170,11 @@ router.get('/getGoalHistory/:id', function(req, res) {
       //next(err);
     }
     //get goal history by goal id
+<<<<<<< HEAD
     client.query("select * from goal_tracking where goal_id = " + req.params.id + " order by date_tracked DESC;",
+=======
+    client.query("select * from goal_tracking where goal_id = " + req.params.id + " order by date_tracked desc;",
+>>>>>>> master
         function (err, result) {
           done();
           if(err) {
