@@ -77,7 +77,7 @@ router.get('/clients', function(req, res){
         res.sendStatus(500);
       } else {
         // MAKE DB QUERY
-        db.query('SELECT id, client_name FROM client', function(errMakingQuery, result){
+        db.query('SELECT client.id as id, client_name, staff_name, staff.id as staff_id FROM client JOIN staff on client.staff_id = staff.id;', function(errMakingQuery, result){
           done();
           if(errMakingQuery){
             console.log('There was an error making INSERT query: ', errMakingQuery);
@@ -207,7 +207,7 @@ router.get('/singlecriteria', function(req, res){
   var goalID = parseInt(req.query.goal_id);
   console.log('on server after parseInt, client_id = ', clientID, 'on server, goal_id = ', goalID);
 
-  if(req.user.role == ADMIN || req.user.role == CASE){
+
     pool.connect(function(errConnectingToDatabase, db, done){
       if(errConnectingToDatabase) {
         console.log('There was an error connecting to database: ', errConnectingToDatabase);
@@ -227,10 +227,7 @@ router.get('/singlecriteria', function(req, res){
 
       } //end of DB connect if-else
     }); //end of pool.connect
-  } else {
-    console.log('unauthorized');
-    res.sendStatus(401);
-  }
+
 }); // end of router
 
 

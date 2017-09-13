@@ -175,6 +175,7 @@ div#methodsRunDiv.layout-column.flex-50 {
 }
 .activeClient {
   color: #007ac1;
+  cursor:pointer;
 }
 .activeClient:hover {
   color: #03a9fd;

@@ -15,7 +15,7 @@
         md-search-text="gc.searchText"
         md-items="item in gc.querySearch(gc.searchText)"
         md-item-text="item.client_name"
-        md-selected-item-change="gc.getClientGoals(gc.selectedItem.id)"
+        md-selected-item-change="gc.getClientGoals(gc.selectedItem)"
         placeholder="Enter client's name"
         md-clear-button="true">
         <md-item-template>
@@ -43,7 +43,8 @@
 
   <div layout="column" flex="22">
     <!-- Disable button -->
-    <md-button class="md-raised md-warn" name="disableBtn" ng-click="gc.disableCriteria(gc.goal_id, gc.goal_status, gc.client_id)">Disable Criteria</md-button>
+    <md-button ng-show="gc.goal_status" class="md-raised md-warn" name="disableBtn" ng-click="gc.disableCriteria(gc.goal_id, gc.goal_status, gc.client_id)">Disable Criteria</md-button>
+    <md-button ng-hide="gc.goal_status" class="md-raised md-warn" style="background-color:#66bb6a" name="disableBtn" ng-click="gc.disableCriteria(gc.goal_id, gc.goal_status, gc.client_id)">Enable Criteria</md-button>
   </div>
 
 </div>
@@ -59,9 +60,9 @@
         </div>
         <div layout="column" layout-align="center center" flex="35">
           <div layout="row">
-            <md-button class="md-raised md-accent" name="saveBtn" ng-disabled="false" ng-click="gc.saveCriteria(gc.implementation_date, gc.review_dates, gc.completion_date,
-            gc.service_outcome, gc.objective, gc.behavior_techniques, gc.modifications, gc.equipment, gc.jobsite_details, gc.when_notes, gc.plan_steps,
-            gc.goal_name, gc.goal_summary)">SAVE HERE</md-button>
+            <md-button class="md-raised md-accent" name="updateBtn" ng-disabled="false" ng-click="gc.updateCriteria(gc.client_id, gc.jobsite_id, gc.implementation_date, gc.review_dates, gc.completion_date,
+              gc.service_outcome, gc.objective, gc.behavior_techniques, gc.modifications, gc.equipment, gc.jobsite_details, gc.when_notes, gc.plan_steps,
+              gc.goal_name, gc.goal_summary, gc.goal_id)">Update</md-button>
           </div>
         </div>
       </div>
@@ -70,12 +71,7 @@
       <!-- DIV FOR NAME, REP, DATES, GOAL NAME, JOB SITE -->
       <div class="basicGoalData" layout="row" flex="none">
         <div id="clientRepName" layout="column" flex="35">
-          <md-input-container>
-            <label>CHOICE Representative:</label>
-            <md-select ng-model="gc.casemanagerName">
-              <md-option ng-repeat="casemanagerName in gc.casemanagerData" value="{{casemanagerName.staff_name}}" ng-click="gc.assignCMID(casemanagerName.id)">{{casemanagerName.staff_name}}</md-option>
-            </md-select>
-          </md-input-container>
+
           <div class="nameSelect">
             <!-- Autocomplete input to select client name & send clientID to client-side-->
             <md-input-container name="autocompleteForm">
@@ -87,7 +83,7 @@
               md-search-text="gc.searchText"
               md-items="item in gc.querySearch(gc.searchText)"
               md-item-text="item.client_name"
-              md-selected-item-change="gc.assignClientID(gc.selectedItem.id)"
+              md-selected-item-change="gc.assignIds(gc.selectedItem)"
               placeholder="Enter participant's name"
               md-clear-button="true">
               <md-item-template>
@@ -104,6 +100,8 @@
           </md-input-container>
 
         </div>
+
+        <span>CHOICE Representative: {{gc.casemanager}}</span>
 
       </div>
       <!--DIV FOR JOB SITE AND GOAL NAME-->

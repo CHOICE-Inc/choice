@@ -53,7 +53,7 @@ router.get('/getClients', function(req, res) {
     client.query("select client.id as clientid, client.client_name, staff.id as staffid, staff.staff_name, " +
     "job_site.id as jobsite_id, job_site.business_name from client join goal on goal.client_id = client.id " +
     "join job_site on goal.jobsite_id = job_site.id join staff on client.staff_id = staff.id " +
-    "join users on users.staff_id = users.staff_id where users.id = " + req.user.id + ";",
+    "join users on users.staff_id = users.staff_id where users.id = " + req.user.id + " order by client_name;",
         function (err, result) {
           done();
           if(err) {

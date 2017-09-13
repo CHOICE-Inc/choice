@@ -15,7 +15,7 @@
           <div layout="row">
             <md-button class="md-raised md-accent" name="saveBtn" ng-disabled="false" ng-click="gc.saveCriteria(gc.implementation_date, gc.review_dates, gc.completion_date,
             gc.service_outcome, gc.objective, gc.behavior_techniques, gc.modifications, gc.equipment, gc.jobsite_details, gc.when_notes, gc.plan_steps,
-            gc.goal_name, gc.goal_summary)">SAVE HERE</md-button>
+            gc.goal_name, gc.goal_summary)">SAVE</md-button>
           </div>
         </div>
       </div>
@@ -24,12 +24,7 @@
       <!-- DIV FOR NAME, REP, DATES, GOAL NAME, JOB SITE -->
       <div class="basicGoalData" layout="row" flex="none">
         <div id="clientRepName" layout="column" flex="35">
-          <md-input-container>
-            <label>CHOICE Representative:</label>
-            <md-select ng-model="gc.casemanagerName">
-              <md-option ng-repeat="casemanagerName in gc.casemanagerData" value="{{casemanagerName.staff_name}}" ng-click="gc.assignCMID(casemanagerName.id)">{{casemanagerName.staff_name}}</md-option>
-            </md-select>
-          </md-input-container>
+
           <div class="nameSelect">
             <!-- Autocomplete input to select client name & send clientID to client-side-->
             <md-input-container name="autocompleteForm">
@@ -41,7 +36,7 @@
               md-search-text="gc.searchText"
               md-items="item in gc.querySearch(gc.searchText)"
               md-item-text="item.client_name"
-              md-selected-item-change="gc.assignClientID(gc.selectedItem.id)"
+              md-selected-item-change="gc.assignIds(gc.selectedItem)"
               placeholder="Enter participant's name"
               md-clear-button="true">
               <md-item-template>
@@ -58,7 +53,7 @@
           </md-input-container>
 
         </div>
-
+        <span style="margin-top:20px">CHOICE Representative: {{gc.casemanager}}</span>
       </div>
       <!--DIV FOR JOB SITE AND GOAL NAME-->
       <div id="jobsiteGoalData" layout="column" flex="35">
@@ -149,7 +144,7 @@
 
         <md-input-container>
           <label>What behavior techniques will be used, consistent with communication mode and learning style:</label>
-          <textarea form="goalForm" md-maxlength="500" ng-model="gc.behavior_techniques"></textarea>
+          <textarea form="goalForm" md-maxlength="1000" ng-model="gc.behavior_techniques"></textarea>
         </md-input-container>
 
       </div><!-- End of Row for Method - Equipment and materials used -->
@@ -173,7 +168,7 @@
     <div layout="row">
       <div layout="column" flex>
         <md-input-container>
-          <textarea form="goalForm" md-maxlength="500" ng-model="gc.plan_steps" placeholder="1. Step one 2. Step Two 3. Step Three"></textarea>
+          <textarea form="goalForm" md-maxlength="1000" ng-model="gc.plan_steps" placeholder="1. Step one 2. Step Two 3. Step Three"></textarea>
 
         </md-input-container>
       </div>
