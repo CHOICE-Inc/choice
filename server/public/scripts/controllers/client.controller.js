@@ -74,13 +74,6 @@ myApp.controller('ClientController', function($http, $mdToast, $location, UserSe
   // ----------PUT ROUTES------------
 
   //updates client information
-  /**
-  * @api {put} /clients/updateClient Updates client's names in the database
-  * @apiName GetAllClients
-  * @apiGroup UpdateData
-  *
-  * @apiParam {Number} client Clients's unique ID
-  */
   vm.updateClient = function(client){
     console.log('in updateClient with:', client);
 

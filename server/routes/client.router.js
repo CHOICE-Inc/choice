@@ -92,5 +92,41 @@ router.post('/addClient', function(req, res) {
   }
 });
 
+//------- PUT ROUTES -------
+
+//updates client information
+/**
+* @api {put} /clients/updateClient Updates client's names in the database
+* @apiName GetAllClients
+* @apiGroup UpdateData
+*
+* @apiParam {Number} client Clients's unique ID
+*/
+router.put('/updateClient/', function(req, res){
+  console.log('in updateClient with:', req.body);
+  //console.log('blah ', req.params, req.params.boolean == 'false', req.params.boolean === false);
+
+  pool.connect(function(err, client, done, next) {
+    if(err) {
+      console.log("Error connecting: ", err);
+      //next(err);
+    }
+    //update employment status of employee
+    client.query("UPDATE client SET active = $1,staff_id = $2,client_name = $3 WHERE id = $4;",
+      [req.body.active, req.body.staff_id, req.body.client_name, req.body.clientid],
+        function (err, result) {
+          //client.end();
+          done();
+          if(err) {
+            console.log("Error inserting data: ", err);
+            res.sendStatus(420);
+            //next(err);
+          } else {
+            //console.log('RESULT ROWS', result.rows);
+            res.sendStatus(202);
+          }
+        });
+  });
+});
 
 module.exports = router;
