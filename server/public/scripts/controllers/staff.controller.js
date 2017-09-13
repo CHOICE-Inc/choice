@@ -14,7 +14,7 @@ myApp.controller('StaffController', function($http, $mdToast, $location, UserSer
   function getStaff(){
     console.log('refresh Staff members');
     $http.get('/staff/getStaff').then(function(response) {
-      console.log(response.data);
+      console.log('getStaff response.data', response.data);
 
       for(i=0;i<response.data.length; i++){ //add a new object property based on the status for each employee
         if(response.data[i].employed === true){
