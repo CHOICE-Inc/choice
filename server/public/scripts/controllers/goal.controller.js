@@ -43,7 +43,6 @@ myApp.controller('GoalController', function($http, $location, UserService, GoalS
   }
   getJobSites();
 
-
 //GET * ALL * CRITERIA DATA FOR A SPECIFIC USER FROM THE DB
   function getAllGoals (client_id){
     //GET request to get all the goals available for the client_id

@@ -168,7 +168,7 @@
     <div layout="row">
       <div layout="column" flex>
         <md-input-container>
-          <textarea form="goalForm" md-maxlength="1000" ng-model="gc.plan_steps" placeholder="1. Step one 2. Step Two 3. Step Three"></textarea>
+          <textarea form="goalForm" md-maxlength="1000" ng-model="gc.plan_steps" placeholder="1. Step one<br/>2. Step two..."></textarea>
 
         </md-input-container>
       </div>
@@ -182,7 +182,7 @@
     <div layout="column" flex="10">
       <md-button class="md-raised md-accent" name="saveBtn" ng-disabled="false" ng-click="gc.saveCriteria(gc.implementation_date, gc.review_dates, gc.completion_date,
       gc.service_outcome, gc.objective, gc.behavior_techniques, gc.modifications, gc.equipment, gc.jobsite_details, gc.when_notes, gc.plan_steps,
-      gc.goal_name, gc.goal_summary)">SAVE HERE</md-button>
+      gc.goal_name, gc.goal_summary)">SAVE</md-button>
     </div>
     </div><!-- End of Row for Footer of goal sheet -->
   </form>
