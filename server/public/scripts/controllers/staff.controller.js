@@ -9,14 +9,33 @@ myApp.controller('StaffController', function($http, $mdToast, $location, UserSer
 
 
   getStaff();
+  // ----------GET ROUTES------------
 
-  // Get list of staff members
+  //GET all Staff Members in the DB and display on the DOM
+  /**
+  * @api {get} /staff/getStaff Retrieve ALL staff names, roles and IDs
+  * @apiName GetAllStaff
+  * @apiGroup RetrieveData
+  *
+  * @apiSuccess {String} email Case manager's email
+  * @apiSuccess {Boolean} employed True if case manager is still staff
+  * @apiSuccess {Number} id ID from staff table
+  * @apiSuccess {String} password !!!!!!!!!!!!!!!!!!!!!!
+  * @apiSuccess {Number} role Staff's role (1-admin, 2-case manager, 3-staff)
+  * @apiSuccess {String} roleString Staff's role name (1-admin, 2-case manager, 3-staff)
+  * @apiSuccess {Number} staff_id Case manager id from staff table
+  * @apiSuccess {String} staff_name Case manager's name from staff table
+  * @apiSuccess {String} status Indicates if staff is active or inactive
+  * @apiSuccess {String} user_role Indicates staff's role, listed in user table
+  * @apiSuccess {String} username Staff's user name for login
+  * @apiSuccess {String} users_id Staff's ID from the users table
+  */
   function getStaff(){
     console.log('refresh Staff members');
     $http.get('/staff/getStaff').then(function(response) {
       console.log(response.data);
-
-      for(i=0;i<response.data.length; i++){ //add a new object property based on the status for each employee
+    //add a new object property based on the status for each employee
+      for(i=0;i<response.data.length; i++){
         if(response.data[i].employed === true){
           response.data[i].status = 'Active';
         }
@@ -24,8 +43,8 @@ myApp.controller('StaffController', function($http, $mdToast, $location, UserSer
           response.data[i].status = 'Inactive';
         }
       }
-
-      for(i=0;i<response.data.length;i++){//display role String based on role integer
+    //display role String based on role integer
+      for(i=0;i<response.data.length;i++){
         if(response.data[i].role == 1){
           response.data[i].roleString = "Administrator";
         } else if(response.data[i].role == 2){
@@ -41,44 +60,67 @@ myApp.controller('StaffController', function($http, $mdToast, $location, UserSer
     });
   }
 
-  // Add a new staff member
+  // ----------POST ROUTES------------
+
+  //POST a new Staff Member to the DB and display on the DOM
+  /**
+  * @api {post} /staff/newStaff Retrieve ALL staff names, roles and IDs
+  * @apiName PostStaff
+  * @apiGroup AddData
+  *
+  * @apiParam {String} email Case manager's email
+  * @apiParam {Number} role Staff's role (1-admin, 2-case manager, 3-staff)
+  * @apiParam {String} name Case manager's name from staff table
+  */
   vm.addNewStaff = function(){
     console.log('added a new employee', vm.staffToAdd);
     $http.post('/staff/newStaff/', vm.staffToAdd).then(function(response){
       swal(
-'Success!',
-'A new staff member has been created.',
-'success'
-);
+        'Success!',
+        'A new staff member has been created.',
+        'success'
+      );
       console.log('received response from addNewStaff POST');
       vm.staffToAdd = {};
       getStaff();
     }).catch(function(){
       swal(
-  'Error adding new staff.',
-  'Make sure all required information has been entered!',
-  'error'
-);
+        'Error adding new staff.',
+        'Make sure all required information has been entered!',
+        'error'
+      );
     });
   };
 
+// ----------PUT ROUTES------------
+
+  //UPDATE a Staff Member to the DB
+  /**
+  * @api {put} /staff/updateStaff Update staff name, role
+  * @apiName UpdateStaff
+  * @apiGroup UpdateData
+  *
+  * @apiParam {String} email Case manager's email
+  * @apiParam {Number} role Staff's role (1-admin, 2-case manager, 3-staff)
+  * @apiParam {String} name Case manager's name from staff table
+  */
   // Update information on existing staff member
   vm.updateStaff = function(staff){
     console.log('in updateStaff, sending:', staff);
     $http.put('/staff/updateStaff/', staff).then(function(response){
       console.log(response.data);
       swal(
-'Success!',
-'Staff member information has been updated.',
-'success'
-);
+        'Success!',
+        'Staff member information has been updated.',
+        'success'
+      );
       getStaff();
     }).catch(function(){
       swal(
-  'Error updating staff.',
-  'Make sure all required information has been entered!',
-  'error'
-);
+        'Error updating staff.',
+        'Make sure all required information has been entered!',
+        'error'
+      );
     });
   };
 
@@ -91,4 +133,4 @@ myApp.controller('StaffController', function($http, $mdToast, $location, UserSer
   };
 
 
-});
+}); //end of controller

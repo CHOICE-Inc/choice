@@ -13,8 +13,22 @@ myApp.controller('ClientController', function($http, $mdToast, $location, UserSe
   getClients();
   getStaff();
 
+  // ----------GET ROUTES------------
 
-  // gets list of clients
+  //GET all Clients in the DB and display on the DOM
+  /**
+  * @api {get} /clients/getClients Retrieve ALL clients names and IDs
+  * @apiName GetAllClients
+  * @apiGroup RetrieveData
+  *
+  * @apiSuccess {Boolean} active Client's active status (is inactive if no longer w/ Choice)
+  * @apiSuccess {String} client_name Clients's name
+  * @apiSuccess {Number} clientid Client ID from client table
+  * @apiSuccess {Boolean} editing Indicates editing status for the input fields
+  * @apiSuccess {Number} staff_id Case Managers's ID from staff table
+  * @apiSuccess {String} staff_name Case Manager's name
+  * @apiSuccess {String} status Label for edit button "Deactive" / "Activate"
+  */
   function getClients(){
 
     console.log('in getClients');
@@ -36,8 +50,18 @@ myApp.controller('ClientController', function($http, $mdToast, $location, UserSe
     });
   }
 
-
- // gets list of staff
+  // gets list of staff
+  /**
+  * @api {get} /staff/getAllCM Retrieve ALL case manager names and IDs
+  * @apiName GetAllCaseManagers
+  * @apiGroup RetrieveData
+  *
+  * @apiSuccess {String} email Case Managers's email
+  * @apiSuccess {Boolean} employed Indicates employment status (true = employed)
+  * @apiSuccess {Number} id ID of listing from staff table
+  * @apiSuccess {Number} staff_id Case Managers's ID from staff table
+  * @apiSuccess {String} staff_name Case Manager's name
+  */
   function getStaff(){
     console.log('in getSt');
     $http.get('/staff/getAllCM').then(function(response) {
@@ -55,7 +79,49 @@ myApp.controller('ClientController', function($http, $mdToast, $location, UserSe
     vm.editStatus = !vm.editStatus;
   };
 
-  // updates client information
+  // ----------POST ROUTES------------
+
+  //POST a new client to the DB and display on the DOM
+  /**
+  * @api {post} /clients/addClient Add a new client to the database
+  * @apiName PostClient
+  * @apiGroup AddData
+  *
+  * @apiParam {String} client_name Clients's name
+  * @apiSuccess {Number} staff_id Case Managers's ID from staff table
+  * @apiSuccess {String} staff_name Case Manager's name
+  */
+  vm.addNewClient = function(){
+    console.log('in addNewClient');
+    $http.post('/client/addClient/', vm.clientToAdd).then(function(response){
+      console.log('received response from addNewClient POST');
+      swal(
+        'Success!',
+        'A new participant has been created.',
+        'success'
+      );
+      vm.clientToAdd = {};
+      getClients();
+    }).catch(function(){
+      console.log('ERROR ERROR ERROR ERROR');
+      swal(
+        'Error adding new participant.',
+        'Make sure all required information has been entered!',
+        'error'
+      );
+    });
+  };
+
+  // ----------PUT ROUTES------------
+
+  //updates client information
+  /**
+  * @api {put} /clients/updateClient Updates client's names in the database
+  * @apiName GetAllClients
+  * @apiGroup UpdateData
+  *
+  * @apiParam {Number} client Clients's unique ID
+  */
   vm.updateClient = function(client){
     console.log('in updateClient with:', client);
 
@@ -63,40 +129,18 @@ myApp.controller('ClientController', function($http, $mdToast, $location, UserSe
 
       console.log('got response from updateClient PUT');
       swal(
-'Success!',
-'Participant information has been updated.',
-'success'
-);
+        'Success!',
+        'Participant information has been updated.',
+        'success'
+      );
       getClients();
     }).catch(function(){
       swal(
-  'Error updating participant.',
-  'Make sure all required information has been entered!',
-  'error'
-);
+        'Error updating participant.',
+        'Make sure all required information has been entered!',
+        'error'
+      );
     });
   };
 
-vm.addNewClient = function(){
-  console.log('in addNewClient');
-  $http.post('/client/addClient/', vm.clientToAdd).then(function(response){
-    console.log('received response from addNewClient POST');
-    swal(
-'Success!',
-'A new participant has been created.',
-'success'
-);
-    vm.clientToAdd = {};
-    getClients();
-  }).catch(function(){
-    console.log('ERROR ERROR ERROR ERROR');
-    swal(
-'Error adding new participant.',
-'Make sure all required information has been entered!',
-'error'
-);
-  });
-
-};
-
-});
+}); //end of controller

@@ -10,9 +10,8 @@ myApp.controller('JobSitesController', function($http, $mdToast, $location, User
   var jobsiteObject = {};
   var jobsiteData = {};
 
+
   getManageJobSites();
-
-
 // ----------GET ROUTES------------
 
 //GET all Jobsites in the DB and display on the DOM

@@ -2,9 +2,11 @@ var express = require('express');
 var router = express.Router();
 var pool = require('../modules/pool.js');
 
+// Defining values for user roles
 var ADMIN = 1;
 var CASE = 2;
 
+/*---- GET routes -----*/
   router.get('/getClients', function(req, res) {
     console.log('in server getting clients');
 
@@ -34,34 +36,7 @@ var CASE = 2;
     }
 });
 
-router.put('/updateClient/', function(req, res){
-  console.log('in updateClient with:', req.body);
-  //console.log('blah ', req.params, req.params.boolean == 'false', req.params.boolean === false);
-
-
-  pool.connect(function(err, client, done, next) {
-    if(err) {
-      console.log("Error connecting: ", err);
-      //next(err);
-    }
-    //update employment status of employee
-    client.query("UPDATE client SET active = $1,staff_id = $2,client_name = $3 WHERE id = $4;",
-      [req.body.active, req.body.staff_id, req.body.client_name, req.body.clientid],
-        function (err, result) {
-          //client.end();
-          done();
-          if(err) {
-            console.log("Error inserting data: ", err);
-            res.sendStatus(420);
-            //next(err);
-          } else {
-            //console.log('RESULT ROWS', result.rows);
-            res.sendStatus(202);
-          }
-        });
-  });
-});
-
+/*---- POST routes -----*/
 router.post('/addClient', function(req, res) {
   console.log('in server making a new client', req.body);
   //date_tracked = date_tracked.format();
@@ -90,5 +65,6 @@ router.post('/addClient', function(req, res) {
     res.sendStatus(401);
   }
 });
+
 
 module.exports = router;
