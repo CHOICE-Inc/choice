@@ -1,0 +1,9 @@
+** Known Issues or Missing Features **
+
+- No functionality for resetting passwords or requesting password reset
+- Currently database and all database queries do not take into account three locations sharing the same database
+- The 'Email Admin' button emails only one of the administrators, in case there are multiple
+- Error message: "TypeError: Cannot read property 'setAttribute' of null"
+   -- possible causes are either the user authentication on the navbar or the pulldown menus on the navbar
+   -- Error doesn't seem to affect functionality of anything
+- 
