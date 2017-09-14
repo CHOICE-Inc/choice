@@ -47,7 +47,8 @@ Include one or two screen shots of your project here (optional). Remove if unuse
 
 ## Documentation
 
-Link to a read-only version of your scope document or other relevant documentation here (optional). Remove if unused.
+- Project's Scope document: ChoiceScope.pdf (located in project folder)
+- Routes API documentation: index.html in apidocs folder
 
 ### Completed Features
 
