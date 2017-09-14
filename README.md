@@ -13,6 +13,7 @@ Goal Tracker CI is a full-stack web application that will allow the staff at Cho
 - Font Awesome for icons
 - Trello for project management
 - Nodemailer for email notifications
+- apiDoc for route documentation
 
 ## Getting Started
 
@@ -30,6 +31,7 @@ Link to software that is required to install the app (e.g. node).
 - [SweetAlert2](https://limonte.github.io/sweetalert2/)
 - [Nodemailer](https://nodemailer.com/about/)
 - [Material Design Data Table](https://github.com/daniel-nagy/md-data-table)
+- [apiDoc](http://apidocjs.com/)
 
 
 ### Installing
