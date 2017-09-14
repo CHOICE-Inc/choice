@@ -13,16 +13,17 @@ myApp.controller('ClientController', function($http, $mdToast, $location, UserSe
   getClients();
   getStaff();
 
+  // ----------GET ROUTES------------
 
-  // gets list of clients
+  //GET all Clients in the DB and display on the DOM
   function getClients(){
 
     console.log('in getClients');
     $http.get('/client/getClients').then(function(response) {
       console.log(response.data);
 
-
-      for(i=0;i<response.data.length; i++){ //add a new object property based on the status for each employee
+    //add a new object property based on the status for each employee
+      for(i=0;i<response.data.length; i++){
         response.data[i].editing = false;
         if(response.data[i].active === true){
           response.data[i].status = 'Active';
@@ -36,8 +37,7 @@ myApp.controller('ClientController', function($http, $mdToast, $location, UserSe
     });
   }
 
-
- // gets list of staff
+  // gets list of staff
   function getStaff(){
     console.log('in getSt');
     $http.get('/staff/getAllCM').then(function(response) {
@@ -47,6 +47,56 @@ myApp.controller('ClientController', function($http, $mdToast, $location, UserSe
     });
   }
 
+  // ----------POST ROUTES------------
+
+  //POST a new client to the DB and display on the DOM
+  vm.addNewClient = function(){
+    console.log('in addNewClient');
+    $http.post('/client/addClient/', vm.clientToAdd).then(function(response){
+      console.log('received response from addNewClient POST');
+      swal(
+        'Success!',
+        'A new participant has been created.',
+        'success'
+      );
+      vm.clientToAdd = {};
+      getClients();
+    }).catch(function(){
+      console.log('ERROR ERROR ERROR ERROR');
+      swal(
+        'Error adding new participant.',
+        'Make sure all required information has been entered!',
+        'error'
+      );
+    });
+  };
+
+  // ----------PUT ROUTES------------
+
+  //updates client information
+  vm.updateClient = function(client){
+    console.log('in updateClient with:', client);
+
+    $http.put('/client/updateClient/', client).then(function(response){
+
+      console.log('got response from updateClient PUT');
+      swal(
+        'Success!',
+        'Participant information has been updated.',
+        'success'
+      );
+      getClients();
+    }).catch(function(){
+      swal(
+        'Error updating participant.',
+        'Make sure all required information has been entered!',
+        'error'
+      );
+    });
+  };
+
+//*------ FUNCTIONS W/O HTTP REQUESTS -----*/
+
   // sets client status to being edited
   vm.toggleEditing = function(client){
     console.log('in toggleEditing');
@@ -55,48 +105,4 @@ myApp.controller('ClientController', function($http, $mdToast, $location, UserSe
     vm.editStatus = !vm.editStatus;
   };
 
-  // updates client information
-  vm.updateClient = function(client){
-    console.log('in updateClient with:', client);
-
-    $http.put('/client/updateClient/', client).then(function(response){
-
-      console.log('got response from updateClient PUT');
-      swal(
-'Success!',
-'Participant information has been updated.',
-'success'
-);
-      getClients();
-    }).catch(function(){
-      swal(
-  'Error updating participant.',
-  'Make sure all required information has been entered!',
-  'error'
-);
-    });
-  };
-
-vm.addNewClient = function(){
-  console.log('in addNewClient');
-  $http.post('/client/addClient/', vm.clientToAdd).then(function(response){
-    console.log('received response from addNewClient POST');
-    swal(
-'Success!',
-'A new participant has been created.',
-'success'
-);
-    vm.clientToAdd = {};
-    getClients();
-  }).catch(function(){
-    console.log('ERROR ERROR ERROR ERROR');
-    swal(
-'Error adding new participant.',
-'Make sure all required information has been entered!',
-'error'
-);
-  });
-
-};
-
-});
+}); //end of controller

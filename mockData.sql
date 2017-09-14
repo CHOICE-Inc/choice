@@ -1,60 +1,49 @@
---delete from tables
-delete from goal_tracking;
-delete from goal;
-delete from client;
-delete from job_site;
-delete from users;
-delete from staff;
-
----- insert into tables ----
+---- insert data into tables ----
 
 -- insert into staff
-insert into staff(staff_name, "email", role) values ('Nicole', 'nicole@choicejobs.org', 1);
-insert into staff(staff_name, "email", role) values ('Joelle', 'joelle@choicejobs.org', 2);
-insert into staff(staff_name, "email", role) values ('Emily', 'emily@choicejobs.org', 2);
-insert into staff(staff_name, "email", role) values ('Steve', 'steve@choicejobs.org', 3);
+insert into staff(staff_name, "email", role) values ('Stacy Johnson', 'stacy@choicejobs.org', 1);
+insert into staff(staff_name, "email", role) values ('Maria Gonzalez', 'maria@choicejobs.org', 2);
+insert into staff(staff_name, "email", role) values ('Emily Smith', 'emily@choicejobs.org', 2);
+insert into staff(staff_name, "email", role) values ('Steve Cho', 'steve@choicejobs.org', 3);
+insert into staff(staff_name, "email", role) values ('Amelia Gottlieb', 'amelia@choicejobs.org', 3);
+insert into staff(staff_name, "email", role) values ('Sarah Anderson', 'sarah@choicejobs.org', 3);
 
 ---- insert into client ----
 
--- MAKE SURE "staff_id" is the same id as case managers in the staff table, yours may be different than mine.
-
+-- Make sure "staff_id" is the same id as case managers in the staff table.
 select * from staff where staff_name ilike 'Joelle'; --use this to find Joelle id
 --find and replace /*fromclientJoelleID*/ with Joelle ID
 
-insert into client(staff_id, client_name) values (/*fromclientJoelleID*/, 'Robert');
-insert into client(staff_id, client_name) values (/*fromclientJoelleID*/, 'James');
-insert into client(staff_id, client_name) values (/*fromclientJoelleID*/, 'Tom');
-insert into client(staff_id, client_name) values (/*fromclientJoelleID*/, 'Alex');
-insert into client(staff_id, client_name) values (/*fromclientJoelleID*/, 'George');
-insert into client(staff_id, client_name) values (/*fromclientJoelleID*/, 'Ben');
-insert into client(staff_id, client_name) values (/*fromclientJoelleID*/, 'Sam');
-insert into client(staff_id, client_name) values (/*fromclientJoelleID*/, 'Cassie');
-insert into client(staff_id, client_name) values (/*fromclientJoelleID*/, 'Jenna');
-insert into client(staff_id, client_name) values (/*fromclientJoelleID*/, 'Ben');
+insert into client(staff_id, client_name) values (/*fromclientJoelleID*/, 'Robert Williams');
+insert into client(staff_id, client_name) values (/*fromclientJoelleID*/, 'James Harris');
+insert into client(staff_id, client_name) values (/*fromclientJoelleID*/, 'Tomas Garcia');
+insert into client(staff_id, client_name) values (/*fromclientJoelleID*/, 'Alex Clark');
+insert into client(staff_id, client_name) values (/*fromclientJoelleID*/, 'George Robinson');
+insert into client(staff_id, client_name) values (/*fromclientJoelleID*/, 'Ben Morris');
+insert into client(staff_id, client_name) values (/*fromclientJoelleID*/, 'Sam Torres');
+insert into client(staff_id, client_name) values (/*fromclientJoelleID*/, 'Cassie Rogers');
+insert into client(staff_id, client_name) values (/*fromclientJoelleID*/, 'Jenna Campbell');
+insert into client(staff_id, client_name) values (/*fromclientJoelleID*/, 'Ben Lau');
+
 
 select * from staff where staff_name ilike 'Emily'; -- find id of case manager Emily
-
 --find and replace /*fromclientEmilyID*/ with Emily ID
 
-insert into client(staff_id, client_name) values (/*fromclientEmilyID*/, 'Scott');
-insert into client(staff_id, client_name) values (/*fromclientEmilyID*/, 'Darian');
-insert into client(staff_id, client_name) values (/*fromclientEmilyID*/, 'William');
-insert into client(staff_id, client_name) values (/*fromclientEmilyID*/, 'Derek');
-insert into client(staff_id, client_name) values (/*fromclientEmilyID*/, 'Kellie');
-insert into client(staff_id, client_name) values (/*fromclientEmilyID*/, 'Angela');
-insert into client(staff_id, client_name) values (/*fromclientEmilyID*/, 'Brooke');
-insert into client(staff_id, client_name) values (/*fromclientEmilyID*/, 'Max');
-insert into client(staff_id, client_name) values (/*fromclientEmilyID*/, 'Jake');
-insert into client(staff_id, client_name) values (/*fromclientEmilyID*/, 'Jordan');
+insert into client(staff_id, client_name) values (/*fromclientEmilyID*/, 'Scott Hayes');
+insert into client(staff_id, client_name) values (/*fromclientEmilyID*/, 'Darian Flores');
+insert into client(staff_id, client_name) values (/*fromclientEmilyID*/, 'William Owens');
+insert into client(staff_id, client_name) values (/*fromclientEmilyID*/, 'Derek Jordan');
+insert into client(staff_id, client_name) values (/*fromclientEmilyID*/, 'Kellie Patterson');
+insert into client(staff_id, client_name) values (/*fromclientEmilyID*/, 'Angela Ford');
+insert into client(staff_id, client_name) values (/*fromclientEmilyID*/, 'Brooke Wallace');
+insert into client(staff_id, client_name) values (/*fromclientEmilyID*/, 'Max Shaw');
+insert into client(staff_id, client_name) values (/*fromclientEmilyID*/, 'Jake Knight');
+insert into client(staff_id, client_name) values (/*fromclientEmilyID*/, 'Jordan Ramos');
 
 ---- insert into job_site ----
-
-insert into job_site(business_name, address, phone, contact ) values ('McDonalds', '8040 Nicollet Ave, Bloomington, MN 55420', '(952) 888-6844', 'Joe Robinson');
-
-insert into job_site(business_name, address, phone, contact ) values ('Fleet Farm', '17070 Kenrick Ave, Lakeville, MN 55044', '(952) 435-3832', 'Dave Johnson');
-
 insert into job_site(business_name, address, phone ) values ('Choice Inc', '10900 73rd Ave N #150, Maple Grove, MN 55369', '(763) 417-9030'); -- ON SITE
-
+insert into job_site(business_name, address, phone, contact ) values ('McDonalds', '8040 Nicollet Ave, Bloomington, MN 55420', '(952) 888-6844', 'Joe Robinson');
+insert into job_site(business_name, address, phone, contact ) values ('Fleet Farm', '17070 Kenrick Ave, Lakeville, MN 55044', '(952) 435-3832', 'Dave Johnson');
 insert into job_site(business_name, address, phone, contact ) values ('Walmart', '700 American Blvd E, Bloomington, MN 55420', '(952) 854-5600', 'Karl Pilkington');
 
 ----insert into goal----
@@ -71,8 +60,8 @@ select * from job_site where business_name ilike 'FleetFarm';
 select * from job_site where business_name ilike 'Choice Inc';
 --find and replace /*fromGoalChoiceID*/ with Choice Inc ID
 
-insert into "goal" (client_id, jobsite_id, goal_name, goal_summary, implementation_date, review_dates,  service_outcome, objective,
-behavior_techniques, modifications, equipment, jobsite_details, when_notes, plan_steps)
+insert into "goal" (client_id, jobsite_id, goal_name, goal_summary, implementation_date, review_dates, service_outcome,
+objective, behavior_techniques, modifications, equipment, jobsite_details, when_notes, plan_steps)
 values(/*fromGoalGeorgeID*/, /*fromGoalFleetFarmID*/, 'Money Counting', 'Practice counting money out of the cash drawer.', '08/12/2017', '02/18/18 and 08/08/18', 'George has more practice counting money.', 'Twice per week, George will practice counting money or by making change.', 'Verbal redirection, modeling, positive verbal coaching and praise will be used to assist George.', 'NA', 'Computer and cash drawer', 'Fleet Farm cashier space', 'Tuesday and Thursday 9:00 AM - 2:45 PM',
 '1. The goal will be explained to George. 2. Twice per week George will practice math and money skills. 3. If he practices with one cue or fewer, he will receive a star. Otherwise a minus.');
 
@@ -89,6 +78,7 @@ insert into "goal" (client_id, jobsite_id, goal_name, goal_summary, implementati
 behavior_techniques, modifications, equipment, jobsite_details, when_notes, plan_steps)
 values(/*fromGoalGeorgeID*/, /*fromGoalChoiceID*/, 'Improve Physical Health', 'George will complete a strength-training routine one time per week.', '08/12/2017', '02/18/18 and 08/08/18', 'George will improve his physical health.', 'George will complete a strength-training routine one time per week. He will complete this with two cues or fewer, at a sucess rate of 75%. This goal will be re-evaluated in March 2018.', 'Verbal redirection, modeling, positive verbal coaching and praise will be used to assist George', 'NA', 'NA', 'Choice, Inc', 'Monday -Friday 9:00 AM - 2:45 PM',
 '1. The goal will be explained to George. 2. Staff will encourage George to do his exercises throughout the week. She will receive two cues or fewer per trial. After George completes his exercise during the week, staff will stop cueing him. 3. If he practices with one cue or fewer, he will receive a star.');
+
 
 select * from job_site where business_name ilike 'Walmart';
 --find and replace /*fromGoalWalmartId*/ with WalmartID
@@ -107,95 +97,95 @@ values(/*fromGoalSamID*/, /*fromGoalWalmartId*/, 'Exercise', 'Physical activity 
 select * from goal order by id limit 1;
 --find and replace /*fromGoalID*/ with goal ID
 
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID*/, '08/12/17', 'am', 'complete', 'Counted $1.28 correctly');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID*/, '08/14/17', 'pm', 'complete', 'Counted $5.59 correctly');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID*/, '08/19/17', 'am', 'incomplete', 'Didnt counted $2.70 correctly');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID*/, '08/20/17', 'am', 'incomplete', 'Didnt counted $2.70 correctly');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID*/, '08/24/17', 'am', 'incomplete', 'Didnt counted $2.70 correctly');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID*/, '08/26/17', 'am', 'incomplete', 'Didnt counted $2.70 correctly');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID*/, '08/29/17', 'am', 'incomplete', 'Didnt counted $2.70 correctly');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID*/, '09/3/17', 'pm', 'complete', 'Counted $2.70 correctly');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID*/, '09/5/17', 'pm', 'complete', 'Counted $6.97 correctly');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID*/, '09/8/17', 'm', 'complete', 'Didnt counted $3.47 correctly');
 
 select * from goal limit 1 offset 1;
 --find and replace /*fromGoalID2*/ with goal id
 
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID2*/, '08/12/17', 'am', 'complete', 'In the excerise room');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID2*/, '08/14/17', 'pm', 'complete', 'Played Wii Fit');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID2*/, '08/19/17', 'am', 'incomplete', 'George declined exercise today.');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID2*/, '08/20/17', 'am', 'incomplete', 'George declined exercise today');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID2*/, '08/24/17', 'am', 'complete', 'Played Wii Fit');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID2*/, '08/26/17', 'pm', 'complete', 'Played Wii Fit');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID2*/, '08/29/17', 'pm', 'complete', 'In the excerise room');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID2*/, '09/3/17', 'pm', 'complete', 'Played Wii Fit');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID2*/, '09/5/17', 'pm', 'complete', 'Played Wii Fit');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID2*/, '09/8/17', 'am', 'incomplete', 'George declined exercise today. Not feeling well.');
 
 select * from goal limit 1 offset 2;
 --find and replace /*fromGoalID3*/ with goal id
 
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID3*/, '08/12/17', 'am', 'complete', 'When offered work, George accepted today.');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID3*/, '08/14/17', 'pm', 'complete', 'When offered work, George accepted today.');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID3*/, '08/19/17', 'am', 'incomplete', 'George declined work today.');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID3*/, '08/20/17', 'am', 'incomplete', 'George declined work today');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID3*/, '08/24/17', 'am', 'complete', 'When offered work, George accepted today.');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID3*/, '08/26/17', 'pm', 'complete', 'When offered work, George accepted today.');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID3*/, '08/29/17', 'pm', 'complete', 'When offered work, George accepted today.');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID3*/, '09/3/17', 'pm', 'complete', 'When offered work, George accepted today.');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID3*/, '09/5/17', 'pm', 'complete', 'When offered work, George accepted today.');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID3*/, '09/8/17', 'am', 'incomplete', 'George declined work today.');
 
 select * from goal limit 1 offset 3;
 --find and replace /*fromGoalID4*/ with goal id
 
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID4*/, '08/12/17', 'am', 'complete', 'George lifted weights today');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID4*/, '08/14/17', 'pm', 'complete', 'George lifted weights today');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID4*/, '08/19/17', 'am', 'incomplete', 'George declined exercise today.');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID4*/, '08/20/17', 'am', 'incomplete', 'George declined exercise today');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID4*/, '08/24/17', 'am', 'incomplete', 'George declined exercise today');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID4*/, '08/26/17', 'pm', 'complete', 'George lifted weights today.');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID4*/, '08/29/17', 'pm', 'complete', 'George lifted weights today.');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID4*/, '09/3/17', 'pm', 'complete', 'George lifted weights today.');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID4*/, '09/5/17', 'pm', 'complete', 'George lifted weights today.');
-insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes)
+insert into "goal_tracking"(goal_id, date_tracked, am_or_pm, complete_or_not, notes, entered_by)
 values(/*fromGoalID4*/, '09/8/17', 'am', 'incomplete', 'George declined exercise today. Not feeling well.');
