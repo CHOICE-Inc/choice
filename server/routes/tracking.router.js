@@ -344,6 +344,16 @@ router.put('/notifyAdmin', function(req, res) {
 });
 
 // Updates a goal history entry
+  /**
+  /* @api {put} /tracking/updateHistory Update goal tracking data for a specific checkin
+  * @apiName UpdateGoalTrackingData
+  * @apiGroup Tracking
+  *
+  * @apiParam {Number} goal_id  Goal ID for goal to update
+  * @apiParam {String} am_or_pm Indicates AM or PM checkin
+  * @apiParam {String} complete_or_not Indicates if goal is: complete, incomplete, absent or na
+  * @apiParam {String} goalnotes Notes for the goal
+  */
 router.put('/updateHistory/', function(req, res){
   console.log('in updateHistory with:', req.body);
 
