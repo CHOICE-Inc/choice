@@ -5,7 +5,24 @@ var pool = require('../modules/pool.js');
 var ADMIN = 1;
 var CASE = 2;
 
+/*------- GET ROUTES ---------*/
+
 //GET ROUTE FOR DISPLAYING ALL THE JOBSITES TO THE DOM
+/**
+* @api {get} /jobsites/managejobsites Retrieve ALL jobsite names and IDs
+* @apiName GetAllJobsites
+* @apiGroup Jobsites
+*
+* @apiSuccess {String} address Jobsite's address
+* @apiSuccess {String} business_name Jobsites's name
+* @apiSuccess {String} contact Jobsite contact name
+* @apiSuccess {Boolean} editing Boolean variable to determine edit status
+* @apiSuccess {Number} id Jobsite ID
+* @apiSuccess {Number} jobsite_id Jobsite's ID
+* @apiSuccess {Boolean} jobsite_status Indicates active job site
+* @apiSuccess {String} phone Phone number for job site
+* @apiSuccess {String} status Label for edit button "Deactive" / "Activate"
+*/
 router.get('/managejobsites', function(req, res) {
   console.log('In server getting jobsites');
 
@@ -33,7 +50,22 @@ router.get('/managejobsites', function(req, res) {
   }
 }); //end of router.get
 
+
+/*------- POST ROUTES ---------*/
+
 //POST ROUTE TO ADD A NEW JOBSITE
+/**
+* @api {post} /jobsites/newjobsite Add a new jobsite to the database
+* @apiName AddJobsite
+* @apiGroup Jobsites
+*
+* @apiParam {String} address Jobsite's address
+* @apiParam {String} business_name Jobsites's name
+* @apiParam {String} contact Jobsite contact name
+* @apiParam {Boolean} jobsite_status Indicates active job site
+* @apiParam {String} phone Phone number for job site
+* @apiParam {String} status Label for edit button "Deactive" / "Activate"
+*/
 router.post('/newjobsite', function(req, res) {
 console.log('In post route to add new jobsite: ', req.body);
 
@@ -77,9 +109,21 @@ console.log('In post route to add new jobsite: ', req.body);
   }
 }); //end of route
 
+/*------- PUT ROUTES ---------*/
 
 // UPDATE ROUTE AFTER USER EDIT
 // NEED JOBSITE ID TO ACCESS CORRECT GOAL
+/**
+* @api {put} /jobsites/editjobsite/jobsite_id Update a jobsite
+* @apiName UpdateJobsite
+* @apiGroup Jobsites
+*
+* @apiParam {String} address Jobsite's address
+* @apiParam {String} business_name Jobsites's name
+* @apiParam {String} contact Jobsite contact info
+* @apiParam {Number} jobsite_id Jobsite's ID
+* @apiParam {String} phone Phone number for job site
+*/
 router.put('/editjobsites', function(req, res){
   console.log('Going to put this updated data: ', req.body);
 
@@ -95,14 +139,15 @@ router.put('/editjobsites', function(req, res){
       var address = req.body.address;
       var phone = req.body.phone;
       var contact = req.body.contact;
+      var employed = req.body.jobsite_status;
 
       //BUILD DB QUERY STRING & DATA VALUE ARRAY
 
-      var jobSiteQueryString = 'UPDATE job_site SET business_name=$1, address=$2, phone=$3, contact=$4 WHERE id=$5';
+      var jobSiteQueryString = 'UPDATE job_site SET business_name=$1, address=$2, phone=$3, contact=$4, jobsite_status=$5 WHERE id=$6';
 
       console.log('For deactivating jobsite, using DB query string: ', jobSiteQueryString);
 
-      var jobSiteArray = [business_name, address, phone, contact, jobSite_id];
+      var jobSiteArray = [business_name, address, phone, contact, employed, jobSite_id];
 
       console.log('Going to update the DB with these values: ', jobSiteArray);
       // MAKE DB QUERY
@@ -121,7 +166,15 @@ router.put('/editjobsites', function(req, res){
   }); //end of pool.connect
 }); // end of route
 
-//PUT ROUTE TO UPDATE JOBSITES
+//DISABLE JOBSITE - UPDATE STATUS
+/**
+* @api {put} /jobsites/disablejobsite Disable a jobsite
+* @apiName DisableJobsite
+* @apiGroup Jobsites
+*
+* @apiParam {Number} id Jobsite's unique id
+* @apiParam {Boolean} jobsite_status Indicates job site's active status
+*/
 router.put('/disablejobsite/:id/:boolean', function(req, res){
   console.log('In PUT route disable jobsite: ', req.params.id);
 

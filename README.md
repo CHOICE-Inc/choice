@@ -10,9 +10,10 @@ Goal Tracker CI is a full-stack web application that will allow the staff at Cho
 - Material Design Data Table for data table styling and pagination
 - Passport for user authentication
 - SweetAlert2 for user notifications and modals
-- Google Font and Font Awesome for text and icon styling
+- Font Awesome for icons
 - Trello for project management
 - Nodemailer for email notifications
+- apiDoc for route documentation
 
 ## Getting Started
 
@@ -30,13 +31,15 @@ Link to software that is required to install the app (e.g. node).
 - [SweetAlert2](https://limonte.github.io/sweetalert2/)
 - [Nodemailer](https://nodemailer.com/about/)
 - [Material Design Data Table](https://github.com/daniel-nagy/md-data-table)
+- [apiDoc](http://apidocjs.com/)
 
 
 ### Installing
 
 Steps to get the development environment running.
 
-- Use DBqueries.txt to set up database and tables using SQL and PostgreSQL
+- Use DBtables.sql to set up database and tables using SQL and PostgreSQL
+- Use mockData.sql to place temporary, fake data into the database tables for testing [Delete this before moving into production]
 
 ## Screen Shot
 
@@ -44,7 +47,8 @@ Include one or two screen shots of your project here (optional). Remove if unuse
 
 ## Documentation
 
-Link to a read-only version of your scope document or other relevant documentation here (optional). Remove if unused.
+- Project's Scope document: ChoiceScope.pdf (located in project folder)
+- Routes API documentation: index.html in apidocs folder
 
 ### Completed Features
 
@@ -69,7 +73,9 @@ Features that you would like to add at some point in the future.
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+- Set up hosting with a HIPPA-compliant web hosting service
+  - Web hosting for all Choice locations will require additional coding work, if all three sites are sharing the same database.
+- Establish HIPPA-compliant local server for non-web hosting
 
 ## Authors
 

@@ -99,13 +99,6 @@ myApp.config(function($routeProvider, $locationProvider, $mdThemingProvider) {
         }
       }
     })
-    // .when('/userhome', {
-    //   templateUrl: '/views/partials/admin.html',
-    //   resolve: {
-    //     getuser : function(UserService){
-    //       return UserService.getuser();
-    //     }
-    //   }
 
     .otherwise({
       redirectTo: 'home'

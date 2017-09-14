@@ -7,16 +7,15 @@ myApp.controller('StaffController', function($http, $mdToast, $location, UserSer
   vm.editStatus = false;
   vm.roles = ['Administrator', 'Case Manager', 'Staff'];
 
-
+// ----------GET ROUTES------------
   getStaff();
 
-  // Get list of staff members
   function getStaff(){
     console.log('refresh Staff members');
     $http.get('/staff/getStaff').then(function(response) {
       console.log(response.data);
-
-      for(i=0;i<response.data.length; i++){ //add a new object property based on the status for each employee
+    //add a new object property based on the status for each employee
+      for(i=0;i<response.data.length; i++){
         if(response.data[i].employed === true){
           response.data[i].status = 'Active';
         }
@@ -24,8 +23,8 @@ myApp.controller('StaffController', function($http, $mdToast, $location, UserSer
           response.data[i].status = 'Inactive';
         }
       }
-
-      for(i=0;i<response.data.length;i++){//display role String based on role integer
+    //display role String based on role integer
+      for(i=0;i<response.data.length;i++){
         if(response.data[i].role == 1){
           response.data[i].roleString = "Administrator";
         } else if(response.data[i].role == 2){
@@ -41,26 +40,30 @@ myApp.controller('StaffController', function($http, $mdToast, $location, UserSer
     });
   }
 
-  // Add a new staff member
+  // ----------POST ROUTES------------
+
+//Add New Staff Member
   vm.addNewStaff = function(){
     console.log('added a new employee', vm.staffToAdd);
     $http.post('/staff/newStaff/', vm.staffToAdd).then(function(response){
       swal(
-'Success!',
-'A new staff member has been created.',
-'success'
-);
+        'Success!',
+        'A new staff member has been created.',
+        'success'
+      );
       console.log('received response from addNewStaff POST');
       vm.staffToAdd = {};
       getStaff();
     }).catch(function(){
       swal(
-  'Error adding new staff.',
-  'Make sure all required information has been entered!',
-  'error'
-);
+        'Error adding new staff.',
+        'Make sure all required information has been entered!',
+        'error'
+      );
     });
   };
+
+// ----------PUT ROUTES------------
 
   // Update information on existing staff member
   vm.updateStaff = function(staff){
@@ -68,17 +71,17 @@ myApp.controller('StaffController', function($http, $mdToast, $location, UserSer
     $http.put('/staff/updateStaff/', staff).then(function(response){
       console.log(response.data);
       swal(
-'Success!',
-'Staff member information has been updated.',
-'success'
-);
+        'Success!',
+        'Staff member information has been updated.',
+        'success'
+      );
       getStaff();
     }).catch(function(){
       swal(
-  'Error updating staff.',
-  'Make sure all required information has been entered!',
-  'error'
-);
+        'Error updating staff.',
+        'Make sure all required information has been entered!',
+        'error'
+      );
     });
   };
 
@@ -88,7 +91,8 @@ myApp.controller('StaffController', function($http, $mdToast, $location, UserSer
     vm.staffToEdit = staff;
     staff.editing = !staff.editing;
     vm.editStatus = !vm.editStatus;
+    console.log('end of toggleEditing');
   };
 
 
-});
+}); //end of controller

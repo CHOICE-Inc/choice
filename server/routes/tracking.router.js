@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var pool = require('../modules/pool.js');
 
-//NODEMAILER
+//---- NODEMAILER ------
 var nodemailer = require('nodemailer');
 
 var emailUser = process.env.EMAIL_USER || require('../config.js').user;
@@ -27,7 +27,6 @@ var mailOptions = {
     html: '<b>No message was entered.</b>' // html body
 };
 
-
 sendMail = function(){
   transporter.sendMail(mailOptions, function(error, info) {
       if (error) {
@@ -38,8 +37,21 @@ sendMail = function(){
       console.log('response', info.response);
   });
 };
-//friday night update
 
+
+//----- GET REQUESTS ------
+
+// GET CLIENT DATA fROM DB
+  /**
+  /* @api {get} /tracking/getClients Retrieve client names and IDs
+  * @apiName GetClients
+  * @apiGroup Tracking
+  *
+  * @apiSuccess {Number} client_id  Client's ID from clients table
+  * @apiSuccess {String} client_name Client's name from clients table
+  * @apiSuccess {Number} staff_id Case manager id from staff table
+  * @apiSuccess {String} staff_name Case manager names
+  */
 router.get('/getClients', function(req, res) {
   console.log('in server getting dem clients');
   console.log('CURRENT USER ID', req.user.id);
@@ -53,7 +65,8 @@ router.get('/getClients', function(req, res) {
     client.query("select client.id as clientid, client.client_name, staff.id as staffid, staff.staff_name, " +
     "job_site.id as jobsite_id, job_site.business_name from client join goal on goal.client_id = client.id " +
     "join job_site on goal.jobsite_id = job_site.id join staff on client.staff_id = staff.id " +
-    "join users on users.staff_id = users.staff_id where users.id = " + req.user.id + " order by client_name;",
+    "join users on users.staff_id = users.staff_id where users.id =" + req.user.id + "and staff.employed = true and client.active = true " +
+    "and job_site.jobsite_status = true ORDER BY client_name;",
         function (err, result) {
           done();
           if(err) {
@@ -67,6 +80,18 @@ router.get('/getClients', function(req, res) {
   });
 });
 
+// GET CLIENTs without goals fROM DB
+  /**
+  /* @api {get} /tracking/getNoGoalClients Retrieve client names where they don't have a goal
+  * @apiName GetClientsWithoutGoals
+  * @apiGroup Tracking
+  *
+  * @apiSuccess {Number} client_id  Client's ID from clients table
+  * @apiSuccess {String} client_name Client's name from clients table
+  * @apiSuccess {Number} goal_id Goal's ID from the goal table
+  * @apiSuccess {Number} staff_id Case manager id from staff table
+  * @apiSuccess {String} staff_name Case manager names
+  */
 router.get('/getNoGoalClients', function(req, res) {
   console.log('in server getting no goal clients');
   console.log('CURRENT USER ID', req.user.id);
@@ -91,7 +116,27 @@ router.get('/getNoGoalClients', function(req, res) {
   });
 });
 
-router.get('/getGoals/:id', function(req, res) { //and latest goal_tracking submission
+// GET latest goal_tracking submission
+  /**
+  /* @api {get} /tracking/getGoals/client_id Retrieve latest goal tracking data
+  * @apiName GetLastTrackedData
+  * @apiGroup Tracking
+  *
+  * @apiParam {Number} client_id  Client's ID from clients table
+  *
+  * @apiSuccess {String} am Indicates AM checkin
+  * @apiSuccess {String} business_name Jobsite business name
+  * @apiSuccess {String} client_name Client's name from clients table
+  * @apiSuccess {Number} goalid Goal's ID from the goal table
+  * @apiSuccess {String} goalname Name of the goal
+  * @apiSuccess {String} goalnotes Notes for the goal
+  * @apiSuccess {String} implementation_date Start date for goal tracking
+  * @apiSuccess {String} lastUpdate Date of last entered goal tracking data
+  * @apiSuccess {String} max_goal_date_am Last date AM tracking data entered
+  * @apiSuccess {String} max_goal_date_pm Last date PM tracking data entered
+  * @apiSuccess {String} staff_name Case manager names
+  */
+router.get('/getGoals/:id', function(req, res) {
   console.log('in server getting dem goals');
   console.log('all goals from this id ', req.params.id); //client id
 
@@ -124,17 +169,73 @@ router.get('/getGoals/:id', function(req, res) { //and latest goal_tracking subm
   });
 });
 
+// GET GOAL TRACKING DATA fROM DB
+  /**
+  /* @api {get} /tracking/getGoalHistory/goal_id Retrieve goal tracking data for a specific client
+  * @apiName GetAllTrackingData
+  * @apiGroup Tracking
+  *
+  * @apiParam {Number} goal_id  Goal ID to get data for
+  *
+  * @apiSuccess {String} am Indicates AM checkin
+  * @apiSuccess {String} business_name Jobsite business name
+  * @apiSuccess {String} client_name Client's name from clients table
+  * @apiSuccess {Number} goalid Goal's ID from the goal table
+  * @apiSuccess {String} goalname Name of the goal
+  * @apiSuccess {String} goalnotes Notes for the goal
+  * @apiSuccess {String} implementation_date Start date for goal tracking
+  * @apiSuccess {String} lastUpdate Date of last entered goal tracking data
+  * @apiSuccess {String} max_goal_date_am Last date AM tracking data entered
+  * @apiSuccess {String} max_goal_date_pm Last date PM tracking data entered
+  * @apiSuccess {String} staff_name Case manager names
+  */
+router.get('/getGoalHistory/:id', function(req, res) {
+  console.log('in server getting goal history');
+  console.log('with goal id', req.params.id);
 
+  pool.connect(function(err, client, done, next) {
+    if(err) {
+      console.log("Error connecting: ", err);
+      //next(err);
+    }
+    //get goal history by goal id
+    client.query("select * from goal_tracking where goal_id = " + req.params.id + " order by date_tracked DESC;",
+        function (err, result) {
+          done();
+          if(err) {
+            console.log("Error inserting data: ", err);
+            //next(err);
+          } else {
+            console.log('RESULT ROWS', result.rows);
+            res.send(result.rows);
+          }
+        });
+  });
+});
 
+//----- POST REQUESTS ------
+
+// ADD GOAL TRACKING DATA fROM DB
+  /**
+  /* @api {post} /tracking/trackGoal Retrieve goal tracking data for a specific client
+  * @apiName AddGoalTrackingData
+  * @apiGroup Tracking
+  *
+  * @apiParam {Number} goal_id  Goal ID for goal to update
+  * @apiParam {String} am_or_pm Indicates AM or PM checkin
+  * @apiParam {String} complete_or_not Indicates if goal is: complete, incomplete, absent or na
+  * @apiParam {Number} goalid Goal's ID from the goal table
+  * @apiParam {String} goalnotes Notes for the goal
+  * @apiParam {String} date_tracked Date the tracking data was entered
+  * @apiParam {String} entered_by Name of the user who entered the tracking data
+  */
 router.post('/trackGoal', function(req, res) {
   console.log('in server making a new goal tracker', req.body);
   console.log('goal id is ', req.body.id);
 
   var goal_id = req.body.id;
   var date_tracked = req.body.date;
-
   //date_tracked = date_tracked.format();
-
 
   pool.connect(function(err, client, done, next) {
     if(err) {
@@ -158,31 +259,16 @@ router.post('/trackGoal', function(req, res) {
 });
 
 
-//Chase Router
-router.get('/getGoalHistory/:id', function(req, res) {
-  console.log('in server getting goal history');
-  console.log('with goal id', req.params.id);
+//----- DELETE REQUESTS ------
 
-  pool.connect(function(err, client, done, next) {
-    if(err) {
-      console.log("Error connecting: ", err);
-      //next(err);
-    }
-    //get goal history by goal id
-    client.query("select * from goal_tracking where goal_id = " + req.params.id + " order by date_tracked desc;",
-        function (err, result) {
-          done();
-          if(err) {
-            console.log("Error inserting data: ", err);
-            //next(err);
-          } else {
-            console.log('RESULT ROWS', result.rows);
-            res.send(result.rows);
-          }
-        });
-  });
-});
-
+// DELETE GOAL TRACKING DATA FOR A SINGLE CHECKIN
+/**
+/* @api {get} /tracking/deleteEntry/goal_id Delete goal tracking data for a specific entry
+* @apiName DeleteTrackingData
+* @apiGroup Tracking
+*
+* @apiParam {Number} goal_id  Goal ID to get data for
+*/
 router.delete('/deleteEntry/:id', function(req, res) { //and latest goal_tracking submission
   console.log('in server deleting goal history entry');
   console.log('at goal history id: ', req.params.id); //client id
@@ -207,14 +293,21 @@ var id = req.params.id;
   });
 });
 
-//End Chase Router
+//------- PUT ROUTES -----------
 
-//friday night updateCriteria
+// SEND EMAIL NOTIFICATION TO ADMIN
+/**
+/* @api {put} /tracking/notifyAdmin Email notification to admin
+* @apiName EmailAdmin
+* @apiGroup Tracking
+*
+* @apiParam {Number} staff_id  Goal ID to get data for
+* @apiParam {String} message  Message for email. Sent using req.body
+*/
 router.put('/notifyAdmin', function(req, res) {
   console.log('in notifyAdmin with:', req.body);
   console.log('req.user is:', req.user);
   var message = req.body.message;
-
 
   pool.connect(function(err, client, done, next) {
     if(err) {
@@ -250,6 +343,37 @@ router.put('/notifyAdmin', function(req, res) {
   });
 });
 
-//end friday night update
+// Updates a goal history entry
+  /**
+  /* @api {put} /tracking/updateHistory Update goal tracking data for a specific checkin
+  * @apiName UpdateGoalTrackingData
+  * @apiGroup Tracking
+  *
+  * @apiParam {Number} goal_id  Goal ID for goal to update
+  * @apiParam {String} am_or_pm Indicates AM or PM checkin
+  * @apiParam {String} complete_or_not Indicates if goal is: complete, incomplete, absent or na
+  * @apiParam {String} goalnotes Notes for the goal
+  */
+router.put('/updateHistory/', function(req, res){
+  console.log('in updateHistory with:', req.body);
+
+  pool.connect(function(err, client, done, next) {
+    if(err) {
+      console.log("Error connecting: ", err);
+    }
+    client.query("UPDATE goal_tracking SET am_or_pm = $1,complete_or_not = $2, notes = $3 WHERE id = $4;",
+      [req.body.am_or_pm, req.body.complete_or_not, req.body.notes, req.body.id],
+        function (err, result) {
+          done();
+          if(err) {
+            console.log("Error inserting data: ", err);
+            res.sendStatus(420);
+            //next(err);
+          } else {
+            res.sendStatus(202);
+          }
+        });
+  });
+});
 
 module.exports = router;
