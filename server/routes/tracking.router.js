@@ -141,6 +141,7 @@ router.get('/getGoals/:id', function(req, res) {
   console.log('all goals from this id ', req.params.id); //client id
 
   pool.connect(function(err, client, done, next) {
+
     if(err) {
       console.log("Error connecting: ", err);
       //next(err);
