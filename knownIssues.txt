@@ -1,9 +1,29 @@
 ** Known Issues or Missing Features **
 
-- No functionality for resetting passwords or requesting password reset
 - Currently database and all database queries do not take into account three locations sharing the same database
 - The 'Email Admin' button emails only one of the administrators, in case there are multiple
+  -- This button should email all admins and the case manager for the particular participant
 - Error message: "TypeError: Cannot read property 'setAttribute' of null"
    -- possible causes are either the user authentication on the navbar or the pulldown menus on the navbar
    -- Error doesn't seem to affect functionality of anything
-- 
+- Need case manager pulldown selection for Admin when they 'Add a New Goal'
+- Is there placeholder text in all autocomplete input fields and pulldown menus?
+- Make sure table pagination works on goal history tables
+- Add ability to remove a staff member from the user table in order to delete their log in and allow them to recreate a user account
+- Notification for the admin that a staff member has created a user account in the system
+- Goal tracking should show inactive participants in the main list of participants
+- Show AM & PM check-ins for participants in the main list on Goal Tracking Page (use simple icons & table layout)
+
+
+** Stretch Goals **
+
+- No functionality for resetting passwords or requesting password reset
+- Need Export / Import participant data
+- Printing off of goal criteria
+- Manage Data page to manage and permanently delete data from database
+  - Delete data from before a certain data
+  - Export participant data
+  - Import participant data
+  - Remove Staff
+  - Remove Participant
+  - Remove Job Site
