@@ -44,8 +44,8 @@ Steps to get the development environment running.
 ## Screen Shot
 
 ![Choice Pic1](https://user-images.githubusercontent.com/17738567/31908092-650b287a-b7fb-11e7-973a-22c4d82fd29c.PNG)
-https://user-images.githubusercontent.com/17738567/31908275-f0e0217a-b7fb-11e7-8b0d-9d482198d2fc.PNG
-https://user-images.githubusercontent.com/17738567/31908281-f3de3542-b7fb-11e7-8de1-8ad6c18b992c.PNG
+![Choice Pic2](https://user-images.githubusercontent.com/17738567/31908275-f0e0217a-b7fb-11e7-8b0d-9d482198d2fc.PNG)
+![Choice Pic3](https://user-images.githubusercontent.com/17738567/31908281-f3de3542-b7fb-11e7-8de1-8ad6c18b992c.PNG)
 
 ## Documentation
 
