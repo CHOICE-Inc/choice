@@ -43,6 +43,7 @@
             <th md-column>Role</th>
             <th md-column>Email</th>
             <th md-column>Status</th>
+            <th md-column>Registered</th>
             <th md-column></th>
           </thead>
           <tbody md-body>
@@ -67,6 +68,8 @@
                   <md-option ng-value="false">Inactive</md-option>
                 </md-select>
               </td>
+
+              <td md-cell><span ng-if="staff.users_id != null">checkmark</span></td>
 
               <td md-cell>
                 <input ng-hide="staff.editing == true" type="submit" name="" value="Edit" ng-click="sc.toggleEditing(staff)">
