@@ -17,8 +17,8 @@ CREATE TABLE "staff"(
 
 ----- 3. Create initial "ADMIN" in STAFF table. -----
 
-INSERT INTO "staff" ("staff_name", "email")
-VALUES ('Admin', 'admin@choiceinc.org');
+INSERT INTO "staff" ("staff_name", "email", "role", "employed")
+VALUES ('Admin', 'admin@choiceinc.org', 1, true);
 
 
 ----- 4. Create "USER" table for user registration and authentication. -----
