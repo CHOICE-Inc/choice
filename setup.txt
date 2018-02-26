@@ -1,0 +1,8 @@
+Step 1. Download project from zip file, extract it.
+Step 2. Download Node.js/NPM
+Step 3. Using Command Prompt/Terminal go to project folder and execute "npm install"
+Step 4. Go to Web Browser, confirm project is running on port 5000 using "localhost:5000"
+Step 5. Download PostgreSQL using port 5432
+Step 6. Change file in project folder "choice-master\server\modules\pool.js" to be used with PostgreSQL localhost setup
+Step 7. May have to install Express, pg and Body-Parser. Execute "npm install pg" "npm install body-parser" "npm install express"
+Step 8. Register user "admin@choiceinc.org" from website and login. If this works, setup is optimal. 
